@@ -407,15 +407,15 @@
         }
 
         // ================= 🔴 GITHUB API SAVE LOGIC 🔴 ================= //
-        // 🔴 यहाँ अपनी GITHUB डिटेल्स डालें 🔴
-        const GITHUB_TOKEN = 'YOUR_GITHUB_TOKEN_HERE'; // अपना GitHub Token यहाँ डालें
-        const GITHUB_OWNER = 'jorabagga12-bit';       // अपना GitHub Username यहाँ डालें
-        const GITHUB_REPO = 'mani-bagga';             // अपने GitHub Repo का नाम यहाँ डालें
-        const FILE_PATH = 'index.html';               // अपनी फाइल का नाम (अगर अलग है तो बदलें)
+        // 🔴 यहाँ अपनी GITHUB डिटेल्स फिक्स कर दी गई हैं 🔴
+        const GITHUB_TOKEN = 'YOUR_GITHUB_TOKEN_HERE'; // अपना GitHub Token यहाँ डालें (सिंगल कोट्स के अंदर)
+        const GITHUB_OWNER = 'jorabagga12-bit';       // GitHub Username 
+        const GITHUB_REPO = 'mani-bagga';             // GitHub Repo 
+        const FILE_PATH = 'index.html';               // File Name 
 
         async function saveChangesToGitHub() {
-            if (GITHUB_TOKEN === 'YOUR_GITHUB_TOKEN_HERE') {
-                alert('कृपया कोड में अपना GitHub Token डालें (Line 427 देखें)।');
+            if (GITHUB_TOKEN === 'YOUR_GITHUB_TOKEN_HERE' || GITHUB_TOKEN === '') {
+                alert('कृपया कोड में अपना GitHub Token डालें।');
                 return;
             }
 
@@ -423,7 +423,8 @@
             saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
 
             try {
-                // 1. Get current file SHA (GitHub API को पुरानी फाइल का SHA चाहिए होता है)
+                // 1. Get current file SHA 
+                // ध्यान दें: अब यहाँ सही वेरिएबल्स का इस्तेमाल हुआ है
                 const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
                 const getResponse = await fetch(apiUrl, {
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
@@ -433,7 +434,7 @@
                 const fileData = await getResponse.json();
                 const sha = fileData.sha;
 
-                // 2. Clone Document & Clean Admin UI (सेव करने से पहले एडिट मोड और डैशबोर्ड हटायें)
+                // 2. Clone Document & Clean Admin UI 
                 let clone = document.documentElement.cloneNode(true);
                 
                 clone.querySelector('#adminDashboard').style.display = 'none';
@@ -452,7 +453,7 @@
                     el.onclick = null;
                 });
 
-                // HTML कंटेंट को Base64 में Encode करें (हिंदी टेक्स्ट के लिए unescape(encodeURIComponent) ज़रूरी है)
+                // HTML कंटेंट को Base64 में Encode करें
                 const fullHTML = "<!DOCTYPE html>\n<html lang=\"hi\">\n" + clone.innerHTML + "\n</html>";
                 const base64Content = btoa(unescape(encodeURIComponent(fullHTML)));
 
