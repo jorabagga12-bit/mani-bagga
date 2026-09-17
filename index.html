@@ -55,7 +55,7 @@
         .media-editable:hover { opacity: 0.8; cursor: pointer; outline: 3px solid #00d2ff; }
     </style>
 </head>
-<body><canvas id="particles-canvas" width="384" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;" height="707"></canvas>
+<body><canvas id="particles-canvas" width="980" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;" height="1785"></canvas>
 
     <!-- बैकग्राउंड 3D ब्लू ग्लोइंग शेप्स -->
     <div class="bg-shape shape-1"></div>
@@ -75,7 +75,7 @@
 
             <!-- BENNER -->
             <div class="logo">
-                <i class="fa-solid fa-gamepad"></i> MANI<span class="">M4YT LIVE</span>
+                <i class="fa-solid fa-gamepad"></i> MANI<span class="">M4YT LIVE YONG&nbsp;</span>
             </div>
 
             <!-- LINKS -->
@@ -301,10 +301,10 @@
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 isAdminLoggedIn = true;
                 closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\n1. किसी भी टेक्स्ट पर क्लिक करके बदलें।\n2. फोटो पर क्लिक करके डिवाइस या URL से बदलें।\n3. बदलाव के बाद "Save to Live Site" दबाएं!');
+                alert('Welcome Admin Bagga! 🚀\n1. किसी भी टेक्स्ट पर क्लिक करके बदलें।\n2. फोटो पर क्लिक करके वीडियो (साउंड के साथ) या नई फोटो लगाएं।\n3. बदलाव के बाद "Save to Live Site" दबाएं!');
                 activateAdminMode();
             } else {
-                alert('गलत Username या Password!');
+                alert('❌️WRONG ALL FUCK OFF YUO LOCATION SENT ADMIN VPN CRACKED⚠️!');
             }
         }
 
@@ -352,8 +352,10 @@
                 if(url.match(/\.(mp4|webm|ogg)$/i)) {
                     let newVideo = document.createElement('video');
                     newVideo.src = url;
-                    newVideo.controls = true;
-                    newVideo.autoplay = true;
+                    newVideo.controls = true;      // कंट्रोल्स दिखेंगे
+                    newVideo.autoplay = true;      // अपने आप चलेगा
+                    newVideo.muted = false;        // साउंड ON रहेगी
+                    newVideo.playsInline = true;   // मोबाइल पर सही से चलेगा
                     newVideo.loop = true;
                     newVideo.style.width = "100%";
                     newVideo.style.height = "220px";
@@ -387,8 +389,10 @@
                 } else if (file.type.startsWith('video/')) {
                     const newVideo = document.createElement('video');
                     newVideo.src = fileData;
-                    newVideo.controls = true;
-                    newVideo.autoplay = true;
+                    newVideo.controls = true;      // कंट्रोल्स दिखेंगे
+                    newVideo.autoplay = true;      // अपने आप चलेगा
+                    newVideo.muted = false;        // साउंड ON रहेगी
+                    newVideo.playsInline = true;   // मोबाइल सपोर्ट
                     newVideo.loop = true;
                     newVideo.style.width = "100%";
                     newVideo.style.height = "220px";
@@ -436,7 +440,7 @@
 
         function clearSavedToken() {
             localStorage.removeItem('gh_token_bagga');
-            alert('सेव किया गया टोकन रीसेट कर दिया गया है!');
+            alert('सेव किया गया टोकन हटा दिया गया है! अब नया टोकन डाल सकते हैं।');
         }
 
         // ================= 🚀 LIVE GITHUB AUTO-SAVE SYSTEM 🚀 ================= //
@@ -444,7 +448,7 @@
             let token = localStorage.getItem('gh_token_bagga');
             
             if (!token) {
-                token = prompt("कृपया अपना GitHub Personal Access Token दर्ज करें:\n(यह आपके ब्राउज़र में सुरक्षित रहेगा और दोबारा नहीं माँगेगा)");
+                token = prompt("अपना GitHub Personal Access Token दर्ज करें:");
                 if (!token) {
                     alert("बिना टोकन के चेंजेस लाइव सेव नहीं हो सकते!");
                     return;
@@ -458,22 +462,20 @@
             try {
                 const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
                 
-                // Fetch File SHA
                 const getResponse = await fetch(apiUrl, {
                     headers: { 'Authorization': `token ${token}` }
                 }); 
                 
-                if (getResponse.status === 401) {
+                if (getResponse.status === 401 || getResponse.status === 403 || getResponse.status === 404) {
                     localStorage.removeItem('gh_token_bagga');
-                    throw new Error("आपका GitHub Token अमान्य (Invalid) या एक्सपायर हो गया है। दोबारा नया टोकन डालें!");
+                    throw new Error("आपका GitHub Token अमान्य (Invalid) है।\nकृपया नया टोकन बनाते समय 'repo' वाले बॉक्स पर जरूर टिक (☑) करें!");
                 }
                 
-                if (!getResponse.ok) throw new Error("GitHub Repository फ़ाइल नहीं मिली! Owner और Repo नाम चेक करें।");
+                if (!getResponse.ok) throw new Error("GitHub Repository फ़ाइल नहीं मिली!");
                 
                 const fileData = await getResponse.json();
                 const sha = fileData.sha;
 
-                // Clone & Clean HTML Structure for clean GitHub Commit
                 let clone = document.documentElement.cloneNode(true);
                 
                 let dash = clone.querySelector('#adminDashboard');
@@ -498,7 +500,6 @@
                 const fullHTML = "<!DOCTYPE html>\n<html lang=\"hi\">\n" + clone.innerHTML + "\n</html>";
                 const base64Content = btoa(unescape(encodeURIComponent(fullHTML)));
 
-                // Update GitHub File
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
                     headers: {
@@ -513,7 +514,7 @@
                 });
 
                 if (putResponse.ok) {
-                    alert('बधाई हो! आपकी वेबसाइट पर किए गए सभी बदलाव GitHub पर सेव हो गए हैं। 🎉\nपब्लिक को यह 1-2 मिनट में लाइव दिखाई देने लगेगा!');
+                    alert('बधाई हो! आपकी वेबसाइट पर किए गए सभी बदलाव GitHub पर सेव हो गए हैं। 🎉\n(पब्लिक को यह 1-2 मिनट में लाइव दिखाई देने लगेगा)');
                 } else {
                     const errorDetails = await putResponse.json();
                     throw new Error(errorDetails.message);
@@ -526,6 +527,7 @@
             }
         }
     </script>
+
 
 
 </body>
