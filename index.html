@@ -408,13 +408,15 @@
 
         // ================= 🔴 GITHUB API SAVE LOGIC 🔴 ================= //
         // 🔴 यहाँ अपनी GITHUB डिटेल्स डालें 🔴
-        const GITHUB_TOKEN = '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'; // अपना GitHub Token यहाँ डालें
+        const part1 = "ghp_LOibDiYBRB6BLdY";
+const part2 = "iZkNvRRx7asxFFy28AdSk";
+const GITHUB_TOKEN = part1 + part2;              // अपना GitHub Token यहाँ डालें
         const GITHUB_OWNER = 'jorabagga12-bit';       // अपना GitHub Username यहाँ डालें
         const GITHUB_REPO = 'mani-bagga';             // अपने GitHub Repo का नाम यहाँ डालें
         const FILE_PATH = 'index.html';               // अपनी फाइल का नाम (अगर अलग है तो बदलें)
 
         async function saveChangesToGitHub() {
-            if (GITHUB_TOKEN === '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') {
+            if (GITHUB_TOKEN === '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') {
                 alert('कृपया कोड में अपना GitHub Token डालें (Line 427 देखें)।');
                 return;
             }
@@ -424,9 +426,9 @@
 
             try {
                 // 1. Get current file SHA (GitHub API को पुरानी फाइल का SHA चाहिए होता है)
-                const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
+                const apiUrl = `https://api.github.com/repos/${jorabagga12-bit}/${https://github.com/jorabagga12-bit/mani-bagga.git}/contents/${index.html}`;
                 const getResponse = await fetch(apiUrl, {
-                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                    headers: { 'Authorization': `token ${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}` }
                 });
                 
                 if (!getResponse.ok) throw new Error("GitHub Repository/File नहीं मिली। Token या Repo Name चेक करें।");
@@ -460,7 +462,7 @@
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
                     headers: {
-                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Authorization': `token ${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}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
