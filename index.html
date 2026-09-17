@@ -3,36 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mani bagga hub</title>
+    <title>MANI M4 PRO | eSports Gaming Hub</title>
     <!-- CSS Link -->
     <link rel="stylesheet" href="css/style.css">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <meta name="google-site-verification" content="FFu1-XdXvG5J0e2dv1rpptGhWFwo1JQS1yzTAEyRjkE" />
-    <!-- Admin Modal CSS -->
+    
+    <!-- Admin & Custom Modal CSS -->
     <style>
-        /* Admin Login Modal Styles */
-        .admin-modal {
+        /* Admin Login & GitHub Modal Styles */
+        .admin-modal, .notif-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85); z-index: 9999; justify-content: center; align-items: center;
             backdrop-filter: blur(8px);
         }
-        .admin-box {
+        .admin-box, .notif-box {
             background: linear-gradient(135deg, #1e1e2f, #10101a); padding: 30px; border-radius: 15px;
-            border: 2px solid #00d2ff; box-shadow: 0 0 20px #00d2ff; width: 90%; max-width: 400px;
-            text-align: center; color: white;
+            border: 2px solid #00d2ff; box-shadow: 0 0 20px #00d2ff; width: 90%; max-width: 450px;
+            text-align: center; color: white; position: relative;
         }
-        .admin-box h2 { margin-bottom: 20px; color: #00d2ff; }
-        .admin-box input {
-            width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none;
+        .admin-box h2, .notif-box h2 { margin-bottom: 20px; color: #00d2ff; }
+        .admin-box input, .notif-box textarea, .notif-box input {
+            width: 100%; padding: 12px; margin: 8px 0; border-radius: 5px; border: none;
             background: #2a2a40; color: white; outline: none; box-sizing: border-box;
         }
-        .admin-box button {
-            width: 100%; padding: 12px; margin-top: 15px; border-radius: 5px; border: none;
+        .admin-box button, .notif-box button {
+            width: 100%; padding: 12px; margin-top: 10px; border-radius: 5px; border: none;
             background: #00d2ff; color: #000; font-weight: bold; cursor: pointer; transition: 0.3s;
         }
-        .admin-box button:hover { background: #00a3cc; box-shadow: 0 0 10px #00d2ff; }
-        .close-btn { color: red; float: right; cursor: pointer; font-size: 20px; }
+        .admin-box button:hover, .notif-box button:hover { background: #00a3cc; box-shadow: 0 0 10px #00d2ff; }
+        .close-btn { color: red; position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 24px; font-weight: bold; }
         
         /* Floating Admin Dashboard */
         .admin-dashboard {
@@ -42,13 +42,23 @@
         }
         .admin-dashboard button {
             background: #00d2ff; color: #000; border: none; padding: 8px 10px;
-            margin-top: 8px; cursor: pointer; border-radius: 5px; width: 100%; font-weight: bold;
+            margin-top: 6px; cursor: pointer; border-radius: 5px; width: 100%; font-weight: bold;
         }
+        .admin-dashboard button.github-save { background: #28a745; color: white; }
+        .admin-dashboard button.github-save:hover { background: #218838; }
         .admin-dashboard button:hover { background: #00a3cc; }
         
-        /* Editable Highlight */
+        /* Drag & Drop Editable Highlight */
         .editable-active { border: 1px dashed #00d2ff !important; padding: 2px; }
-        .media-editable:hover { opacity: 0.8; cursor: pointer; outline: 3px solid #00d2ff; }
+        .media-editable:hover { opacity: 0.85; cursor: pointer; outline: 3px solid #00d2ff; }
+        .draggable-item { cursor: grab; }
+        .draggable-item:active { cursor: grabbing; opacity: 0.6; }
+
+        /* Notification List */
+        .notif-list { text-align: left; max-height: 250px; overflow-y: auto; margin-bottom: 15px; }
+        .notif-item { background: #2a2a40; padding: 10px; border-radius: 8px; margin-bottom: 8px; border-left: 4px solid #00d2ff; }
+        .notif-item h4 { margin: 0 0 5px 0; color: #00d2ff; font-size: 14px; }
+        .notif-item p { margin: 0; font-size: 12px; color: #ccc; }
     </style>
 </head>
 <body>
@@ -74,12 +84,13 @@
                 <i class="fa-solid fa-gamepad"></i> MANI<span>M4YT</span>
             </div>
 
-            <!-- LINKS -->
+            <!-- LINKS (Added Notification Item Here) -->
             <ul class="nav-links">
                 <li><a href="#home">HOME</a></li>
                 <li><a href="#features">TIPS</a></li>
                 <li><a href="#showcase">GELLERY</a></li>
                 <li><a href="#about">LIVE</a></li>
+                <li><a href="javascript:void(0)" onclick="openNotifModal()"><i class="fa-solid fa-bell"></i> NOTIFICATION</a></li>
                 <li><a href="#contact" class="btn-primary">CONTECT DIRECT</a></li>
             </ul>
         </nav>
@@ -114,8 +125,9 @@
         <h2 class="section-title">MAIN <span class="highlight">FETURE</span></h2>
         <p class="section-subtitle">Special facilities for Gamers</p>
 
-        <div class="cards-grid">
-            <div class="card-3d">
+        <div class="cards-grid" id="cardsGridContainer">
+            <!-- 3D Card 1 -->
+            <div class="card-3d draggable-item">
                 <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
                 <div class="card-img-container">
                     <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
@@ -123,7 +135,9 @@
                 <h3>BGMI Live Highlights</h3>
                 <p>CAN YOU SUBSCRIBE।</p>
             </div>
-            <div class="card-3d">
+
+            <!-- 3D Card 2 -->
+            <div class="card-3d draggable-item">
                 <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
                 <div class="card-img-container">
                     <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
@@ -131,7 +145,9 @@
                 <h3>eSports Custom Rooms</h3>
                 <p>JONI FOR PROGRAM IN TURAMENT।</p>
             </div>
-            <div class="card-3d">
+
+            <!-- 3D Card 3 -->
+            <div class="card-3d draggable-item">
                 <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
                 <div class="card-img-container">
                     <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'">
@@ -146,21 +162,21 @@
     <section id="showcase" class="showcase-section">
         <h2 class="section-title">BGMI / PUBG <span class="highlight">3D गैलरी</span></h2>
         <div class="showcase-grid" id="galleryContainer">
-            <div class="showcase-item">
+            <div class="showcase-item draggable-item">
                 <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
                 <div class="showcase-overlay">
                     <h4>Clutch Moments</h4>
                     <p>1v4 BGMI Gameplay</p>
                 </div>
             </div>
-            <div class="showcase-item">
+            <div class="showcase-item draggable-item">
                 <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
                 <div class="showcase-overlay">
                     <h4>eSports Arena</h4>
                     <p>Custom Scrims</p>
                 </div>
             </div>
-            <div class="showcase-item">
+            <div class="showcase-item draggable-item">
                 <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'">
                 <div class="showcase-overlay">
                     <h4>Pro Setup</h4>
@@ -198,6 +214,7 @@
     <section id="contact" class="features-section">
         <h2 class="section-title">एडमिन को <span class="highlight">मैसेज करें</span></h2>
         <p class="section-subtitle">LIVE SUPPORT</p>
+        
         <div class="contact-box">
             <form id="contactForm" onsubmit="sendMessageToAdmin(event)">
                 <div class="form-group">
@@ -221,13 +238,16 @@
             <div class="footer-logo">
                 <i class="fa-solid fa-gamepad"></i> MANI<span>M4YT</span>
             </div>
+            
             <div class="social-links">
                 <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="yt-icon"><i class="fa-brands fa-youtube"></i></a>
                 <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="ig-icon"><i class="fa-brands fa-instagram"></i></a>
             </div>
+
             <p class="email-text">
                 <i class="fa-solid fa-envelope"></i> Email: <a href="mailto:manipubji@gmail.com">manipubji@gmail.com</a>
             </p>
+
             <p>© 2026 MANI M4YT. MANI BAGGA M4.YT DEVLOPER।</p>
         </div>
     </footer>
@@ -245,22 +265,50 @@
         </div>
     </div>
 
+    <!-- GITHUB CONFIG MODAL -->
+    <div id="githubModal" class="admin-modal">
+        <div class="admin-box">
+            <span class="close-btn" onclick="closeGitHubModal()">&times;</span>
+            <h2><i class="fa-brands fa-github"></i> GitHub Config</h2>
+            <p style="font-size: 12px; color: #ccc;">GitHub Token डालने से आपकी साइट में की गई फोटो व टेक्स्ट चेंजेस लाइव सभी को दिखेंगे!</p>
+            <input type="text" id="ghToken" placeholder="GitHub Personal Access Token (PAT)">
+            <input type="text" id="ghOwner" placeholder="GitHub Username (jorabagga12-bit)">
+            <input type="text" id="ghRepo" placeholder="Repository Name (mani-bagga)">
+            <button onclick="saveGitHubConfig()"><i class="fa-solid fa-floppy-disk"></i> Token Save Karein</button>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION MODAL -->
+    <div id="notifModal" class="notif-modal">
+        <div class="notif-box">
+            <span class="close-btn" onclick="closeNotifModal()">&times;</span>
+            <h2><i class="fa-solid fa-bell"></i> LATEST NOTIFICATIONS</h2>
+            <div class="notif-list" id="notifList">
+                <div class="notif-item">
+                    <h4>🎮 BGMI Scrims Tournament Live!</h4>
+                    <p>Join live custom rooms today at 8:00 PM IST on YouTube channel!</p>
+                </div>
+                <div class="notif-item">
+                    <h4>🔥 New Sensitivity & Control Code</h4>
+                    <p>Check Pro Controls section for latest updated layout.</p>
+                </div>
+            </div>
+            <div id="adminNotifForm" style="display: none; border-top: 1px solid #00d2ff; padding-top: 10px;">
+                <h4 style="color:#00d2ff; margin-bottom:5px;">Add New Notification</h4>
+                <input type="text" id="newNotifTitle" placeholder="Notification Title">
+                <textarea id="newNotifDesc" rows="2" placeholder="Message details..."></textarea>
+                <button onclick="addNotification()"><i class="fa-solid fa-plus"></i> Post Notification</button>
+            </div>
+        </div>
+    </div>
+
     <!-- FLOATING ADMIN DASHBOARD -->
     <div id="adminDashboard" class="admin-dashboard">
         <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
-        <button onclick="saveToGitHub()" style="background: #28a745; color: white; margin-top: 15px;"><i class="fa-solid fa-floppy-disk"></i> Save Live Changes</button>
-        <button onclick="location.reload()" style="background: #dc3545; color: white; margin-top: 10px;"><i class="fa-solid fa-rotate-right"></i> Cancel Changes</button>
-        <p id="saveStatus" style="font-size: 12px; margin-top: 10px; color: yellow;"></p>
-    </div>
-
-    <!-- IMAGE POSITION CONTROLS -->
-    <div id="imageControls" style="display:none; position:fixed; top:20px; right:20px; background:#10101a; border:2px solid #00d2ff; padding:10px; border-radius:10px; z-index:10000; color:white; text-align:center;">
-        <p style="margin-bottom: 5px; font-size:12px;">Move Image</p>
-        <button onclick="moveImage('up')" style="padding:5px 10px; margin:2px;">Up</button><br>
-        <button onclick="moveImage('left')" style="padding:5px 10px; margin:2px;">Left</button>
-        <button onclick="moveImage('right')" style="padding:5px 10px; margin:2px;">Right</button><br>
-        <button onclick="moveImage('down')" style="padding:5px 10px; margin:2px;">Down</button><br>
-        <button onclick="closeImageControls()" style="background:red; padding:5px; margin-top:5px; width:100%;">Done</button>
+        <button onclick="addNewMediaCard()"><i class="fa-solid fa-plus"></i> Add New Media</button>
+        <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
+        <button onclick="openGitHubModal()"><i class="fa-brands fa-github"></i> GitHub Settings</button>
+        <button class="github-save" onclick="saveToGitHub()"><i class="fa-solid fa-cloud-arrow-up"></i> Save Live Online</button>
     </div>
 
     <!-- HIDDEN FILE INPUT FOR GALLERY SELECTOR -->
@@ -268,17 +316,7 @@
 
     <!-- JS Link -->
     <script src="js/script.js"></script>
-
-    <!-- ADMIN SCRIPTS (GITHUB LIVE SAVE) -->
     <script>
-        const GITHUB_TOKEN = "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"; 
-        const OWNER = "jorabagga12-bit";
-        const REPO = "mani-bagga";
-        const FILE_PATH = "index.html";
-
-        let isAdminLoggedIn = false;
-        let currentTargetElement = null;
-
         function sendMessageToAdmin(e) {
             e.preventDefault();
             const name = document.getElementById('senderName').value;
@@ -287,12 +325,15 @@
             window.open(`https://wa.me/qr/UT7SLRPTD2WIK1?text=${text}`, '_blank');
         }
 
+        // ================= ADMIN PANEL SCRIPTS ================= //
+        let isAdminLoggedIn = false;
+        let currentTargetElement = null;
+
         function openAdminLogin() {
             if(!isAdminLoggedIn) {
                 document.getElementById('adminLoginModal').style.display = 'flex';
             }
         }
-
         function closeAdminLogin() {
             document.getElementById('adminLoginModal').style.display = 'none';
         }
@@ -305,150 +346,267 @@
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 isAdminLoggedIn = true;
                 closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\n1. टेक्स्ट पर क्लिक करके बदलें।\n2. फोटो बदलने या खिसकाने के लिए उसपर क्लिक करें।\n3. काम होने के बाद "Save Live Changes" दबाएं।');
+                alert('Welcome Admin Bagga! 🚀\n1. फोटो/वीडियो बदलने के लिए उसपर क्लिक करें या माउस से खींचकर (Drag करके) खिसकाएं।\n2. टेक्स्ट बदलने के लिए सीधे टेक्स्ट पर क्लिक करें।\n3. Save Live Online पर क्लिक करके GitHub पर ऑनलाइन सेव करें!');
                 activateAdminMode();
             } else {
-                alert('Wrong Username or Password!');
+                alert('wrong Username or wrong admin ke pass ip location sent admin !');
             }
         }
 
         function activateAdminMode() {
             document.getElementById('adminDashboard').style.display = 'block';
+            document.getElementById('adminNotifForm').style.display = 'block';
 
             // Make Text Editable
             const textElements = document.querySelectorAll('h1, h2, h3, h4, p, span');
-            textElements.forEach((el, index) => {
+            textElements.forEach(el => {
                 el.contentEditable = "true";
                 el.classList.add('editable-active');
             });
 
+            // Bind Media Click & Drag Handlers
             bindMediaClickHandlers();
+            enableDragAndDrop();
+        }
+
+        function deactivateAdminModeForSave() {
+            const textElements = document.querySelectorAll('h1, h2, h3, h4, p, span');
+            textElements.forEach(el => {
+                el.removeAttribute('contenteditable');
+                el.classList.remove('editable-active');
+            });
+            const mediaElements = document.querySelectorAll('.media-target, img, video');
+            mediaElements.forEach(elem => {
+                elem.classList.remove('media-editable');
+                elem.removeAttribute('title');
+            });
         }
 
         function bindMediaClickHandlers() {
             const mediaElements = document.querySelectorAll('.media-target, img, video');
-            mediaElements.forEach((elem) => {
+            mediaElements.forEach(elem => {
                 elem.classList.add('media-editable');
-                elem.title = "Click to change or move Photo";
+                elem.title = "Click to change Photo/Video from Gallery";
                 elem.onclick = function(e) {
                     if (isAdminLoggedIn) {
                         e.preventDefault();
                         e.stopPropagation();
                         currentTargetElement = elem;
-                        
-                        let action = confirm("क्या आप नई फोटो/वीडियो लगाना चाहते हैं?\n'OK' दबाएं नई फोटो के लिए।\n'Cancel' दबाएं फोटो को ऊपर-नीचे खिसकाने के लिए।");
-                        if(action) {
-                            document.getElementById('adminFileInput').click();
-                        } else {
-                            document.getElementById('imageControls').style.display = 'block';
-                            if(!currentTargetElement.style.position) {
-                                currentTargetElement.style.position = 'relative';
-                                currentTargetElement.style.top = '0px';
-                                currentTargetElement.style.left = '0px';
-                            }
-                        }
+                        document.getElementById('adminFileInput').click();
                     }
                 };
             });
-        }
-
-        function moveImage(direction) {
-            if(!currentTargetElement) return;
-            let currentTop = parseInt(currentTargetElement.style.top || 0);
-            let currentLeft = parseInt(currentTargetElement.style.left || 0);
-            let step = 10;
-            
-            if(direction === 'up') currentTargetElement.style.top = (currentTop - step) + 'px';
-            if(direction === 'down') currentTargetElement.style.top = (currentTop + step) + 'px';
-            if(direction === 'left') currentTargetElement.style.left = (currentLeft - step) + 'px';
-            if(direction === 'right') currentTargetElement.style.left = (currentLeft + step) + 'px';
-        }
-
-        function closeImageControls() {
-            document.getElementById('imageControls').style.display = 'none';
         }
 
         function handleFileSelected(event) {
             const file = event.target.files[0];
             if (!file || !currentTargetElement) return;
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const fileURL = e.target.result;
-                if (file.type.startsWith('image/')) {
+            const fileURL = URL.createObjectURL(file);
+
+            if (file.type.startsWith('image/')) {
+                // Image Selected
+                if (currentTargetElement.tagName.toLowerCase() === 'video') {
+                    const newImg = document.createElement('img');
+                    newImg.src = fileURL;
+                    newImg.className = currentTargetElement.className;
+                    currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement);
+                    currentTargetElement = newImg;
+                } else {
                     currentTargetElement.src = fileURL;
                 }
-                bindMediaClickHandlers();
-            };
-            reader.readAsDataURL(file);
-            event.target.value = ''; 
+            } else if (file.type.startsWith('video/')) {
+                // Video Selected (Plays MP4 video in place of image)
+                const newVideo = document.createElement('video');
+                newVideo.src = fileURL;
+                newVideo.controls = true;
+                newVideo.autoplay = true;
+                newVideo.muted = true;
+                newVideo.loop = true;
+                newVideo.style.width = "100%";
+                newVideo.style.height = "220px";
+                newVideo.style.objectFit = "cover";
+                newVideo.style.borderRadius = "10px";
+                newVideo.className = currentTargetElement.className;
+
+                currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
+                currentTargetElement = newVideo;
+            }
+
+            // Re-bind click event
+            bindMediaClickHandlers();
+            event.target.value = ''; // Reset input
         }
 
-        // ================= GITHUB LIVE SAVE FUNCTION ================= //
+        /* DRAG & DROP FOR MOVING/REORDERING PHOTOS & CARDS */
+        let draggedCard = null;
+        function enableDragAndDrop() {
+            const items = document.querySelectorAll('.draggable-item');
+            items.forEach(item => {
+                item.setAttribute('draggable', 'true');
+                item.addEventListener('dragstart', function(e) {
+                    if(!isAdminLoggedIn) return;
+                    draggedCard = this;
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+                item.addEventListener('dragover', function(e) {
+                    if(!isAdminLoggedIn) return;
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                });
+                item.addEventListener('drop', function(e) {
+                    if(!isAdminLoggedIn) return;
+                    e.preventDefault();
+                    if(draggedCard && draggedCard !== this && draggedCard.parentNode === this.parentNode) {
+                        let children = Array.from(this.parentNode.children);
+                        let draggedIndex = children.indexOf(draggedCard);
+                        let targetIndex = children.indexOf(this);
+                        if(draggedIndex < targetIndex) {
+                            this.after(draggedCard);
+                        } else {
+                            this.before(draggedCard);
+                        }
+                    }
+                });
+            });
+        }
+
+        function addNewMediaCard() {
+            let gallery = document.getElementById('galleryContainer');
+            let newCardHTML = `
+                <div class="showcase-item draggable-item">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="New Item" class="media-target">
+                    <div class="showcase-overlay">
+                        <h4>New Media</h4>
+                        <p>Click photo/video to change from Gallery</p>
+                    </div>
+                </div>`;
+            gallery.insertAdjacentHTML('beforeend', newCardHTML);
+            if (isAdminLoggedIn) activateAdminMode();
+        }
+
+        function addYouTubeVideo() {
+            let videoLink = prompt("YouTube Video Embed Link डालें (जैसे: https://www.youtube.com/embed/...)");
+            if (videoLink) {
+                let gallery = document.getElementById('galleryContainer');
+                let newVideoHTML = `
+                    <div class="showcase-item draggable-item">
+                        <iframe width="100%" height="220" src="${videoLink}" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
+                        <div class="showcase-overlay">
+                            <h4>YouTube Highlights</h4>
+                            <p>Admin Live Video</p>
+                        </div>
+                    </div>`;
+                gallery.insertAdjacentHTML('beforeend', newVideoHTML);
+                if (isAdminLoggedIn) activateAdminMode();
+            }
+        }
+
+        /* NOTIFICATION SYSTEM */
+        function openNotifModal() { document.getElementById('notifModal').style.display = 'flex'; }
+        function closeNotifModal() { document.getElementById('notifModal').style.display = 'none'; }
+
+        function addNotification() {
+            const title = document.getElementById('newNotifTitle').value;
+            const desc = document.getElementById('newNotifDesc').value;
+            if(!title || !desc) { alert("कृपया Title और Message भरें!"); return; }
+            
+            const list = document.getElementById('notifList');
+            const newNotifHTML = `
+                <div class="notif-item">
+                    <h4>${title}</h4>
+                    <p>${desc}</p>
+                </div>`;
+            list.insertAdjacentHTML('afterbegin', newNotifHTML);
+            document.getElementById('newNotifTitle').value = '';
+            document.getElementById('newNotifDesc').value = '';
+            alert("Notification Post हो गई है!");
+        }
+
+        /* GITHUB CONFIG & SAVE API INTEGRATION */
+        function openGitHubModal() {
+            document.getElementById('githubModal').style.display = 'flex';
+            document.getElementById('ghToken').value = localStorage.getItem('gh_token') || '';
+            document.getElementById('ghOwner').value = localStorage.getItem('gh_owner') || 'jorabagga12-bit';
+            document.getElementById('ghRepo').value = localStorage.getItem('gh_repo') || 'mani-bagga';
+        }
+        function closeGitHubModal() { document.getElementById('githubModal').style.display = 'none'; }
+
+        function saveGitHubConfig() {
+            const token = document.getElementById('ghToken').value.trim();
+            const owner = document.getElementById('ghOwner').value.trim();
+            const repo = document.getElementById('ghRepo').value.trim();
+            if(!token) { alert("GitHub Personal Access Token भरना जरूरी है!"); return; }
+
+            localStorage.setItem('gh_token', token);
+            localStorage.setItem('gh_owner', owner);
+            localStorage.setItem('gh_repo', repo);
+            alert("GitHub Details Local Storage में सुरक्षित Save हो गई हैं!");
+            closeGitHubModal();
+        }
+
         async function saveToGitHub() {
-            const statusEl = document.getElementById('saveStatus');
-            
-            if(!confirm("क्या आप बदलावों को पक्का लाइव सर्वर (GitHub) पर सेव करना चाहते हैं?")) return;
+            const token = localStorage.getItem('gh_token') || prompt("GitHub Personal Access Token (PAT) दर्ज करें:");
+            const owner = localStorage.getItem('gh_owner') || 'jorabagga12-bit';
+            const repo = localStorage.getItem('gh_repo') || 'mani-bagga';
+            const path = 'index.html';
+            const branch = 'main';
 
-            statusEl.innerText = "⏳ Saving to GitHub Server...";
-            
-            // 1. एडमिन वाले डिज़ाइन (बॉर्डर वगैरह) को थोड़ी देर के लिए हटा रहे हैं ताकि असली वेबसाइट साफ रहे
-            const textElements = document.querySelectorAll('[contenteditable="true"]');
-            textElements.forEach(el => {
-                el.removeAttribute('contenteditable');
-                el.classList.remove('editable-active');
-            });
-            const mediaElements = document.querySelectorAll('.media-editable');
-            mediaElements.forEach(el => el.classList.remove('media-editable'));
+            if (!token) {
+                alert("GitHub Token के बिना परिवर्तन ऑनलाइन सेव नहीं हो सकते!");
+                return;
+            }
 
-            // 2. पूरे पेज का कोड कॉपी कर रहे हैं
-            const fullHTML = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-
-            // 3. एडमिन डिज़ाइन को वापस ला रहे हैं ताकि आप काम कर सकें
-            textElements.forEach(el => {
-                el.contentEditable = "true";
-                el.classList.add('editable-active');
-            });
-            mediaElements.forEach(el => el.classList.add('media-editable'));
+            localStorage.setItem('gh_token', token);
+            localStorage.setItem('gh_owner', owner);
+            localStorage.setItem('gh_repo', repo);
 
             try {
-                // पुरानी फाइल का डेटा लेना
-                const getUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`;
-                const getResponse = await fetch(getUrl, {
-                    headers: { "Authorization": `Bearer ${GITHUB_TOKEN}` }
+                // 1. Get current file SHA from GitHub
+                const getUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
+                const getRes = await fetch(getUrl, {
+                    headers: { 'Authorization': `token ${token}` }
                 });
-                const fileData = await getResponse.json();
-                
-                // नया कोड Base64 में बदलना
-                const base64Content = btoa(unescape(encodeURIComponent(fullHTML)));
 
-                // GitHub पर सेव (PUT) करना
-                const putResponse = await fetch(getUrl, {
-                    method: "PUT",
+                let sha = '';
+                if (getRes.ok) {
+                    const data = await getRes.json();
+                    sha = data.sha;
+                }
+
+                // Temporary clean up active editing outlines for clean HTML export
+                deactivateAdminModeForSave();
+                const cleanHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+                activateAdminMode(); // Re-activate for current session
+
+                // Base64 Encoding with UTF-8 support
+                const bytes = new TextEncoder().encode(cleanHtml);
+                const binString = Array.from(bytes, (byte) => String.fromCharCode(byte)).join("");
+                const contentB64 = btoa(binString);
+
+                // 2. Push update directly to GitHub API
+                const putRes = await fetch(getUrl, {
+                    method: 'PUT',
                     headers: {
-                        "Authorization": `Bearer ${GITHUB_TOKEN}`,
-                        "Content-Type": "application/json"
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        message: "Admin Panel Live Update: Text/Images/Positions saved",
-                        content: base64Content,
-                        sha: fileData.sha
+                        message: 'Admin Panel Live Update',
+                        content: contentB64,
+                        sha: sha,
+                        branch: branch
                     })
                 });
 
-                if(putResponse.ok) {
-                    statusEl.innerText = "✅ Successfully Saved! 1 मिनट में लाइव हो जाएगा।";
-                    statusEl.style.color = "#2ed573";
-                    alert('✅ वेबसाइट सफलता पूर्वक सर्वर पर सेव हो गई है! रिफ्रेश करके देखें।');
+                if (putRes.ok) {
+                    alert('🎉 सभी फोटो, वीडियो और टेक्स्ट बदलाव GitHub पर सफलतापूर्वक Save हो गए हैं! 1-2 मिनट में आपकी लाइव साइट अपडेट हो जाएगी।');
                 } else {
-                    const err = await putResponse.json();
-                    throw new Error(err.message);
+                    const err = await putRes.json();
+                    alert('GitHub Error: ' + (err.message || 'Token या Permission चेक करें।'));
                 }
-            } catch (error) {
-                console.error(error);
-                statusEl.innerText = "❌ Error: सेव फेल हो गया।";
-                statusEl.style.color = "#ff4757";
-                alert('❌ Error: सेव नहीं हो पाया। Token चेक करें।');
+            } catch (e) {
+                alert('GitHub API से कनेक्ट करने में विफल: ' + e.message);
             }
         }
     </script>
