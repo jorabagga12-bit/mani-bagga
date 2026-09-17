@@ -310,117 +310,176 @@
         }
 
         // ================= ADMIN PANEL SCRIPTS ================= //
-      <!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANI M4 - Admin Panel</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #121212;
-            color: #fff;
-            margin: 0;
-            padding: 20px;
-        }
-        .admin-container {
-            max-width: 600px;
-            margin: 30px auto;
-            background: #1e1e1e;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            border: 1px solid #333;
-        }
-        h2 { text-align: center; color: #ff4757; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #ccc; }
-        textarea, input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            background: #2b2b2b;
-            border: 1px solid #444;
-            color: #fff;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #ff4757;
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        button:hover { background-color: #ff6b81; }
-        #status { margin-top: 15px; text-align: center; font-weight: bold; }
-    </style>
-</head>
-<body>
+        let isAdminLoggedIn = false;
+        let currentTargetElement = null;
 
-<div class="admin-container">
-    <h2>🎮 MANI M4 Admin Panel</h2>
-    
-    <div class="form-group">
-        <label for="websiteText">वेबसाइट का नया टेक्स्ट लिखें:</label>
-        <textarea id="websiteText" rows="4" placeholder="यहाँ नया कंटेंट लिखें..."></textarea>
-    </div>
+        // पेज लोड होते ही सेव किया हुआ डेटा लोड करें
+        window.onload = function() {
+            loadWebsiteChanges();
+        };
 
-    <button onclick="saveToGitHub()">💾 Save Changes</button>
-    <p id="status"></p>
-</div>
-
-<script>
-    const GITHUB_TOKEN = "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"; 
-    const OWNER = "jorabagga12-bit";
-    const REPO = "mani-bagga";
-    const FILE_PATH = "index.html";
-
-    async function saveToGitHub() {
-        const statusEl = document.getElementById('status');
-        statusEl.innerText = "⏳ Saving to server...";
-        statusEl.style.color = "yellow";
-
-        try {
-            const getUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`;
-            const getResponse = await fetch(getUrl, {
-                headers: { "Authorization": `Bearer ${GITHUB_TOKEN}` }
-            });
-            const fileData = await getResponse.json();
-            
-            const newText = document.getElementById('websiteText').value;
-            const newContentBase64 = btoa(unescape(encodeURIComponent(newText)));
-
-            const putResponse = await fetch(getUrl, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${GITHUB_TOKEN}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    message: "Update from Admin Panel",
-                    content: newContentBase64,
-                    sha: fileData.sha
-                })
-            });
-
-            if(putResponse.ok) {
-                statusEl.innerText = "✅ Successfully Saved! वेबसाइट अपडेट हो गई है।";
-                statusEl.style.color = "#2ed573";
-            } else {
-                throw new Error("Save failed");
+        function openAdminLogin() {
+            if(!isAdminLoggedIn) {
+                document.getElementById('adminLoginModal').style.display = 'flex';
             }
-        } catch (error) {
-            console.error(error);
-            statusEl.innerText = "❌ Error: सेव नहीं हो पाया। Token या Path चेक करें।";
-            statusEl.style.color = "#ff4757";
         }
-    }
-</script>
-</body>
-</html>
+        function closeAdminLogin() {
+            document.getElementById('adminLoginModal').style.display = 'none';
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('adminUser').value;
+            const pass = document.getElementById('adminPass').value;
+
+            if (user === 'bagga' && pass === 'iphonex0421&') {
+                isAdminLoggedIn = true;
+                closeAdminLogin();
+                alert('Welcome Admin Bagga! 🚀\n1. टेक्स्ट पर क्लिक करके बदलें।\n2. फोटो बदलने या खिसकाने के लिए उसपर क्लिक करें।\n3. काम होने के बाद "Save Changes" दबाएं।');
+                activateAdminMode();
+            } else {
+                alert('Wrong Username or Password! Fake IP Location Sent to Admin!');
+            }
+        }
+
+        function activateAdminMode() {
+            document.getElementById('adminDashboard').style.display = 'block';
+
+            // Make Text Editable and add IDs for tracking
+            const textElements = document.querySelectorAll('h1, h2, h3, h4, p, span');
+            textElements.forEach((el, index) => {
+                if(!el.id) el.id = 'edit-txt-' + index; // ID देना जरूरी है सेव करने के लिए
+                el.contentEditable = "true";
+                el.classList.add('editable-active');
+            });
+
+            bindMediaClickHandlers();
+        }
+
+        function bindMediaClickHandlers() {
+            const mediaElements = document.querySelectorAll('.media-target, img, video');
+            mediaElements.forEach((elem, index) => {
+                if(!elem.id) elem.id = 'edit-media-' + index;
+                elem.classList.add('media-editable');
+                elem.title = "Click to change or move Photo";
+                elem.onclick = function(e) {
+                    if (isAdminLoggedIn) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        currentTargetElement = elem;
+                        
+                        // पूछें कि फोटो बदलनी है या खिसकानी है
+                        let action = confirm("क्या आप नई फोटो/वीडियो लगाना चाहते हैं?\n'OK' दबाएं नई फोटो के लिए।\n'Cancel' दबाएं फोटो को ऊपर-नीचे खिसकाने के लिए।");
+                        if(action) {
+                            document.getElementById('adminFileInput').click();
+                        } else {
+                            document.getElementById('imageControls').style.display = 'block';
+                            if(!currentTargetElement.style.position) {
+                                currentTargetElement.style.position = 'relative';
+                                currentTargetElement.style.top = '0px';
+                                currentTargetElement.style.left = '0px';
+                            }
+                        }
+                    }
+                };
+            });
+        }
+
+        // इमेज को मूव करने का फंक्शन
+        function moveImage(direction) {
+            if(!currentTargetElement) return;
+            let currentTop = parseInt(currentTargetElement.style.top || 0);
+            let currentLeft = parseInt(currentTargetElement.style.left || 0);
+            let step = 10; // 10px खिसकेगा
+            
+            if(direction === 'up') currentTargetElement.style.top = (currentTop - step) + 'px';
+            if(direction === 'down') currentTargetElement.style.top = (currentTop + step) + 'px';
+            if(direction === 'left') currentTargetElement.style.left = (currentLeft - step) + 'px';
+            if(direction === 'right') currentTargetElement.style.left = (currentLeft + step) + 'px';
+        }
+
+        function closeImageControls() {
+            document.getElementById('imageControls').style.display = 'none';
+        }
+
+        // फोटो अपलोड करने का फंक्शन (Base64 में कन्वर्ट ताकि सेव हो सके)
+        function handleFileSelected(event) {
+            const file = event.target.files[0];
+            if (!file || !currentTargetElement) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const fileURL = e.target.result; // Base64 Data
+
+                if (file.type.startsWith('image/')) {
+                    if (currentTargetElement.tagName.toLowerCase() === 'video') {
+                        const newImg = document.createElement('img');
+                        newImg.src = fileURL;
+                        newImg.className = currentTargetElement.className;
+                        newImg.id = currentTargetElement.id;
+                        currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement);
+                        currentTargetElement = newImg;
+                    } else {
+                        currentTargetElement.src = fileURL;
+                    }
+                }
+                bindMediaClickHandlers();
+            };
+            reader.readAsDataURL(file); // Convert file to base64 string
+            event.target.value = ''; 
+        }
+
+        // ================= SAVE DATA TO BROWSER (LOCAL STORAGE) ================= //
+        function saveWebsiteChanges() {
+            let siteData = { text: {}, media: {}, positions: {} };
+
+            // Save Text
+            document.querySelectorAll('h1, h2, h3, h4, p, span').forEach(el => {
+                if(el.id) siteData.text[el.id] = el.innerHTML;
+            });
+
+            // Save Images/Videos and their positions
+            document.querySelectorAll('.media-target, img, video').forEach(el => {
+                if(el.id) {
+                    siteData.media[el.id] = el.src;
+                    siteData.positions[el.id] = { top: el.style.top, left: el.style.left, position: el.style.position };
+                }
+            });
+
+            localStorage.setItem('maniWebsiteData', JSON.stringify(siteData));
+            alert('✅ Changes Saved! अब रिफ्रेश करने पर भी वेबसाइट ऐसी ही दिखेगी।\n(Note: पूरी दुनिया को दिखाने के लिए आपको इसे GitHub पर अपडेट करना होगा)');
+        }
+
+        function loadWebsiteChanges() {
+            let savedData = localStorage.getItem('maniWebsiteData');
+            if(savedData) {
+                let siteData = JSON.parse(savedData);
+                
+                // Load Text
+                for(let id in siteData.text) {
+                    let el = document.getElementById(id);
+                    if(el) el.innerHTML = siteData.text[id];
+                }
+
+                // Load Media & Positions
+                for(let id in siteData.media) {
+                    let el = document.getElementById(id);
+                    if(el) {
+                        el.src = siteData.media[id];
+                        if(siteData.positions[id]) {
+                            el.style.position = siteData.positions[id].position;
+                            el.style.top = siteData.positions[id].top;
+                            el.style.left = siteData.positions[id].left;
+                        }
+                    }
+                }
+            }
+        }
+
+        function clearChanges() {
+            if(confirm("Are you sure? सारा सेव किया हुआ डेटा डिलीट हो जाएगा और वेबसाइट असली रूप में आ जाएगी।")) {
+                localStorage.removeItem('maniWebsiteData');
+                location.reload();
+            }
+        }
+    </script>
