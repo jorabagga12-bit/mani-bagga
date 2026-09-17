@@ -276,8 +276,47 @@
         }
 
         // ================= ADMIN PANEL SCRIPTS ================= //
+        <!-- FLOATING ADMIN DASHBOARD (UPDATED) -->
+    <div id="adminDashboard" class="admin-dashboard">
+        <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
+        <button onclick="addNewMediaCard()"><i class="fa-solid fa-plus"></i> Add New Media</button>
+        <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
+        <button onclick="saveWebsiteChanges()" style="background: #28a745; color: white; margin-top: 15px;"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+        <button onclick="clearChanges()" style="background: #dc3545; color: white;"><i class="fa-solid fa-trash"></i> Reset All</button>
+    </div>
+
+    <!-- IMAGE POSITION CONTROLS (NEW) -->
+    <div id="imageControls" style="display:none; position:fixed; top:20px; right:20px; background:#10101a; border:2px solid #00d2ff; padding:10px; border-radius:10px; z-index:10000; color:white; text-align:center;">
+        <p style="margin-bottom: 5px; font-size:12px;">Move Image</p>
+        <button onclick="moveImage('up')" style="padding:5px 10px; margin:2px;">Up</button><br>
+        <button onclick="moveImage('left')" style="padding:5px 10px; margin:2px;">Left</button>
+        <button onclick="moveImage('right')" style="padding:5px 10px; margin:2px;">Right</button><br>
+        <button onclick="moveImage('down')" style="padding:5px 10px; margin:2px;">Down</button><br>
+        <button onclick="closeImageControls()" style="background:red; padding:5px; margin-top:5px; width:100%;">Done</button>
+    </div>
+
+    <!-- HIDDEN FILE INPUT FOR GALLERY SELECTOR -->
+    <input type="file" id="adminFileInput" accept="image/*,video/*" style="display: none;" onchange="handleFileSelected(event)">
+
+    <!-- JS Link -->
+    <script src="js/script.js"></script>
+    <script>
+        function sendMessageToAdmin(e) {
+            e.preventDefault();
+            const name = document.getElementById('senderName').value;
+            const msg = document.getElementById('senderMsg').value;
+            const text = `Hi MANI M4, I am ${encodeURIComponent(name)}. Message: ${encodeURIComponent(msg)}`;
+            window.open(`https://wa.me/qr/UT7SLRPTD2WIK1?text=${text}`, '_blank');
+        }
+
+        // ================= ADMIN PANEL SCRIPTS ================= //
         let isAdminLoggedIn = false;
         let currentTargetElement = null;
+
+        // पेज लोड होते ही सेव किया हुआ डेटा लोड करें
+        window.onload = function() {
+            loadWebsiteChanges();
+        };
 
         function openAdminLogin() {
             if(!isAdminLoggedIn) {
@@ -296,113 +335,151 @@
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 isAdminLoggedIn = true;
                 closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\n1. किसी भी टेक्स्ट पर क्लिक करके बदलें।\n2. फोटो या वीडियो बदलने के लिए उसपर क्लिक करके अपनी गैलरी से फाइल चुनें।');
+                alert('Welcome Admin Bagga! 🚀\n1. टेक्स्ट पर क्लिक करके बदलें।\n2. फोटो बदलने या खिसकाने के लिए उसपर क्लिक करें।\n3. काम होने के बाद "Save Changes" दबाएं।');
                 activateAdminMode();
             } else {
-                alert('wrong Username or  wrong admin ke pass ip location sent admin !');
+                alert('Wrong Username or Password! Fake IP Location Sent to Admin!');
             }
         }
 
         function activateAdminMode() {
             document.getElementById('adminDashboard').style.display = 'block';
 
-            // Make Text Editable
+            // Make Text Editable and add IDs for tracking
             const textElements = document.querySelectorAll('h1, h2, h3, h4, p, span');
-            textElements.forEach(el => {
+            textElements.forEach((el, index) => {
+                if(!el.id) el.id = 'edit-txt-' + index; // ID देना जरूरी है सेव करने के लिए
                 el.contentEditable = "true";
                 el.classList.add('editable-active');
             });
 
-            // Bind Media Click Handlers
             bindMediaClickHandlers();
         }
 
         function bindMediaClickHandlers() {
             const mediaElements = document.querySelectorAll('.media-target, img, video');
-            mediaElements.forEach(elem => {
+            mediaElements.forEach((elem, index) => {
+                if(!elem.id) elem.id = 'edit-media-' + index;
                 elem.classList.add('media-editable');
-                elem.title = "Click to change Photo/Video from Gallery";
+                elem.title = "Click to change or move Photo";
                 elem.onclick = function(e) {
                     if (isAdminLoggedIn) {
                         e.preventDefault();
                         e.stopPropagation();
                         currentTargetElement = elem;
-                        document.getElementById('adminFileInput').click();
+                        
+                        // पूछें कि फोटो बदलनी है या खिसकानी है
+                        let action = confirm("क्या आप नई फोटो/वीडियो लगाना चाहते हैं?\n'OK' दबाएं नई फोटो के लिए।\n'Cancel' दबाएं फोटो को ऊपर-नीचे खिसकाने के लिए।");
+                        if(action) {
+                            document.getElementById('adminFileInput').click();
+                        } else {
+                            document.getElementById('imageControls').style.display = 'block';
+                            if(!currentTargetElement.style.position) {
+                                currentTargetElement.style.position = 'relative';
+                                currentTargetElement.style.top = '0px';
+                                currentTargetElement.style.left = '0px';
+                            }
+                        }
                     }
                 };
             });
         }
 
+        // इमेज को मूव करने का फंक्शन
+        function moveImage(direction) {
+            if(!currentTargetElement) return;
+            let currentTop = parseInt(currentTargetElement.style.top || 0);
+            let currentLeft = parseInt(currentTargetElement.style.left || 0);
+            let step = 10; // 10px खिसकेगा
+            
+            if(direction === 'up') currentTargetElement.style.top = (currentTop - step) + 'px';
+            if(direction === 'down') currentTargetElement.style.top = (currentTop + step) + 'px';
+            if(direction === 'left') currentTargetElement.style.left = (currentLeft - step) + 'px';
+            if(direction === 'right') currentTargetElement.style.left = (currentLeft + step) + 'px';
+        }
+
+        function closeImageControls() {
+            document.getElementById('imageControls').style.display = 'none';
+        }
+
+        // फोटो अपलोड करने का फंक्शन (Base64 में कन्वर्ट ताकि सेव हो सके)
         function handleFileSelected(event) {
             const file = event.target.files[0];
             if (!file || !currentTargetElement) return;
 
-            const fileURL = URL.createObjectURL(file);
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const fileURL = e.target.result; // Base64 Data
 
-            if (file.type.startsWith('image/')) {
-                // Image Selected
-                if (currentTargetElement.tagName.toLowerCase() === 'video') {
-                    const newImg = document.createElement('img');
-                    newImg.src = fileURL;
-                    newImg.className = currentTargetElement.className;
-                    currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement);
-                    currentTargetElement = newImg;
-                } else {
-                    currentTargetElement.src = fileURL;
+                if (file.type.startsWith('image/')) {
+                    if (currentTargetElement.tagName.toLowerCase() === 'video') {
+                        const newImg = document.createElement('img');
+                        newImg.src = fileURL;
+                        newImg.className = currentTargetElement.className;
+                        newImg.id = currentTargetElement.id;
+                        currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement);
+                        currentTargetElement = newImg;
+                    } else {
+                        currentTargetElement.src = fileURL;
+                    }
                 }
-            } else if (file.type.startsWith('video/')) {
-                // Video Selected (Plays MP4 video in place of image)
-                const newVideo = document.createElement('video');
-                newVideo.src = fileURL;
-                newVideo.controls = true;
-                newVideo.autoplay = true;
-                newVideo.muted = true;
-                newVideo.loop = true;
-                newVideo.style.width = "100%";
-                newVideo.style.height = "220px";
-                newVideo.style.objectFit = "cover";
-                newVideo.style.borderRadius = "10px";
-                newVideo.className = currentTargetElement.className;
+                bindMediaClickHandlers();
+            };
+            reader.readAsDataURL(file); // Convert file to base64 string
+            event.target.value = ''; 
+        }
 
-                currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
-                currentTargetElement = newVideo;
+        // ================= SAVE DATA TO BROWSER (LOCAL STORAGE) ================= //
+        function saveWebsiteChanges() {
+            let siteData = { text: {}, media: {}, positions: {} };
+
+            // Save Text
+            document.querySelectorAll('h1, h2, h3, h4, p, span').forEach(el => {
+                if(el.id) siteData.text[el.id] = el.innerHTML;
+            });
+
+            // Save Images/Videos and their positions
+            document.querySelectorAll('.media-target, img, video').forEach(el => {
+                if(el.id) {
+                    siteData.media[el.id] = el.src;
+                    siteData.positions[el.id] = { top: el.style.top, left: el.style.left, position: el.style.position };
+                }
+            });
+
+            localStorage.setItem('maniWebsiteData', JSON.stringify(siteData));
+            alert('✅ Changes Saved! अब रिफ्रेश करने पर भी वेबसाइट ऐसी ही दिखेगी।\n(Note: पूरी दुनिया को दिखाने के लिए आपको इसे GitHub पर अपडेट करना होगा)');
+        }
+
+        function loadWebsiteChanges() {
+            let savedData = localStorage.getItem('maniWebsiteData');
+            if(savedData) {
+                let siteData = JSON.parse(savedData);
+                
+                // Load Text
+                for(let id in siteData.text) {
+                    let el = document.getElementById(id);
+                    if(el) el.innerHTML = siteData.text[id];
+                }
+
+                // Load Media & Positions
+                for(let id in siteData.media) {
+                    let el = document.getElementById(id);
+                    if(el) {
+                        el.src = siteData.media[id];
+                        if(siteData.positions[id]) {
+                            el.style.position = siteData.positions[id].position;
+                            el.style.top = siteData.positions[id].top;
+                            el.style.left = siteData.positions[id].left;
+                        }
+                    }
+                }
             }
-
-            // Re-bind click event
-            bindMediaClickHandlers();
-            event.target.value = ''; // Reset input
         }
 
-        function addNewMediaCard() {
-            let gallery = document.getElementById('galleryContainer');
-            let newCardHTML = `
-                <div class="showcase-item">
-                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="New Item" class="media-target">
-                    <div class="showcase-overlay" contenteditable="true">
-                        <h4>New Media</h4>
-                        <p>Click photo/video to change from Gallery</p>
-                    </div>
-                </div>`;
-            gallery.insertAdjacentHTML('beforeend', newCardHTML);
-            if (isAdminLoggedIn) activateAdminMode();
-        }
-
-        function addYouTubeVideo() {
-            let videoLink = prompt("YouTube Video Embed Link डालें (जैसे: https://www.youtube.com/embed/...)");
-            if (videoLink) {
-                let gallery = document.getElementById('galleryContainer');
-                let newVideoHTML = `
-                    <div class="showcase-item">
-                        <iframe width="100%" height="220" src="${videoLink}" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
-                        <div class="showcase-overlay" contenteditable="true">
-                            <h4>YouTube Highlights</h4>
-                            <p>Admin Live Video</p>
-                        </div>
-                    </div>`;
-                gallery.insertAdjacentHTML('beforeend', newVideoHTML);
-                if (isAdminLoggedIn) activateAdminMode();
+        function clearChanges() {
+            if(confirm("Are you sure? सारा सेव किया हुआ डेटा डिलीट हो जाएगा और वेबसाइट असली रूप में आ जाएगी।")) {
+                localStorage.removeItem('maniWebsiteData');
+                location.reload();
             }
         }
     </script>
-</body>
-</html>
