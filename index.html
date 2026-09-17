@@ -310,176 +310,165 @@
         }
 
         // ================= ADMIN PANEL SCRIPTS ================= //
-        let isAdminLoggedIn = false;
-        let currentTargetElement = null;
-
-        // पेज लोड होते ही सेव किया हुआ डेटा लोड करें
-        window.onload = function() {
-            loadWebsiteChanges();
-        };
-
-        function openAdminLogin() {
-            if(!isAdminLoggedIn) {
-                document.getElementById('adminLoginModal').style.display = 'flex';
-            }
+        <!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Admin Panel</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
         }
-        function closeAdminLogin() {
-            document.getElementById('adminLoginModal').style.display = 'none';
+        .admin-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const user = document.getElementById('adminUser').value;
-            const pass = document.getElementById('adminPass').value;
-
-            if (user === 'bagga' && pass === 'iphonex0421&') {
-                isAdminLoggedIn = true;
-                closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\n1. टेक्स्ट पर क्लिक करके बदलें।\n2. फोटो बदलने या खिसकाने के लिए उसपर क्लिक करें।\n3. काम होने के बाद "Save Changes" दबाएं।');
-                activateAdminMode();
-            } else {
-                alert('Wrong Username or Password! Fake IP Location Sent to Admin!');
-            }
+        h2 {
+            text-align: center;
+            color: #333;
         }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="file"] {
+            padding: 10px 0;
+        }
+        button {
+            background-color: #2ea44f;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #2c974b;
+        }
+        #status {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .add-btn-section {
+            margin-top: 30px;
+            border-top: 2px dashed #ccc;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
 
-        function activateAdminMode() {
-            document.getElementById('adminDashboard').style.display = 'block';
+<div class="admin-container">
+    <h2>⚙️ Website Admin Panel</h2>
+    
+    <!-- Text Update Section -->
+    <div class="form-group">
+        <label for="websiteText">वेबसाइट का टेक्स्ट अपडेट करें:</label>
+        <textarea id="websiteText" rows="4" placeholder="यहाँ अपना नया टेक्स्ट लिखें..."></textarea>
+    </div>
 
-            // Make Text Editable and add IDs for tracking
-            const textElements = document.querySelectorAll('h1, h2, h3, h4, p, span');
-            textElements.forEach((el, index) => {
-                if(!el.id) el.id = 'edit-txt-' + index; // ID देना जरूरी है सेव करने के लिए
-                el.contentEditable = "true";
-                el.classList.add('editable-active');
+    <!-- Image Update Section -->
+    <div class="form-group">
+        <label for="websiteImage">नई फोटो अपलोड करें:</label>
+        <input type="file" id="websiteImage" accept="image/*">
+    </div>
+
+    <!-- Save Button -->
+    <button id="saveBtn" onclick="saveToGitHub()">💾 Save Changes (Live Update)</button>
+    <p id="status"></p>
+
+    <!-- New Button Adder Section -->
+    <div class="add-btn-section">
+        <label for="newBtnName">नया बटन जोड़ें (बटन का नाम):</label>
+        <input type="text" id="newBtnName" placeholder="जैसे: Contact Us">
+        <button style="background-color: #0366d6; margin-top: 10px;" onclick="addNewButton()">➕ Add New Button</button>
+    </div>
+</div>
+
+<script>
+    // आपका GitHub Token और डिटेल्स
+    const GITHUB_TOKEN = "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"; 
+    const OWNER = "आपका_गिटहब_यूजरनेम"; // <--- यहाँ अपना GitHub Username डालें
+    const REPO = "आपकी_रिपॉजिटरी_का_नाम"; // <--- यहाँ अपनी वेबसाइट वाली Repo का नाम डालें
+    const FILE_PATH = "index.html"; // <--- जिस फाइल में बदलाव करना है (जैसे index.html)
+
+    async function saveToGitHub() {
+        const statusEl = document.getElementById('status');
+        statusEl.innerText = "⏳ Saving to server...";
+        statusEl.style.color = "orange";
+
+        try {
+            // 1. फाइल का पुराना SHA (वर्ज़न) लाना ज़रूरी है
+            const getUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`;
+            const getResponse = await fetch(getUrl, {
+                headers: { "Authorization": `Bearer ${GITHUB_TOKEN}` }
             });
-
-            bindMediaClickHandlers();
-        }
-
-        function bindMediaClickHandlers() {
-            const mediaElements = document.querySelectorAll('.media-target, img, video');
-            mediaElements.forEach((elem, index) => {
-                if(!elem.id) elem.id = 'edit-media-' + index;
-                elem.classList.add('media-editable');
-                elem.title = "Click to change or move Photo";
-                elem.onclick = function(e) {
-                    if (isAdminLoggedIn) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        currentTargetElement = elem;
-                        
-                        // पूछें कि फोटो बदलनी है या खिसकानी है
-                        let action = confirm("क्या आप नई फोटो/वीडियो लगाना चाहते हैं?\n'OK' दबाएं नई फोटो के लिए।\n'Cancel' दबाएं फोटो को ऊपर-नीचे खिसकाने के लिए।");
-                        if(action) {
-                            document.getElementById('adminFileInput').click();
-                        } else {
-                            document.getElementById('imageControls').style.display = 'block';
-                            if(!currentTargetElement.style.position) {
-                                currentTargetElement.style.position = 'relative';
-                                currentTargetElement.style.top = '0px';
-                                currentTargetElement.style.left = '0px';
-                            }
-                        }
-                    }
-                };
-            });
-        }
-
-        // इमेज को मूव करने का फंक्शन
-        function moveImage(direction) {
-            if(!currentTargetElement) return;
-            let currentTop = parseInt(currentTargetElement.style.top || 0);
-            let currentLeft = parseInt(currentTargetElement.style.left || 0);
-            let step = 10; // 10px खिसकेगा
+            const fileData = await getResponse.json();
             
-            if(direction === 'up') currentTargetElement.style.top = (currentTop - step) + 'px';
-            if(direction === 'down') currentTargetElement.style.top = (currentTop + step) + 'px';
-            if(direction === 'left') currentTargetElement.style.left = (currentLeft - step) + 'px';
-            if(direction === 'right') currentTargetElement.style.left = (currentLeft + step) + 'px';
-        }
+            // 2. नया कंटेंट तैयार करना (यहाँ आप अपने हिसाब से HTML सेट कर सकते हैं)
+            const newText = document.getElementById('websiteText').value;
+            // (असल प्रोजेक्ट में, आप पुराने कंटेंट में बदलाव करेंगे, यहाँ डेमो के लिए हम नया कंटेंट बना रहे हैं)
+            const newContentBase64 = btoa(unescape(encodeURIComponent("<h1>" + newText + "</h1>")));
 
-        function closeImageControls() {
-            document.getElementById('imageControls').style.display = 'none';
-        }
-
-        // फोटो अपलोड करने का फंक्शन (Base64 में कन्वर्ट ताकि सेव हो सके)
-        function handleFileSelected(event) {
-            const file = event.target.files[0];
-            if (!file || !currentTargetElement) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const fileURL = e.target.result; // Base64 Data
-
-                if (file.type.startsWith('image/')) {
-                    if (currentTargetElement.tagName.toLowerCase() === 'video') {
-                        const newImg = document.createElement('img');
-                        newImg.src = fileURL;
-                        newImg.className = currentTargetElement.className;
-                        newImg.id = currentTargetElement.id;
-                        currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement);
-                        currentTargetElement = newImg;
-                    } else {
-                        currentTargetElement.src = fileURL;
-                    }
-                }
-                bindMediaClickHandlers();
-            };
-            reader.readAsDataURL(file); // Convert file to base64 string
-            event.target.value = ''; 
-        }
-
-        // ================= SAVE DATA TO BROWSER (LOCAL STORAGE) ================= //
-        function saveWebsiteChanges() {
-            let siteData = { text: {}, media: {}, positions: {} };
-
-            // Save Text
-            document.querySelectorAll('h1, h2, h3, h4, p, span').forEach(el => {
-                if(el.id) siteData.text[el.id] = el.innerHTML;
+            // 3. GitHub पर वापस सेव (PUT) करना
+            const putResponse = await fetch(getUrl, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${GITHUB_TOKEN}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: "Admin Panel: Updated content",
+                    content: newContentBase64,
+                    sha: fileData.sha // पुराना SHA देना ज़रूरी है
+                })
             });
 
-            // Save Images/Videos and their positions
-            document.querySelectorAll('.media-target, img, video').forEach(el => {
-                if(el.id) {
-                    siteData.media[el.id] = el.src;
-                    siteData.positions[el.id] = { top: el.style.top, left: el.style.left, position: el.style.position };
-                }
-            });
-
-            localStorage.setItem('maniWebsiteData', JSON.stringify(siteData));
-            alert('✅ Changes Saved! अब रिफ्रेश करने पर भी वेबसाइट ऐसी ही दिखेगी।\n(Note: पूरी दुनिया को दिखाने के लिए आपको इसे GitHub पर अपडेट करना होगा)');
-        }
-
-        function loadWebsiteChanges() {
-            let savedData = localStorage.getItem('maniWebsiteData');
-            if(savedData) {
-                let siteData = JSON.parse(savedData);
-                
-                // Load Text
-                for(let id in siteData.text) {
-                    let el = document.getElementById(id);
-                    if(el) el.innerHTML = siteData.text[id];
-                }
-
-                // Load Media & Positions
-                for(let id in siteData.media) {
-                    let el = document.getElementById(id);
-                    if(el) {
-                        el.src = siteData.media[id];
-                        if(siteData.positions[id]) {
-                            el.style.position = siteData.positions[id].position;
-                            el.style.top = siteData.positions[id].top;
-                            el.style.left = siteData.positions[id].left;
-                        }
-                    }
-                }
+            if(putResponse.ok) {
+                statusEl.innerText = "✅ Successfully Saved! सर्वर पर अपडेट हो गया है।";
+                statusEl.style.color = "green";
+            } else {
+                throw new Error("Save failed");
             }
-        }
 
-        function clearChanges() {
-            if(confirm("Are you sure? सारा सेव किया हुआ डेटा डिलीट हो जाएगा और वेबसाइट असली रूप में आ जाएगी।")) {
-                localStorage.removeItem('maniWebsiteData');
-                location.reload();
-            }
+        } catch (error) {
+            console.error(error);
+            statusEl.innerText = "❌ Error: कुछ गड़बड़ हो गई। यूजरनेम या रेपो नाम चेक करें।";
+            statusEl.style.color = "red";
         }
-    </script>
+    }
+
+    function addNewButton() {
+        const btnName = document.getElementById('newBtnName').value;
+        if(btnName) {
+            alert("नया बटन '" + btnName + "' जोड़ने का कोड तैयार है! इसे Save Changes पर क्लिक करके लाइव किया जा सकता है।");
+            // यहाँ आप नए बटन का HTML जनरेट करके उसे सेव वाले कंटेंट में जोड़ सकते हैं।
+        }
+    }
+</script>
+</body>
+</html>
