@@ -310,131 +310,92 @@
         }
 
         // ================= ADMIN PANEL SCRIPTS ================= //
-        <!DOCTYPE html>
+      <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Admin Panel</title>
+    <title>MANI M4 - Admin Panel</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #121212;
+            color: #fff;
             margin: 0;
             padding: 20px;
         }
         .admin-container {
             max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
+            margin: 30px auto;
+            background: #1e1e1e;
+            padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 1px solid #333;
         }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
-        }
-        input[type="text"], textarea {
+        h2 { text-align: center; color: #ff4757; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #ccc; }
+        textarea, input[type="text"] {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ccc;
+            background: #2b2b2b;
+            border: 1px solid #444;
+            color: #fff;
             border-radius: 5px;
             box-sizing: border-box;
         }
-        input[type="file"] {
-            padding: 10px 0;
-        }
         button {
-            background-color: #2ea44f;
+            background-color: #ff4757;
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 12px;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
             font-weight: bold;
+            margin-top: 10px;
         }
-        button:hover {
-            background-color: #2c974b;
-        }
-        #status {
-            margin-top: 15px;
-            text-align: center;
-            font-weight: bold;
-        }
-        .add-btn-section {
-            margin-top: 30px;
-            border-top: 2px dashed #ccc;
-            padding-top: 20px;
-        }
+        button:hover { background-color: #ff6b81; }
+        #status { margin-top: 15px; text-align: center; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="admin-container">
-    <h2>⚙️ Website Admin Panel</h2>
+    <h2>🎮 MANI M4 Admin Panel</h2>
     
-    <!-- Text Update Section -->
     <div class="form-group">
-        <label for="websiteText">वेबसाइट का टेक्स्ट अपडेट करें:</label>
-        <textarea id="websiteText" rows="4" placeholder="यहाँ अपना नया टेक्स्ट लिखें..."></textarea>
+        <label for="websiteText">वेबसाइट का नया टेक्स्ट लिखें:</label>
+        <textarea id="websiteText" rows="4" placeholder="यहाँ नया कंटेंट लिखें..."></textarea>
     </div>
 
-    <!-- Image Update Section -->
-    <div class="form-group">
-        <label for="websiteImage">नई फोटो अपलोड करें:</label>
-        <input type="file" id="websiteImage" accept="image/*">
-    </div>
-
-    <!-- Save Button -->
-    <button id="saveBtn" onclick="saveToGitHub()">💾 Save Changes (Live Update)</button>
+    <button onclick="saveToGitHub()">💾 Save Changes</button>
     <p id="status"></p>
-
-    <!-- New Button Adder Section -->
-    <div class="add-btn-section">
-        <label for="newBtnName">नया बटन जोड़ें (बटन का नाम):</label>
-        <input type="text" id="newBtnName" placeholder="जैसे: Contact Us">
-        <button style="background-color: #0366d6; margin-top: 10px;" onclick="addNewButton()">➕ Add New Button</button>
-    </div>
 </div>
 
 <script>
-    // आपका GitHub Token और डिटेल्स
     const GITHUB_TOKEN = "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"; 
-    const OWNER = "आपका_गिटहब_यूजरनेम"; // <--- यहाँ अपना GitHub Username डालें
-    const REPO = "आपकी_रिपॉजिटरी_का_नाम"; // <--- यहाँ अपनी वेबसाइट वाली Repo का नाम डालें
-    const FILE_PATH = "index.html"; // <--- जिस फाइल में बदलाव करना है (जैसे index.html)
+    const OWNER = "jorabagga12-bit";
+    const REPO = "mani-bagga";
+    const FILE_PATH = "index.html";
 
     async function saveToGitHub() {
         const statusEl = document.getElementById('status');
         statusEl.innerText = "⏳ Saving to server...";
-        statusEl.style.color = "orange";
+        statusEl.style.color = "yellow";
 
         try {
-            // 1. फाइल का पुराना SHA (वर्ज़न) लाना ज़रूरी है
             const getUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`;
             const getResponse = await fetch(getUrl, {
                 headers: { "Authorization": `Bearer ${GITHUB_TOKEN}` }
             });
             const fileData = await getResponse.json();
             
-            // 2. नया कंटेंट तैयार करना (यहाँ आप अपने हिसाब से HTML सेट कर सकते हैं)
             const newText = document.getElementById('websiteText').value;
-            // (असल प्रोजेक्ट में, आप पुराने कंटेंट में बदलाव करेंगे, यहाँ डेमो के लिए हम नया कंटेंट बना रहे हैं)
-            const newContentBase64 = btoa(unescape(encodeURIComponent("<h1>" + newText + "</h1>")));
+            const newContentBase64 = btoa(unescape(encodeURIComponent(newText)));
 
-            // 3. GitHub पर वापस सेव (PUT) करना
             const putResponse = await fetch(getUrl, {
                 method: "PUT",
                 headers: {
@@ -442,31 +403,22 @@
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    message: "Admin Panel: Updated content",
+                    message: "Update from Admin Panel",
                     content: newContentBase64,
-                    sha: fileData.sha // पुराना SHA देना ज़रूरी है
+                    sha: fileData.sha
                 })
             });
 
             if(putResponse.ok) {
-                statusEl.innerText = "✅ Successfully Saved! सर्वर पर अपडेट हो गया है।";
-                statusEl.style.color = "green";
+                statusEl.innerText = "✅ Successfully Saved! वेबसाइट अपडेट हो गई है।";
+                statusEl.style.color = "#2ed573";
             } else {
                 throw new Error("Save failed");
             }
-
         } catch (error) {
             console.error(error);
-            statusEl.innerText = "❌ Error: कुछ गड़बड़ हो गई। यूजरनेम या रेपो नाम चेक करें।";
-            statusEl.style.color = "red";
-        }
-    }
-
-    function addNewButton() {
-        const btnName = document.getElementById('newBtnName').value;
-        if(btnName) {
-            alert("नया बटन '" + btnName + "' जोड़ने का कोड तैयार है! इसे Save Changes पर क्लिक करके लाइव किया जा सकता है।");
-            // यहाँ आप नए बटन का HTML जनरेट करके उसे सेव वाले कंटेंट में जोड़ सकते हैं।
+            statusEl.innerText = "❌ Error: सेव नहीं हो पाया। Token या Path चेक करें।";
+            statusEl.style.color = "#ff4757";
         }
     }
 </script>
