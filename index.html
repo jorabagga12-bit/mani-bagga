@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANI BAGGA HUB | eSports Gaming Hub</title>
+    <title>MANI M4 PRO | eSports Gaming Hub</title>
     <!-- CSS Link -->
     <link rel="stylesheet" href="css/style.css">
     <!-- FontAwesome Icons -->
@@ -408,13 +408,13 @@
 
         // ================= 🔴 GITHUB API SAVE LOGIC 🔴 ================= //
         // 🔴 यहाँ अपनी GITHUB डिटेल्स डालें 🔴
-        const GITHUB_TOKEN = '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'   // अपना GitHub Token यहाँ डालें
+        const GITHUB_TOKEN = 'YOUR_GITHUB_TOKEN_HERE'; // अपना GitHub Token यहाँ डालें
         const GITHUB_OWNER = 'jorabagga12-bit';       // अपना GitHub Username यहाँ डालें
         const GITHUB_REPO = 'mani-bagga';             // अपने GitHub Repo का नाम यहाँ डालें
         const FILE_PATH = 'index.html';               // अपनी फाइल का नाम (अगर अलग है तो बदलें)
 
         async function saveChangesToGitHub() {
-            if (GITHUB_TOKEN === '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') {
+            if (GITHUB_TOKEN === 'YOUR_GITHUB_TOKEN_HERE') {
                 alert('कृपया कोड में अपना GitHub Token डालें (Line 427 देखें)।');
                 return;
             }
@@ -424,9 +424,9 @@
 
             try {
                 // 1. Get current file SHA (GitHub API को पुरानी फाइल का SHA चाहिए होता है)
-                const apiUrl = `https://api.github.com/repos/${jorabagga12-bit}/${git@github.com:jorabagga12-bit/mani-bagga.git${index.html}`;
+                const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
                 const getResponse = await fetch(apiUrl, {
-                    headers: { 'Authorization': `token ${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}` }
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
                 });
                 
                 if (!getResponse.ok) throw new Error("GitHub Repository/File नहीं मिली। Token या Repo Name चेक करें।");
@@ -460,7 +460,7 @@
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
                     headers: {
-                        'Authorization': `token ${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}`,
+                        'Authorization': `token ${GITHUB_TOKEN}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
