@@ -38,7 +38,7 @@
         .admin-dashboard {
             display: none; position: fixed; bottom: 20px; right: 20px; background: #10101a;
             color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold;
-            border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 200px;
+            border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 220px;
         }
         .admin-dashboard button {
             background: #00d2ff; color: #000; border: none; padding: 8px 10px;
@@ -115,7 +115,6 @@
         <p class="section-subtitle">Special facilities for Gamers</p>
 
         <div class="cards-grid">
-            <!-- 3D Card 1 -->
             <div class="card-3d">
                 <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
                 <div class="card-img-container">
@@ -124,8 +123,6 @@
                 <h3>BGMI Live Highlights</h3>
                 <p>CAN YOU SUBSCRIBE।</p>
             </div>
-
-            <!-- 3D Card 2 -->
             <div class="card-3d">
                 <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
                 <div class="card-img-container">
@@ -134,8 +131,6 @@
                 <h3>eSports Custom Rooms</h3>
                 <p>JONI FOR PROGRAM IN TURAMENT।</p>
             </div>
-
-            <!-- 3D Card 3 -->
             <div class="card-3d">
                 <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
                 <div class="card-img-container">
@@ -203,7 +198,6 @@
     <section id="contact" class="features-section">
         <h2 class="section-title">एडमिन को <span class="highlight">मैसेज करें</span></h2>
         <p class="section-subtitle">LIVE SUPPORT</p>
-        
         <div class="contact-box">
             <form id="contactForm" onsubmit="sendMessageToAdmin(event)">
                 <div class="form-group">
@@ -227,16 +221,13 @@
             <div class="footer-logo">
                 <i class="fa-solid fa-gamepad"></i> MANI<span>M4YT</span>
             </div>
-            
             <div class="social-links">
                 <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="yt-icon"><i class="fa-brands fa-youtube"></i></a>
                 <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="ig-icon"><i class="fa-brands fa-instagram"></i></a>
             </div>
-
             <p class="email-text">
                 <i class="fa-solid fa-envelope"></i> Email: <a href="mailto:manipubji@gmail.com">manipubji@gmail.com</a>
             </p>
-
             <p>© 2026 MANI M4YT. MANI BAGGA M4.YT DEVLOPER।</p>
         </div>
     </footer>
@@ -257,35 +248,12 @@
     <!-- FLOATING ADMIN DASHBOARD -->
     <div id="adminDashboard" class="admin-dashboard">
         <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
-        <button onclick="addNewMediaCard()"><i class="fa-solid fa-plus"></i> Add New Media</button>
-        <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
+        <button onclick="saveToGitHub()" style="background: #28a745; color: white; margin-top: 15px;"><i class="fa-solid fa-floppy-disk"></i> Save Live Changes</button>
+        <button onclick="location.reload()" style="background: #dc3545; color: white; margin-top: 10px;"><i class="fa-solid fa-rotate-right"></i> Cancel Changes</button>
+        <p id="saveStatus" style="font-size: 12px; margin-top: 10px; color: yellow;"></p>
     </div>
 
-    <!-- HIDDEN FILE INPUT FOR GALLERY SELECTOR -->
-    <input type="file" id="adminFileInput" accept="image/*,video/*" style="display: none;" onchange="handleFileSelected(event)">
-
-    <!-- JS Link -->
-    <script src="js/script.js"></script>
-    <script>
-        function sendMessageToAdmin(e) {
-            e.preventDefault();
-            const name = document.getElementById('senderName').value;
-            const msg = document.getElementById('senderMsg').value;
-            const text = `Hi MANI M4, I am ${encodeURIComponent(name)}. Message: ${encodeURIComponent(msg)}`;
-            window.open(`https://wa.me/qr/UT7SLRPTD2WIK1?text=${text}`, '_blank');
-        }
-
-        // ================= ADMIN PANEL SCRIPTS ================= //
-        <!-- FLOATING ADMIN DASHBOARD (UPDATED) -->
-    <div id="adminDashboard" class="admin-dashboard">
-        <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
-        <button onclick="addNewMediaCard()"><i class="fa-solid fa-plus"></i> Add New Media</button>
-        <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
-        <button onclick="saveWebsiteChanges()" style="background: #28a745; color: white; margin-top: 15px;"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
-        <button onclick="clearChanges()" style="background: #dc3545; color: white;"><i class="fa-solid fa-trash"></i> Reset All</button>
-    </div>
-
-    <!-- IMAGE POSITION CONTROLS (NEW) -->
+    <!-- IMAGE POSITION CONTROLS -->
     <div id="imageControls" style="display:none; position:fixed; top:20px; right:20px; background:#10101a; border:2px solid #00d2ff; padding:10px; border-radius:10px; z-index:10000; color:white; text-align:center;">
         <p style="margin-bottom: 5px; font-size:12px;">Move Image</p>
         <button onclick="moveImage('up')" style="padding:5px 10px; margin:2px;">Up</button><br>
@@ -300,7 +268,17 @@
 
     <!-- JS Link -->
     <script src="js/script.js"></script>
+
+    <!-- ADMIN SCRIPTS (GITHUB LIVE SAVE) -->
     <script>
+        const GITHUB_TOKEN = "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"; 
+        const OWNER = "jorabagga12-bit";
+        const REPO = "mani-bagga";
+        const FILE_PATH = "index.html";
+
+        let isAdminLoggedIn = false;
+        let currentTargetElement = null;
+
         function sendMessageToAdmin(e) {
             e.preventDefault();
             const name = document.getElementById('senderName').value;
@@ -309,20 +287,12 @@
             window.open(`https://wa.me/qr/UT7SLRPTD2WIK1?text=${text}`, '_blank');
         }
 
-        // ================= ADMIN PANEL SCRIPTS ================= //
-        let isAdminLoggedIn = false;
-        let currentTargetElement = null;
-
-        // पेज लोड होते ही सेव किया हुआ डेटा लोड करें
-        window.onload = function() {
-            loadWebsiteChanges();
-        };
-
         function openAdminLogin() {
             if(!isAdminLoggedIn) {
                 document.getElementById('adminLoginModal').style.display = 'flex';
             }
         }
+
         function closeAdminLogin() {
             document.getElementById('adminLoginModal').style.display = 'none';
         }
@@ -335,20 +305,19 @@
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 isAdminLoggedIn = true;
                 closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\n1. टेक्स्ट पर क्लिक करके बदलें।\n2. फोटो बदलने या खिसकाने के लिए उसपर क्लिक करें।\n3. काम होने के बाद "Save Changes" दबाएं।');
+                alert('Welcome Admin Bagga! 🚀\n1. टेक्स्ट पर क्लिक करके बदलें।\n2. फोटो बदलने या खिसकाने के लिए उसपर क्लिक करें।\n3. काम होने के बाद "Save Live Changes" दबाएं।');
                 activateAdminMode();
             } else {
-                alert('Wrong Username or Password! Fake IP Location Sent to Admin!');
+                alert('Wrong Username or Password!');
             }
         }
 
         function activateAdminMode() {
             document.getElementById('adminDashboard').style.display = 'block';
 
-            // Make Text Editable and add IDs for tracking
+            // Make Text Editable
             const textElements = document.querySelectorAll('h1, h2, h3, h4, p, span');
             textElements.forEach((el, index) => {
-                if(!el.id) el.id = 'edit-txt-' + index; // ID देना जरूरी है सेव करने के लिए
                 el.contentEditable = "true";
                 el.classList.add('editable-active');
             });
@@ -358,8 +327,7 @@
 
         function bindMediaClickHandlers() {
             const mediaElements = document.querySelectorAll('.media-target, img, video');
-            mediaElements.forEach((elem, index) => {
-                if(!elem.id) elem.id = 'edit-media-' + index;
+            mediaElements.forEach((elem) => {
                 elem.classList.add('media-editable');
                 elem.title = "Click to change or move Photo";
                 elem.onclick = function(e) {
@@ -368,7 +336,6 @@
                         e.stopPropagation();
                         currentTargetElement = elem;
                         
-                        // पूछें कि फोटो बदलनी है या खिसकानी है
                         let action = confirm("क्या आप नई फोटो/वीडियो लगाना चाहते हैं?\n'OK' दबाएं नई फोटो के लिए।\n'Cancel' दबाएं फोटो को ऊपर-नीचे खिसकाने के लिए।");
                         if(action) {
                             document.getElementById('adminFileInput').click();
@@ -385,12 +352,11 @@
             });
         }
 
-        // इमेज को मूव करने का फंक्शन
         function moveImage(direction) {
             if(!currentTargetElement) return;
             let currentTop = parseInt(currentTargetElement.style.top || 0);
             let currentLeft = parseInt(currentTargetElement.style.left || 0);
-            let step = 10; // 10px खिसकेगा
+            let step = 10;
             
             if(direction === 'up') currentTargetElement.style.top = (currentTop - step) + 'px';
             if(direction === 'down') currentTargetElement.style.top = (currentTop + step) + 'px';
@@ -402,84 +368,89 @@
             document.getElementById('imageControls').style.display = 'none';
         }
 
-        // फोटो अपलोड करने का फंक्शन (Base64 में कन्वर्ट ताकि सेव हो सके)
         function handleFileSelected(event) {
             const file = event.target.files[0];
             if (!file || !currentTargetElement) return;
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                const fileURL = e.target.result; // Base64 Data
-
+                const fileURL = e.target.result;
                 if (file.type.startsWith('image/')) {
-                    if (currentTargetElement.tagName.toLowerCase() === 'video') {
-                        const newImg = document.createElement('img');
-                        newImg.src = fileURL;
-                        newImg.className = currentTargetElement.className;
-                        newImg.id = currentTargetElement.id;
-                        currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement);
-                        currentTargetElement = newImg;
-                    } else {
-                        currentTargetElement.src = fileURL;
-                    }
+                    currentTargetElement.src = fileURL;
                 }
                 bindMediaClickHandlers();
             };
-            reader.readAsDataURL(file); // Convert file to base64 string
+            reader.readAsDataURL(file);
             event.target.value = ''; 
         }
 
-        // ================= SAVE DATA TO BROWSER (LOCAL STORAGE) ================= //
-        function saveWebsiteChanges() {
-            let siteData = { text: {}, media: {}, positions: {} };
+        // ================= GITHUB LIVE SAVE FUNCTION ================= //
+        async function saveToGitHub() {
+            const statusEl = document.getElementById('saveStatus');
+            
+            if(!confirm("क्या आप बदलावों को पक्का लाइव सर्वर (GitHub) पर सेव करना चाहते हैं?")) return;
 
-            // Save Text
-            document.querySelectorAll('h1, h2, h3, h4, p, span').forEach(el => {
-                if(el.id) siteData.text[el.id] = el.innerHTML;
+            statusEl.innerText = "⏳ Saving to GitHub Server...";
+            
+            // 1. एडमिन वाले डिज़ाइन (बॉर्डर वगैरह) को थोड़ी देर के लिए हटा रहे हैं ताकि असली वेबसाइट साफ रहे
+            const textElements = document.querySelectorAll('[contenteditable="true"]');
+            textElements.forEach(el => {
+                el.removeAttribute('contenteditable');
+                el.classList.remove('editable-active');
             });
+            const mediaElements = document.querySelectorAll('.media-editable');
+            mediaElements.forEach(el => el.classList.remove('media-editable'));
 
-            // Save Images/Videos and their positions
-            document.querySelectorAll('.media-target, img, video').forEach(el => {
-                if(el.id) {
-                    siteData.media[el.id] = el.src;
-                    siteData.positions[el.id] = { top: el.style.top, left: el.style.left, position: el.style.position };
-                }
+            // 2. पूरे पेज का कोड कॉपी कर रहे हैं
+            const fullHTML = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+
+            // 3. एडमिन डिज़ाइन को वापस ला रहे हैं ताकि आप काम कर सकें
+            textElements.forEach(el => {
+                el.contentEditable = "true";
+                el.classList.add('editable-active');
             });
+            mediaElements.forEach(el => el.classList.add('media-editable'));
 
-            localStorage.setItem('maniWebsiteData', JSON.stringify(siteData));
-            alert('✅ Changes Saved! अब रिफ्रेश करने पर भी वेबसाइट ऐसी ही दिखेगी।\n(Note: पूरी दुनिया को दिखाने के लिए आपको इसे GitHub पर अपडेट करना होगा)');
-        }
-
-        function loadWebsiteChanges() {
-            let savedData = localStorage.getItem('maniWebsiteData');
-            if(savedData) {
-                let siteData = JSON.parse(savedData);
+            try {
+                // पुरानी फाइल का डेटा लेना
+                const getUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`;
+                const getResponse = await fetch(getUrl, {
+                    headers: { "Authorization": `Bearer ${GITHUB_TOKEN}` }
+                });
+                const fileData = await getResponse.json();
                 
-                // Load Text
-                for(let id in siteData.text) {
-                    let el = document.getElementById(id);
-                    if(el) el.innerHTML = siteData.text[id];
-                }
+                // नया कोड Base64 में बदलना
+                const base64Content = btoa(unescape(encodeURIComponent(fullHTML)));
 
-                // Load Media & Positions
-                for(let id in siteData.media) {
-                    let el = document.getElementById(id);
-                    if(el) {
-                        el.src = siteData.media[id];
-                        if(siteData.positions[id]) {
-                            el.style.position = siteData.positions[id].position;
-                            el.style.top = siteData.positions[id].top;
-                            el.style.left = siteData.positions[id].left;
-                        }
-                    }
-                }
-            }
-        }
+                // GitHub पर सेव (PUT) करना
+                const putResponse = await fetch(getUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer ${GITHUB_TOKEN}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message: "Admin Panel Live Update: Text/Images/Positions saved",
+                        content: base64Content,
+                        sha: fileData.sha
+                    })
+                });
 
-        function clearChanges() {
-            if(confirm("Are you sure? सारा सेव किया हुआ डेटा डिलीट हो जाएगा और वेबसाइट असली रूप में आ जाएगी।")) {
-                localStorage.removeItem('maniWebsiteData');
-                location.reload();
+                if(putResponse.ok) {
+                    statusEl.innerText = "✅ Successfully Saved! 1 मिनट में लाइव हो जाएगा।";
+                    statusEl.style.color = "#2ed573";
+                    alert('✅ वेबसाइट सफलता पूर्वक सर्वर पर सेव हो गई है! रिफ्रेश करके देखें।');
+                } else {
+                    const err = await putResponse.json();
+                    throw new Error(err.message);
+                }
+            } catch (error) {
+                console.error(error);
+                statusEl.innerText = "❌ Error: सेव फेल हो गया।";
+                statusEl.style.color = "#ff4757";
+                alert('❌ Error: सेव नहीं हो पाया। Token चेक करें।');
             }
         }
     </script>
+</body>
+</html>
