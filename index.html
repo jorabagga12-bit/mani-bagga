@@ -408,13 +408,13 @@
 
         // ================= 🔴 GITHUB API SAVE LOGIC 🔴 ================= //
         // 🔴 यहाँ अपनी GITHUB डिटेल्स फिक्स कर दी गई हैं 🔴
-        const GITHUB_TOKEN = 'YOUR_GITHUB_TOKEN_HERE'; // अपना GitHub Token यहाँ डालें (सिंगल कोट्स के अंदर)
+        const GITHUB_TOKEN = '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'; // अपना GitHub Token यहाँ डालें (सिंगल कोट्स के अंदर)
         const GITHUB_OWNER = 'jorabagga12-bit';       // GitHub Username 
         const GITHUB_REPO = 'mani-bagga';             // GitHub Repo 
         const FILE_PATH = 'index.html';               // File Name 
 
         async function saveChangesToGitHub() {
-            if (GITHUB_TOKEN === 'YOUR_GITHUB_TOKEN_HERE' || GITHUB_TOKEN === '') {
+            if (GITHUB_TOKEN === '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' || GITHUB_TOKEN === '') {
                 alert('कृपया कोड में अपना GitHub Token डालें।');
                 return;
             }
@@ -425,10 +425,10 @@
             try {
                 // 1. Get current file SHA 
                 // ध्यान दें: अब यहाँ सही वेरिएबल्स का इस्तेमाल हुआ है
-                const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
+                const apiUrl = `https://api.github.com/repos/${jorabagga12-bit}/${git@github.com:jorabagga12-bit/mani-bagga.git}/contents/${index.html}`;
                 const getResponse = await fetch(apiUrl, {
-                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
-                });
+                    header: { 'Authorization': `token ${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}` }
+                }); 
                 
                 if (!getResponse.ok) throw new Error("GitHub Repository/File नहीं मिली। Token या Repo Name चेक करें।");
                 const fileData = await getResponse.json();
