@@ -38,7 +38,7 @@
         .admin-dashboard {
             display: none; position: fixed; bottom: 20px; right: 20px; background: #10101a;
             color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold;
-            border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 220px;
+            border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 230px;
         }
         .admin-dashboard button {
             background: #00d2ff; color: #000; border: none; padding: 8px 10px;
@@ -256,15 +256,17 @@
     <!-- FLOATING ADMIN DASHBOARD -->
     <div id="adminDashboard" class="admin-dashboard">
         <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
-        <button onclick="addNewMediaCard()"><i class="fa-solid fa-plus"></i> Add New Media</button>
+        <button onclick="addNewMediaCard()"><i class="fa-solid fa-plus"></i> Add New Card</button>
         <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
-        <button onclick="saveChangesToGitHub()" class="btn-save"><i class="fa-solid fa-save"></i> Save Changes</button>
+        <button onclick="changePhotoByUrl()"><i class="fa-solid fa-link"></i> Photo/Video URL</button>
+        <button onclick="saveChangesToGitHub()" class="btn-save"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
+        <button onclick="clearSavedToken()" style="background:#dc3545; color:white; font-size:10px;">Reset Token</button>
     </div>
 
     <!-- HIDDEN FILE INPUT FOR GALLERY SELECTOR -->
     <input type="file" id="adminFileInput" accept="image/*,video/*" style="display: none;" onchange="handleFileSelected(event)">
 
-    <!-- JS Link -->
+    <!-- External JS Logic -->
     <script src="js/script.js"></script>
     <script>
         function sendMessageToAdmin(e) {
@@ -275,15 +277,18 @@
             window.open(`https://wa.me/qr/UT7SLRPTD2WIK1?text=${text}`, '_blank');
         }
 
-        // ================= ADMIN PANEL SCRIPTS ================= //
+        // ================= ADMIN PANEL LOGIC ================= //
         let isAdminLoggedIn = false;
         let currentTargetElement = null;
 
+        const GITHUB_OWNER = 'jorabagga12-bit';       
+        const GITHUB_REPO = 'mani-bagga';             
+        const FILE_PATH = 'index.html';
+
         function openAdminLogin() {
-            if(!isAdminLoggedIn) {
-                document.getElementById('adminLoginModal').style.display = 'flex';
-            }
+            document.getElementById('adminLoginModal').style.display = 'flex';
         }
+
         function closeAdminLogin() {
             document.getElementById('adminLoginModal').style.display = 'none';
         }
@@ -296,10 +301,10 @@
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 isAdminLoggedIn = true;
                 closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\n1. किसी भी टेक्स्ट पर क्लिक करके बदलें।\n2. फोटो या वीडियो बदलने के लिए उसपर क्लिक करके अपनी गैलरी से फाइल चुनें।');
+                alert('Welcome Admin Bagga! 🚀\n1. किसी भी टेक्स्ट पर क्लिक करके बदलें।\n2. फोटो पर क्लिक करके डिवाइस या URL से बदलें।\n3. बदलाव के बाद "Save to Live Site" दबाएं!');
                 activateAdminMode();
             } else {
-                alert('wrong Username or password!');
+                alert('गलत Username या Password!');
             }
         }
 
@@ -313,7 +318,6 @@
                 el.classList.add('editable-active');
             });
 
-            // Bind Media Click Handlers
             bindMediaClickHandlers();
         }
 
@@ -321,16 +325,46 @@
             const mediaElements = document.querySelectorAll('.media-target, img, video');
             mediaElements.forEach(elem => {
                 elem.classList.add('media-editable');
-                elem.title = "Click to change Photo/Video from Gallery";
+                elem.title = "Click to Change Photo/Video";
                 elem.onclick = function(e) {
                     if (isAdminLoggedIn) {
                         e.preventDefault();
                         e.stopPropagation();
                         currentTargetElement = elem;
-                        document.getElementById('adminFileInput').click();
+                        let choice = confirm("फोटो/वीडियो बदलने के लिए:\n[OK] = डिवाइस गैलरी से चुनें\n[Cancel] = इमेज/वीडियो URL लिंक डालें");
+                        if(choice) {
+                            document.getElementById('adminFileInput').click();
+                        } else {
+                            changePhotoByUrl();
+                        }
                     }
                 };
             });
+        }
+
+        function changePhotoByUrl() {
+            if(!currentTargetElement && isAdminLoggedIn) {
+                alert("पहले उस फोटो या कार्ड पर क्लिक करें जिसे बदलना है!");
+                return;
+            }
+            let url = prompt("इमेज या वीडियो का सीधा URL लिंक यहाँ पेस्ट करें:");
+            if(url && currentTargetElement) {
+                if(url.match(/\.(mp4|webm|ogg)$/i)) {
+                    let newVideo = document.createElement('video');
+                    newVideo.src = url;
+                    newVideo.controls = true;
+                    newVideo.autoplay = true;
+                    newVideo.loop = true;
+                    newVideo.style.width = "100%";
+                    newVideo.style.height = "220px";
+                    newVideo.style.objectFit = "cover";
+                    newVideo.className = currentTargetElement.className;
+                    currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
+                } else {
+                    currentTargetElement.src = url;
+                }
+                bindMediaClickHandlers();
+            }
         }
 
         function handleFileSelected(event) {
@@ -339,31 +373,27 @@
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                const fileURL = e.target.result;
-
+                const fileData = e.target.result;
                 if (file.type.startsWith('image/')) {
                     if (currentTargetElement.tagName.toLowerCase() === 'video') {
                         const newImg = document.createElement('img');
-                        newImg.src = fileURL;
+                        newImg.src = fileData;
                         newImg.className = currentTargetElement.className;
                         currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement);
                         currentTargetElement = newImg;
                     } else {
-                        currentTargetElement.src = fileURL;
+                        currentTargetElement.src = fileData;
                     }
                 } else if (file.type.startsWith('video/')) {
                     const newVideo = document.createElement('video');
-                    newVideo.src = fileURL;
+                    newVideo.src = fileData;
                     newVideo.controls = true;
                     newVideo.autoplay = true;
-                    newVideo.muted = false;
                     newVideo.loop = true;
                     newVideo.style.width = "100%";
                     newVideo.style.height = "220px";
                     newVideo.style.objectFit = "cover";
-                    newVideo.style.borderRadius = "10px";
                     newVideo.className = currentTargetElement.className;
-
                     currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
                     currentTargetElement = newVideo;
                 }
@@ -379,8 +409,8 @@
                 <div class="showcase-item">
                     <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="New Item" class="media-target">
                     <div class="showcase-overlay" contenteditable="true">
-                        <h4>New Media</h4>
-                        <p>Click photo/video to change from Gallery</p>
+                        <h4>New Media Title</h4>
+                        <p>Description Here</p>
                     </div>
                 </div>`;
             gallery.insertAdjacentHTML('beforeend', newCardHTML);
@@ -388,15 +418,15 @@
         }
 
         function addYouTubeVideo() {
-            let videoLink = prompt("YouTube Video Embed Link डालें (जैसे: https://www.youtube.com/embed/...)");
+            let videoLink = prompt("YouTube Video Embed Link डालें (उदा: https://www.youtube.com/embed/XXXX)");
             if (videoLink) {
                 let gallery = document.getElementById('galleryContainer');
                 let newVideoHTML = `
                     <div class="showcase-item">
                         <iframe width="100%" height="220" src="${videoLink}" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
                         <div class="showcase-overlay" contenteditable="true">
-                            <h4>YouTube Highlights</h4>
-                            <p>Admin Live Video</p>
+                            <h4>YouTube Live Stream</h4>
+                            <p>Watch Highlights</p>
                         </div>
                     </div>`;
                 gallery.insertAdjacentHTML('beforeend', newVideoHTML);
@@ -404,32 +434,46 @@
             }
         }
 
-        // ================= 🔴 GITHUB API SAVE LOGIC 🔴 ================= //
-        const GITHUB_TOKEN = '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'; 
-        const GITHUB_OWNER = 'jorabagga12-bit';       
-        const GITHUB_REPO = 'mani-bagga';             
-        const FILE_PATH = 'index.html';               
+        function clearSavedToken() {
+            localStorage.removeItem('gh_token_bagga');
+            alert('सेव किया गया टोकन रीसेट कर दिया गया है!');
+        }
 
+        // ================= 🚀 LIVE GITHUB AUTO-SAVE SYSTEM 🚀 ================= //
         async function saveChangesToGitHub() {
-            if (!GITHUB_TOKEN || GITHUB_TOKEN === '') {
-                alert('कृपया कोड में अपना GitHub Token डालें।');
-                return;
+            let token = localStorage.getItem('gh_token_bagga');
+            
+            if (!token) {
+                token = prompt("कृपया अपना GitHub Personal Access Token दर्ज करें:\n(यह आपके ब्राउज़र में सुरक्षित रहेगा और दोबारा नहीं माँगेगा)");
+                if (!token) {
+                    alert("बिना टोकन के चेंजेस लाइव सेव नहीं हो सकते!");
+                    return;
+                }
+                localStorage.setItem('gh_token_bagga', token.trim());
             }
 
             const saveBtn = document.querySelector('.btn-save');
-            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Live Saving...';
 
             try {
-                const apiUrl = `https://api.github.com/repos/${jorabagga12-bit}/${git@github.com:jorabagga12-bit/mani-bagga.git}/contents/${index.html}`;
+                const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
                 
+                // Fetch File SHA
                 const getResponse = await fetch(apiUrl, {
-                    headers: { 'Authorization': `token ${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}` }
+                    headers: { 'Authorization': `token ${token}` }
                 }); 
                 
-                if (!getResponse.ok) throw new Error("GitHub Repository/File नहीं मिली। Token या Repo Name चेक करें।");
+                if (getResponse.status === 401) {
+                    localStorage.removeItem('gh_token_bagga');
+                    throw new Error("आपका GitHub Token अमान्य (Invalid) या एक्सपायर हो गया है। दोबारा नया टोकन डालें!");
+                }
+                
+                if (!getResponse.ok) throw new Error("GitHub Repository फ़ाइल नहीं मिली! Owner और Repo नाम चेक करें।");
+                
                 const fileData = await getResponse.json();
                 const sha = fileData.sha;
 
+                // Clone & Clean HTML Structure for clean GitHub Commit
                 let clone = document.documentElement.cloneNode(true);
                 
                 let dash = clone.querySelector('#adminDashboard');
@@ -454,30 +498,31 @@
                 const fullHTML = "<!DOCTYPE html>\n<html lang=\"hi\">\n" + clone.innerHTML + "\n</html>";
                 const base64Content = btoa(unescape(encodeURIComponent(fullHTML)));
 
+                // Update GitHub File
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
                     headers: {
-                        'Authorization': `token ${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}`,
+                        'Authorization': `token ${token}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        message: 'Updated Website from Admin Panel',
+                        message: 'Updated site content from Admin Panel',
                         content: base64Content,
                         sha: sha
                     })
                 });
 
                 if (putResponse.ok) {
-                    alert('बधाई हो! आपकी वेबसाइट सफलतापूर्वक GitHub पर Save हो गई है। 🚀\n(वेबसाइट अपडेट होने में 1-2 मिनट लग सकते हैं)');
+                    alert('बधाई हो! आपकी वेबसाइट पर किए गए सभी बदलाव GitHub पर सेव हो गए हैं। 🎉\nपब्लिक को यह 1-2 मिनट में लाइव दिखाई देने लगेगा!');
                 } else {
                     const errorDetails = await putResponse.json();
                     throw new Error(errorDetails.message);
                 }
             } catch (error) {
                 console.error("Save Error:", error);
-                alert('Save करने में समस्या आई: ' + error.message);
+                alert('एरर: ' + error.message);
             } finally {
-                saveBtn.innerHTML = '<i class="fa-solid fa-save"></i> Save Changes';
+                saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site';
             }
         }
     </script>
