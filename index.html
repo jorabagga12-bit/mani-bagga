@@ -425,9 +425,9 @@
             try {
                 // 1. Get current file SHA 
                 // ध्यान दें: अब यहाँ सही वेरिएबल्स का इस्तेमाल हुआ है
-                const apiUrl = `https://api.github.com/repos/${jorabagga12-bit}/${git@github.com:jorabagga12-bit/mani-bagga.git}/contents/${index.html}`;
+                const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
                 const getResponse = await fetch(apiUrl, {
-                    header: { 'Authorization': `token ${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}` }
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
                 }); 
                 
                 if (!getResponse.ok) throw new Error("GitHub Repository/File नहीं मिली। Token या Repo Name चेक करें।");
@@ -461,7 +461,7 @@
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
                     headers: {
-                        'Authorization': `token ${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}`,
+                        'Authorization': `token ${GITHUB_TOKEN}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
