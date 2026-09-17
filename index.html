@@ -38,7 +38,7 @@
         .admin-dashboard {
             display: none; position: fixed; bottom: 20px; right: 20px; background: #10101a;
             color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold;
-            border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 200px;
+            border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 220px;
         }
         .admin-dashboard button {
             background: #00d2ff; color: #000; border: none; padding: 8px 10px;
@@ -46,6 +46,10 @@
         }
         .admin-dashboard button:hover { background: #00a3cc; }
         
+        /* Save Button Style */
+        .btn-save { background: #28a745 !important; color: white !important; }
+        .btn-save:hover { background: #218838 !important; box-shadow: 0 0 10px #28a745; }
+
         /* Editable Highlight */
         .editable-active { border: 1px dashed #00d2ff !important; padding: 2px; }
         .media-editable:hover { opacity: 0.8; cursor: pointer; outline: 3px solid #00d2ff; }
@@ -60,7 +64,7 @@
     <!-- नेविगेशन बार -->
     <header>
         <nav class="navbar">
-            <!-- एडमिन प्रोफाइल - लेफ्ट कॉर्नर में (Admin Badge Left Corner) -->
+            <!-- एडमिन प्रोफाइल - लेफ्ट कॉर्नर में -->
             <div class="admin-badge-left" onclick="openAdminLogin()" style="cursor: pointer;" title="Click to Login Admin">
                 <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
                 <div class="admin-info">
@@ -85,7 +89,7 @@
         </nav>
     </header>
 
-    <!-- हीरो सेक्शन (3D Hero Section) -->
+    <!-- हीरो सेक्शन -->
     <section id="home" class="hero">
         <div class="hero-container">
             <div class="hero-text">
@@ -115,7 +119,6 @@
         <p class="section-subtitle">Special facilities for Gamers</p>
 
         <div class="cards-grid">
-            <!-- 3D Card 1 -->
             <div class="card-3d">
                 <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
                 <div class="card-img-container">
@@ -124,8 +127,6 @@
                 <h3>BGMI Live Highlights</h3>
                 <p>CAN YOU SUBSCRIBE।</p>
             </div>
-
-            <!-- 3D Card 2 -->
             <div class="card-3d">
                 <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
                 <div class="card-img-container">
@@ -134,8 +135,6 @@
                 <h3>eSports Custom Rooms</h3>
                 <p>JONI FOR PROGRAM IN TURAMENT।</p>
             </div>
-
-            <!-- 3D Card 3 -->
             <div class="card-3d">
                 <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
                 <div class="card-img-container">
@@ -175,7 +174,7 @@
         </div>
     </section>
 
-    <!-- (About Us) -->
+    <!-- About Us -->
     <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.6);">
         <h2 class="section-title">About <span class="highlight">US</span></h2>
         <div class="about-card">
@@ -183,7 +182,7 @@
         </div>
     </section>
 
-    <!-- स्टैट्स सेक्शन (Stats Section) -->
+    <!-- स्टैट्स सेक्शन -->
     <section class="stats-section">
         <div class="stat-card">
             <h2>eSports</h2>
@@ -199,7 +198,7 @@
         </div>
     </section>
 
-    <!-- एडमिन मैसेज सेक्शन (Contact Admin) -->
+    <!-- एडमिन मैसेज सेक्शन -->
     <section id="contact" class="features-section">
         <h2 class="section-title">एडमिन को <span class="highlight">मैसेज करें</span></h2>
         <p class="section-subtitle">LIVE SUPPORT</p>
@@ -259,6 +258,8 @@
         <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
         <button onclick="addNewMediaCard()"><i class="fa-solid fa-plus"></i> Add New Media</button>
         <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
+        <!-- NEW SAVE BUTTON -->
+        <button onclick="saveChangesToGitHub()" class="btn-save"><i class="fa-solid fa-save"></i> Save Changes</button>
     </div>
 
     <!-- HIDDEN FILE INPUT FOR GALLERY SELECTOR -->
@@ -299,7 +300,7 @@
                 alert('Welcome Admin Bagga! 🚀\n1. किसी भी टेक्स्ट पर क्लिक करके बदलें।\n2. फोटो या वीडियो बदलने के लिए उसपर क्लिक करके अपनी गैलरी से फाइल चुनें।');
                 activateAdminMode();
             } else {
-                alert('wrong Username or  wrong admin ke pass ip location sent admin !');
+                alert('wrong Username or wrong admin ke pass ip location sent admin !');
             }
         }
 
@@ -307,7 +308,7 @@
             document.getElementById('adminDashboard').style.display = 'block';
 
             // Make Text Editable
-            const textElements = document.querySelectorAll('h1, h2, h3, h4, p, span');
+            const textElements = document.querySelectorAll('h1, h2, h3, h4, p, span:not(.close-btn)');
             textElements.forEach(el => {
                 el.contentEditable = "true";
                 el.classList.add('editable-active');
@@ -337,39 +338,40 @@
             const file = event.target.files[0];
             if (!file || !currentTargetElement) return;
 
-            const fileURL = URL.createObjectURL(file);
+            // यहाँ FileReader का इस्तेमाल किया है ताकि फाइल (Base64) सीधे HTML में सेव हो सके।
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const fileURL = e.target.result;
 
-            if (file.type.startsWith('image/')) {
-                // Image Selected
-                if (currentTargetElement.tagName.toLowerCase() === 'video') {
-                    const newImg = document.createElement('img');
-                    newImg.src = fileURL;
-                    newImg.className = currentTargetElement.className;
-                    currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement);
-                    currentTargetElement = newImg;
-                } else {
-                    currentTargetElement.src = fileURL;
+                if (file.type.startsWith('image/')) {
+                    if (currentTargetElement.tagName.toLowerCase() === 'video') {
+                        const newImg = document.createElement('img');
+                        newImg.src = fileURL;
+                        newImg.className = currentTargetElement.className;
+                        currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement);
+                        currentTargetElement = newImg;
+                    } else {
+                        currentTargetElement.src = fileURL;
+                    }
+                } else if (file.type.startsWith('video/')) {
+                    const newVideo = document.createElement('video');
+                    newVideo.src = fileURL;
+                    newVideo.controls = true;
+                    newVideo.autoplay = true;
+                    newVideo.muted = false; // <-- यहाँ muted = false कर दिया है (आवाज़ के लिए)
+                    newVideo.loop = true;
+                    newVideo.style.width = "100%";
+                    newVideo.style.height = "220px";
+                    newVideo.style.objectFit = "cover";
+                    newVideo.style.borderRadius = "10px";
+                    newVideo.className = currentTargetElement.className;
+
+                    currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
+                    currentTargetElement = newVideo;
                 }
-            } else if (file.type.startsWith('video/')) {
-                // Video Selected (Plays MP4 video in place of image)
-                const newVideo = document.createElement('video');
-                newVideo.src = fileURL;
-                newVideo.controls = true;
-                newVideo.autoplay = true;
-                newVideo.muted = true;
-                newVideo.loop = true;
-                newVideo.style.width = "100%";
-                newVideo.style.height = "220px";
-                newVideo.style.objectFit = "cover";
-                newVideo.style.borderRadius = "10px";
-                newVideo.className = currentTargetElement.className;
-
-                currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
-                currentTargetElement = newVideo;
-            }
-
-            // Re-bind click event
-            bindMediaClickHandlers();
+                bindMediaClickHandlers();
+            };
+            reader.readAsDataURL(file); // Convert file to base64 string
             event.target.value = ''; // Reset input
         }
 
@@ -401,6 +403,84 @@
                     </div>`;
                 gallery.insertAdjacentHTML('beforeend', newVideoHTML);
                 if (isAdminLoggedIn) activateAdminMode();
+            }
+        }
+
+        // ================= 🔴 GITHUB API SAVE LOGIC 🔴 ================= //
+        // 🔴 यहाँ अपनी GITHUB डिटेल्स डालें 🔴
+        const GITHUB_TOKEN = 'YOUR_GITHUB_TOKEN_HERE'; // अपना GitHub Token यहाँ डालें
+        const GITHUB_OWNER = 'jorabagga12-bit';       // अपना GitHub Username यहाँ डालें
+        const GITHUB_REPO = 'mani-bagga';             // अपने GitHub Repo का नाम यहाँ डालें
+        const FILE_PATH = 'index.html';               // अपनी फाइल का नाम (अगर अलग है तो बदलें)
+
+        async function saveChangesToGitHub() {
+            if (GITHUB_TOKEN === 'YOUR_GITHUB_TOKEN_HERE') {
+                alert('कृपया कोड में अपना GitHub Token डालें (Line 427 देखें)।');
+                return;
+            }
+
+            const saveBtn = document.querySelector('.btn-save');
+            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+            try {
+                // 1. Get current file SHA (GitHub API को पुरानी फाइल का SHA चाहिए होता है)
+                const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
+                const getResponse = await fetch(apiUrl, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                
+                if (!getResponse.ok) throw new Error("GitHub Repository/File नहीं मिली। Token या Repo Name चेक करें।");
+                const fileData = await getResponse.json();
+                const sha = fileData.sha;
+
+                // 2. Clone Document & Clean Admin UI (सेव करने से पहले एडिट मोड और डैशबोर्ड हटायें)
+                let clone = document.documentElement.cloneNode(true);
+                
+                clone.querySelector('#adminDashboard').style.display = 'none';
+                clone.querySelector('#adminLoginModal').style.display = 'none';
+                
+                const editables = clone.querySelectorAll('.editable-active');
+                editables.forEach(el => {
+                    el.removeAttribute('contenteditable');
+                    el.classList.remove('editable-active');
+                });
+                
+                const medias = clone.querySelectorAll('.media-editable');
+                medias.forEach(el => {
+                    el.classList.remove('media-editable');
+                    el.removeAttribute('title');
+                    el.onclick = null;
+                });
+
+                // HTML कंटेंट को Base64 में Encode करें (हिंदी टेक्स्ट के लिए unescape(encodeURIComponent) ज़रूरी है)
+                const fullHTML = "<!DOCTYPE html>\n<html lang=\"hi\">\n" + clone.innerHTML + "\n</html>";
+                const base64Content = btoa(unescape(encodeURIComponent(fullHTML)));
+
+                // 3. Put Data to GitHub
+                const putResponse = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Updated Website from Admin Panel',
+                        content: base64Content,
+                        sha: sha
+                    })
+                });
+
+                if (putResponse.ok) {
+                    alert('बधाई हो! आपकी वेबसाइट सफलतापूर्वक GitHub पर Save हो गई है। 🚀\n(वेबसाइट अपडेट होने में 1-2 मिनट लग सकते हैं)');
+                } else {
+                    const errorDetails = await putResponse.json();
+                    throw new Error(errorDetails.message);
+                }
+            } catch (error) {
+                console.error("Save Error:", error);
+                alert('Save करने में समस्या आई: ' + error.message);
+            } finally {
+                saveBtn.innerHTML = '<i class="fa-solid fa-save"></i> Save Changes';
             }
         }
     </script>
