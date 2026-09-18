@@ -32,6 +32,16 @@
             text-transform: uppercase; letter-spacing: 2px;
         }
 
+        /* ================== REDUCE BOTTOM SPACE FIX ================== */
+        #page-home {
+            min-height: auto !important;
+            padding-bottom: 20px !important;
+        }
+        .features-section {
+            margin-bottom: 10px !important;
+            padding-bottom: 10px !important;
+        }
+
         /* ================== NOTIFICATION LIST UI ================== */
         .notif-container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
         .notif-list-wrapper { background: #ffffff; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 210, 255, 0.2); overflow: hidden; }
@@ -100,6 +110,33 @@
         }
         .admin-box button:hover { opacity: 0.95; transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 25px rgba(0, 210, 255, 0.7); }
         
+        /* ================== WRONG PASSWORD ERROR STYLES ================== */
+        .error-box {
+            background: linear-gradient(135deg, #2a0808, #1a0000, #050000);
+            border-color: #ff004c !important;
+            box-shadow: 0 0 35px rgba(255, 0, 76, 0.7), inset 0 0 20px rgba(255, 0, 76, 0.4) !important;
+            animation: none !important;
+        }
+        .error-box h2 {
+            color: #ff004c !important;
+            text-shadow: 0 0 15px rgba(255, 0, 76, 1) !important;
+        }
+        .error-box button {
+            background: linear-gradient(45deg, #ff004c, #99002e) !important;
+            box-shadow: 0 5px 15px rgba(255, 0, 76, 0.5) !important;
+        }
+        .error-box button:hover {
+            box-shadow: 0 8px 25px rgba(255, 0, 76, 0.8) !important;
+        }
+        @keyframes errorShake {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-15px) rotate(-2deg); }
+            40% { transform: translateX(15px) rotate(2deg); }
+            60% { transform: translateX(-10px) rotate(-1deg); }
+            80% { transform: translateX(10px) rotate(1deg); }
+            100% { transform: translateX(0); }
+        }
+
         /* 3D GitHub Dynamic Icon */
         .github-3d-icon {
             font-size: 60px;
@@ -373,6 +410,22 @@
                 <input type="password" id="adminPassX" autocomplete="off" placeholder="Enter Password..." required="">
                 <button type="submit"><i class="fa-solid fa-key"></i> LOG IN WITH EMPLOY / ADMIN</button>
             </form>
+        </div>
+    </div>
+
+    <!-- DYNAMIC WRONG PASSWORD ERROR MODAL -->
+    <div id="wrongPassModal" class="admin-modal" style="display: none; z-index: 100005;">
+        <div class="admin-box error-box" id="errorBoxAnim">
+            <h2><i class="fa-solid fa-triangle-exclamation"></i> ACCESS DENIED!</h2>
+            <p style="font-size: 18px; color: #fff; font-weight: bold; margin: 20px 0; letter-spacing: 1px;">
+                INCORRECT USERNAME OR PASSWORD!
+            </p>
+            <div style="font-size: 50px; margin-bottom: 20px; color: #ff004c; text-shadow: 0 0 20px #ff004c;">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <button onclick="document.getElementById('wrongPassModal').style.display='none'">
+                <i class="fa-solid fa-rotate-right"></i> TRY AGAIN
+            </button>
         </div>
     </div>
 
@@ -768,12 +821,19 @@
             e.preventDefault();
             const user = document.getElementById('adminUserX').value.trim();
             const pass = document.getElementById('adminPassX').value.trim();
+            
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
                 closeAdminLogin();
                 alert('Admin Logged In! 🚀\n\n- Click "View Messages" to read contact forms.\n- Click "Edit Website" to open editing tools.');
                 activateAdminMode();
-            } else { alert('Incorrect Username or Password!'); }
+            } else {
+                // DYNAMIC WRONG PASSWORD ALERT
+                document.getElementById('wrongPassModal').style.display = 'flex';
+                const errBox = document.getElementById('errorBoxAnim');
+                errBox.style.animation = 'none';
+                setTimeout(() => { errBox.style.animation = 'errorShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both'; }, 10);
+            }
         }
 
         function logoutAdmin() {
@@ -1217,6 +1277,7 @@
                 let upModal = clone.querySelector('#innerUploadModal'); if(upModal) upModal.style.display = 'none';
                 let viewModal = clone.querySelector('#viewNotifModal'); if(viewModal) viewModal.style.display = 'none';
                 let msgsModal = clone.querySelector('#adminMessagesModal'); if(msgsModal) msgsModal.style.display = 'none'; 
+                let wrongModal = clone.querySelector('#wrongPassModal'); if(wrongModal) wrongModal.style.display = 'none';
                 
                 let floatingControlImg = clone.querySelector('#admin-img-controls'); if(floatingControlImg) floatingControlImg.remove();
                 let floatingControlText = clone.querySelector('#admin-text-controls'); if(floatingControlText) floatingControlText.remove();
@@ -1269,3 +1330,4 @@
     <script src="js/script.js"></script>
 </body>
 </html>
+
