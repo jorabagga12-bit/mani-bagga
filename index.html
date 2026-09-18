@@ -31,7 +31,7 @@
             text-transform: uppercase; letter-spacing: 2px;
         }
 
-        /* ================== NEW NOTIFICATION LIST UI (Like HPBOSE) ================== */
+        /* ================== NOTIFICATION LIST UI ================== */
         .notif-container {
             max-width: 900px; margin: 0 auto; padding: 0 20px;
         }
@@ -113,7 +113,7 @@
             outline: none; box-sizing: border-box;
         }
 
-        /* Admin / Upload Modal Styles */
+        /* ================== ADMIN PANEL STYLES (SECURE & HIDDEN) ================== */
         .admin-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85); z-index: 10000; justify-content: center; align-items: center;
@@ -135,7 +135,7 @@
         }
         .admin-box button:hover { opacity: 0.8; }
         
-        /* Floating Admin Dashboard */
+        /* Floating Admin Dashboard (Hidden by default) */
         .admin-dashboard {
             display: none; position: fixed; bottom: 20px; right: 20px; background: #10101a;
             color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold;
@@ -147,10 +147,10 @@
         }
         .btn-save { background: #28a745 !important; color: white !important; }
         
-        .editable-active { border: 1px dashed #00d2ff !important; padding: 2px; }
-        .media-editable:hover { opacity: 0.8; cursor: pointer; outline: 3px solid #00d2ff; }
+        .editable-active { border: 1px dashed transparent; }
+        .media-editable:hover { opacity: 1; }
 
-        /* ================== GALLERY DRAG, DROP & RESIZE (ADMIN) ================== */
+        /* GALLERY DRAG, DROP & RESIZE (ADMIN ONLY) */
         .showcase-item {
             position: relative;
             transition: transform 0.3s ease, border 0.3s ease;
@@ -189,16 +189,17 @@
     <!-- Navigation Bar -->
     <header>
         <nav class="navbar">
-            <div class="admin-badge-left" onclick="handleAdminBadgeClick()" style="cursor: pointer;" title="Admin Panel">
+            <!-- Click here to open Admin Login Modal -->
+            <div class="admin-badge-left" onclick="handleAdminBadgeClick()" style="cursor: pointer;" title="Admin Panel Login">
                 <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
                 <div class="admin-info">
-                    <span class="admin-name">MANI M4yt</span>
+                    <span class="admin-name">MANI M4</span>
                     <span class="admin-tag">ADMIN</span>
                 </div>
             </div>
 
             <div class="logo">
-                <i class="fa-solid fa-gamepad"></i> MANI<span class="">M4YT</span>
+                <i class="fa-solid fa-gamepad"></i> MANI<span>M4YT</span>
             </div>
 
             <ul class="nav-links">
@@ -219,8 +220,8 @@
             <div class="hero-container">
                 <div class="hero-text">
                     <span class="badge">eSports Gaming</span>
-                    <h1 class="">YouTube <span class="highlight">MANI M4 PRO</span></h1>
-                    <p class="">🔥 WELCOME TO GAMING WORLD 🔥 — BGMI &amp; PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
+                    <h1>YouTube <span class="highlight">MANI M4 PRO</span></h1>
+                    <p>🔥 WELCOME TO GAMING WORLD 🔥 — BGMI & PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
                     <div class="hero-btns">
                         <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="btn-main"><i class="fa-brands fa-youtube"></i> YouTube</a>
                         <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="btn-secondary"><i class="fa-brands fa-instagram"></i> Instagram</a>
@@ -230,17 +231,17 @@
                 <div class="hero-3d-card-wrapper">
                     <div class="card-3d-main" id="tilt-card" style="position:relative;">
                         <div class="slider-wrapper">
-                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
-                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(0%);">
-                                <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
-                                <img src="images/feature2.jpg" alt="Front 2" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
-                                <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
+                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">&#10094;</button>
+                            <div class="slider-track" id="frontSliderTrack">
+                                <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">
+                                <img src="images/feature2.jpg" alt="Front 2" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'">
+                                <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80'">
                             </div>
-                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">❯</button>
+                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">&#10095;</button>
                         </div>
                         <div class="card-glass-overlay">
-                            <h3 class="">Subscribe &amp; Stay Connected</h3>
-                            <p class="">Subscribe to MANI M4YT Channel and become a part of our family!</p>
+                            <h3>Subscribe & Stay Connected</h3>
+                            <p>Subscribe to MANI M4YT Channel and become a part of our family!</p>
                         </div>
                     </div>
                 </div>
@@ -255,26 +256,26 @@
                 <div class="card-3d">
                     <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
                     <div class="card-img-container">
-                        <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                        <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
                     </div>
-                    <h3 class="">BGMI Live Highlights</h3>
-                    <p class="">CAN YOU SUBSCRIBE.</p>
+                    <h3>BGMI Live Highlights</h3>
+                    <p>CAN YOU SUBSCRIBE.</p>
                 </div>
                 <div class="card-3d">
                     <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
                     <div class="card-img-container">
-                        <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                        <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
                     </div>
-                    <h3 class="">eSports Custom Rooms</h3>
-                    <p class="">JOIN FOR TOURNAMENT PROGRAMS.</p>
+                    <h3>eSports Custom Rooms</h3>
+                    <p>JOIN FOR TOURNAMENT PROGRAMS.</p>
                 </div>
                 <div class="card-3d">
                     <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
                     <div class="card-img-container">
-                        <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                        <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'">
                     </div>
-                    <h3 class="">Pro Controls &amp; Sensitivity</h3>
-                    <p class="">FULL GUIDE IN ESPORTS MANIM4.YT.</p>
+                    <h3>Pro Controls & Sensitivity</h3>
+                    <p>FULL GUIDE IN ESPORTS MANIM4.YT.</p>
                 </div>
             </div>
         </section>
@@ -284,24 +285,24 @@
             <h2 class="section-title">BGMI / PUBG <span class="highlight">3D GALLERY</span></h2>
             <div class="showcase-grid" id="galleryContainer">
                 <div class="showcase-item">
-                    <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
                     <div class="showcase-overlay">
-                        <h4 class="">Clutch Moments</h4>
-                        <p class="">1v4 BGMI Gameplay</p>
+                        <h4>Clutch Moments</h4>
+                        <p>1v4 BGMI Gameplay</p>
                     </div>
                 </div>
                 <div class="showcase-item">
-                    <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
                     <div class="showcase-overlay">
-                        <h4 class="">eSports Arena</h4>
-                        <p class="">Custom Scrims</p>
+                        <h4>eSports Arena</h4>
+                        <p>Custom Scrims</p>
                     </div>
                 </div>
                 <div class="showcase-item">
-                    <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'">
                     <div class="showcase-overlay">
-                        <h4 class="">Pro Setup</h4>
-                        <p class="">LIVE M4YT</p>
+                        <h4>Pro Setup</h4>
+                        <p>LIVE M4YT</p>
                     </div>
                 </div>
             </div>
@@ -311,7 +312,7 @@
         <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.6);">
             <h2 class="section-title">ABOUT <span class="highlight">US</span></h2>
             <div class="about-card">
-                <p class="">Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
+                <p>Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
             </div>
         </section>
     </div>
@@ -322,13 +323,12 @@
         
         <div class="notif-container">
             <div class="notif-list-wrapper" id="notifWrapper">
-                <!-- List Item Structure -->
                 <div class="notif-list-item" onclick="viewNotification(this)">
                     <div class="notif-date">18-09-2026</div>
                     <div class="notif-text">
                         <div class="notif-title">Welcome to the new Esports Hub! (Click for details)</div>
                         <div class="notif-desc" style="display:none;">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys!</div>
-                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="media-target notif-hidden-media" style="display:none;">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" class="media-target notif-hidden-media" style="display:none;">
                     </div>
                 </div>
             </div>
@@ -341,17 +341,17 @@
         
         <div class="contact-page-wrapper">
             <div class="contact-box admin-box" style="transform: scale(1.1); max-width: 600px; padding: 40px;">
-                <h2 style="margin-bottom: 20px;" class=""><i class="fa-solid fa-envelope"></i> DIRECT EMAIL SUPPORT</h2>
-                <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;" class="">Send a message directly to manipubji@gmail.com</p>
+                <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-envelope"></i> DIRECT EMAIL SUPPORT</h2>
+                <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;">Send a message directly to manipubji@gmail.com</p>
                 
                 <form action="mailto:manipubji@gmail.com" method="post" enctype="text/plain">
                     <div class="form-group" style="text-align: left;">
                         <label style="color:#00d2ff; font-weight:bold;">YOUR NAME / EMAIL:</label>
-                        <input type="text" name="Name" required="" placeholder="Enter your name...">
+                        <input type="text" name="Name" required placeholder="Enter your name...">
                     </div>
                     <div class="form-group" style="text-align: left;">
                         <label style="color:#00d2ff; font-weight:bold;">MESSAGE FOR DEVELOPER:</label>
-                        <textarea name="Message" rows="5" required="" placeholder="Write your message here..."></textarea>
+                        <textarea name="Message" rows="5" required placeholder="Write your message here..."></textarea>
                     </div>
                     <button type="submit" class="btn-submit" style="font-size: 16px; margin-top: 10px;">
                         <i class="fa-solid fa-paper-plane"></i> SEND EMAIL NOW
@@ -365,7 +365,7 @@
     <footer>
         <div class="footer-container">
             <div class="footer-logo">
-                <i class="fa-solid fa-gamepad"></i> MANI<span class="">M4YT</span>
+                <i class="fa-solid fa-gamepad"></i> MANI<span>M4YT</span>
             </div>
             <div class="social-links">
                 <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="yt-icon"><i class="fa-brands fa-youtube"></i></a>
@@ -374,37 +374,37 @@
             <p class="email-text">
                 <i class="fa-solid fa-envelope"></i> Email: <a href="mailto:manipubji@gmail.com">manipubji@gmail.com</a>
             </p>
-            <p class="">© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
+            <p>© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
         </div>
     </footer>
 
-    <!-- ADMIN LOGIN MODAL -->
-    <div id="adminLoginModal" class="admin-modal" style="display: none;">
+    <!-- ADMIN LOGIN MODAL (SECURE PASSWORD PROTECTION) -->
+    <div id="adminLoginModal" class="admin-modal">
         <div class="admin-box">
-            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:20px;">×</span>
-            <h2 class=""><i class="fa-solid fa-user-shield"></i> ADMIN LOGIN</h2>
+            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:20px;">&times;</span>
+            <h2><i class="fa-solid fa-user-shield"></i> ADMIN LOGIN</h2>
             
             <form onsubmit="handleLogin(event)" autocomplete="off">
-                <input style="display:none" type="text" name="fakeusernameremembered">
-                <input style="display:none" type="password" name="fakepasswordremembered">
+                <input style="display:none" type="text" name="fakeusernameremembered"/>
+                <input style="display:none" type="password" name="fakepasswordremembered"/>
                 
-                <input type="text" id="adminUserX" autocomplete="new-password" placeholder="Username" required="">
-                <input type="password" id="adminPassX" autocomplete="new-password" placeholder="Password" required="">
+                <input type="text" id="adminUserX" autocomplete="new-password" placeholder="Username" required>
+                <input type="password" id="adminPassX" autocomplete="new-password" placeholder="Password" required>
                 <button type="submit">LOG IN</button>
             </form>
         </div>
     </div>
 
-    <!-- VIEW NOTIFICATION MODAL (FOR ALL USERS) -->
-    <div id="viewNotifModal" class="admin-modal" onclick="closeViewNotif(event)" style="display: none;">
+    <!-- VIEW NOTIFICATION MODAL -->
+    <div id="viewNotifModal" class="admin-modal" onclick="closeViewNotif(event)">
         <div class="admin-box view-notif-box" style="max-width: 600px; padding: 25px;" onclick="event.stopPropagation()">
-            <span class="close-btn" onclick="closeViewNotif()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
-            <h2 id="viewNotifTitle" style="text-align:left; color:#00d2ff; margin-bottom:15px; font-size:1.4rem;" class="">Title</h2>
+            <span class="close-btn" onclick="closeViewNotif()" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
+            <h2 id="viewNotifTitle" style="text-align:left; color:#00d2ff; margin-bottom:15px; font-size:1.4rem;">Title</h2>
             
             <img id="viewNotifImg" src="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
-            <video id="viewNotifVid" src="" controls="" autoplay="" muted="" loop="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);"></video>
+            <video id="viewNotifVid" src="" controls autoplay muted loop style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);"></video>
             
-            <p id="viewNotifDesc" style="text-align:left; line-height:1.6; color:#b3b3cc; white-space:pre-wrap; font-size:1.1rem;" class=""></p>
+            <p id="viewNotifDesc" style="text-align:left; line-height:1.6; color:#b3b3cc; white-space:pre-wrap; font-size:1.1rem;"></p>
             
             <button id="adminEditNotifBtn" style="display:none; background:#ffc107; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; margin-top: 20px; font-size: 15px;" onclick="openUploadModalFromView()">
                 <i class="fa-solid fa-pen-to-square"></i> EDIT NOTIFICATION (ADMIN ONLY)
@@ -413,18 +413,18 @@
     </div>
 
     <!-- ADMIN EDIT NOTIFICATION MODAL -->
-    <div id="innerUploadModal" class="admin-modal" style="display: none;">
+    <div id="innerUploadModal" class="admin-modal">
         <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); max-width: 500px;">
-            <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
-            <h2 class=""><i class="fa-solid fa-bell"></i> Edit Notification</h2>
+            <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
+            <h2><i class="fa-solid fa-bell"></i> Edit Notification</h2>
             
-            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" class="">1. Enter Title:</p>
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">1. Enter Title:</p>
             <input type="text" id="notifEditTitle" placeholder="Notification Title..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box;">
             
-            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" class="">2. Enter Message/Details:</p>
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">2. Enter Message/Details:</p>
             <textarea id="notifEditDesc" rows="4" placeholder="Write your full message here..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box; resize:none; font-family:inherit;"></textarea>
             
-            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" class="">3. Upload Photo/Video (Optional):</p>
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">3. Upload Photo/Video (Optional):</p>
             <input type="file" id="notifMediaFile" accept="image/*,video/*" style="background:#1a1a2e; border:1px dashed #00d2ff; padding:10px; width:100%; border-radius:5px; color:white; margin-bottom:20px; cursor:pointer; box-sizing:border-box;">
             
             <button onclick="confirmNotifUpdate(event)" style="background:#00d2ff; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; font-size: 16px;">
@@ -433,13 +433,13 @@
         </div>
     </div>
 
-    <!-- FLOATING ADMIN DASHBOARD -->
-    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
-        <p class=""><i class="fa-solid fa-user-gear"></i> Admin Active</p>
+    <!-- FLOATING ADMIN DASHBOARD (HIDDEN UNTIL ADMIN LOGS IN) -->
+    <div id="adminDashboard" class="admin-dashboard">
+        <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
         <button onclick="addNewMediaCard()"><i class="fa-solid fa-plus"></i> Add Gallery Card</button>
         <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
         <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
-        <button onclick="saveChangesToGitHub()" class="btn-save"><i class="fa-solid fa-spinner fa-spin"></i> Live Saving...</button>
+        <button onclick="saveChangesToGitHub()" class="btn-save"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
         <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:11px;"><i class="fa-solid fa-right-from-bracket"></i> Logout Admin</button>
         <button onclick="clearSavedToken()" style="background:#6c757d; color:white; font-size:10px;">Reset Git Token</button>
     </div>
@@ -467,7 +467,7 @@
             }, 100);
         }
 
-        // ================= AUTO SCROLL FRONT SLIDER ================= //
+        // ================= AUTO SLIDER ================= //
         let currentSlideIndex = 0;
         let sliderInterval;
         
@@ -491,7 +491,7 @@
             track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
         }
 
-        // ================= PERSISTENT ADMIN SYSTEM ================= //
+        // ================= SECURE ADMIN AUTHENTICATION SYSTEM ================= //
         let currentTargetElement = null;
         let activeNotifCard = null;
         let currentViewedNotif = null;
@@ -503,12 +503,12 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             startSlider(); 
+            // Check if admin was already logged in during this session
             if (localStorage.getItem('mani_admin_logged') === 'true') {
                 activateAdminMode();
             }
         });
 
-        // Hide floating image controls if clicking anywhere else
         document.addEventListener('click', function(e) {
             let controls = document.getElementById('admin-img-controls');
             if(controls && !controls.contains(e.target) && !e.target.classList.contains('media-target')) {
@@ -516,9 +516,10 @@
             }
         });
 
+        // Clicking top-left badge opens password prompt modal
         function handleAdminBadgeClick() {
             if (localStorage.getItem('mani_admin_logged') === 'true') {
-                alert('Admin Mode is already active! 🚀 You can edit text, resize, and drag photos.');
+                alert('Admin Mode is active! 🚀');
             } else {
                 openAdminLogin();
             }
@@ -539,10 +540,11 @@
             const user = document.getElementById('adminUserX').value;
             const pass = document.getElementById('adminPassX').value;
 
+            // Secure Credentials Check
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
                 closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\nNow you can click photos to change them or Zoom (+ / -) them.');
+                alert('Admin Logged In Successfully! 🚀');
                 activateAdminMode();
             } else {
                 alert('Invalid Username or Password!');
@@ -555,6 +557,7 @@
             window.location.reload();
         }
 
+        // Only unlocks editing features when credentials match
         function activateAdminMode() {
             document.getElementById('adminDashboard').style.display = 'block';
             
@@ -562,23 +565,22 @@
             textElements.forEach(el => {
                 el.contentEditable = "true";
                 el.classList.add('editable-active');
+                el.style.border = "1px dashed #00d2ff";
+                el.style.padding = "2px";
             });
 
             bindMediaClickHandlers();
             makeGalleryItemsDraggableAndResizable();
         }
 
-        // ================= DRAG, DROP & RESIZE LOGIC ================= //
+        // ================= GALLERY DRAG, DROP & RESIZE ================= //
         function makeGalleryItemsDraggableAndResizable() {
             const items = document.querySelectorAll('.showcase-item');
             
             items.forEach(item => {
-                // Prevent duplicate buttons if called again
                 if(!item.querySelector('.admin-item-controls')) {
-                    // Make Item Draggable
                     item.setAttribute('draggable', 'true');
                     
-                    // Drag Start
                     item.addEventListener('dragstart', function(e) {
                         if (localStorage.getItem('mani_admin_logged') !== 'true') {
                             e.preventDefault(); return;
@@ -588,7 +590,6 @@
                         setTimeout(() => this.classList.add('dragging'), 0);
                     });
                     
-                    // Drag Over
                     item.addEventListener('dragover', function(e) {
                         e.preventDefault();
                         if(draggedItem && draggedItem !== this) {
@@ -597,12 +598,10 @@
                         return false;
                     });
                     
-                    // Drag Leave
                     item.addEventListener('dragleave', function(e) {
                         this.classList.remove('over');
                     });
                     
-                    // Drop (Reorder items)
                     item.addEventListener('drop', function(e) {
                         e.stopPropagation();
                         this.classList.remove('over');
@@ -613,21 +612,19 @@
                             const targetIndex = allItems.indexOf(this);
                             
                             if (draggedIndex < targetIndex) {
-                                this.after(draggedItem); // Move After
+                                this.after(draggedItem);
                             } else {
-                                this.before(draggedItem); // Move Before
+                                this.before(draggedItem);
                             }
                         }
                         return false;
                     });
                     
-                    // Drag End
                     item.addEventListener('dragend', function(e) {
                         this.classList.remove('dragging');
                         document.querySelectorAll('.showcase-item').forEach(el => el.classList.remove('over'));
                     });
 
-                    // Add Drag Handle (Zoom buttons removed from here since they are now universal on image click)
                     let controlsHTML = document.createElement('div');
                     controlsHTML.className = 'admin-item-controls';
                     controlsHTML.innerHTML = `
@@ -638,7 +635,7 @@
             });
         }
 
-        // ================= NEW NOTIFICATION SYSTEM (VIEW & EDIT) ================= //
+        // ================= NOTIFICATIONS SYSTEM ================= //
         function viewNotification(notifItem) {
             currentViewedNotif = notifItem;
             const title = notifItem.querySelector('.notif-title').innerText;
@@ -728,13 +725,13 @@
                         newVideo.style.display = 'none';
                         mediaTarget.parentNode.replaceChild(newVideo, mediaTarget);
                     }
-                    alert('Notification Successfully Updated! 🔥');
+                    alert('Notification Updated Successfully! 🔥');
                     closeUploadModal();
                     viewNotification(activeNotifCard);
                 };
                 reader.readAsDataURL(file);
             } else {
-                alert('Notification Successfully Updated! 🔥');
+                alert('Notification Updated Successfully! 🔥');
                 closeUploadModal();
                 viewNotification(activeNotifCard);
             }
@@ -752,7 +749,7 @@
                     <div class="notif-date">${dateStr}</div>
                     <div class="notif-text">
                         <div class="notif-title">New Update Title (Click to Open)</div>
-                        <div class="notif-desc" style="display:none;">Add your full message and photo here...</div>
+                        <div class="notif-desc" style="display:none;">Add your full message here...</div>
                         <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80" class="media-target notif-hidden-media" style="display:none;">
                     </div>
                 </div>`;
@@ -760,18 +757,19 @@
             if (localStorage.getItem('mani_admin_logged') === 'true') activateAdminMode();
         }
 
-        // ================= UNIVERSAL ZOOM & MEDIA HANDLERS ================= //
+        // ================= ZOOM & MEDIA HANDLERS ================= //
         function bindMediaClickHandlers() {
             const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
             mediaElements.forEach(elem => {
                 elem.classList.add('media-editable');
+                elem.style.outline = "3px solid #00d2ff";
                 elem.title = "Click to Edit or Zoom Photo";
                 elem.onclick = function(e) {
                     if (localStorage.getItem('mani_admin_logged') === 'true') {
                         e.preventDefault();
                         e.stopPropagation();
                         currentTargetElement = elem;
-                        showAdminImageControls(e, elem); // Shows smart panel
+                        showAdminImageControls(e, elem);
                     } else {
                         openAdminLogin();
                     }
@@ -779,7 +777,6 @@
             });
         }
 
-        // Floating Control Panel for Zooming and Changing Media
         function showAdminImageControls(e, elem) {
             let existing = document.getElementById('admin-img-controls');
             if(existing) existing.remove();
@@ -799,23 +796,20 @@
             controls.style.boxShadow = '0 5px 15px rgba(0,0,0,0.8)';
 
             controls.innerHTML = `
-                <button onclick="document.getElementById('adminFileInput').click()" style="background:#00d2ff; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Upload File"><i class="fa-solid fa-upload"></i> Upload</button>
-                <button onclick="changePhotoByUrl()" style="background:#ffc107; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Paste Link"><i class="fa-solid fa-link"></i> URL</button>
+                <button onclick="document.getElementById('adminFileInput').click()" style="background:#00d2ff; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;"><i class="fa-solid fa-upload"></i> Upload</button>
+                <button onclick="changePhotoByUrl()" style="background:#ffc107; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;"><i class="fa-solid fa-link"></i> URL</button>
                 <div style="border-left: 2px solid #333; margin: 0 4px;"></div>
-                <button onclick="zoomElement(0.05)" style="background:#28a745; color:#fff; padding:6px 12px; border:none; cursor:pointer; font-weight:bold; border-radius:4px; font-size:16px;" title="Zoom In"><i class="fa-solid fa-plus"></i> Zoom</button>
-                <button onclick="zoomElement(-0.05)" style="background:#dc3545; color:#fff; padding:6px 12px; border:none; cursor:pointer; font-weight:bold; border-radius:4px; font-size:16px;" title="Zoom Out"><i class="fa-solid fa-minus"></i> Zoom</button>
+                <button onclick="zoomElement(0.05)" style="background:#28a745; color:#fff; padding:6px 12px; border:none; cursor:pointer; font-weight:bold; border-radius:4px; font-size:16px;"><i class="fa-solid fa-plus"></i> Zoom</button>
+                <button onclick="zoomElement(-0.05)" style="background:#dc3545; color:#fff; padding:6px 12px; border:none; cursor:pointer; font-weight:bold; border-radius:4px; font-size:16px;"><i class="fa-solid fa-minus"></i> Zoom</button>
                 <button onclick="this.parentElement.remove()" style="background:transparent; color:red; border:none; cursor:pointer; font-size:20px; padding:0 5px; margin-left: 5px;">&times;</button>
             `;
             document.body.appendChild(controls);
         }
 
-        // Apply Zoom to Any Media File
         function zoomElement(step) {
             if(!currentTargetElement) return;
             let currentScale = parseFloat(currentTargetElement.getAttribute('data-scale')) || 1;
             currentScale += step;
-            
-            // Limit how small or big it can go
             if(currentScale < 0.4) currentScale = 0.4; 
             if(currentScale > 2.5) currentScale = 2.5; 
             
@@ -826,18 +820,12 @@
         }
 
         function changePhotoByUrl() {
-            if(!currentTargetElement && localStorage.getItem('mani_admin_logged') === 'true') {
-                alert("Please click on a photo or card first to change it!");
-                return;
-            }
             let url = prompt("Paste direct Image or Video URL here:");
             if(url && currentTargetElement) {
                 if(url.match(/\.(mp4|webm|ogg)$/i)) {
                     let newVideo = document.createElement('video');
-                    newVideo.src = url; newVideo.controls = true; newVideo.autoplay = true;      
-                    newVideo.muted = false; newVideo.loop = true;
+                    newVideo.src = url; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true;
                     newVideo.className = currentTargetElement.className;
-                    // Preserve scale if it was zoomed
                     newVideo.style.transform = currentTargetElement.style.transform;
                     newVideo.setAttribute('data-scale', currentTargetElement.getAttribute('data-scale') || 1);
                     currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
@@ -904,7 +892,7 @@
             gallery.insertAdjacentHTML('beforeend', newCardHTML);
             if (localStorage.getItem('mani_admin_logged') === 'true') {
                 activateAdminMode();
-                makeGalleryItemsDraggableAndResizable(); // Re-bind new elements
+                makeGalleryItemsDraggableAndResizable();
             }
         }
 
@@ -926,26 +914,23 @@
                 gallery.insertAdjacentHTML('beforeend', newVideoHTML);
                 if (localStorage.getItem('mani_admin_logged') === 'true') {
                     activateAdminMode();
-                    makeGalleryItemsDraggableAndResizable(); // Re-bind new elements
+                    makeGalleryItemsDraggableAndResizable();
                 }
             }
         }
 
         function clearSavedToken() {
             localStorage.removeItem('gh_token_bagga');
-            alert('Saved GitHub token has been removed!');
+            alert('Saved GitHub token removed!');
         }
 
-        // ================= 🚀 LIVE GITHUB AUTO-SAVE SYSTEM 🚀 ================= //
+        // ================= GITHUB AUTO-SAVE ================= //
         async function saveChangesToGitHub() {
             let token = localStorage.getItem('gh_token_bagga');
             
             if (!token) {
                 token = prompt("Enter your GitHub Personal Access Token:");
-                if (!token) {
-                    alert("Changes cannot be saved without a token!");
-                    return;
-                }
+                if (!token) return;
                 localStorage.setItem('gh_token_bagga', token.trim());
             }
 
@@ -966,7 +951,7 @@
 
                 let clone = document.documentElement.cloneNode(true);
                 
-                // Hide Modals
+                // Hide Modals and Admin UI for general public view before saving
                 let dash = clone.querySelector('#adminDashboard');
                 if(dash) dash.style.display = 'none';
                 let modal = clone.querySelector('#adminLoginModal');
@@ -975,29 +960,29 @@
                 if(upModal) upModal.style.display = 'none';
                 let viewModal = clone.querySelector('#viewNotifModal');
                 if(viewModal) viewModal.style.display = 'none';
-                
-                // Remove floating Zoom/Control Panel so it doesn't get saved permanently on screen
                 let floatingControl = clone.querySelector('#admin-img-controls');
                 if(floatingControl) floatingControl.remove();
 
                 clone.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
                 clone.querySelector('#page-home').classList.add('active');
                 
-                // Strip Editable classes
+                // Clean up admin visual cues so regular visitors don't see dashed borders
                 const editables = clone.querySelectorAll('.editable-active');
                 editables.forEach(el => {
                     el.removeAttribute('contenteditable');
                     el.classList.remove('editable-active');
+                    el.style.border = '';
+                    el.style.padding = '';
                 });
                 
                 const medias = clone.querySelectorAll('.media-editable');
                 medias.forEach(el => {
                     el.classList.remove('media-editable');
                     el.removeAttribute('title');
+                    el.style.outline = '';
                     el.onclick = null;
                 });
 
-                // Strip Admin Only Size & Drag UI controls so users don't see it
                 const adminControls = clone.querySelectorAll('.admin-item-controls');
                 adminControls.forEach(el => el.remove());
                 const draggableItems = clone.querySelectorAll('.showcase-item[draggable]');
@@ -1013,14 +998,14 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        message: 'Updated Live via Admin Panel (Zoom, Drag & Edits)',
+                        message: 'Updated Live via Secure Admin Panel',
                         content: base64Content,
                         sha: sha
                     })
                 });
 
                 if (putResponse.ok) {
-                    alert('Congratulations! Changes saved to GitHub successfully! 🎉');
+                    alert('Changes saved to Live Site successfully! 🎉');
                 } else {
                     const errorDetails = await putResponse.json();
                     throw new Error(errorDetails.message);
@@ -1033,7 +1018,5 @@
             }
         }
     </script>
-
-
 </body>
 </html>
