@@ -11,6 +11,7 @@
     
     <style>
         /* ================== PAGE ROUTING SYSTEM ================== */
+        body { margin: 0; padding: 0; font-family: sans-serif; background: #0b0c10; color: white; overflow-x: hidden; }
         .page-view {
             display: none;
             min-height: 100vh;
@@ -31,183 +32,89 @@
             text-transform: uppercase; letter-spacing: 2px;
         }
 
-        /* ================== NEW NOTIFICATION LIST UI (Like HPBOSE) ================== */
-        .notif-container {
-            max-width: 900px; margin: 0 auto; padding: 0 20px;
-        }
-        
-        .notif-list-wrapper {
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 210, 255, 0.2);
-            overflow: hidden;
-        }
-        
-        .notif-list-item {
-            display: flex;
-            padding: 16px 20px;
-            border-bottom: 1px solid #e0e0e0;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            align-items: center;
-        }
-        
-        .notif-list-item:hover {
-            background: #f0f7ff;
-        }
-        
-        .notif-list-item:last-child {
-            border-bottom: none;
-        }
-        
-        .notif-date {
-            flex: 0 0 110px;
-            font-size: 14px;
-            color: #444;
-            font-weight: 700;
-            border-right: 2px solid #00d2ff;
-            margin-right: 15px;
-            padding-right: 10px;
-        }
-        
-        .notif-text {
-            flex: 1;
-        }
-        
-        .notif-title {
-            font-size: 16px;
-            color: #004085;
-            font-weight: 600;
-            line-height: 1.4;
-        }
+        /* ================== NOTIFICATION UI ================== */
+        .notif-container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        .notif-list-wrapper { background: #ffffff; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); overflow: hidden; }
+        .notif-list-item { display: flex; padding: 16px 20px; border-bottom: 1px solid #e0e0e0; cursor: pointer; transition: background 0.3s ease; align-items: center; }
+        .notif-list-item:hover { background: #f0f7ff; }
+        .notif-list-item:last-child { border-bottom: none; }
+        .notif-date { flex: 0 0 110px; font-size: 14px; color: #444; font-weight: 700; border-right: 2px solid #00d2ff; margin-right: 15px; padding-right: 10px; }
+        .notif-text { flex: 1; }
+        .notif-title { font-size: 16px; color: #004085; font-weight: 600; line-height: 1.4; }
 
         /* FRONT IMAGE SLIDER */
-        .slider-wrapper {
-            position: relative; overflow: hidden; border-radius: 15px; width: 100%; height: 350px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-        }
-        .slider-track {
-            display: flex; transition: transform 0.4s ease-in-out; height: 100%;
-        }
-        .slider-track img {
-            min-width: 100%; height: 100%; object-fit: cover; border-radius: 0; margin-bottom: 0; box-shadow: none;
-        }
-        .slider-btn {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.6); color: #00d2ff; border: 1px solid #00d2ff;
-            border-radius: 50%; padding: 8px 14px; cursor: pointer; font-size: 18px; z-index: 10;
-            transition: 0.3s;
-        }
+        .slider-wrapper { position: relative; overflow: hidden; border-radius: 15px; width: 100%; height: 350px; box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
+        .slider-track { display: flex; transition: transform 0.4s ease-in-out; height: 100%; }
+        .slider-track img { min-width: 100%; height: 100%; object-fit: cover; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.6); color: #00d2ff; border: 1px solid #00d2ff; border-radius: 50%; padding: 8px 14px; cursor: pointer; font-size: 18px; z-index: 10; transition: 0.3s; }
         .slider-btn:hover { background: #00d2ff; color: #000; }
         .prev-btn { left: 10px; }
         .next-btn { right: 10px; }
 
-        /* 3D CONTACT PAGE */
-        .contact-page-wrapper {
-            display: flex; justify-content: center; align-items: center; 
-            padding: 20px; margin-top: 50px;
-        }
-        .contact-box form .form-group input, .contact-box form .form-group textarea {
-            width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px;
-            background: #1a1a2e; color: white; border: 1px solid #00d2ff; border-radius: 5px;
-            outline: none; box-sizing: border-box;
-        }
-
-        /* Admin / Upload Modal Styles */
-        .admin-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); z-index: 10000; justify-content: center; align-items: center;
-            backdrop-filter: blur(8px);
-        }
-        .admin-box {
-            background: linear-gradient(135deg, #1e1e2f, #10101a); padding: 30px; border-radius: 15px;
-            border: 2px solid #00d2ff; box-shadow: 0 0 20px #00d2ff; width: 90%; max-width: 450px;
-            text-align: center; color: white; position: relative;
-        }
+        /* Admin Modals & Dashboard */
+        .admin-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+        .admin-box { background: linear-gradient(135deg, #1e1e2f, #10101a); padding: 30px; border-radius: 15px; border: 2px solid #00d2ff; box-shadow: 0 0 20px #00d2ff; width: 90%; max-width: 450px; text-align: center; color: white; position: relative; }
         .admin-box h2 { margin-bottom: 20px; color: #00d2ff; }
-        .admin-box input {
-            width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none;
-            background: #2a2a40; color: white; outline: none; box-sizing: border-box;
-        }
-        .admin-box button {
-            width: 100%; padding: 12px; margin-top: 15px; border-radius: 5px; border: none;
-            background: #00d2ff; color: #000; font-weight: bold; cursor: pointer; transition: 0.3s;
-        }
-        .admin-box button:hover { opacity: 0.8; }
+        .admin-box input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none; background: #2a2a40; color: white; outline: none; box-sizing: border-box; }
+        .admin-box button { width: 100%; padding: 12px; margin-top: 15px; border-radius: 5px; border: none; background: #00d2ff; color: #000; font-weight: bold; cursor: pointer; transition: 0.3s; }
         
-        /* Floating Admin Dashboard */
-        .admin-dashboard {
-            display: none; position: fixed; bottom: 20px; right: 20px; background: #10101a;
-            color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold;
-            border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 230px;
-        }
-        .admin-dashboard button {
-            background: #00d2ff; color: #000; border: none; padding: 8px 10px;
-            margin-top: 8px; cursor: pointer; border-radius: 5px; width: 100%; font-weight: bold;
-        }
+        .admin-dashboard { display: none; position: fixed; bottom: 20px; right: 20px; background: #10101a; color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold; border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 230px; }
+        .admin-dashboard button { background: #00d2ff; color: #000; border: none; padding: 8px 10px; margin-top: 8px; cursor: pointer; border-radius: 5px; width: 100%; font-weight: bold; }
         .btn-save { background: #28a745 !important; color: white !important; }
         
         .editable-active { border: 1px dashed #00d2ff !important; padding: 2px; }
-        .media-editable:hover { opacity: 0.8; cursor: pointer; outline: 3px solid #00d2ff; }
+        .media-editable { cursor: pointer; transition: 0.3s; }
+        .media-editable:hover { outline: 3px solid #ffc107; opacity: 0.9; }
+        .media-selected { outline: 4px solid #00d2ff !important; box-shadow: 0 0 20px #00d2ff; }
 
-        /* ================== GALLERY DRAG, DROP & RESIZE (ADMIN) ================== */
-        .showcase-item {
-            position: relative;
-            transition: transform 0.3s ease, border 0.3s ease;
+        /* ================== NEW: PHOTO TOOLS SIDE PANEL ================== */
+        .media-tools-panel {
+            display: none; position: fixed; top: 100px; left: 20px; background: #1e1e2f;
+            border: 2px solid #ffc107; border-radius: 10px; padding: 15px; z-index: 9999;
+            box-shadow: 0 0 20px rgba(255, 193, 7, 0.4); width: 200px;
         }
-        .admin-item-controls {
-            position: absolute; top: 10px; right: 10px;
-            display: none; gap: 8px; z-index: 100;
+        .media-tools-panel h3 { color: #ffc107; margin-top: 0; font-size: 16px; text-align: center; border-bottom: 1px solid #444; padding-bottom: 8px; }
+        .media-tools-panel button {
+            background: #2a2a40; color: white; border: 1px solid #444; padding: 8px;
+            margin-bottom: 6px; width: 100%; border-radius: 5px; cursor: pointer;
+            text-align: left; font-size: 13px; transition: 0.2s;
         }
-        .showcase-item:hover .admin-item-controls {
-            display: flex;
+        .media-tools-panel button i { width: 20px; color: #00d2ff; }
+        .media-tools-panel button:hover { background: #00d2ff; color: #000; }
+        .media-tools-panel button:hover i { color: #000; }
+
+        /* ================== NEW: FLOATING TEXT (WRITE ANYWHERE) ================== */
+        .floating-text-box {
+            position: absolute; min-width: 150px; padding: 10px; 
+            color: #fff; font-size: 20px; font-weight: bold; cursor: move;
+            z-index: 500; background: rgba(0,0,0,0.4); border-radius: 8px;
+            border: 1px dashed transparent;
         }
-        .admin-item-controls button {
-            background: #ffc107; color: #000; border: none; border-radius: 4px;
-            width: 32px; height: 32px; font-weight: bold; cursor: pointer;
-            font-size: 18px; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.6); margin: 0; padding: 0;
-        }
-        .admin-item-controls button:hover { background: #fff; }
-        .admin-item-controls button.drag-handle { background: #00d2ff; cursor: grab; }
-        
-        .showcase-item.dragging {
-            opacity: 0.5; border: 3px dashed #00d2ff; transform: scale(0.95) !important;
-            z-index: 1000;
-        }
-        .showcase-item.over {
-            border: 3px solid #28a745; border-radius: 10px;
-        }
+        .floating-text-box:focus { border: 1px dashed #00d2ff; background: rgba(0,0,0,0.8); cursor: text; outline: none; }
+
+        /* Gallery Items logic */
+        .showcase-item { position: relative; transition: transform 0.3s ease; }
+        .showcase-item.dragging { opacity: 0.5; border: 3px dashed #00d2ff; z-index: 1000; }
+        .showcase-item.over { border: 3px solid #28a745; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <!-- Background 3D Shapes -->
-    <div class="bg-shape shape-1"></div>
-    <div class="bg-shape shape-2"></div>
-
     <!-- Navigation Bar -->
     <header>
-        <nav class="navbar">
+        <nav class="navbar" style="display:flex; justify-content:space-between; padding:20px; background:#10101a; border-bottom:2px solid #00d2ff;">
             <div class="admin-badge-left" onclick="handleAdminBadgeClick()" style="cursor: pointer;" title="Admin Panel">
-                <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
-                <div class="admin-info">
-                    <span class="admin-name">MANI M4 YT</span>
-                    <span class="admin-tag">ADMIN</span>
+                <img src="images/admin-profile.jpg" alt="Admin" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'" style="width:40px; border-radius:50%;">
+                <div class="admin-info" style="display:inline-block; vertical-align:top; margin-left:10px;">
+                    <span class="admin-name" style="color:#00d2ff; font-weight:bold; display:block;">MANI M4</span>
+                    <span class="admin-tag" style="font-size:12px; color:gray;">ADMIN</span>
                 </div>
             </div>
 
-            <div class="logo">
-                <i class="fa-solid fa-gamepad"></i> MANI<span class="">M4YT</span>
-            </div>
-
-            <ul class="nav-links">
-                <li><a href="#" onclick="navigateTo('home')">HOME</a></li>
-                <li><a href="#" onclick="goToHomeSection('features')">TIPS</a></li>
-                <li><a href="#" onclick="goToHomeSection('showcase')">GALLERY</a></li>
-                <li><a href="#" onclick="goToHomeSection('about')">LIVE</a></li>
-                <li><a href="#" onclick="navigateTo('notifications')" style="color:#00d2ff;">NOTIFICATIONS</a></li>
-                <li><a href="#" onclick="navigateTo('contact')" class="btn-primary">CONTACT DIRECT</a></li>
+            <ul class="nav-links" style="list-style:none; display:flex; gap:20px; margin:0;">
+                <li><a href="#" onclick="navigateTo('home')" style="color:white; text-decoration:none;">HOME</a></li>
+                <li><a href="#" onclick="navigateTo('notifications')" style="color:#00d2ff; text-decoration:none;">NOTIFICATIONS</a></li>
+                <li><a href="#" onclick="navigateTo('contact')" style="color:white; text-decoration:none;">CONTACT</a></li>
             </ul>
         </nav>
     </header>
@@ -215,120 +122,64 @@
     <!-- ==================== PAGE 1: HOME ==================== -->
     <div id="page-home" class="page-view active">
         <!-- Hero Section -->
-        <section id="home" class="hero">
+        <section id="home" class="hero" style="text-align:center; padding: 50px 20px;">
             <div class="hero-container">
                 <div class="hero-text">
-                    <span class="badge">eSports Gaming</span>
-                    <h1 class="">YouTube <span class="highlight">MANI M4 PRO</span></h1>
-                    <p class="">🔥 WELCOME TO GAMING WORLD 🔥 — BGMI &amp; PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
-                    <div class="hero-btns">
-                        <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="btn-main"><i class="fa-brands fa-youtube"></i> YouTube</a>
-                        <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="btn-secondary"><i class="fa-brands fa-instagram"></i> Instagram</a>
-                    </div>
+                    <h1 style="font-size: 3rem;">YouTube <span style="color:#00d2ff;">MANI M4 PRO</span></h1>
+                    <p style="color: #ccc;">🔥 WELCOME TO GAMING WORLD 🔥 — BGMI & PUBG Mobile BEST ESPORTS TIPS.</p>
                 </div>
                 
-                <div class="hero-3d-card-wrapper">
+                <div class="hero-3d-card-wrapper" style="max-width:800px; margin:30px auto;">
                     <div class="card-3d-main" id="tilt-card" style="position:relative;">
                         <div class="slider-wrapper">
-                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
-                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(0%); position: relative;">
-                                <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
-                                <img src="images/feature2.jpg" alt="Front 2" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
-                                <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
-                            <div style="position: absolute; top: 8px; left: 1165px; z-index: 1000; cursor: pointer; opacity: 1; transition: opacity 200ms; width: 24px; height: 24px;"><svg viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg"><title>Add to Photoshop Extension</title><path d="M44.26 0H9.74C4.36075 0 0 4.36075 0 9.74V44.26C0 49.6393 4.36075 54 9.74 54H44.26C49.6393 54 54 49.6393 54 44.26V9.74C54 4.36075 49.6393 0 44.26 0Z" fill="#001E36"></path><path d="M18.7398 14.4297C25.7698 14.4297 29.7298 17.7197 29.7298 23.2397C29.7298 29.6797 24.3598 32.2697 19.3298 32.2697H15.9298V39.2297H9.0498V14.4297H18.7498H18.7398ZM15.9298 20.3097V26.3797H18.9598C21.0698 26.3797 22.5498 25.5297 22.5498 23.3797C22.5498 21.4197 21.2898 20.3097 19.1098 20.3097H15.9298Z" fill="#31A8FF"></path><path d="M31.4299 37.9995L31.4699 32.2595C33.4299 33.5595 36.1699 34.3695 38.0599 34.3695C39.3499 34.3695 39.9499 33.9995 39.9499 33.3295C39.9499 32.5895 39.1399 32.2895 37.5799 31.8095C34.5799 30.9195 31.2899 29.6995 31.2899 25.7795C31.2899 21.8595 34.5799 19.5595 39.3599 19.5595C41.6199 19.5595 43.4699 19.8895 45.0999 20.5995L45.0599 26.0795C43.7699 25.2995 41.2099 24.5995 39.5499 24.5995C38.3299 24.5995 37.8499 24.9695 37.8499 25.5295C37.8499 26.1995 38.4399 26.3795 40.2199 26.9395C43.6599 27.9795 46.5499 29.0895 46.5499 33.1195C46.5499 37.1495 43.3999 39.5595 38.4799 39.5595C35.8899 39.5595 33.4499 39.1195 31.4499 38.0095L31.4299 37.9995Z" fill="#31A8FF"></path></svg></div></div>
-                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">❯</button>
-                        </div>
-                        <div class="card-glass-overlay">
-                            <h3 class="">Subscribe &amp; Stay Connected</h3>
-                            <p class="">Subscribe to MANI M4YT Channel and become a part of our family!</p>
+                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">&#10094;</button>
+                            <div class="slider-track" id="frontSliderTrack">
+                                <img src="images/hero-3d.jpg" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">
+                                <img src="images/feature2.jpg" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'">
+                            </div>
+                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">&#10095;</button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section id="features" class="features-section">
-            <h2 class="section-title">MAIN <span class="highlight">FEATURES</span></h2>
-            <p class="section-subtitle">Special facilities for Gamers</p>
-            <div class="cards-grid">
-                <div class="card-3d">
-                    <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
-                    <div class="card-img-container">
-                        <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
-                    </div>
-                    <h3 class="">BGMI Live Highlights</h3>
-                    <p class="">CAN YOU SUBSCRIBE.</p>
-                </div>
-                <div class="card-3d">
-                    <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
-                    <div class="card-img-container">
-                        <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
-                    </div>
-                    <h3 class="">eSports Custom Rooms</h3>
-                    <p class="">JOIN FOR TOURNAMENT PROGRAMS.</p>
-                </div>
-                <div class="card-3d">
-                    <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
-                    <div class="card-img-container">
-                        <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
-                    </div>
-                    <h3 class="">Pro Controls &amp; Sensitivity</h3>
-                    <p class="">FULL GUIDE IN ESPORTS MANIM4.YT.</p>
                 </div>
             </div>
         </section>
 
         <!-- Showcase / Gallery -->
-        <section id="showcase" class="showcase-section">
-            <h2 class="section-title">BGMI / PUBG <span class="highlight">3D GALLERY</span></h2>
-            <div class="showcase-grid" id="galleryContainer">
-                <div class="showcase-item">
-                    <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
-                    <div class="showcase-overlay">
-                        <h4 class="">Clutch Moments</h4>
-                        <p class="">1v4 BGMI Gameplay</p>
+        <section id="showcase" style="padding: 50px 20px; text-align:center;">
+            <h2 style="font-size: 2.5rem; color:#00d2ff; margin-bottom: 30px;">BGMI 3D GALLERY</h2>
+            <div class="showcase-grid" id="galleryContainer" style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center;">
+                
+                <div class="showcase-item" style="width:300px; background:#1a1a2e; padding:15px; border-radius:10px;">
+                    <img src="images/feature1.jpg" class="media-target" style="width:100%; border-radius:10px; transition: 0.3s;" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
+                    <div class="showcase-overlay" style="margin-top:10px;">
+                        <h4>Clutch Moments</h4>
+                        <p>1v4 BGMI Gameplay</p>
                     </div>
                 </div>
-                <div class="showcase-item">
-                    <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
-                    <div class="showcase-overlay">
-                        <h4 class="">eSports Arena</h4>
-                        <p class="">Custom Scrims</p>
+                
+                <div class="showcase-item" style="width:300px; background:#1a1a2e; padding:15px; border-radius:10px;">
+                    <img src="images/feature2.jpg" class="media-target" style="width:100%; border-radius:10px; transition: 0.3s;" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
+                    <div class="showcase-overlay" style="margin-top:10px;">
+                        <h4>eSports Arena</h4>
+                        <p>Custom Scrims</p>
                     </div>
                 </div>
-                <div class="showcase-item">
-                    <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
-                    <div class="showcase-overlay">
-                        <h4 class="">Pro Setup</h4>
-                        <p class="">LIVE M4YT</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- About Us -->
-        <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.6);">
-            <h2 class="section-title">ABOUT <span class="highlight">US</span></h2>
-            <div class="about-card">
-                <p class="">Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
             </div>
         </section>
     </div>
 
     <!-- ==================== PAGE 2: NOTIFICATIONS ==================== -->
     <div id="page-notifications" class="page-view">
-        <h1 class="page-header">LATEST <span class="highlight">NOTIFICATIONS</span></h1>
-        
+        <h1 class="page-header">LATEST <span style="color:#00d2ff;">NOTIFICATIONS</span></h1>
         <div class="notif-container">
             <div class="notif-list-wrapper" id="notifWrapper">
-                <!-- List Item Structure -->
                 <div class="notif-list-item" onclick="viewNotification(this)">
                     <div class="notif-date">18-09-2026</div>
                     <div class="notif-text">
-                        <div class="notif-title">Welcome to the new Esports Hub! (Click for details)</div>
-                        <div class="notif-desc" style="display:none;">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys!</div>
-                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="media-target notif-hidden-media" style="display:none;">
+                        <div class="notif-title">Welcome to the new Esports Hub!</div>
+                        <div class="notif-desc" style="display:none;">Stay tuned for daily live streams!</div>
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" class="media-target notif-hidden-media" style="display:none;">
                     </div>
                 </div>
             </div>
@@ -337,662 +188,396 @@
 
     <!-- ==================== PAGE 3: CONTACT ==================== -->
     <div id="page-contact" class="page-view">
-        <h1 class="page-header">MESSAGE <span class="highlight">ADMIN</span></h1>
-        
-        <div class="contact-page-wrapper">
-            <div class="contact-box admin-box" style="transform: scale(1.1); max-width: 600px; padding: 40px;">
-                <h2 style="margin-bottom: 20px;" class=""><i class="fa-solid fa-envelope"></i> DIRECT EMAIL SUPPORT</h2>
-                <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;" class="">Send a message directly to manipubji@gmail.com</p>
-                
-                <form action="mailto:manipubji@gmail.com" method="post" enctype="text/plain">
-                    <div class="form-group" style="text-align: left;">
-                        <label style="color:#00d2ff; font-weight:bold;">YOUR NAME / EMAIL:</label>
-                        <input type="text" name="Name" required="" placeholder="Enter your name...">
-                    </div>
-                    <div class="form-group" style="text-align: left;">
-                        <label style="color:#00d2ff; font-weight:bold;">MESSAGE FOR DEVELOPER:</label>
-                        <textarea name="Message" rows="5" required="" placeholder="Write your message here..."></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit" style="font-size: 16px; margin-top: 10px;">
-                        <i class="fa-solid fa-paper-plane"></i> SEND EMAIL NOW
-                    </button>
-                </form>
-            </div>
-        </div>
+        <h1 class="page-header">MESSAGE <span style="color:#00d2ff;">ADMIN</span></h1>
+        <p style="text-align:center;">Email at: manipubji@gmail.com</p>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-logo">
-                <i class="fa-solid fa-gamepad"></i> MANI<span class="">M4YT</span>
-            </div>
-            <div class="social-links">
-                <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="yt-icon"><i class="fa-brands fa-youtube"></i></a>
-                <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="ig-icon"><i class="fa-brands fa-instagram"></i></a>
-            </div>
-            <p class="email-text">
-                <i class="fa-solid fa-envelope"></i> Email: <a href="mailto:manipubji@gmail.com">manipubji@gmail.com</a>
-            </p>
-            <p class="">© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
-        </div>
-    </footer>
-
     <!-- ADMIN LOGIN MODAL -->
-    <div id="adminLoginModal" class="admin-modal" style="display: none;">
+    <div id="adminLoginModal" class="admin-modal">
         <div class="admin-box">
-            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:20px;">×</span>
-            <h2 class=""><i class="fa-solid fa-user-shield"></i> ADMIN LOGIN</h2>
-            
+            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:20px;">&times;</span>
+            <h2>ADMIN LOGIN</h2>
             <form onsubmit="handleLogin(event)" autocomplete="off">
-                <input style="display:none" type="text" name="fakeusernameremembered">
-                <input style="display:none" type="password" name="fakepasswordremembered">
-                
-                <input type="text" id="adminUserX" autocomplete="new-password" placeholder="Username" required="">
-                <input type="password" id="adminPassX" autocomplete="new-password" placeholder="Password" required="" aria-autocomplete="list">
+                <input type="text" id="adminUserX" placeholder="Username" required>
+                <input type="password" id="adminPassX" placeholder="Password" required>
                 <button type="submit">LOG IN</button>
             </form>
         </div>
     </div>
 
-    <!-- VIEW NOTIFICATION MODAL (FOR ALL USERS) -->
-    <div id="viewNotifModal" class="admin-modal" onclick="closeViewNotif(event)" style="display: none;">
+    <!-- VIEW NOTIFICATION MODAL -->
+    <div id="viewNotifModal" class="admin-modal" onclick="closeViewNotif(event)">
         <div class="admin-box view-notif-box" style="max-width: 600px; padding: 25px;" onclick="event.stopPropagation()">
-            <span class="close-btn" onclick="closeViewNotif()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
-            <h2 id="viewNotifTitle" style="text-align:left; color:#00d2ff; margin-bottom:15px; font-size:1.4rem;" class="">Title</h2>
-            
-            <img id="viewNotifImg" src="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
-            <video id="viewNotifVid" src="" controls="" autoplay="" muted="" loop="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);"></video>
-            
-            <p id="viewNotifDesc" style="text-align:left; line-height:1.6; color:#b3b3cc; white-space:pre-wrap; font-size:1.1rem;" class=""></p>
-            
-            <button id="adminEditNotifBtn" style="display:none; background:#ffc107; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; margin-top: 20px; font-size: 15px;" onclick="openUploadModalFromView()">
-                <i class="fa-solid fa-pen-to-square"></i> EDIT NOTIFICATION (ADMIN ONLY)
-            </button>
+            <span class="close-btn" onclick="closeViewNotif()" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
+            <h2 id="viewNotifTitle">Title</h2>
+            <img id="viewNotifImg" src="" style="width: 100%; border-radius: 10px; display: none;">
+            <p id="viewNotifDesc"></p>
         </div>
     </div>
 
-    <!-- ADMIN EDIT NOTIFICATION MODAL -->
-    <div id="innerUploadModal" class="admin-modal" style="display: none;">
-        <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); max-width: 500px;">
-            <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
-            <h2 class=""><i class="fa-solid fa-bell"></i> Edit Notification</h2>
-            
-            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" class="">1. Enter Title:</p>
-            <input type="text" id="notifEditTitle" placeholder="Notification Title..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box;">
-            
-            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" class="">2. Enter Message/Details:</p>
-            <textarea id="notifEditDesc" rows="4" placeholder="Write your full message here..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box; resize:none; font-family:inherit;"></textarea>
-            
-            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" class="">3. Upload Photo/Video (Optional):</p>
-            <input type="file" id="notifMediaFile" accept="image/*,video/*" style="background:#1a1a2e; border:1px dashed #00d2ff; padding:10px; width:100%; border-radius:5px; color:white; margin-bottom:20px; cursor:pointer; box-sizing:border-box;">
-            
-            <button onclick="confirmNotifUpdate(event)" style="background:#00d2ff; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; font-size: 16px;">
-                <i class="fa-solid fa-check-circle"></i> UPDATE NOTIFICATION
-            </button>
-        </div>
+    <!-- ================== NEW: PHOTO TOOLS SIDE PANEL ================== -->
+    <div id="mediaToolsPanel" class="media-tools-panel">
+        <h3><i class="fa-solid fa-wrench"></i> Photo Tools</h3>
+        <button onclick="mediaZoom(0.1)"><i class="fa-solid fa-magnifying-glass-plus"></i> Zoom In (+)</button>
+        <button onclick="mediaZoom(-0.1)"><i class="fa-solid fa-magnifying-glass-minus"></i> Zoom Out (-)</button>
+        <button onclick="changeMediaFile()"><i class="fa-solid fa-upload"></i> Change Photo</button>
+        <button onclick="changeMediaUrl()"><i class="fa-solid fa-link"></i> Photo URL</button>
+        <button onclick="addUrlUnderPhoto()"><i class="fa-solid fa-closed-captioning"></i> Add Text/URL Below</button>
+        <button onclick="toggleMediaDrag()"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move / Drag</button>
+        <button onclick="deleteSelectedMedia()" style="color: #ff4d4d;"><i class="fa-solid fa-trash"></i> Delete Photo</button>
+        <button onclick="closeMediaTools()" style="background:#dc3545; color:white; text-align:center; border:none; margin-top:10px;"><i class="fa-solid fa-xmark"></i> Close Panel</button>
     </div>
 
     <!-- FLOATING ADMIN DASHBOARD -->
-    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
-        <p class=""><i class="fa-solid fa-user-gear"></i> Admin Active</p>
-        <button onclick="addNewMediaCard()"><i class="fa-solid fa-plus"></i> Add Gallery Card</button>
-        <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
-        <button onclick="changePhotoByUrl()"><i class="fa-solid fa-link"></i> Photo/Video URL</button>
-        <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
-        <button onclick="saveChangesToGitHub()" class="btn-save"><i class="fa-solid fa-spinner fa-spin"></i> Live Saving...</button>
-        <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:11px;"><i class="fa-solid fa-right-from-bracket"></i> Logout Admin</button>
-        <button onclick="clearSavedToken()" style="background:#6c757d; color:white; font-size:10px;">Reset Git Token</button>
+    <div id="adminDashboard" class="admin-dashboard">
+        <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
+        <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
+        <button onclick="addFloatingText()" style="background:#ff9800; color:black;"><i class="fa-solid fa-font"></i> Add Text Anywhere</button>
+        <button onclick="addNewNotification()"><i class="fa-solid fa-bell"></i> Add Notification</button>
+        <button onclick="saveChangesToGitHub()" id="saveBtn" class="btn-save"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
+        <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:11px;"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
     </div>
 
-    <!-- HIDDEN FILE INPUT FOR SELECTOR -->
+    <!-- HIDDEN FILE INPUT -->
     <input type="file" id="adminFileInput" accept="image/*,video/*" style="display: none;" onchange="handleFileSelected(event)">
 
     <script>
-        // ================= PAGE ROUTING LOGIC ================= //
+        // ================= PAGE ROUTING & SLIDER ================= //
         function navigateTo(pageId) {
-            document.querySelectorAll('.page-view').forEach(page => {
-                page.classList.remove('active');
-            });
+            document.querySelectorAll('.page-view').forEach(page => page.classList.remove('active'));
             const targetPage = document.getElementById('page-' + pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-                window.scrollTo(0, 0); 
-            }
+            if (targetPage) { targetPage.classList.add('active'); window.scrollTo(0, 0); }
         }
 
-        function goToHomeSection(sectionId) {
-            navigateTo('home');
-            setTimeout(() => {
-                document.getElementById(sectionId).scrollIntoView({behavior: 'smooth'});
-            }, 100);
-        }
-
-        // ================= AUTO SCROLL FRONT SLIDER ================= //
         let currentSlideIndex = 0;
         let sliderInterval;
-        
-        function startSlider() {
-            sliderInterval = setInterval(() => { moveFrontSlide(1); }, 3000);
-        }
-
+        function startSlider() { sliderInterval = setInterval(() => { moveFrontSlide(1); }, 3000); }
         function moveFrontSlide(direction, event) {
-            if(event) { 
-                event.stopPropagation(); 
-                clearInterval(sliderInterval); 
-                startSlider(); 
-            } 
+            if(event) { event.stopPropagation(); clearInterval(sliderInterval); startSlider(); } 
             const track = document.getElementById('frontSliderTrack');
             const totalSlides = track.children.length;
-            
             currentSlideIndex += direction;
             if (currentSlideIndex < 0) currentSlideIndex = totalSlides - 1;
             if (currentSlideIndex >= totalSlides) currentSlideIndex = 0;
-            
             track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
         }
 
-        // ================= PERSISTENT ADMIN SYSTEM ================= //
-        let currentTargetElement = null;
-        let activeNotifCard = null;
-        let currentViewedNotif = null;
-        let draggedItem = null;
-
+        // ================= ADMIN LOGIN SYSTEM ================= //
         const GITHUB_OWNER = 'jorabagga12-bit';       
         const GITHUB_REPO = 'mani-bagga';             
         const FILE_PATH = 'index.html';
 
+        let currentSelectedMedia = null;
+        let isDragModeActive = false;
+
         window.addEventListener('DOMContentLoaded', () => {
             startSlider(); 
-            if (localStorage.getItem('mani_admin_logged') === 'true') {
-                activateAdminMode();
-            }
+            if (localStorage.getItem('mani_admin_logged') === 'true') activateAdminMode();
         });
 
         function handleAdminBadgeClick() {
             if (localStorage.getItem('mani_admin_logged') === 'true') {
-                alert('Admin Mode is already active! 🚀 You can edit text, resize, and drag photos.');
+                alert('Admin Mode is Active! Click any Photo/Text to edit.');
             } else {
-                openAdminLogin();
+                document.getElementById('adminLoginModal').style.display = 'flex';
             }
         }
 
-        function openAdminLogin() {
-            document.getElementById('adminUserX').value = '';
-            document.getElementById('adminPassX').value = '';
-            document.getElementById('adminLoginModal').style.display = 'flex';
-        }
-
-        function closeAdminLogin() {
-            document.getElementById('adminLoginModal').style.display = 'none';
-        }
+        function closeAdminLogin() { document.getElementById('adminLoginModal').style.display = 'none'; }
 
         function handleLogin(e) {
             e.preventDefault();
             const user = document.getElementById('adminUserX').value;
             const pass = document.getElementById('adminPassX').value;
-
             if (user === 'bagga' && pass === 'iphonex0421&') {
-                try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
+                localStorage.setItem('mani_admin_logged', 'true');
                 closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\nNow you can click photos to change them, drag them around, and resize them (+/-).');
+                alert('Welcome Admin! Click on any photo to open the 7-8 Tools Panel.');
                 activateAdminMode();
-            } else {
-                alert('Invalid Username or Password!');
-            }
+            } else { alert('Invalid Login!'); }
         }
 
-        function logoutAdmin() {
-            localStorage.removeItem('mani_admin_logged');
-            alert('Admin logged out successfully!');
-            window.location.reload();
-        }
+        function logoutAdmin() { localStorage.removeItem('mani_admin_logged'); window.location.reload(); }
 
         function activateAdminMode() {
             document.getElementById('adminDashboard').style.display = 'block';
-            
-            const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn)');
-            textElements.forEach(el => {
-                el.contentEditable = "true";
-                el.classList.add('editable-active');
+            document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc)').forEach(el => {
+                el.contentEditable = "true"; el.classList.add('editable-active');
             });
-
             bindMediaClickHandlers();
-            makeGalleryItemsDraggableAndResizable();
+            enableFloatingTextDrag();
         }
 
-        // ================= DRAG, DROP & RESIZE LOGIC ================= //
-        function makeGalleryItemsDraggableAndResizable() {
-            const items = document.querySelectorAll('.showcase-item');
-            
-            items.forEach(item => {
-                // Prevent duplicate buttons if called again
-                if(!item.querySelector('.admin-item-controls')) {
-                    // Make Item Draggable
-                    item.setAttribute('draggable', 'true');
-                    
-                    // Drag Start
-                    item.addEventListener('dragstart', function(e) {
-                        if (localStorage.getItem('mani_admin_logged') !== 'true') {
-                            e.preventDefault(); return;
-                        }
-                        draggedItem = this;
-                        e.dataTransfer.effectAllowed = 'move';
-                        setTimeout(() => this.classList.add('dragging'), 0);
-                    });
-                    
-                    // Drag Over
-                    item.addEventListener('dragover', function(e) {
-                        e.preventDefault();
-                        if(draggedItem && draggedItem !== this) {
-                            this.classList.add('over');
-                        }
-                        return false;
-                    });
-                    
-                    // Drag Leave
-                    item.addEventListener('dragleave', function(e) {
-                        this.classList.remove('over');
-                    });
-                    
-                    // Drop (Reorder items)
-                    item.addEventListener('drop', function(e) {
-                        e.stopPropagation();
-                        this.classList.remove('over');
-                        if (draggedItem && draggedItem !== this) {
-                            const container = this.parentNode;
-                            const allItems = [...container.querySelectorAll('.showcase-item')];
-                            const draggedIndex = allItems.indexOf(draggedItem);
-                            const targetIndex = allItems.indexOf(this);
-                            
-                            if (draggedIndex < targetIndex) {
-                                this.after(draggedItem); // Move After
-                            } else {
-                                this.before(draggedItem); // Move Before
-                            }
-                        }
-                        return false;
-                    });
-                    
-                    // Drag End
-                    item.addEventListener('dragend', function(e) {
-                        this.classList.remove('dragging');
-                        document.querySelectorAll('.showcase-item').forEach(el => el.classList.remove('over'));
-                    });
-
-                    // Add Resize Buttons (+ / -) & Drag Handle
-                    let controlsHTML = document.createElement('div');
-                    controlsHTML.className = 'admin-item-controls';
-                    controlsHTML.innerHTML = `
-                        <button type="button" class="drag-handle" title="Drag to move"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>
-                        <button type="button" onclick="resizeCard(this, 1)" title="Increase Size"><i class="fa-solid fa-plus"></i></button>
-                        <button type="button" onclick="resizeCard(this, -1)" title="Decrease Size"><i class="fa-solid fa-minus"></i></button>
-                    `;
-                    item.appendChild(controlsHTML);
-                }
-            });
-        }
-
-        // Resize function applied on card
-        function resizeCard(btn, direction) {
-            event.stopPropagation(); // Don't trigger other clicks
-            let card = btn.closest('.showcase-item');
-            
-            // Get current scale, default to 1
-            let currentScale = parseFloat(card.getAttribute('data-scale')) || 1;
-            
-            // Add or subtract 5% scale size
-            currentScale += (direction * 0.05); 
-            
-            // Minimum and Maximum size bounds
-            if(currentScale < 0.6) currentScale = 0.6;
-            if(currentScale > 1.6) currentScale = 1.6;
-            
-            card.setAttribute('data-scale', currentScale);
-            card.style.transform = `scale(${currentScale})`;
-            card.style.zIndex = currentScale > 1 ? '10' : '1';
-        }
-
-        // ================= NEW NOTIFICATION SYSTEM (VIEW & EDIT) ================= //
-        function viewNotification(notifItem) {
-            currentViewedNotif = notifItem;
-            const title = notifItem.querySelector('.notif-title').innerText;
-            const desc = notifItem.querySelector('.notif-desc').innerText;
-            const media = notifItem.querySelector('.media-target');
-
-            document.getElementById('viewNotifTitle').innerText = title;
-            document.getElementById('viewNotifDesc').innerText = desc;
-            
-            const imgEl = document.getElementById('viewNotifImg');
-            const vidEl = document.getElementById('viewNotifVid');
-            imgEl.style.display = 'none';
-            vidEl.style.display = 'none';
-
-            if (media && media.tagName.toLowerCase() === 'img') {
-                imgEl.src = media.src;
-                imgEl.style.display = 'block';
-            } else if (media && media.tagName.toLowerCase() === 'video') {
-                vidEl.src = media.src;
-                vidEl.style.display = 'block';
-            }
-
-            if (localStorage.getItem('mani_admin_logged') === 'true') {
-                document.getElementById('adminEditNotifBtn').style.display = 'block';
-            } else {
-                document.getElementById('adminEditNotifBtn').style.display = 'none';
-            }
-
-            document.getElementById('viewNotifModal').style.display = 'flex';
-        }
-
-        function closeViewNotif(e) {
-            if(e && e.target !== e.currentTarget) return;
-            document.getElementById('viewNotifModal').style.display = 'none';
-        }
-
-        function openUploadModalFromView() {
-            closeViewNotif();
-            activeNotifCard = currentViewedNotif;
-            let titleEl = activeNotifCard.querySelector('.notif-title');
-            let descEl = activeNotifCard.querySelector('.notif-desc');
-            
-            document.getElementById('notifEditTitle').value = titleEl ? titleEl.innerText : '';
-            document.getElementById('notifEditDesc').value = descEl ? descEl.innerText : '';
-            document.getElementById('notifMediaFile').value = ''; 
-
-            document.getElementById('innerUploadModal').style.display = 'flex';
-        }
-
-        function closeUploadModal(event) {
-            if(event) event.stopPropagation();
-            document.getElementById('innerUploadModal').style.display = 'none';
-        }
-
-        function confirmNotifUpdate(event) {
-            if(event) event.stopPropagation();
-            if(!activeNotifCard) return;
-
-            let newTitle = document.getElementById('notifEditTitle').value;
-            let newDesc = document.getElementById('notifEditDesc').value;
-            
-            activeNotifCard.querySelector('.notif-title').innerText = newTitle;
-            activeNotifCard.querySelector('.notif-desc').innerText = newDesc;
-
-            let fileInput = document.getElementById('notifMediaFile');
-            if (fileInput.files && fileInput.files[0]) {
-                let file = fileInput.files[0];
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    let fileData = e.target.result;
-                    let mediaTarget = activeNotifCard.querySelector('.media-target');
-                    
-                    if (file.type.startsWith('image/')) {
-                        if (mediaTarget.tagName.toLowerCase() === 'video') {
-                            let newImg = document.createElement('img');
-                            newImg.src = fileData;
-                            newImg.className = mediaTarget.className;
-                            newImg.style.display = 'none';
-                            mediaTarget.parentNode.replaceChild(newImg, mediaTarget);
-                        } else {
-                            mediaTarget.src = fileData;
-                        }
-                    } else if (file.type.startsWith('video/')) {
-                        let newVideo = document.createElement('video');
-                        newVideo.src = fileData;
-                        newVideo.className = mediaTarget.className;
-                        newVideo.style.display = 'none';
-                        mediaTarget.parentNode.replaceChild(newVideo, mediaTarget);
-                    }
-                    alert('Notification Successfully Updated! 🔥');
-                    closeUploadModal();
-                    viewNotification(activeNotifCard);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('Notification Successfully Updated! 🔥');
-                closeUploadModal();
-                viewNotification(activeNotifCard);
-            }
-        }
-
-        function addNewNotification() {
-            navigateTo('notifications'); 
-            let notifWrapper = document.getElementById('notifWrapper');
-            
-            let today = new Date();
-            let dateStr = ("0" + today.getDate()).slice(-2) + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + today.getFullYear();
-            
-            let newNotifHTML = `
-                <div class="notif-list-item" onclick="viewNotification(this)">
-                    <div class="notif-date">${dateStr}</div>
-                    <div class="notif-text">
-                        <div class="notif-title">New Update Title (Click to Open)</div>
-                        <div class="notif-desc" style="display:none;">Add your full message and photo here...</div>
-                        <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80" class="media-target notif-hidden-media" style="display:none;">
-                    </div>
-                </div>`;
-            notifWrapper.insertAdjacentHTML('afterbegin', newNotifHTML);
-            if (localStorage.getItem('mani_admin_logged') === 'true') activateAdminMode();
-        }
-
-        // ================= MEDIA CLICKS & HANDLERS ================= //
+        // ================= NEW: PHOTO TOOLS (7-8 TOOLS PANEL) ================= //
         function bindMediaClickHandlers() {
-            const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
-            mediaElements.forEach(elem => {
+            const medias = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
+            medias.forEach(elem => {
                 elem.classList.add('media-editable');
-                elem.title = "Click to Change Photo/Video";
                 elem.onclick = function(e) {
                     if (localStorage.getItem('mani_admin_logged') === 'true') {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        currentTargetElement = elem;
-                        let choice = confirm("To change Photo/Video:\n[OK] = Choose from Device Gallery\n[Cancel] = Paste Image/Video URL link");
-                        if(choice) {
-                            document.getElementById('adminFileInput').click();
-                        } else {
-                            changePhotoByUrl();
-                        }
+                        e.preventDefault(); e.stopPropagation();
+                        
+                        // Highlight selected media
+                        document.querySelectorAll('.media-target').forEach(el => el.classList.remove('media-selected'));
+                        elem.classList.add('media-selected');
+                        currentSelectedMedia = elem;
+                        
+                        // Show side panel
+                        document.getElementById('mediaToolsPanel').style.display = 'block';
                     } else {
-                        openAdminLogin();
+                        document.getElementById('adminLoginModal').style.display = 'flex';
                     }
                 };
             });
         }
 
-        function changePhotoByUrl() {
-            if(!currentTargetElement && localStorage.getItem('mani_admin_logged') === 'true') {
-                alert("Please click on a photo or card first to change it!");
-                return;
-            }
-            let url = prompt("Paste direct Image or Video URL here:");
-            if(url && currentTargetElement) {
-                if(url.match(/\.(mp4|webm|ogg)$/i)) {
-                    let newVideo = document.createElement('video');
-                    newVideo.src = url; newVideo.controls = true; newVideo.autoplay = true;      
-                    newVideo.muted = false; newVideo.loop = true;
-                    newVideo.className = currentTargetElement.className;
-                    currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
-                } else {
-                    currentTargetElement.src = url;
-                }
-                bindMediaClickHandlers();
-            }
+        function closeMediaTools() {
+            document.getElementById('mediaToolsPanel').style.display = 'none';
+            if(currentSelectedMedia) currentSelectedMedia.classList.remove('media-selected');
+            currentSelectedMedia = null;
+            disableMediaDrag();
         }
 
+        // Tool 1 & 2: Zoom In / Zoom Out
+        function mediaZoom(amount) {
+            if(!currentSelectedMedia) return;
+            // Scale is applied directly to the image or its parent container
+            let target = currentSelectedMedia.closest('.showcase-item') || currentSelectedMedia;
+            let currentScale = parseFloat(target.getAttribute('data-scale')) || 1.0;
+            currentScale += amount;
+            if(currentScale < 0.3) currentScale = 0.3; // Min zoom
+            if(currentScale > 3.0) currentScale = 3.0; // Max zoom
+            
+            target.setAttribute('data-scale', currentScale.toFixed(2));
+            target.style.transform = `scale(${currentScale})`;
+            target.style.zIndex = currentScale > 1 ? '10' : '1';
+        }
+
+        // Tool 3: Upload Image File
+        function changeMediaFile() {
+            if(currentSelectedMedia) document.getElementById('adminFileInput').click();
+        }
         function handleFileSelected(event) {
             const file = event.target.files[0];
-            if (!file || !currentTargetElement) return;
-
+            if (!file || !currentSelectedMedia) return;
             const reader = new FileReader();
-            reader.onload = function(e) {
-                const fileData = e.target.result;
-                if (file.type.startsWith('image/')) {
-                    if (currentTargetElement.tagName.toLowerCase() === 'video') {
-                        const newImg = document.createElement('img');
-                        newImg.src = fileData;
-                        newImg.className = currentTargetElement.className;
-                        currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement);
-                        currentTargetElement = newImg;
-                    } else {
-                        currentTargetElement.src = fileData;
-                    }
-                } else if (file.type.startsWith('video/')) {
-                    const newVideo = document.createElement('video');
-                    newVideo.src = fileData;
-                    newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true;
-                    newVideo.className = currentTargetElement.className;
-                    currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
-                    currentTargetElement = newVideo;
-                }
-                bindMediaClickHandlers();
-            };
+            reader.onload = function(e) { currentSelectedMedia.src = e.target.result; };
             reader.readAsDataURL(file);
             event.target.value = '';
         }
 
+        // Tool 4: Change via URL
+        function changeMediaUrl() {
+            if(!currentSelectedMedia) return;
+            let url = prompt("Paste direct Image or Video URL:");
+            if(url) currentSelectedMedia.src = url;
+        }
+
+        // Tool 5: Add URL/Text Below Photo
+        function addUrlUnderPhoto() {
+            if(!currentSelectedMedia) return;
+            let linkText = prompt("Enter text to show below photo (e.g., Click Here):");
+            let linkUrl = prompt("Enter the URL it should go to:");
+            
+            if(linkText && linkUrl) {
+                let parent = currentSelectedMedia.closest('.showcase-item') || currentSelectedMedia.parentNode;
+                let newLink = document.createElement('a');
+                newLink.href = linkUrl;
+                newLink.target = "_blank";
+                newLink.innerHTML = `<i class="fa-solid fa-link"></i> ${linkText}`;
+                newLink.style.display = "block";
+                newLink.style.marginTop = "10px";
+                newLink.style.color = "#ffc107";
+                newLink.style.fontWeight = "bold";
+                newLink.style.textDecoration = "none";
+                parent.appendChild(newLink);
+            }
+        }
+
+        // Tool 6: Move / Drag Mode
+        function toggleMediaDrag() {
+            if(!currentSelectedMedia) return;
+            let target = currentSelectedMedia.closest('.showcase-item');
+            if(!target) { alert("This specific image cannot be dragged."); return; }
+
+            isDragModeActive = !isDragModeActive;
+            if(isDragModeActive) {
+                target.setAttribute('draggable', 'true');
+                target.style.border = "3px dashed #ff9800";
+                target.style.cursor = "grab";
+                alert("Drag Mode Enabled! Drag the photo to move it left/right.");
+                
+                target.ondragstart = (e) => { e.dataTransfer.setData('text/plain', ''); target.classList.add('dragging'); };
+                target.ondragend = () => { target.classList.remove('dragging'); target.style.border="none"; };
+                
+                let container = target.parentNode;
+                container.ondragover = (e) => { e.preventDefault(); };
+                container.ondrop = (e) => {
+                    e.preventDefault();
+                    let draggingElement = document.querySelector('.dragging');
+                    if(draggingElement && e.target.closest('.showcase-item')) {
+                        let dropTarget = e.target.closest('.showcase-item');
+                        container.insertBefore(draggingElement, dropTarget);
+                    }
+                };
+            } else {
+                disableMediaDrag();
+                alert("Drag Mode Disabled.");
+            }
+        }
+        function disableMediaDrag() {
+            if(currentSelectedMedia) {
+                let target = currentSelectedMedia.closest('.showcase-item');
+                if(target) {
+                    target.removeAttribute('draggable');
+                    target.style.border = "none";
+                    target.style.cursor = "default";
+                    target.ondragstart = null;
+                }
+            }
+            isDragModeActive = false;
+        }
+
+        // Tool 7: Delete Media
+        function deleteSelectedMedia() {
+            if(!currentSelectedMedia) return;
+            let confirmDel = confirm("Are you sure you want to delete this photo permanently?");
+            if(confirmDel) {
+                let target = currentSelectedMedia.closest('.showcase-item') || currentSelectedMedia;
+                target.remove();
+                closeMediaTools();
+            }
+        }
+
+
+        // ================= NEW: TEXT ANYWHERE TOOL ================= //
+        function addFloatingText() {
+            let textDiv = document.createElement('div');
+            textDiv.className = 'floating-text-box editable-active';
+            textDiv.contentEditable = "true";
+            textDiv.innerHTML = "📝 Type Here (Drag to move)";
+            textDiv.style.top = (window.scrollY + 200) + 'px';
+            textDiv.style.left = '50px';
+            
+            document.body.appendChild(textDiv);
+            enableFloatingTextDrag();
+        }
+
+        // Script to drag floating text boxes anywhere
+        function enableFloatingTextDrag() {
+            let textElements = document.querySelectorAll('.floating-text-box');
+            textElements.forEach(elmnt => {
+                let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                elmnt.onmousedown = function(e) {
+                    // Only drag if holding CTRL key or clicking the very edge, so user can still type
+                    if (e.target !== elmnt) return;
+                    e.preventDefault();
+                    pos3 = e.clientX; pos4 = e.clientY;
+                    document.onmouseup = closeDragElement;
+                    document.onmousemove = elementDrag;
+                };
+                function elementDrag(e) {
+                    e.preventDefault();
+                    pos1 = pos3 - e.clientX; pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX; pos4 = e.clientY;
+                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+                }
+                function closeDragElement() {
+                    document.onmouseup = null; document.onmousemove = null;
+                }
+            });
+        }
+
+
+        // ================= NOTIFICATIONS LOGIC ================= //
+        function viewNotification(notifItem) {
+            document.getElementById('viewNotifTitle').innerText = notifItem.querySelector('.notif-title').innerText;
+            document.getElementById('viewNotifDesc').innerText = notifItem.querySelector('.notif-desc').innerText;
+            let media = notifItem.querySelector('.media-target');
+            let imgEl = document.getElementById('viewNotifImg');
+            if (media && media.tagName.toLowerCase() === 'img') {
+                imgEl.src = media.src; imgEl.style.display = 'block';
+            } else { imgEl.style.display = 'none'; }
+            document.getElementById('viewNotifModal').style.display = 'flex';
+        }
+        function closeViewNotif() { document.getElementById('viewNotifModal').style.display = 'none'; }
+
         function addNewMediaCard() {
             navigateTo('home');
-            setTimeout(() => { document.getElementById('showcase').scrollIntoView(); }, 100);
-            
             let gallery = document.getElementById('galleryContainer');
-            let newCardHTML = `
-                <div class="showcase-item">
-                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="New Item" class="media-target">
-                    <div class="showcase-overlay" contenteditable="true">
-                        <h4>New Media Title</h4>
-                        <p>Description Here</p>
-                    </div>
-                </div>`;
-            gallery.insertAdjacentHTML('beforeend', newCardHTML);
-            if (localStorage.getItem('mani_admin_logged') === 'true') {
-                activateAdminMode();
-                makeGalleryItemsDraggableAndResizable(); // Re-bind new elements
-            }
+            let newCard = `<div class="showcase-item" style="width:300px; background:#1a1a2e; padding:15px; border-radius:10px;">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" class="media-target" style="width:100%; border-radius:10px; transition:0.3s;">
+                <div class="showcase-overlay editable-active" contenteditable="true" style="margin-top:10px;">
+                    <h4>New Item</h4><p>Description</p>
+                </div>
+            </div>`;
+            gallery.insertAdjacentHTML('beforeend', newCard);
+            bindMediaClickHandlers();
         }
 
-        function addYouTubeVideo() {
-            navigateTo('home');
-            setTimeout(() => { document.getElementById('showcase').scrollIntoView(); }, 100);
-            
-            let videoLink = prompt("Enter YouTube Video Embed Link (e.g., https://www.youtube.com/embed/XXXX)");
-            if (videoLink) {
-                let gallery = document.getElementById('galleryContainer');
-                let newVideoHTML = `
-                    <div class="showcase-item">
-                        <iframe width="100%" height="220" src="${videoLink}" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
-                        <div class="showcase-overlay" contenteditable="true">
-                            <h4>YouTube Live Stream</h4>
-                            <p>Watch Highlights</p>
-                        </div>
-                    </div>`;
-                gallery.insertAdjacentHTML('beforeend', newVideoHTML);
-                if (localStorage.getItem('mani_admin_logged') === 'true') {
-                    activateAdminMode();
-                    makeGalleryItemsDraggableAndResizable(); // Re-bind new elements
-                }
-            }
-        }
-
-        function clearSavedToken() {
-            localStorage.removeItem('gh_token_bagga');
-            alert('Saved GitHub token has been removed!');
-        }
-
-        // ================= 🚀 LIVE GITHUB AUTO-SAVE SYSTEM 🚀 ================= //
+        // ================= 🚀 FIXED: GITHUB AUTO-SAVE SYSTEM 🚀 ================= //
         async function saveChangesToGitHub() {
             let token = localStorage.getItem('gh_token_bagga');
-            
             if (!token) {
                 token = prompt("Enter your GitHub Personal Access Token:");
-                if (!token) {
-                    alert("Changes cannot be saved without a token!");
-                    return;
-                }
+                if (!token) { alert("Action Cancelled."); return; }
                 localStorage.setItem('gh_token_bagga', token.trim());
             }
 
-            const saveBtn = document.querySelector('.btn-save');
+            const saveBtn = document.getElementById('saveBtn');
+            // Disable button during save to prevent loop
+            saveBtn.disabled = true;
             saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Live Saving...';
 
             try {
+                // Ensure tools are closed before saving
+                closeMediaTools();
+
                 const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
-                
-                const getResponse = await fetch(apiUrl, {
-                    headers: { 'Authorization': `token ${token}` }
-                }); 
-                
-                if (!getResponse.ok) throw new Error("GitHub Repository file not found or Token Invalid!");
+                const getResponse = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } }); 
+                if (!getResponse.ok) throw new Error("GitHub Repository issue or Invalid Token!");
                 
                 const fileData = await getResponse.json();
-                const sha = fileData.sha;
-
                 let clone = document.documentElement.cloneNode(true);
                 
-                // Hide Modals
-                let dash = clone.querySelector('#adminDashboard');
-                if(dash) dash.style.display = 'none';
-                let modal = clone.querySelector('#adminLoginModal');
-                if(modal) modal.style.display = 'none';
-                let upModal = clone.querySelector('#innerUploadModal');
-                if(upModal) upModal.style.display = 'none';
-                let viewModal = clone.querySelector('#viewNotifModal');
-                if(viewModal) viewModal.style.display = 'none';
-
-                clone.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
-                clone.querySelector('#page-home').classList.add('active');
-                
-                // Strip Editable classes
-                const editables = clone.querySelectorAll('.editable-active');
-                editables.forEach(el => {
-                    el.removeAttribute('contenteditable');
-                    el.classList.remove('editable-active');
-                });
-                
-                const medias = clone.querySelectorAll('.media-editable');
-                medias.forEach(el => {
-                    el.classList.remove('media-editable');
-                    el.removeAttribute('title');
-                    el.onclick = null;
+                // Hide Admin UI from users
+                ['#adminDashboard', '#adminLoginModal', '#viewNotifModal', '#mediaToolsPanel'].forEach(id => {
+                    let el = clone.querySelector(id); if(el) el.style.display = 'none';
                 });
 
-                // Strip Admin Only Size & Drag UI controls so users don't see it
-                const adminControls = clone.querySelectorAll('.admin-item-controls');
-                adminControls.forEach(el => el.remove());
-                const draggableItems = clone.querySelectorAll('.showcase-item[draggable]');
-                draggableItems.forEach(el => el.removeAttribute('draggable'));
+                // Strip editable tags
+                clone.querySelectorAll('.editable-active').forEach(el => {
+                    el.removeAttribute('contenteditable'); el.classList.remove('editable-active');
+                });
+                clone.querySelectorAll('.media-editable').forEach(el => {
+                    el.classList.remove('media-editable', 'media-selected'); el.onclick = null;
+                });
 
                 const fullHTML = "<!DOCTYPE html>\n<html lang=\"en\">\n" + clone.innerHTML + "\n</html>";
                 const base64Content = btoa(unescape(encodeURIComponent(fullHTML)));
 
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: 'Updated Live via Admin Panel (Drag, Resize & Updates)',
-                        content: base64Content,
-                        sha: sha
-                    })
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: 'Live Edit: Updated with Text, Zoom & Tools', content: base64Content, sha: fileData.sha })
                 });
 
                 if (putResponse.ok) {
-                    alert('Congratulations! Changes saved to GitHub successfully! 🎉');
+                    alert('Success! Changes saved to the Live Website! 🎉');
                 } else {
-                    const errorDetails = await putResponse.json();
-                    throw new Error(errorDetails.message);
+                    const err = await putResponse.json();
+                    throw new Error(err.message);
                 }
             } catch (error) {
-                console.error("Save Error:", error);
-                alert('Error: ' + error.message);
+                alert('Save Error: ' + error.message);
             } finally {
+                // BUG FIX: This guarantees the button stops spinning no matter what happens
+                saveBtn.disabled = false;
                 saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site';
             }
         }
     </script>
-
-
-
 </body>
 </html>
+
