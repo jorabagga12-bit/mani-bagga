@@ -1285,6 +1285,25 @@
                         e.preventDefault(); e.stopPropagation(); currentTargetElement = elem; showAdminImageControls(e, elem);
                     }
                 };
+                
+                // NEW: Video resize options appear exactly when paused in Admin Mode
+                if(elem.tagName.toLowerCase() === 'video') {
+                    elem.onpause = function() {
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
+                            currentTargetElement = elem; 
+                            let rect = elem.getBoundingClientRect();
+                            let mockEvent = {
+                                pageX: window.scrollX + rect.left + (rect.width / 2) - 130,
+                                pageY: window.scrollY + rect.top + (rect.height / 2)
+                            };
+                            showAdminImageControls(mockEvent, elem);
+                        }
+                    };
+                    elem.onplay = function() {
+                        let existing = document.getElementById('admin-img-controls'); 
+                        if(existing) { existing.remove(); startSlider(); }
+                    };
+                }
             });
         }
 
