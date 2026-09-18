@@ -35,14 +35,13 @@
             max-width: 900px; margin: 0 auto; padding: 0 20px;
         }
         
-        /* नोटिफिकेशन कार्ड - अब क्लिकेबल है */
         .notif-3d-card {
             background: linear-gradient(145deg, #1a1a2e, #10101a);
             border-radius: 20px; padding: 25px; margin-bottom: 40px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0, 210, 255, 0.1);
             border: 1px solid rgba(0, 210, 255, 0.2);
             transition: all 0.4s ease; transform-style: preserve-3d;
-            cursor: pointer; /* Pointer ताकि लगे कि क्लिक हो सकता है */
+            cursor: pointer;
         }
         .notif-3d-card:hover {
             transform: translateY(-10px) rotateX(2deg) scale(1.02);
@@ -57,10 +56,10 @@
             color: #fff; font-size: 1.8rem; margin-bottom: 10px; text-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
         .notif-desc {
-            color: #b3b3cc; font-size: 1.1rem; line-height: 1.6;
+            color: #b3b3cc; font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap;
         }
 
-        /* FRONT IMAGE SLIDER (स्क्रोल वाला सिस्टम) */
+        /* FRONT IMAGE SLIDER */
         .slider-wrapper {
             position: relative; overflow: hidden; border-radius: 15px; width: 100%; height: 350px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.6);
@@ -177,24 +176,17 @@
                     </div>
                 </div>
                 
-                <!-- फ्रंट 3D कार्ड (यहाँ स्लाइडर ऐड किया गया है) -->
                 <div class="hero-3d-card-wrapper">
                     <div class="card-3d-main" id="tilt-card" style="position:relative;">
                         <div class="slider-wrapper">
-                            <!-- स्क्रोल बटन -->
                             <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">&#10094;</button>
-                            
-                            <!-- 3-4 फोटोज का स्लाइडर -->
                             <div class="slider-track" id="frontSliderTrack">
                                 <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">
                                 <img src="images/feature2.jpg" alt="Front 2" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'">
                                 <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80'">
                             </div>
-                            
-                            <!-- स्क्रोल बटन -->
                             <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">&#10095;</button>
                         </div>
-                        
                         <div class="card-glass-overlay">
                             <h3>Subscribe & Stay Connected</h3>
                             <p>Subscribe to MANI M4YT Channel and become a part of our family!</p>
@@ -271,22 +263,6 @@
                 <p>Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
             </div>
         </section>
-
-        <!-- Stats Section -->
-        <section class="stats-section">
-            <div class="stat-card">
-                <h2>eSports</h2>
-                <p>BAGGA M4.YT</p>
-            </div>
-            <div class="stat-card">
-                <h2>BGMI Pro</h2>
-                <p>1v4 Clutch Master</p>
-            </div>
-            <div class="stat-card">
-                <h2>GAMING TIPS</h2>
-                <p>ALL IN ONE WEB</p>
-            </div>
-        </section>
     </div>
 
     <!-- ==================== PAGE 2: NOTIFICATIONS ==================== -->
@@ -294,11 +270,11 @@
         <h1 class="page-header">LATEST <span class="highlight">UPDATES</span></h1>
         
         <div class="notif-container" id="notifWrapper">
-            <!-- 3D Notification Card (दबाते ही पॉपअप खुलेगा) -->
-            <div class="notif-3d-card" onclick="openUploadModal()">
+            <!-- 3D Notification Card (Click to edit only for Admin) -->
+            <div class="notif-3d-card" onclick="openUploadModal(this)">
                 <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" alt="Update" class="media-target">
                 <h2 class="notif-title">Welcome to the new Esports Hub!</h2>
-                <p class="notif-desc">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys! (Click to View More / Upload)</p>
+                <p class="notif-desc">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys!</p>
             </div>
         </div>
     </div>
@@ -312,7 +288,6 @@
                 <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-envelope"></i> DIRECT EMAIL SUPPORT</h2>
                 <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;">Send a message directly to manipubji@gmail.com</p>
                 
-                <!-- Email Contact Form -->
                 <form action="mailto:manipubji@gmail.com" method="post" enctype="text/plain">
                     <div class="form-group" style="text-align: left;">
                         <label style="color:#00d2ff; font-weight:bold;">YOUR NAME / EMAIL:</label>
@@ -330,7 +305,7 @@
         </div>
     </div>
 
-    <!-- Footer (Visible on all pages) -->
+    <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-logo">
@@ -347,30 +322,41 @@
         </div>
     </footer>
 
-    <!-- ADMIN LOGIN MODAL -->
+    <!-- ADMIN LOGIN MODAL (Autofill Bug Fixed Here) -->
     <div id="adminLoginModal" class="admin-modal">
         <div class="admin-box">
             <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:20px;">&times;</span>
             <h2><i class="fa-solid fa-user-shield"></i> ADMIN LOGIN</h2>
-            <form onsubmit="handleLogin(event)">
-                <input type="text" id="adminUser" placeholder="Username" required>
-                <input type="password" id="adminPass" placeholder="Password" required>
+            
+            <!-- Added autocomplete="off" and fake inputs to trick browser autofill -->
+            <form onsubmit="handleLogin(event)" autocomplete="off">
+                <input style="display:none" type="text" name="fakeusernameremembered"/>
+                <input style="display:none" type="password" name="fakepasswordremembered"/>
+                
+                <input type="text" id="adminUserX" autocomplete="new-password" placeholder="Username" required>
+                <input type="password" id="adminPassX" autocomplete="new-password" placeholder="Password" required>
                 <button type="submit">LOG IN</button>
             </form>
         </div>
     </div>
 
-    <!-- NOTIFICATION MEDIA UPLOAD MODAL (नया पॉपअप) -->
+    <!-- NOTIFICATION MEDIA + TEXT UPLOAD MODAL (Message Bug Fixed Here) -->
     <div id="innerUploadModal" class="admin-modal">
-        <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4);">
+        <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); max-width: 500px;">
             <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
-            <h2><i class="fa-solid fa-cloud-arrow-up"></i> Upload Media</h2>
-            <p style="margin-bottom: 20px; color:#b3b3cc;">Upload your Photos or Videos here inside the notification.</p>
+            <h2><i class="fa-solid fa-bell"></i> Update Notification</h2>
             
-            <input type="file" accept="image/*,video/*" style="background:#1a1a2e; border:1px solid #00d2ff; padding:15px; width:100%; border-radius:5px; color:white; margin-bottom:20px; cursor:pointer;">
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">1. Enter Title:</p>
+            <input type="text" id="notifEditTitle" placeholder="Notification Title..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box;">
             
-            <button onclick="confirmUpload(event)" style="background:#00d2ff; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; font-size: 16px;">
-                <i class="fa-solid fa-upload"></i> UPLOAD NOW
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">2. Enter Message/Details:</p>
+            <textarea id="notifEditDesc" rows="4" placeholder="Write your full message here..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box; resize:none; font-family:inherit;"></textarea>
+            
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">3. Upload Photo/Video (Optional):</p>
+            <input type="file" id="notifMediaFile" accept="image/*,video/*" style="background:#1a1a2e; border:1px dashed #00d2ff; padding:10px; width:100%; border-radius:5px; color:white; margin-bottom:20px; cursor:pointer; box-sizing:border-box;">
+            
+            <button onclick="confirmNotifUpdate(event)" style="background:#00d2ff; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; font-size: 16px;">
+                <i class="fa-solid fa-check-circle"></i> UPDATE NOTIFICATION
             </button>
         </div>
     </div>
@@ -389,8 +375,6 @@
     <!-- HIDDEN FILE INPUT FOR SELECTOR -->
     <input type="file" id="adminFileInput" accept="image/*,video/*" style="display: none;" onchange="handleFileSelected(event)">
 
-    <!-- External JS Logic (Keep it if you have it) -->
-    <script src="js/script.js"></script>
     <script>
         // ================= PAGE ROUTING LOGIC ================= //
         function navigateTo(pageId) {
@@ -425,29 +409,19 @@
             track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
         }
 
-        // ================= NOTIFICATION UPLOAD MODAL ================= //
-        function openUploadModal() {
-            document.getElementById('innerUploadModal').style.display = 'flex';
-        }
-        function closeUploadModal(event) {
-            if(event) event.stopPropagation();
-            document.getElementById('innerUploadModal').style.display = 'none';
-        }
-        function confirmUpload(event) {
-            if(event) event.stopPropagation();
-            alert('File Uploaded Successfully! 🔥');
-            closeUploadModal();
-        }
-
-        // ================= ADMIN PANEL LOGIC ================= //
+        // ================= ADMIN PANEL LOGIC & AUTOFILL FIX ================= //
         let isAdminLoggedIn = false;
         let currentTargetElement = null;
+        let activeNotifCard = null;
 
         const GITHUB_OWNER = 'jorabagga12-bit';       
         const GITHUB_REPO = 'mani-bagga';             
         const FILE_PATH = 'index.html';
 
         function openAdminLogin() {
+            // हर बार क्लिक करने पर बॉक्स एकदम खाली मिलेगा
+            document.getElementById('adminUserX').value = '';
+            document.getElementById('adminPassX').value = '';
             document.getElementById('adminLoginModal').style.display = 'flex';
         }
         function closeAdminLogin() {
@@ -456,23 +430,23 @@
 
         function handleLogin(e) {
             e.preventDefault();
-            const user = document.getElementById('adminUser').value;
-            const pass = document.getElementById('adminPass').value;
+            const user = document.getElementById('adminUserX').value;
+            const pass = document.getElementById('adminPassX').value;
 
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 isAdminLoggedIn = true;
                 closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\n1. Click text to edit.\n2. Click any photo/video to change it.\n3. Click "Save to Live Site" to publish!');
+                alert('Welcome Admin Bagga! 🚀\n1. Click text to edit.\n2. Click any photo/video to change it.\n3. Click Notifications to add Message+Photo.\n4. Click "Save to Live Site" to publish!');
                 activateAdminMode();
             } else {
-                alert('INWALIT ADMIN KE PASS APKI VPN CRACKED IP CHALI GYI HAI WARNING YOU ARE NOT ADMIN !');
+                alert('Invalid Username or Password!');
             }
         }
 
         function activateAdminMode() {
             document.getElementById('adminDashboard').style.display = 'block';
             
-            const textElements = document.querySelectorAll('h1, h2, h3, h4, p, span:not(.close-btn)');
+            const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn)');
             textElements.forEach(el => {
                 el.contentEditable = "true";
                 el.classList.add('editable-active');
@@ -481,8 +455,91 @@
             bindMediaClickHandlers();
         }
 
+        // ================= NOTIFICATION UPLOAD (MESSAGE + MEDIA) ================= //
+        function openUploadModal(cardElement) {
+            // अगर एडमिन लॉगिन नहीं है, तो आम यूजर को पॉपअप नहीं दिखेगा (सिक्योरिटी)
+            if (!isAdminLoggedIn) return; 
+
+            activeNotifCard = cardElement;
+            
+            // पुराने टेक्स्ट को बॉक्स में भर देना
+            let titleEl = cardElement.querySelector('.notif-title');
+            let descEl = cardElement.querySelector('.notif-desc');
+            
+            document.getElementById('notifEditTitle').value = titleEl ? titleEl.innerText : '';
+            document.getElementById('notifEditDesc').value = descEl ? descEl.innerText : '';
+            document.getElementById('notifMediaFile').value = ''; 
+
+            document.getElementById('innerUploadModal').style.display = 'flex';
+        }
+
+        function closeUploadModal(event) {
+            if(event) event.stopPropagation();
+            document.getElementById('innerUploadModal').style.display = 'none';
+        }
+
+        function confirmNotifUpdate(event) {
+            if(event) event.stopPropagation();
+            if(!activeNotifCard) return;
+
+            // 1. टेक्स्ट और टाइटल अपडेट करना
+            let newTitle = document.getElementById('notifEditTitle').value;
+            let newDesc = document.getElementById('notifEditDesc').value;
+            
+            activeNotifCard.querySelector('.notif-title').innerText = newTitle;
+            activeNotifCard.querySelector('.notif-desc').innerText = newDesc;
+
+            // 2. मीडिया (फोटो/वीडियो) अपडेट करना
+            let fileInput = document.getElementById('notifMediaFile');
+            if (fileInput.files && fileInput.files[0]) {
+                let file = fileInput.files[0];
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let fileData = e.target.result;
+                    let mediaTarget = activeNotifCard.querySelector('.media-target');
+                    
+                    if (file.type.startsWith('image/')) {
+                        if (mediaTarget.tagName.toLowerCase() === 'video') {
+                            let newImg = document.createElement('img');
+                            newImg.src = fileData;
+                            newImg.className = mediaTarget.className;
+                            mediaTarget.parentNode.replaceChild(newImg, mediaTarget);
+                        } else {
+                            mediaTarget.src = fileData;
+                        }
+                    } else if (file.type.startsWith('video/')) {
+                        let newVideo = document.createElement('video');
+                        newVideo.src = fileData;
+                        newVideo.controls = true; autoplay = true; muted = false;
+                        newVideo.className = mediaTarget.className;
+                        mediaTarget.parentNode.replaceChild(newVideo, mediaTarget);
+                    }
+                    alert('Notification Text & Media Updated! 🔥');
+                    closeUploadModal();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Notification Text Updated! 🔥');
+                closeUploadModal();
+            }
+        }
+
+        function addNewNotification() {
+            navigateTo('notifications'); 
+            let notifWrapper = document.getElementById('notifWrapper');
+            let newNotifHTML = `
+                <div class="notif-3d-card" onclick="openUploadModal(this)">
+                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80" alt="New Update" class="media-target">
+                    <h2 class="notif-title">New Update Title</h2>
+                    <p class="notif-desc">Click here to edit this notification and add your message & photo...</p>
+                </div>`;
+            notifWrapper.insertAdjacentHTML('afterbegin', newNotifHTML);
+            if (isAdminLoggedIn) activateAdminMode();
+        }
+
+        // ================= NORMAL MEDIA BINDING ================= //
         function bindMediaClickHandlers() {
-            const mediaElements = document.querySelectorAll('.media-target, img, video');
+            const mediaElements = document.querySelectorAll('.media-target:not(.notif-3d-card .media-target)');
             mediaElements.forEach(elem => {
                 elem.classList.add('media-editable');
                 elem.title = "Click to Change Photo/Video";
@@ -502,20 +559,6 @@
             });
         }
 
-        function addNewNotification() {
-            navigateTo('notifications'); 
-            let notifWrapper = document.getElementById('notifWrapper');
-            // नया कार्ड भी क्लिकेबल होगा ताकि अपलोड पेज खुल सके
-            let newNotifHTML = `
-                <div class="notif-3d-card" onclick="openUploadModal()">
-                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80" alt="New Update" class="media-target">
-                    <h2 class="notif-title" contenteditable="true" class="editable-active">New Update Title</h2>
-                    <p class="notif-desc" contenteditable="true" class="editable-active">Type your detailed notification message here... (Click to Upload)</p>
-                </div>`;
-            notifWrapper.insertAdjacentHTML('afterbegin', newNotifHTML);
-            if (isAdminLoggedIn) activateAdminMode();
-        }
-
         function changePhotoByUrl() {
             if(!currentTargetElement && isAdminLoggedIn) {
                 alert("Please click on a photo or card first to change it!");
@@ -525,12 +568,8 @@
             if(url && currentTargetElement) {
                 if(url.match(/\.(mp4|webm|ogg)$/i)) {
                     let newVideo = document.createElement('video');
-                    newVideo.src = url;
-                    newVideo.controls = true;      
-                    newVideo.autoplay = true;      
-                    newVideo.muted = false;        
-                    newVideo.playsInline = true;   
-                    newVideo.loop = true;
+                    newVideo.src = url; newVideo.controls = true; newVideo.autoplay = true;      
+                    newVideo.muted = false; newVideo.loop = true;
                     newVideo.className = currentTargetElement.className;
                     currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
                 } else {
@@ -560,11 +599,7 @@
                 } else if (file.type.startsWith('video/')) {
                     const newVideo = document.createElement('video');
                     newVideo.src = fileData;
-                    newVideo.controls = true;      
-                    newVideo.autoplay = true;      
-                    newVideo.muted = false;        
-                    newVideo.playsInline = true;   
-                    newVideo.loop = true;
+                    newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true;
                     newVideo.className = currentTargetElement.className;
                     currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
                     currentTargetElement = newVideo;
@@ -682,7 +717,7 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        message: 'Updated Pages (Home/Notifications/Contact) from Admin Panel',
+                        message: 'Updated Pages (Fixed Autofill & Notif Message Bug) from Admin Panel',
                         content: base64Content,
                         sha: sha
                     })
@@ -704,4 +739,3 @@
     </script>
 </body>
 </html>
-
