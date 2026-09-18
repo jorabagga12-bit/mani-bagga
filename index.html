@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Forced Desktop View for Mobile Devices -->
-    <meta name="viewport" content="width=1280, initial-scale=0.35, maximum-scale=3.0, user-scalable=yes">
+    <!-- Fully Responsive Mobile & Desktop Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>MANI BAGGA HUB | eSports Gaming Hub</title>
     <!-- CSS Link -->
     <link rel="stylesheet" href="css/style.css">
@@ -42,19 +42,15 @@
             padding-bottom: 10px !important;
         }
 
-        /* ================== MEDIA & VIDEO SIZING & RESIZING FIX ================== */
-        .card-img-container video, 
-        .showcase-item video, 
-        .showcase-item iframe,
-        .media-target video,
-        .slider-wrapper video,
-        .slider-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-            display: block;
-            transition: transform 0.2s ease;
+        /* ================== RESPONSIVE LAYOUT FIXES FOR MOBILE & DESKTOP ================== */
+        @media (max-width: 992px) {
+            .navbar { flex-wrap: wrap; justify-content: center; gap: 15px; padding: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .hero-container { flex-direction: column; text-align: center; padding: 20px 10px; }
+            .hero-btns { justify-content: center; }
+            .cards-grid, .showcase-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; gap: 20px !important; }
+            .page-header { font-size: 2rem; margin-top: 100px; }
+            .admin-badge-left { margin-bottom: 10px; }
         }
 
         /* ================== NOTIFICATION LIST UI ================== */
@@ -67,17 +63,10 @@
         .notif-text { flex: 1; }
         .notif-title { font-size: 16px; color: #004085; font-weight: 600; line-height: 1.4; }
 
-        /* FRONT IMAGE / VIDEO SLIDER & RESIZABLE 3D BOX */
-        .slider-wrapper { 
-            position: relative; 
-            overflow: hidden; 
-            border-radius: 15px; 
-            width: 100%; 
-            height: 350px; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6); 
-        }
+        /* FRONT IMAGE SLIDER */
+        .slider-wrapper { position: relative; overflow: hidden; border-radius: 15px; width: 100%; height: 350px; box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
         .slider-track { display: flex; transition: transform 0.4s ease-in-out; height: 100%; }
-        .slider-track img, .slider-track video, .slider-track iframe { min-width: 100%; height: 100%; object-fit: cover; border-radius: 0; margin-bottom: 0; box-shadow: none; }
+        .slider-track img, .slider-track video { min-width: 100%; height: 100%; object-fit: cover; border-radius: 0; margin-bottom: 0; box-shadow: none; }
         .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.6); color: #00d2ff; border: 1px solid #00d2ff; border-radius: 50%; padding: 8px 14px; cursor: pointer; font-size: 18px; z-index: 10; transition: 0.3s; }
         .slider-btn:hover { background: #00d2ff; color: #000; }
         .prev-btn { left: 10px; } .next-btn { right: 10px; }
@@ -107,7 +96,7 @@
 
         .admin-box h2 { margin-bottom: 20px; color: #00d2ff; text-shadow: 0 0 10px rgba(0, 210, 255, 0.8); }
         
-        /* Dynamic 3D Input Fields */
+        /* Dynamic 3D Password & Input Fields */
         .admin-box input[type="text"], 
         .admin-box input[type="password"],
         .github-token-input {
@@ -132,15 +121,21 @@
         }
         .admin-box button:hover { opacity: 0.95; transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 25px rgba(0, 210, 255, 0.7); }
         
-        /* ERROR MODAL STYLES */
+        /* ================== WRONG PASSWORD & ERROR STYLES ================== */
         .error-box {
             background: linear-gradient(135deg, #2a0808, #1a0000, #050000);
             border-color: #ff004c !important;
             box-shadow: 0 0 35px rgba(255, 0, 76, 0.7), inset 0 0 20px rgba(255, 0, 76, 0.4) !important;
             animation: none !important;
         }
-        .error-box h2 { color: #ff004c !important; text-shadow: 0 0 15px rgba(255, 0, 76, 1) !important; }
-        .error-box button { background: linear-gradient(45deg, #ff004c, #99002e) !important; box-shadow: 0 5px 15px rgba(255, 0, 76, 0.5) !important; }
+        .error-box h2 {
+            color: #ff004c !important;
+            text-shadow: 0 0 15px rgba(255, 0, 76, 1) !important;
+        }
+        .error-box button {
+            background: linear-gradient(45deg, #ff004c, #99002e) !important;
+            box-shadow: 0 5px 15px rgba(255, 0, 76, 0.5) !important;
+        }
 
         @keyframes errorShake {
             0% { transform: translateX(0); }
@@ -172,7 +167,7 @@
             display: none; 
             position: fixed; bottom: 20px; right: 20px; background: #10101a;
             color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold;
-            border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 235px;
+            border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 230px;
             max-height: 85vh; overflow-y: auto;
         }
         .admin-dashboard button {
@@ -211,16 +206,6 @@
 <body>
     <canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
 
-    <!-- LEVEL ALIGNMENT GRID OVERLAY -->
-    <div id="alignmentGridOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 999999;">
-        <div style="position: absolute; top: 25%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.5);"></div>
-        <div style="position: absolute; top: 50%; width: 100%; border-top: 1px dashed rgba(255, 0, 127, 0.8);"></div>
-        <div style="position: absolute; top: 75%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.5);"></div>
-        <div style="position: absolute; left: 25%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.5);"></div>
-        <div style="position: absolute; left: 50%; height: 100%; border-left: 1px dashed rgba(255, 0, 127, 0.8);"></div>
-        <div style="position: absolute; left: 75%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.5);"></div>
-    </div>
-
     <!-- Background 3D Shapes -->
     <div class="bg-shape shape-1"></div>
     <div class="bg-shape shape-2"></div>
@@ -257,7 +242,7 @@
         <section id="home" class="hero">
             <div class="hero-container">
                 <div class="hero-text">
-                    <span class="badge" contenteditable="false">🎮 eSports Gaming</span>
+                    <span class="badge" contenteditable="false">eSports Gaming</span>
                     <h1 contenteditable="false" class="">YouTube <span class="highlight" contenteditable="false">MANI M4 PRO</span></h1>
                     <p contenteditable="false" class="">🔥 WELCOME TO GAMING WORLD 🔥 — BGMI &amp; PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
                     <div class="hero-btns">
@@ -268,7 +253,7 @@
                 
                 <div class="hero-3d-card-wrapper">
                     <div class="card-3d-main" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); transition: transform 0.5s ease-in-out;">
-                        <div class="slider-wrapper" id="heroSliderWrapper">
+                        <div class="slider-wrapper">
                             <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
                             <div class="slider-track" id="frontSliderTrack" style="transform: translateX(0%);">
                                 <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
@@ -291,7 +276,7 @@
             <p class="section-subtitle" contenteditable="false">Special facilities for Gamers</p>
             <div class="cards-grid">
                 <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                    <div class="card-icon" contenteditable="false"><i class="fa-solid fa-crosshairs"></i></div>
+                    <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
                     <div class="card-img-container">
                         <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     </div>
@@ -299,7 +284,7 @@
                     <p contenteditable="false" class="">CAN YOU SUBSCRIBE.</p>
                 </div>
                 <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                    <div class="card-icon" contenteditable="false"><i class="fa-solid fa-trophy"></i></div>
+                    <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
                     <div class="card-img-container">
                         <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     </div>
@@ -307,7 +292,7 @@
                     <p contenteditable="false" class="">JOIN FOR TOURNAMENT PROGRAMS.</p>
                 </div>
                 <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                    <div class="card-icon" contenteditable="false"><i class="fa-solid fa-gamepad"></i></div>
+                    <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
                     <div class="card-img-container">
                         <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     </div>
@@ -565,7 +550,7 @@
         </div>
     </div>
 
-    <!-- FLOATING ADMIN DASHBOARD (CLEANED UP AS REQUESTED) -->
+    <!-- FLOATING ADMIN DASHBOARD -->
     <div id="adminDashboard" class="admin-dashboard" style="display: none;">
         <p style="margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 8px;" contenteditable="false" class="">
             <i class="fa-solid fa-user-gear"></i> Admin Logged In
@@ -578,9 +563,7 @@
         <div id="adminEditTools" style="display: none;">
             <p style="font-size: 11px; color: #ffc107; text-transform: uppercase; margin-bottom: 5px;" contenteditable="false" class=""><i class="fa-solid fa-toolbox"></i> Toolbox</p>
             
-            <button onclick="toggleGridLines()" id="btnGridToggle" style="background:#17a2b8; color:white;"><i class="fa-solid fa-border-all"></i> Level Grid Lines</button>
             <button onclick="addHeroSlide()" style="background:#e91e63; color:white;"><i class="fa-solid fa-images"></i> Add Hero Slide</button>
-            <button onclick="deleteHeroSlide()" style="background:#d9534f; color:white;"><i class="fa-solid fa-trash-can"></i> Delete Hero Slide</button>
 
             <button onclick="toggleMoveMode()" id="dashMoveBtn" style="background:#ff9800; color:black;"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items</button>
             <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
@@ -662,22 +645,6 @@
             if(customPromptCallback) { customPromptCallback(null); customPromptCallback = null; }
         }
 
-        // ================= LEVEL GRID TOGGLE ================= //
-        let isGridActive = false;
-        function toggleGridLines() {
-            isGridActive = !isGridActive;
-            const grid = document.getElementById('alignmentGridOverlay');
-            const btn = document.getElementById('btnGridToggle');
-            if (grid) grid.style.display = isGridActive ? 'block' : 'none';
-            if (btn) {
-                btn.style.background = isGridActive ? '#ff007f' : '#17a2b8';
-                btn.innerHTML = isGridActive ? '<i class="fa-solid fa-border-all"></i> Grid ON' : '<i class="fa-solid fa-border-none"></i> Grid OFF';
-            }
-            if(isGridActive) {
-                customAlert('Level & Alignment Grid Lines Enabled! 📏\nUse these lines to align images, text, and cards perfectly.', 'GRID ACTIVE', 'fa-border-all', 'info');
-            }
-        }
-
         // ================= PAGE ROUTING LOGIC ================= //
         function navigateTo(pageId) {
             if (typeof isMoveModeActive !== 'undefined' && isMoveModeActive) return; 
@@ -714,24 +681,6 @@
             if (currentSlideIndex < 0) currentSlideIndex = totalSlides - 1;
             if (currentSlideIndex >= totalSlides) currentSlideIndex = 0;
             track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
-        }
-
-        function deleteHeroSlide() {
-            const track = document.getElementById('frontSliderTrack');
-            if (!track || track.children.length === 0) {
-                customAlert("No slides available to delete!", "ERROR", "fa-triangle-exclamation", "error");
-                return;
-            }
-            customConfirm("क्या आप वर्तमान स्लाइड को डिलीट करना चाहते हैं?", function(confirmed) {
-                if (confirmed) {
-                    track.children[currentSlideIndex].remove();
-                    currentSlideIndex = 0;
-                    if (track.children.length > 0) {
-                        track.style.transform = `translateX(0%)`;
-                    }
-                    customAlert("Slide deleted successfully!", "DELETED", "fa-trash-can", "success");
-                }
-            });
         }
 
         // ================= CONTACT FORM & MESSAGES SYSTEM ================= //
@@ -967,78 +916,545 @@
         // GLOBAL CLICK EVENT TO HIDE POPUP CONTROLS
         document.addEventListener('click', function(e) {
             let imgControls = document.getElementById('admin-img-controls');
-            if(imgControls && !imgControls.contains(e.target) && !e.target.classList.contains('media```javascript
-parseFloat(currentTargetElement.getAttribute('data-scale')) || 1;
-            let newScale = currentScale + step;
+            if(imgControls && !imgControls.contains(e.target) && !e.target.classList.contains('media-target')) imgControls.remove();
             
-            // Limit zooming to reasonable boundaries
-            if (newScale < 0.2) newScale = 0.2;
-            if (newScale > 5) newScale = 5;
+            let textControls = document.getElementById('admin-text-controls');
+            if(textControls && !textControls.contains(e.target) && !e.target.classList.contains('editable-active')) textControls.remove();
+        });
+
+        function handleAdminBadgeClick() {
+            if (localStorage.getItem('mani_admin_logged') === 'true') {
+                customAlert('Admin Mode is Active! Use the tools floating at the bottom right.', 'ADMIN MODE', 'fa-user-gear', 'info');
+            } else { openAdminLogin(); }
+        }
+
+        function openAdminLogin() {
+            document.getElementById('adminUserX').value = ''; document.getElementById('adminPassX').value = '';
+            document.getElementById('adminLoginModal').style.display = 'flex';
+        }
+        function closeAdminLogin() { document.getElementById('adminLoginModal').style.display = 'none'; }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('adminUserX').value.trim();
+            const pass = document.getElementById('adminPassX').value.trim();
             
-            currentTargetElement.setAttribute('data-scale', newScale);
-            currentTargetElement.style.transform = `scale(${newScale})`;
+            if (user === 'bagga' && pass === 'iphonex0421&') {
+                try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
+                closeAdminLogin();
+                customAlert('Admin Logged In! 🚀\n\n- Click "View Messages" to read contact forms.\n- Click "Edit Website" to open editing tools.', 'WELCOME ADMIN', 'fa-shield-halved', 'success');
+                activateAdminMode();
+            } else {
+                document.getElementById('wrongPassModal').style.display = 'flex';
+                const errBox = document.getElementById('errorBoxAnim');
+                errBox.style.animation = 'none';
+                setTimeout(() => { errBox.style.animation = 'errorShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both'; }, 10);
+            }
+        }
+
+        function logoutAdmin() {
+            localStorage.removeItem('mani_admin_logged');
+            customAlert('Admin logged out successfully!', 'LOGOUT', 'fa-right-from-bracket', 'info', function() {
+                window.location.reload();
+            });
+        }
+
+        function activateAdminMode() {
+            document.getElementById('adminDashboard').style.display = 'block';
+            document.getElementById('adminTagLabel').innerText = "ADMIN (LOGGED IN)";
+            document.getElementById('adminTagLabel').style.color = "#28a745";
+            updateMessageCounter();
+        }
+
+        // ================= CARD DELETION HELPER FUNCTIONS ================= //
+        function deleteThisCard(btn, event) {
+            if (event) { event.stopPropagation(); event.preventDefault(); }
+            customConfirm("क्या आप इस पूरे कार्ड/गैलरी आइटम को डिलीट करना चाहते हैं?", function(confirmed) {
+                if(confirmed) {
+                    const card = btn.closest('.showcase-item, .card-3d');
+                    if (card) { card.remove(); }
+                }
+            });
+        }
+
+        function deleteCardFromTextControls(event) {
+            if (event) { event.stopPropagation(); event.preventDefault(); }
+            if (!currentTextElement) return;
+            const card = currentTextElement.closest('.showcase-item, .card-3d');
+            if (card) {
+                customConfirm("क्या आप इस पूरे कार्ड को डिलीट करना चाहते हैं?", function(confirmed) {
+                    if(confirmed) {
+                        card.remove();
+                        document.getElementById('admin-text-controls')?.remove();
+                    }
+                });
+            }
+        }
+
+        function attachDeleteBtnIfEditing(cardElement) {
+            const toolsMenu = document.getElementById('adminEditTools');
+            if (toolsMenu && toolsMenu.style.display === 'block') {
+                if (!cardElement.querySelector('.card-delete-btn')) {
+                    let delBtn = document.createElement('button');
+                    delBtn.className = 'card-delete-btn';
+                    delBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i> Delete Card';
+                    delBtn.title = "Delete this card";
+                    delBtn.onclick = function(e) { deleteThisCard(this, e); };
+                    cardElement.appendChild(delBtn);
+                }
+            }
+        }
+
+        // ================= EDIT TOOLS TOGGLE ================= //
+        function toggleEditWebsiteTools() {
+            const toolsMenu = document.getElementById('adminEditTools');
+            const editBtn = document.getElementById('toggleEditBtn');
+            const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-tag), .nav-links a, .footer-logo, footer p, .email-text, .admin-name, .btn-primary, .btn-main, .btn-secondary, label');
+
+            if (toolsMenu.style.display === 'block') {
+                toolsMenu.style.display = 'none';
+                editBtn.innerHTML = '<i class="fa-solid fa-pen-ruler"></i> Edit Website';
+                editBtn.style.background = '#28a745';
+                
+                textElements.forEach(el => { 
+                    el.contentEditable = "false"; 
+                    el.classList.remove('editable-active'); 
+                    el.onclick = null;
+                });
+                document.querySelectorAll('.media-target').forEach(elem => {
+                    elem.classList.remove('media-editable');
+                    elem.removeAttribute('title');
+                    elem.onclick = null;
+                });
+                
+                document.querySelectorAll('.card-delete-btn').forEach(btn => btn.remove());
+
+                let floatingControlImg = document.getElementById('admin-img-controls'); 
+                if(floatingControlImg) floatingControlImg.remove();
+                
+                let floatingControlText = document.getElementById('admin-text-controls'); 
+                if(floatingControlText) floatingControlText.remove();
+
+            } else {
+                toolsMenu.style.display = 'block';
+                editBtn.innerHTML = '<i class="fa-solid fa-xmark"></i> Close Tools';
+                editBtn.style.background = '#dc3545';
+                
+                textElements.forEach(el => { 
+                    el.contentEditable = "true"; 
+                    el.classList.add('editable-active'); 
+                    
+                    el.onclick = function(e) {
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
+                            showAdminTextControls(e, el);
+                        }
+                    };
+                });
+                bindMediaClickHandlers();
+
+                document.querySelectorAll('.showcase-item').forEach(item => {
+                    attachDeleteBtnIfEditing(item);
+                });
+            }
+        }
+
+        // ================= TEXT EDIT CONTROLS ================= //
+        let currentTextElement = null;
+
+        function showAdminTextControls(e, elem) {
+            currentTextElement = elem;
+            let existingText = document.getElementById('admin-text-controls'); if(existingText) existingText.remove();
+            let existingImg = document.getElementById('admin-img-controls'); if(existingImg) existingImg.remove();
+            
+            let cardParent = elem.closest('.showcase-item, .card-3d');
+            let cardDelBtnMarkup = cardParent ? `<button onclick="deleteCardFromTextControls(event)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Delete Whole Card"><i class="fa-solid fa-trash"></i> Card</button>` : '';
+
+            let controls = document.createElement('div'); controls.id = 'admin-text-controls';
+            controls.style.position = 'absolute'; 
+            controls.style.left = Math.min(e.pageX, window.innerWidth - 250) + 'px'; 
+            controls.style.top = (e.pageY - 50) + 'px';
+            controls.style.background = '#10101a'; 
+            controls.style.border = '2px solid #00d2ff'; 
+            controls.style.padding = '8px 12px'; 
+            controls.style.borderRadius = '8px'; 
+            controls.style.zIndex = '100000'; 
+            controls.style.display = 'flex'; 
+            controls.style.gap = '6px'; 
+            controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
+            
+            controls.innerHTML = `
+                <button onclick="changeTextSize(2, event)" style="background:#28a745; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Increase Size"><i class="fa-solid fa-plus"></i> A</button>
+                <button onclick="changeTextSize(-2, event)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Decrease Size"><i class="fa-solid fa-minus"></i> A</button>
+                ${cardDelBtnMarkup}
+                <button onclick="this.parentElement.remove()" style="background:transparent; color:red; border:none; cursor:pointer; font-size:18px; padding:0 4px;">&times;</button>
+            `;
+            document.body.appendChild(controls);
+        }
+
+        function changeTextSize(step, e) {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
+            if(!currentTextElement) return;
+            let currentSize = window.getComputedStyle(currentTextElement).fontSize;
+            let newSize = parseFloat(currentSize) + step;
+            currentTextElement.style.fontSize = newSize + 'px';
+        }
+
+        // ================= ADD NEW CARDS & SLIDES ================= //
+        function addHeroSlide() {
+            const track = document.getElementById('frontSliderTrack');
+            if(!track) { customAlert("Slider not found!", "ERROR", "fa-triangle-exclamation", "error"); return; }
+            
+            const newMedia = document.createElement('img');
+            newMedia.src = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'; 
+            newMedia.alt = 'New Hero Slide';
+            newMedia.className = 'media-target media-editable';
+            newMedia.title = "Click to Edit Image";
+            
+            track.appendChild(newMedia);
+            bindMediaClickHandlers();
+            
+            currentSlideIndex = track.children.length - 1;
+            track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+            
+            customAlert('New Slide Box added! Click on this new photo to Upload your own Image or Paste Video URL.', 'SLIDE ADDED', 'fa-images', 'success');
+        }
+
+        function addNewMediaCard() {
+            const galleryContainer = document.getElementById('galleryContainer');
+            if(!galleryContainer) { customAlert('Gallery section not found on page!', 'ERROR', 'fa-triangle-exclamation', 'error'); return; }
+            const newItem = document.createElement('div');
+            newItem.className = 'showcase-item';
+            newItem.innerHTML = `
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="New Gallery Item" class="media-target">
+                <div class="showcase-overlay">
+                    <h4 contenteditable="true" class="editable-active">New Epic Moment</h4>
+                    <p contenteditable="true" class="editable-active">BGMI Gameplay Highlight</p>
+                </div>
+            `;
+            galleryContainer.appendChild(newItem);
+            attachDeleteBtnIfEditing(newItem);
+            bindMediaClickHandlers();
+            customAlert('New Gallery Card Added Successfully!', 'CARD ADDED', 'fa-circle-check', 'success');
+        }
+
+        function addYouTubeVideo() {
+            customPrompt("ADD YOUTUBE VIDEO", "Enter YouTube Video ID or Embed/Watch URL:", function(ytUrl) {
+                if(!ytUrl) return;
+                let videoEmbedUrl = ytUrl;
+                if(ytUrl.includes("watch?v=")) {
+                    let parts = ytUrl.split('watch?v=');
+                    let vidId = parts[1].split('&')[0];
+                    videoEmbedUrl = `https://www.youtube.com/embed/${vidId}`;
+                } else if(ytUrl.length === 11) {
+                    videoEmbedUrl = `https://www.youtube.com/embed/${ytUrl}`;
+                }
+                const galleryContainer = document.getElementById('galleryContainer');
+                if(!galleryContainer) return;
+                const newItem = document.createElement('div');
+                newItem.className = 'showcase-item';
+                newItem.innerHTML = `
+                    <iframe width="100%" height="220" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px;"></iframe>
+                    <div class="showcase-overlay" style="position:relative; background:rgba(0,0,0,0.8); padding:10px; margin-top:5px; border-radius:5px;">
+                        <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
+                        <p contenteditable="true" class="editable-active">Watch full match on channel</p>
+                    </div>
+                `;
+                galleryContainer.appendChild(newItem);
+                attachDeleteBtnIfEditing(newItem);
+                customAlert('YouTube Video Card Added Successfully!', 'VIDEO ADDED', 'fa-brands fa-youtube', 'success');
+            });
+        }
+
+        function addNewTextCard() {
+            const galleryContainer = document.getElementById('galleryContainer');
+            if(!galleryContainer) return;
+            const newItem = document.createElement('div');
+            newItem.className = 'showcase-item custom-text-card';
+            newItem.innerHTML = `
+                <div>
+                    <h3 contenteditable="true" class="editable-active" style="color:#00d2ff; margin-bottom:10px;">Custom Announcement</h3>
+                    <p contenteditable="true" class="editable-active" style="color:white; font-size:15px;">Write your custom message or tournament details here...</p>
+                </div>
+            `;
+            galleryContainer.appendChild(newItem);
+            attachDeleteBtnIfEditing(newItem);
+            customAlert('Custom Text Card Added Successfully!', 'TEXT CARD ADDED', 'fa-font', 'success');
+        }
+
+        // ================= MOVE / DRAG SYSTEM ================= //
+        function toggleMoveMode() {
+            isMoveModeActive = !isMoveModeActive;
+            const btn = document.getElementById('dashMoveBtn');
+            const editableElements = document.querySelectorAll('.editable-active');
+
+            if(isMoveModeActive) {
+                btn.style.background = '#ff4d4d'; btn.style.color = '#fff';
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Stop Moving';
+                editableElements.forEach(el => { el.contentEditable = "false"; el.style.userSelect = "none"; el.style.cursor = "move"; el.onclick = null; });
+                
+                let floatingControlText = document.getElementById('admin-text-controls'); 
+                if(floatingControlText) floatingControlText.remove();
+                let floatingControlImg = document.getElementById('admin-img-controls'); 
+                if(floatingControlImg) floatingControlImg.remove();
+
+                customAlert('Move Mode is ON! \n\nअब आप किसी भी आइटम को पकड़ कर मूव कर सकते हैं।', 'MOVE MODE ACTIVE', 'fa-arrows-up-down-left-right', 'info');
+            } else {
+                btn.style.background = '#ff9800'; btn.style.color = '#000';
+                btn.innerHTML = '<i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items';
+                editableElements.forEach(el => { 
+                    el.contentEditable = "true"; 
+                    el.style.userSelect = "auto"; 
+                    el.style.cursor = "text"; 
+                    
+                    el.onclick = function(e) {
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
+                            showAdminTextControls(e, el);
+                        }
+                    };
+                });
+            }
+        }
+
+        let activeFreeDrag = null; let fDragX = 0, fDragY = 0; 
+        function initFreeDrag(e, clientX, clientY) {
+            if (localStorage.getItem('mani_admin_logged') !== 'true') return;
+            
+            if (isMoveModeActive) {
+                let target = e.target.closest('a, li, .logo, .nav-links, h1, h2, h3, h4, p, span, img, video, iframe, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
+                
+                if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
+                    activeFreeDrag = target;
+                    if (window.getComputedStyle(activeFreeDrag).position === 'static') activeFreeDrag.style.position = 'relative';
+                    let currentLeft = parseFloat(activeFreeDrag.style.left) || 0; let currentTop = parseFloat(activeFreeDrag.style.top) || 0;
+                    fDragX = clientX - currentLeft; fDragY = clientY - currentTop;
+                    activeFreeDrag.style.zIndex = "99999"; activeFreeDrag.style.cursor = "grabbing"; activeFreeDrag.style.transition = "none"; 
+                    if(isMoveModeActive) { e.preventDefault(); } 
+                }
+            }
+        }
+
+        function handleFreeDragMove(e, clientX, clientY) {
+            if (activeFreeDrag) {
+                activeFreeDrag.style.left = (clientX - fDragX) + 'px';
+                activeFreeDrag.style.top = (clientY - fDragY) + 'px';
+                if(e.cancelable) e.preventDefault();
+            }
+        }
+        function stopFreeDrag() {
+            if (activeFreeDrag) {
+                activeFreeDrag.style.cursor = isMoveModeActive ? "move" : "";
+                activeFreeDrag.style.zIndex = ""; activeFreeDrag.style.transition = ""; activeFreeDrag = null;
+            }
+        }
+
+        document.addEventListener('mousedown', (e) => initFreeDrag(e, e.clientX, e.clientY), {passive: false});
+        document.addEventListener('mousemove', (e) => handleFreeDragMove(e, e.clientX, e.clientY), {passive: false});
+        document.addEventListener('mouseup', stopFreeDrag);
+        document.addEventListener('touchstart', (e) => initFreeDrag(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
+        document.addEventListener('touchmove', (e) => handleFreeDragMove(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
+        document.addEventListener('touchend', stopFreeDrag);
+
+        // ================= MEDIA EDIT HANDLERS ================= //
+        function bindMediaClickHandlers() {
+            const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
+            mediaElements.forEach(elem => {
+                elem.classList.add('media-editable'); elem.title = "Click to Edit Image";
+                elem.onclick = function(e) {
+                    if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
+                        e.preventDefault(); e.stopPropagation(); currentTargetElement = elem; showAdminImageControls(e, elem);
+                    }
+                };
+            });
+        }
+
+        function showAdminImageControls(e, elem) {
+            let existingText = document.getElementById('admin-text-controls'); if(existingText) existingText.remove();
+            let existing = document.getElementById('admin-img-controls'); if(existing) existing.remove();
+            let controls = document.createElement('div'); controls.id = 'admin-img-controls';
+            controls.style.position = 'absolute'; controls.style.left = Math.min(e.pageX, window.innerWidth - 300) + 'px'; controls.style.top = (e.pageY + 10) + 'px';
+            controls.style.background = '#10101a'; controls.style.border = '2px solid #00d2ff'; controls.style.padding = '8px 12px'; controls.style.borderRadius = '8px'; controls.style.zIndex = '100000'; controls.style.display = 'flex'; controls.style.gap = '6px'; controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
+            controls.innerHTML = `
+                <button onclick="document.getElementById('adminFileInput').click()" style="background:#00d2ff; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Upload"><i class="fa-solid fa-upload"></i></button>
+                <button onclick="changePhotoByUrl()" style="background:#ffc107; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Paste URL"><i class="fa-solid fa-link"></i></button>
+                <button onclick="zoomElement(0.1)" style="background:#28a745; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i> +</button>
+                <button onclick="zoomElement(-0.1)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i> -</button>
+                <button onclick="deleteMediaElement()" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Delete Card/Image"><i class="fa-solid fa-trash"></i></button>
+                <button onclick="this.parentElement.remove()" style="background:transparent; color:red; border:none; cursor:pointer; font-size:18px; padding:0 4px;">&times;</button>
+            `;
+            document.body.appendChild(controls);
+        }
+
+        function deleteMediaElement() {
+            customConfirm("Are you sure you want to delete this photo/card?", function(confirmed) {
+                if(confirmed && currentTargetElement) {
+                    let parentCard = currentTargetElement.closest('.showcase-item');
+                    if (parentCard) {
+                        parentCard.remove();
+                    } else {
+                        currentTargetElement.remove();
+                    }
+                    document.getElementById('admin-img-controls')?.remove();
+                    const track = document.getElementById('frontSliderTrack'); if (track) { currentSlideIndex = 0; track.style.transform = `translateX(0%)`; }
+                    currentTargetElement = null;
+                }
+            });
+        }
+
+        function zoomElement(step) {
+            if(!currentTargetElement) return;
+            let currentScale = parseFloat(currentTargetElement.getAttribute('data-scale')) || 1; currentScale += step;
+            if(currentScale < 0.3) currentScale = 0.3; if(currentScale > 3.0) currentScale = 3.0; 
+            currentTargetElement.setAttribute('data-scale', currentScale.toFixed(2)); currentTargetElement.style.transform = `scale(${currentScale.toFixed(2)})`;
         }
 
         function changePhotoByUrl() {
-            if(!currentTargetElement) return;
-            customPrompt("UPDATE MEDIA URL", "Enter direct Image or Video URL (or YouTube link):", function(url) {
-                if(url) {
-                    if(url.includes('youtube.com') || url.includes('youtu.be')) {
-                        let vidId = url.includes('v=') ? url.split('v=')[1].split('&')[0] : url.split('/').pop();
-                        let iframe = document.createElement('iframe');
-                        iframe.className = currentTargetElement.className;
-                        iframe.src = `[https://www.youtube.com/embed/$](https://www.youtube.com/embed/$){vidId}`;
-                        iframe.setAttribute('frameborder', '0');
-                        iframe.setAttribute('allowfullscreen', 'true');
-                        currentTargetElement.parentNode.replaceChild(iframe, currentTargetElement);
-                        currentTargetElement = iframe;
-                    } else if (currentTargetElement.tagName === 'IMG') {
-                        currentTargetElement.src = url;
-                    } else {
-                        // Switch from video/iframe back to image if needed
-                        let img = document.createElement('img');
-                        img.className = currentTargetElement.className;
-                        img.src = url;
-                        currentTargetElement.parentNode.replaceChild(img, currentTargetElement);
-                        currentTargetElement = img;
-                    }
-                    bindMediaClickHandlers();
-                    document.getElementById('admin-img-controls')?.remove();
-                    customAlert('Media updated successfully!', 'UPDATED', 'fa-check', 'success');
+            customPrompt("PASTE IMAGE / VIDEO URL", "Paste direct URL here:", function(url) {
+                if(url && currentTargetElement) {
+                    if(url.match(/\.(mp4|webm|ogg)$/i)) {
+                        let newVideo = document.createElement('video'); newVideo.src = url; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true; newVideo.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
+                    } else { currentTargetElement.src = url; }
+                    document.getElementById('admin-img-controls')?.remove(); bindMediaClickHandlers();
                 }
             });
         }
 
         function handleFileSelected(event) {
-            const file = event.target.files[0];
-            if (!file || !currentTargetElement) return;
-            
+            const file = event.target.files[0]; if (!file || !currentTargetElement) return;
             const reader = new FileReader();
             reader.onload = function(e) {
-                if (file.type.startsWith('video/')) {
-                    let vid = document.createElement('video');
-                    vid.src = e.target.result;
-                    vid.className = currentTargetElement.className;
-                    vid.controls = true;
-                    vid.autoplay = true;
-                    vid.muted = true;
-                    currentTargetElement.parentNode.replaceChild(vid, currentTargetElement);
-                    currentTargetElement = vid;
-                } else {
-                    if (currentTargetElement.tagName !== 'IMG') {
-                        let img = document.createElement('img');
-                        img.className = currentTargetElement.className;
-                        img.src = e.target.result;
-                        currentTargetElement.parentNode.replaceChild(img, currentTargetElement);
-                        currentTargetElement = img;
-                    } else {
-                        currentTargetElement.src = e.target.result;
-                    }
+                const fileData = e.target.result;
+                if (file.type.startsWith('image/')) {
+                    if (currentTargetElement.tagName.toLowerCase() === 'video') { const newImg = document.createElement('img'); newImg.src = fileData; newImg.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement); currentTargetElement = newImg; } 
+                    else { currentTargetElement.src = fileData; }
+                } else if (file.type.startsWith('video/')) {
+                    const newVideo = document.createElement('video'); newVideo.src = fileData; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true; newVideo.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement); currentTargetElement = newVideo;
                 }
-                bindMediaClickHandlers();
-                document.getElementById('admin-img-controls')?.remove();
-                customAlert('Local file uploaded!', 'SUCCESS', 'fa-check', 'success');
+                document.getElementById('admin-img-controls')?.remove(); bindMediaClickHandlers();
             };
-            reader.readAsDataURL(file);
-            
+            reader.readAsDataURL(file); event.target.value = '';
+        }
+
+        // ================= GITHUB AUTO-SAVE SYSTEM ================= //
+        function stringToBase64UTF8(str) {
+            const encoder = new TextEncoder(); const bytes = encoder.encode(str); let binary = '';
+            for (let i = 0; i < bytes.byteLength; i++) { binary += String.fromCharCode(bytes[i]); } return btoa(binary);
+        }
+
+        function clearSavedToken() {
+            localStorage.removeItem('gh_token_bagga');
+            customAlert("GitHub Token Removed! You will be asked again on your next save.", "TOKEN RESET", "fa-key", "info");
+        }
+
+        function closeGithubModal() {
+            document.getElementById('githubTokenModal').style.display = 'none';
+        }
+
+        function saveGithubTokenAndProceed() {
+            const inputVal = document.getElementById('githubTokenInputModal').value.trim();
+            if(!inputVal) { customAlert('Please enter a valid GitHub token.', 'INVALID TOKEN', 'fa-triangle-exclamation', 'error'); return; }
+            localStorage.setItem('gh_token_bagga', inputVal);
+            closeGithubModal();
+            saveChangesToGitHub();
+        }
+
+        async function saveChangesToGitHub() {
+            let token = localStorage.getItem('gh_token_bagga');
+            if (!token) { 
+                document.getElementById('githubTokenInputModal').value = '';
+                document.getElementById('githubTokenModal').style.display = 'flex';
+                return; 
+            }
+
+            const saveBtn = document.getElementById('btnSaveLive');
+            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...'; 
+            saveBtn.disabled = true;
+
+            try {
+                const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
+                const getResponse = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } }); 
+                
+                if (!getResponse.ok) {
+                    if (getResponse.status === 401) {
+                        localStorage.removeItem('gh_token_bagga');
+                        throw new Error("GitHub Token Invalid or Expired! Please click Save again to re-enter your Token.");
+                    }
+                    throw new Error("GitHub Repository File or Token Invalid!");
+                }
+                
+                const fileData = await getResponse.json(); const sha = fileData.sha;
+
+                const toolsMenu = document.getElementById('adminEditTools');
+                const wasOpen = toolsMenu.style.display === 'block';
+                if (wasOpen) toggleEditWebsiteTools(); 
+
+                let clone = document.documentElement.cloneNode(true);
+                
+                let clonedSaveBtn = clone.querySelector('#btnSaveLive'); 
+                if(clonedSaveBtn) { 
+                    clonedSaveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site'; 
+                    clonedSaveBtn.disabled = false; 
+                }
+                
+                let dash = clone.querySelector('#adminDashboard'); if(dash) dash.style.display = 'none';
+                let modal = clone.querySelector('#adminLoginModal'); if(modal) modal.style.display = 'none';
+                let ghModal = clone.querySelector('#githubTokenModal'); if(ghModal) ghModal.style.display = 'none';
+                let upModal = clone.querySelector('#innerUploadModal'); if(upModal) upModal.style.display = 'none';
+                let viewModal = clone.querySelector('#viewNotifModal'); if(viewModal) viewModal.style.display = 'none';
+                let msgsModal = clone.querySelector('#adminMessagesModal'); if(msgsModal) msgsModal.style.display = 'none'; 
+                let wrongModal = clone.querySelector('#wrongPassModal'); if(wrongModal) wrongModal.style.display = 'none';
+                let customAlertM = clone.querySelector('#customAlertModal'); if(customAlertM) customAlertM.style.display = 'none';
+                let customConfirmM = clone.querySelector('#customConfirmModal'); if(customConfirmM) customConfirmM.style.display = 'none';
+                let customPromptM = clone.querySelector('#customPromptModal'); if(customPromptM) customPromptM.style.display = 'none';
+                
+                let floatingControlImg = clone.querySelector('#admin-img-controls'); if(floatingControlImg) floatingControlImg.remove();
+                let floatingControlText = clone.querySelector('#admin-text-controls'); if(floatingControlText) floatingControlText.remove();
+                
+                clone.querySelectorAll('.card-delete-btn').forEach(btn => btn.remove());
+
+                clone.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+                let homeP = clone.querySelector('#page-home'); if(homeP) homeP.classList.add('active');
+                
+                const tagLbl = clone.querySelector('#adminTagLabel'); if(tagLbl) { tagLbl.innerText = "ADMIN"; tagLbl.style.color = ""; }
+
+                clone.querySelectorAll('.editable-active').forEach(el => {
+                    el.removeAttribute('contenteditable'); el.classList.remove('editable-active'); el.onclick = null;
+                    el.style.border = ''; el.style.padding = '';
+                });
+                
+                clone.querySelectorAll('.media-editable').forEach(el => {
+                    el.classList.remove('media-editable'); el.removeAttribute('title');
+                    el.style.outline = ''; el.onclick = null;
+                });
+
+                const fullHTML = "<!DOCTYPE html>\n<html lang=\"en\">\n" + clone.innerHTML + "\n</html>";
+                const base64Content = stringToBase64UTF8(fullHTML);
+
+                const putResponse = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: 'Updated Site Content via Admin', content: base64Content, sha: sha })
+                });
+
+                if (putResponse.ok) {
+                    customAlert('🎉 Awesome! All changes saved to Live Site successfully!', 'PUBLISHED TO LIVE', 'fa-cloud-arrow-up', 'success');
+                } else { 
+                    const errorDetails = await putResponse.json(); 
+                    if(putResponse.status === 401) localStorage.removeItem('gh_token_bagga');
+                    throw new Error(errorDetails.message || "Failed to update GitHub"); 
+                }
+                
+                if (wasOpen) toggleEditWebsiteTools(); 
+
+            } catch (error) {
+                console.error("Save Error:", error); 
+                customAlert('Save Error: ' + error.message, 'ERROR', 'fa-triangle-exclamation', 'error');
+            } finally {
+                saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site'; 
+                saveBtn.disabled = false;
+            }
+        }
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>
 
