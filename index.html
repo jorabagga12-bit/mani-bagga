@@ -186,7 +186,7 @@
         .card-delete-btn:hover { background: #ff0000; transform: scale(1.1); }
     </style>
 </head>
-<body>
+<body><canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
     <canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
 
     <!-- Background 3D Shapes -->
@@ -205,7 +205,7 @@
             </div>
 
             <div class="logo">
-                <i class="fa-solid fa-gamepad"></i> MANI<span contenteditable="false" class="">M4YT YUONG&nbsp;</span>
+                <i class="fa-solid fa-gamepad"></i> MANI<span contenteditable="false" class="">BAGGA</span>
             </div>
 
             <ul class="nav-links">
@@ -238,7 +238,7 @@
                     <div class="card-3d-main" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); transition: transform 0.5s ease-in-out;">
                         <div class="slider-wrapper">
                             <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
-                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(0%);">
+                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(0%); position: relative;">
                                 <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
                                 <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
                             </div>
@@ -258,7 +258,7 @@
             <h2 class="section-title" contenteditable="false">MAIN <span class="highlight" contenteditable="false">FEATURES &amp; TIPS</span></h2>
             <p class="section-subtitle" contenteditable="false">Special facilities for Gamers</p>
             <div class="cards-grid">
-                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="card-3d" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                     <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
                     <div class="card-img-container">
                         <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
@@ -266,7 +266,7 @@
                     <h3 contenteditable="false" class="">BGMI Live Highlights</h3>
                     <p contenteditable="false" class="">CAN YOU SUBSCRIBE.</p>
                 </div>
-                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="card-3d" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                     <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
                     <div class="card-img-container">
                         <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
@@ -274,7 +274,7 @@
                     <h3 contenteditable="false" class="">eSports Custom Rooms</h3>
                     <p contenteditable="false" class="">JOIN FOR TOURNAMENT PROGRAMS.</p>
                 </div>
-                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="card-3d" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                     <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
                     <div class="card-img-container">
                         <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
@@ -291,21 +291,21 @@
         <h1 class="page-header" contenteditable="false">BGMI / PUBG <span class="highlight" contenteditable="false">3D GALLERY</span></h1>
         <section id="showcase" class="showcase-section" style="padding-top: 0;">
             <div class="showcase-grid" id="galleryContainer">
-                <div class="showcase-item">
+                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                     <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     <div class="showcase-overlay">
                         <h4 contenteditable="false" class="">Clutch Moments</h4>
                         <p contenteditable="false" class="">1v4 BGMI Gameplay</p>
                     </div>
                 </div>
-                <div class="showcase-item">
+                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                     <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     <div class="showcase-overlay">
                         <h4 contenteditable="false" class="">eSports Arena</h4>
                         <p contenteditable="false" class="">Custom Scrims</p>
                     </div>
                 </div>
-                <div class="showcase-item">
+                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                     <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     <div class="showcase-overlay">
                         <h4 contenteditable="false" class="">Pro Setup</h4>
@@ -320,7 +320,7 @@
     <div id="page-about" class="page-view">
         <h1 class="page-header" contenteditable="false">LIVE STREAM &amp; <span class="highlight" contenteditable="false">ABOUT US</span></h1>
         <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.05); border-radius: 15px; margin: 0 20px;">
-            <div class="about-card" style="opacity: 1; transform: translateY(0px) scale(1);">
+            <div class="about-card" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                 <p contenteditable="false" class="">Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
             </div>
         </section>
@@ -349,7 +349,7 @@
         <h1 class="page-header" contenteditable="false">CONTACT <span class="highlight" contenteditable="false">ADMIN</span></h1>
         
         <div class="contact-page-wrapper">
-            <div class="contact-box admin-box" style="transform: translateY(0px) scale(1); max-width: 600px; padding: 40px; opacity: 1;">
+            <div class="contact-box admin-box" style="transform: translateY(30px) scale(0.95); max-width: 600px; padding: 40px; opacity: 0; transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                 <h2 style="margin-bottom: 20px;" contenteditable="false" class=""><i class="fa-solid fa-envelope"></i> SEND A MESSAGE</h2>
                 <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;" contenteditable="false" class="">Send a message directly to MANI M4YT</p>
                 
@@ -394,11 +394,9 @@
     <!-- ==================== DYNAMIC CUSTOM ALERT MODAL ==================== -->
     <div id="customAlertModal" class="admin-modal" style="display: none; z-index: 100010;">
         <div class="admin-box" id="customAlertBox" style="max-width: 420px; padding: 30px;">
-            <div id="customAlertIcon" style="font-size: 55px; margin-bottom: 15px; color: #00d2ff; text-shadow: 0 0 15px #00d2ff;">
-                <i class="fa-solid fa-circle-info"></i>
-            </div>
-            <h2 id="customAlertTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;">NOTIFICATION</h2>
-            <p id="customAlertMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px; white-space: pre-wrap;"></p>
+            <div id="customAlertIcon" style="font-size: 55px; margin-bottom: 15px; color: #00d2ff; text-shadow: 0 0 15px #00d2ff;"><i class="fa-solid fa-user-gear"></i></div>
+            <h2 id="customAlertTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;" contenteditable="false" class="">ADMIN MODE</h2>
+            <p id="customAlertMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px; white-space: pre-wrap;" contenteditable="false" class="">Admin Mode is Active! Use the tools floating at the bottom right.</p>
             <button id="customAlertBtn" onclick="closeCustomAlert()" style="background: linear-gradient(45deg, #00d2ff, #0072ff); color: #fff; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; border: none; cursor: pointer;">
                 <i class="fa-solid fa-check"></i> OK
             </button>
@@ -411,8 +409,8 @@
             <div style="font-size: 55px; margin-bottom: 15px; color: #ffc107; text-shadow: 0 0 15px #ffc107;">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h2 style="color: #ffc107; font-size: 20px; margin-bottom: 10px;">CONFIRM ACTION</h2>
-            <p id="customConfirmMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px;"></p>
+            <h2 style="color: #ffc107; font-size: 20px; margin-bottom: 10px;" contenteditable="false" class="">CONFIRM ACTION</h2>
+            <p id="customConfirmMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px;" contenteditable="false" class=""></p>
             <div style="display: flex; gap: 10px;">
                 <button onclick="handleConfirmChoice(true)" style="background: linear-gradient(45deg, #28a745, #1e7e34); flex: 1;">YES</button>
                 <button onclick="handleConfirmChoice(false)" style="background: linear-gradient(45deg, #dc3545, #bd2130); flex: 1;">NO</button>
@@ -426,8 +424,8 @@
             <div style="font-size: 50px; margin-bottom: 15px; color: #00d2ff;">
                 <i class="fa-solid fa-pen-to-square"></i>
             </div>
-            <h2 id="customPromptTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;">INPUT REQUIRED</h2>
-            <p id="customPromptMsg" style="color: #ccc; font-size: 14px; margin-bottom: 15px;"></p>
+            <h2 id="customPromptTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;" contenteditable="false" class="">INPUT REQUIRED</h2>
+            <p id="customPromptMsg" style="color: #ccc; font-size: 14px; margin-bottom: 15px;" contenteditable="false" class=""></p>
             <input type="text" id="customPromptInput" placeholder="Enter here..." style="background: #1a1a2e; border: 2px solid #00d2ff; padding: 12px; width: 100%; border-radius: 8px; color: white; margin-bottom: 15px; outline: none; box-sizing: border-box;">
             <div style="display: flex; gap: 10px;">
                 <button onclick="submitCustomPrompt()" style="background: linear-gradient(45deg, #00d2ff, #0072ff); flex: 1;">SUBMIT</button>
@@ -453,8 +451,8 @@
     <!-- DYNAMIC WRONG PASSWORD ERROR MODAL -->
     <div id="wrongPassModal" class="admin-modal" style="display: none; z-index: 100005;">
         <div class="admin-box error-box" id="errorBoxAnim">
-            <h2><i class="fa-solid fa-triangle-exclamation"></i> ACCESS DENIED!</h2>
-            <p style="font-size: 18px; color: #fff; font-weight: bold; margin: 20px 0; letter-spacing: 1px;">
+            <h2 contenteditable="false" class=""><i class="fa-solid fa-triangle-exclamation"></i> ACCESS DENIED!</h2>
+            <p style="font-size: 18px; color: #fff; font-weight: bold; margin: 20px 0; letter-spacing: 1px;" contenteditable="false" class="">
                 INCORRECT USERNAME OR PASSWORD!
             </p>
             <div style="font-size: 50px; margin-bottom: 20px; color: #ff004c; text-shadow: 0 0 20px #ff004c;">
@@ -473,8 +471,8 @@
             <div>
                 <i class="fa-brands fa-github github-3d-icon"></i>
             </div>
-            <h2 style="color:#00d2ff; margin-bottom: 10px;"><i class="fa-solid fa-key"></i> GITHUB ACCESS TOKEN</h2>
-            <p style="color:#ccc; font-size:14px; margin-bottom: 15px;">Enter your GitHub Personal Access Token to save live changes:</p>
+            <h2 style="color:#00d2ff; margin-bottom: 10px;" contenteditable="false" class=""><i class="fa-solid fa-key"></i> GITHUB ACCESS TOKEN</h2>
+            <p style="color:#ccc; font-size:14px; margin-bottom: 15px;" contenteditable="false" class="">Enter your GitHub Personal Access Token to save live changes:</p>
             
             <input type="password" id="githubTokenInputModal" class="github-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
             <button onclick="saveGithubTokenAndProceed()"><i class="fa-solid fa-cloud-arrow-up"></i> SAVE TOKEN &amp; PUBLISH</button>
@@ -1473,5 +1471,7 @@
         }
     </script>
     <script src="js/script.js"></script>
+
+
 </body>
 </html>
