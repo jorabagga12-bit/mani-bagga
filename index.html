@@ -25,38 +25,60 @@
             to { opacity: 1; transform: translateY(0); } 
         }
 
-        /* 3D NOTIFICATION CARDS */
         .page-header {
             text-align: center; margin: 120px 0 40px 0; color: #00d2ff;
             font-size: 2.8rem; text-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
             text-transform: uppercase; letter-spacing: 2px;
         }
+
+        /* ================== NEW NOTIFICATION LIST UI (Like HPBOSE) ================== */
         .notif-container {
             max-width: 900px; margin: 0 auto; padding: 0 20px;
         }
         
-        .notif-3d-card {
-            background: linear-gradient(145deg, #1a1a2e, #10101a);
-            border-radius: 20px; padding: 25px; margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0, 210, 255, 0.1);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            transition: all 0.4s ease; transform-style: preserve-3d;
+        .notif-list-wrapper {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 210, 255, 0.2);
+            overflow: hidden;
+        }
+        
+        .notif-list-item {
+            display: flex;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e0e0e0;
             cursor: pointer;
+            transition: background 0.3s ease;
+            align-items: center;
         }
-        .notif-3d-card:hover {
-            transform: translateY(-10px) rotateX(2deg) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 210, 255, 0.5), inset 0 0 20px rgba(0, 210, 255, 0.4);
-            border-color: #00d2ff;
+        
+        .notif-list-item:hover {
+            background: #f0f7ff;
         }
-        .notif-3d-card img, .notif-3d-card video {
-            width: 100%; height: 350px; object-fit: cover; border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6); margin-bottom: 20px;
+        
+        .notif-list-item:last-child {
+            border-bottom: none;
         }
+        
+        .notif-date {
+            flex: 0 0 110px;
+            font-size: 14px;
+            color: #444;
+            font-weight: 700;
+            border-right: 2px solid #00d2ff;
+            margin-right: 15px;
+            padding-right: 10px;
+        }
+        
+        .notif-text {
+            flex: 1;
+        }
+        
         .notif-title {
-            color: #fff; font-size: 1.8rem; margin-bottom: 10px; text-shadow: 0 0 10px rgba(255,255,255,0.3);
-        }
-        .notif-desc {
-            color: #b3b3cc; font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap;
+            font-size: 16px;
+            color: #004085;
+            font-weight: 600;
+            line-height: 1.4;
         }
 
         /* FRONT IMAGE SLIDER */
@@ -127,6 +149,35 @@
         
         .editable-active { border: 1px dashed #00d2ff !important; padding: 2px; }
         .media-editable:hover { opacity: 0.8; cursor: pointer; outline: 3px solid #00d2ff; }
+
+        /* ================== GALLERY DRAG, DROP & RESIZE (ADMIN) ================== */
+        .showcase-item {
+            position: relative;
+            transition: transform 0.3s ease, border 0.3s ease;
+        }
+        .admin-item-controls {
+            position: absolute; top: 10px; right: 10px;
+            display: none; gap: 8px; z-index: 100;
+        }
+        .showcase-item:hover .admin-item-controls {
+            display: flex;
+        }
+        .admin-item-controls button {
+            background: #ffc107; color: #000; border: none; border-radius: 4px;
+            width: 32px; height: 32px; font-weight: bold; cursor: pointer;
+            font-size: 18px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.6); margin: 0; padding: 0;
+        }
+        .admin-item-controls button:hover { background: #fff; }
+        .admin-item-controls button.drag-handle { background: #00d2ff; cursor: grab; }
+        
+        .showcase-item.dragging {
+            opacity: 0.5; border: 3px dashed #00d2ff; transform: scale(0.95) !important;
+            z-index: 1000;
+        }
+        .showcase-item.over {
+            border: 3px solid #28a745; border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -267,14 +318,19 @@
 
     <!-- ==================== PAGE 2: NOTIFICATIONS ==================== -->
     <div id="page-notifications" class="page-view">
-        <h1 class="page-header">LATEST <span class="highlight">UPDATES</span></h1>
+        <h1 class="page-header">LATEST <span class="highlight">NOTIFICATIONS</span></h1>
         
-        <div class="notif-container" id="notifWrapper">
-            <!-- 3D Notification Card -->
-            <div class="notif-3d-card" onclick="openUploadModal(this)">
-                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" alt="Update" class="media-target">
-                <h2 class="notif-title">Welcome to the new Esports Hub!</h2>
-                <p class="notif-desc">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys!</p>
+        <div class="notif-container">
+            <div class="notif-list-wrapper" id="notifWrapper">
+                <!-- List Item Structure -->
+                <div class="notif-list-item" onclick="viewNotification(this)">
+                    <div class="notif-date">18-09-2026</div>
+                    <div class="notif-text">
+                        <div class="notif-title">Welcome to the new Esports Hub! (Click for details)</div>
+                        <div class="notif-desc" style="display:none;">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys!</div>
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" class="media-target notif-hidden-media" style="display:none;">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -339,11 +395,28 @@
         </div>
     </div>
 
-    <!-- NOTIFICATION MEDIA + TEXT UPLOAD MODAL -->
+    <!-- VIEW NOTIFICATION MODAL (FOR ALL USERS) -->
+    <div id="viewNotifModal" class="admin-modal" onclick="closeViewNotif(event)">
+        <div class="admin-box view-notif-box" style="max-width: 600px; padding: 25px;" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="closeViewNotif()" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
+            <h2 id="viewNotifTitle" style="text-align:left; color:#00d2ff; margin-bottom:15px; font-size:1.4rem;">Title</h2>
+            
+            <img id="viewNotifImg" src="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
+            <video id="viewNotifVid" src="" controls autoplay muted loop style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);"></video>
+            
+            <p id="viewNotifDesc" style="text-align:left; line-height:1.6; color:#b3b3cc; white-space:pre-wrap; font-size:1.1rem;"></p>
+            
+            <button id="adminEditNotifBtn" style="display:none; background:#ffc107; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; margin-top: 20px; font-size: 15px;" onclick="openUploadModalFromView()">
+                <i class="fa-solid fa-pen-to-square"></i> EDIT NOTIFICATION (ADMIN ONLY)
+            </button>
+        </div>
+    </div>
+
+    <!-- ADMIN EDIT NOTIFICATION MODAL -->
     <div id="innerUploadModal" class="admin-modal">
         <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); max-width: 500px;">
             <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
-            <h2><i class="fa-solid fa-bell"></i> Update Notification</h2>
+            <h2><i class="fa-solid fa-bell"></i> Edit Notification</h2>
             
             <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">1. Enter Title:</p>
             <input type="text" id="notifEditTitle" placeholder="Notification Title..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box;">
@@ -395,10 +468,20 @@
             }, 100);
         }
 
-        // ================= FRONT SLIDER LOGIC ================= //
+        // ================= AUTO SCROLL FRONT SLIDER ================= //
         let currentSlideIndex = 0;
+        let sliderInterval;
+        
+        function startSlider() {
+            sliderInterval = setInterval(() => { moveFrontSlide(1); }, 3000);
+        }
+
         function moveFrontSlide(direction, event) {
-            if(event) { event.stopPropagation(); } 
+            if(event) { 
+                event.stopPropagation(); 
+                clearInterval(sliderInterval); 
+                startSlider(); 
+            } 
             const track = document.getElementById('frontSliderTrack');
             const totalSlides = track.children.length;
             
@@ -412,13 +495,15 @@
         // ================= PERSISTENT ADMIN SYSTEM ================= //
         let currentTargetElement = null;
         let activeNotifCard = null;
+        let currentViewedNotif = null;
+        let draggedItem = null;
 
         const GITHUB_OWNER = 'jorabagga12-bit';       
         const GITHUB_REPO = 'mani-bagga';             
-        FILE_PATH = 'index.html';
+        const FILE_PATH = 'index.html';
 
-        // Check if admin was previously logged in on this browser session
         window.addEventListener('DOMContentLoaded', () => {
+            startSlider(); 
             if (localStorage.getItem('mani_admin_logged') === 'true') {
                 activateAdminMode();
             }
@@ -426,7 +511,7 @@
 
         function handleAdminBadgeClick() {
             if (localStorage.getItem('mani_admin_logged') === 'true') {
-                alert('Admin Mode is already active! 🚀 You can edit text or click photos.');
+                alert('Admin Mode is already active! 🚀 You can edit text, resize, and drag photos.');
             } else {
                 openAdminLogin();
             }
@@ -448,9 +533,9 @@
             const pass = document.getElementById('adminPassX').value;
 
             if (user === 'bagga' && pass === 'iphonex0421&') {
-                localStorage.setItem('mani_admin_logged', 'true');
+                try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
                 closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\nNow you can click any photo, text or notification without re-logging in.');
+                alert('Welcome Admin Bagga! 🚀\nNow you can click photos to change them, drag them around, and resize them (+/-).');
                 activateAdminMode();
             } else {
                 alert('Invalid Username or Password!');
@@ -473,19 +558,143 @@
             });
 
             bindMediaClickHandlers();
+            makeGalleryItemsDraggableAndResizable();
         }
 
-        // ================= NOTIFICATION UPLOAD (MESSAGE + MEDIA) ================= //
-        function openUploadModal(cardElement) {
-            // अगर एडमिन लॉगिन नहीं है, तभी लॉगिन मांगेगा वरना सीधा पॉपअप खुलेगा
-            if (localStorage.getItem('mani_admin_logged') !== 'true') {
-                openAdminLogin();
-                return;
-            } 
+        // ================= DRAG, DROP & RESIZE LOGIC ================= //
+        function makeGalleryItemsDraggableAndResizable() {
+            const items = document.querySelectorAll('.showcase-item');
+            
+            items.forEach(item => {
+                // Prevent duplicate buttons if called again
+                if(!item.querySelector('.admin-item-controls')) {
+                    // Make Item Draggable
+                    item.setAttribute('draggable', 'true');
+                    
+                    // Drag Start
+                    item.addEventListener('dragstart', function(e) {
+                        if (localStorage.getItem('mani_admin_logged') !== 'true') {
+                            e.preventDefault(); return;
+                        }
+                        draggedItem = this;
+                        e.dataTransfer.effectAllowed = 'move';
+                        setTimeout(() => this.classList.add('dragging'), 0);
+                    });
+                    
+                    // Drag Over
+                    item.addEventListener('dragover', function(e) {
+                        e.preventDefault();
+                        if(draggedItem && draggedItem !== this) {
+                            this.classList.add('over');
+                        }
+                        return false;
+                    });
+                    
+                    // Drag Leave
+                    item.addEventListener('dragleave', function(e) {
+                        this.classList.remove('over');
+                    });
+                    
+                    // Drop (Reorder items)
+                    item.addEventListener('drop', function(e) {
+                        e.stopPropagation();
+                        this.classList.remove('over');
+                        if (draggedItem && draggedItem !== this) {
+                            const container = this.parentNode;
+                            const allItems = [...container.querySelectorAll('.showcase-item')];
+                            const draggedIndex = allItems.indexOf(draggedItem);
+                            const targetIndex = allItems.indexOf(this);
+                            
+                            if (draggedIndex < targetIndex) {
+                                this.after(draggedItem); // Move After
+                            } else {
+                                this.before(draggedItem); // Move Before
+                            }
+                        }
+                        return false;
+                    });
+                    
+                    // Drag End
+                    item.addEventListener('dragend', function(e) {
+                        this.classList.remove('dragging');
+                        document.querySelectorAll('.showcase-item').forEach(el => el.classList.remove('over'));
+                    });
 
-            activeNotifCard = cardElement;
-            let titleEl = cardElement.querySelector('.notif-title');
-            let descEl = cardElement.querySelector('.notif-desc');
+                    // Add Resize Buttons (+ / -) & Drag Handle
+                    let controlsHTML = document.createElement('div');
+                    controlsHTML.className = 'admin-item-controls';
+                    controlsHTML.innerHTML = `
+                        <button type="button" class="drag-handle" title="Drag to move"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>
+                        <button type="button" onclick="resizeCard(this, 1)" title="Increase Size"><i class="fa-solid fa-plus"></i></button>
+                        <button type="button" onclick="resizeCard(this, -1)" title="Decrease Size"><i class="fa-solid fa-minus"></i></button>
+                    `;
+                    item.appendChild(controlsHTML);
+                }
+            });
+        }
+
+        // Resize function applied on card
+        function resizeCard(btn, direction) {
+            event.stopPropagation(); // Don't trigger other clicks
+            let card = btn.closest('.showcase-item');
+            
+            // Get current scale, default to 1
+            let currentScale = parseFloat(card.getAttribute('data-scale')) || 1;
+            
+            // Add or subtract 5% scale size
+            currentScale += (direction * 0.05); 
+            
+            // Minimum and Maximum size bounds
+            if(currentScale < 0.6) currentScale = 0.6;
+            if(currentScale > 1.6) currentScale = 1.6;
+            
+            card.setAttribute('data-scale', currentScale);
+            card.style.transform = `scale(${currentScale})`;
+            card.style.zIndex = currentScale > 1 ? '10' : '1';
+        }
+
+        // ================= NEW NOTIFICATION SYSTEM (VIEW & EDIT) ================= //
+        function viewNotification(notifItem) {
+            currentViewedNotif = notifItem;
+            const title = notifItem.querySelector('.notif-title').innerText;
+            const desc = notifItem.querySelector('.notif-desc').innerText;
+            const media = notifItem.querySelector('.media-target');
+
+            document.getElementById('viewNotifTitle').innerText = title;
+            document.getElementById('viewNotifDesc').innerText = desc;
+            
+            const imgEl = document.getElementById('viewNotifImg');
+            const vidEl = document.getElementById('viewNotifVid');
+            imgEl.style.display = 'none';
+            vidEl.style.display = 'none';
+
+            if (media && media.tagName.toLowerCase() === 'img') {
+                imgEl.src = media.src;
+                imgEl.style.display = 'block';
+            } else if (media && media.tagName.toLowerCase() === 'video') {
+                vidEl.src = media.src;
+                vidEl.style.display = 'block';
+            }
+
+            if (localStorage.getItem('mani_admin_logged') === 'true') {
+                document.getElementById('adminEditNotifBtn').style.display = 'block';
+            } else {
+                document.getElementById('adminEditNotifBtn').style.display = 'none';
+            }
+
+            document.getElementById('viewNotifModal').style.display = 'flex';
+        }
+
+        function closeViewNotif(e) {
+            if(e && e.target !== e.currentTarget) return;
+            document.getElementById('viewNotifModal').style.display = 'none';
+        }
+
+        function openUploadModalFromView() {
+            closeViewNotif();
+            activeNotifCard = currentViewedNotif;
+            let titleEl = activeNotifCard.querySelector('.notif-title');
+            let descEl = activeNotifCard.querySelector('.notif-desc');
             
             document.getElementById('notifEditTitle').value = titleEl ? titleEl.innerText : '';
             document.getElementById('notifEditDesc').value = descEl ? descEl.innerText : '';
@@ -522,6 +731,7 @@
                             let newImg = document.createElement('img');
                             newImg.src = fileData;
                             newImg.className = mediaTarget.className;
+                            newImg.style.display = 'none';
                             mediaTarget.parentNode.replaceChild(newImg, mediaTarget);
                         } else {
                             mediaTarget.src = fileData;
@@ -529,28 +739,37 @@
                     } else if (file.type.startsWith('video/')) {
                         let newVideo = document.createElement('video');
                         newVideo.src = fileData;
-                        newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false;
                         newVideo.className = mediaTarget.className;
+                        newVideo.style.display = 'none';
                         mediaTarget.parentNode.replaceChild(newVideo, mediaTarget);
                     }
-                    alert('Notification Text & Media Updated! 🔥');
+                    alert('Notification Successfully Updated! 🔥');
                     closeUploadModal();
+                    viewNotification(activeNotifCard);
                 };
                 reader.readAsDataURL(file);
             } else {
-                alert('Notification Text Updated! 🔥');
+                alert('Notification Successfully Updated! 🔥');
                 closeUploadModal();
+                viewNotification(activeNotifCard);
             }
         }
 
         function addNewNotification() {
             navigateTo('notifications'); 
             let notifWrapper = document.getElementById('notifWrapper');
+            
+            let today = new Date();
+            let dateStr = ("0" + today.getDate()).slice(-2) + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + today.getFullYear();
+            
             let newNotifHTML = `
-                <div class="notif-3d-card" onclick="openUploadModal(this)">
-                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80" alt="New Update" class="media-target">
-                    <h2 class="notif-title">New Update Title</h2>
-                    <p class="notif-desc">Click here to edit this notification and add your message & photo...</p>
+                <div class="notif-list-item" onclick="viewNotification(this)">
+                    <div class="notif-date">${dateStr}</div>
+                    <div class="notif-text">
+                        <div class="notif-title">New Update Title (Click to Open)</div>
+                        <div class="notif-desc" style="display:none;">Add your full message and photo here...</div>
+                        <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80" class="media-target notif-hidden-media" style="display:none;">
+                    </div>
                 </div>`;
             notifWrapper.insertAdjacentHTML('afterbegin', newNotifHTML);
             if (localStorage.getItem('mani_admin_logged') === 'true') activateAdminMode();
@@ -558,7 +777,7 @@
 
         // ================= MEDIA CLICKS & HANDLERS ================= //
         function bindMediaClickHandlers() {
-            const mediaElements = document.querySelectorAll('.media-target:not(.notif-3d-card .media-target)');
+            const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
             mediaElements.forEach(elem => {
                 elem.classList.add('media-editable');
                 elem.title = "Click to Change Photo/Video";
@@ -645,7 +864,10 @@
                     </div>
                 </div>`;
             gallery.insertAdjacentHTML('beforeend', newCardHTML);
-            if (localStorage.getItem('mani_admin_logged') === 'true') activateAdminMode();
+            if (localStorage.getItem('mani_admin_logged') === 'true') {
+                activateAdminMode();
+                makeGalleryItemsDraggableAndResizable(); // Re-bind new elements
+            }
         }
 
         function addYouTubeVideo() {
@@ -664,7 +886,10 @@
                         </div>
                     </div>`;
                 gallery.insertAdjacentHTML('beforeend', newVideoHTML);
-                if (localStorage.getItem('mani_admin_logged') === 'true') activateAdminMode();
+                if (localStorage.getItem('mani_admin_logged') === 'true') {
+                    activateAdminMode();
+                    makeGalleryItemsDraggableAndResizable(); // Re-bind new elements
+                }
             }
         }
 
@@ -703,18 +928,20 @@
 
                 let clone = document.documentElement.cloneNode(true);
                 
+                // Hide Modals
                 let dash = clone.querySelector('#adminDashboard');
                 if(dash) dash.style.display = 'none';
                 let modal = clone.querySelector('#adminLoginModal');
                 if(modal) modal.style.display = 'none';
                 let upModal = clone.querySelector('#innerUploadModal');
                 if(upModal) upModal.style.display = 'none';
+                let viewModal = clone.querySelector('#viewNotifModal');
+                if(viewModal) viewModal.style.display = 'none';
 
-                clone.querySelectorAll('.page-view').forEach(p => {
-                    p.classList.remove('active');
-                });
+                clone.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
                 clone.querySelector('#page-home').classList.add('active');
                 
+                // Strip Editable classes
                 const editables = clone.querySelectorAll('.editable-active');
                 editables.forEach(el => {
                     el.removeAttribute('contenteditable');
@@ -728,6 +955,12 @@
                     el.onclick = null;
                 });
 
+                // Strip Admin Only Size & Drag UI controls so users don't see it
+                const adminControls = clone.querySelectorAll('.admin-item-controls');
+                adminControls.forEach(el => el.remove());
+                const draggableItems = clone.querySelectorAll('.showcase-item[draggable]');
+                draggableItems.forEach(el => el.removeAttribute('draggable'));
+
                 const fullHTML = "<!DOCTYPE html>\n<html lang=\"en\">\n" + clone.innerHTML + "\n</html>";
                 const base64Content = btoa(unescape(encodeURIComponent(fullHTML)));
 
@@ -738,7 +971,7 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        message: 'Updated Live via Admin Panel',
+                        message: 'Updated Live via Admin Panel (Drag, Resize & Updates)',
                         content: base64Content,
                         sha: sha
                     })
