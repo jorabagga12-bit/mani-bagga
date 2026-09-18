@@ -92,7 +92,7 @@
         .custom-text-card { display: flex; align-items: center; justify-content: center; background: rgba(26, 26, 46, 0.9); padding: 20px; border: 2px solid #00d2ff; border-radius: 10px; min-height: 200px; text-align: center; width: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
     </style>
 </head>
-<body><canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
+<body><canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas><canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
 
     <!-- Background 3D Shapes -->
     <div class="bg-shape shape-1"></div>
@@ -119,7 +119,7 @@
                 <li><a href="#" onclick="goToHomeSection('showcase')" contenteditable="false" class="">GALLERY</a></li>
                 <li><a href="#" onclick="goToHomeSection('about')" contenteditable="false" class="">LIVE</a></li>
                 <li><a href="#" onclick="navigateTo('notifications')" style="color:#00d2ff;" contenteditable="false" class="">NOTIFICATIONS</a></li>
-                <li><a href="#" onclick="navigateTo('contact')" class="btn-primary" contenteditable="false">CONTACT DIRECT</a></li>
+                <li><a href="#" onclick="navigateTo('contact')" class="btn-primary" contenteditable="false" style="position: relative;">CONTACT&nbsp;</a></li>
             </ul>
         </nav>
     </header>
@@ -140,10 +140,10 @@
                 </div>
                 
                 <div class="hero-3d-card-wrapper">
-                    <div class="card-3d-main" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(-8.71deg) rotateY(-18.97deg) scale3d(1.03, 1.03, 1.03); transition: transform 0.1s ease-out;">
+                    <div class="card-3d-main" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); transition: transform 0.5s ease-in-out;">
                         <div class="slider-wrapper">
                             <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)" fdprocessedid="o28ooq">❮</button>
-                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(-200%);">
+                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(0%);">
                                 <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
                                 <img src="images/feature2.jpg" alt="Front 2" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
                                 <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
@@ -216,7 +216,13 @@
                         <p contenteditable="false" class="">LIVE M4YT</p>
                     </div>
                 </div>
-            </div>
+            <div class="showcase-item">
+                
+                <div class="showcase-overlay">
+                    <h4 contenteditable="false" class="">New Epic Moment</h4>
+                    <p contenteditable="false" class="">BGMI Gameplay Highlight</p>
+                </div>
+            </div></div>
         </section>
 
         <!-- About Us -->
@@ -313,9 +319,7 @@
             <span class="close-btn" onclick="closeAdminMessages()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
             <h2 style="color: #00d2ff; text-align: left;" contenteditable="false" class=""><i class="fa-solid fa-inbox"></i> USER MESSAGES</h2>
             
-            <div id="messagesListContainer" style="text-align: left; margin-top: 20px;">
-                <!-- Messages Dynamically Injected Here -->
-            </div>
+            <div id="messagesListContainer" style="text-align: left; margin-top: 20px;"><p style="color:#b3b3cc; text-align:center;" contenteditable="false" class="">No new messages yet.</p></div>
             
             <button onclick="clearAllMessages()" style="background:#dc3545; color:white; margin-top: 20px;">
                 <i class="fa-solid fa-trash-can"></i> CLEAR ALL MESSAGES
@@ -1032,5 +1036,6 @@
 
 
 
+<span id="PING_IFRAME_FORM_DETECTION" contenteditable="false" style="display: none;" class=""></span>
 <span id="PING_IFRAME_FORM_DETECTION" contenteditable="false" style="display: none;" class=""></span></body>
 </html>
