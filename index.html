@@ -162,7 +162,7 @@
         }
     </style>
 </head>
-<body><canvas id="particles-canvas" width="1528" height="732" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
+<body>
 
     <!-- Background 3D Shapes -->
     <div class="bg-shape shape-1"></div>
@@ -175,25 +175,27 @@
                 <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
                 <div class="admin-info">
                     <span class="admin-name">MANI M4</span>
-                    <span class="admin-tag" id="adminTagLabel" style="">ADMIN</span>
+                    <span class="admin-tag" id="adminTagLabel">ADMIN</span>
                 </div>
             </div>
 
             <div class="logo">
-                <i class="fa-solid fa-gamepad"></i> MANI<span class="">M4YT</span>
+                <i class="fa-solid fa-gamepad"></i> MANI<span>M4YT</span>
             </div>
 
             <ul class="nav-links">
-                <li><a href="#" onclick="navigateTo('home')" class="">HOME</a></li>
-                <li><a href="#" onclick="goToHomeSection('features')" class="">TIPS</a></li>
-                <li><a href="#" onclick="goToHomeSection('showcase')" class="">GALLERY</a></li>
-                <li><a href="#" onclick="goToHomeSection('about')" class="">LIVE</a></li>
-                <li><a href="#" onclick="navigateTo('notifications')" style="color:#00d2ff;" class="">NOTIFECATION</a></li>
-                <li><a href="#" onclick="navigateTo('contact')" class="btn-primary">CONTACT&nbsp;</a></li>
+                <li><a href="#" onclick="navigateTo('home')">HOME</a></li>
+                <li><a href="#" onclick="goToHomeSection('features')">TIPS</a></li>
+                <li><a href="#" onclick="goToHomeSection('showcase')">GALLERY</a></li>
+                <li><a href="#" onclick="goToHomeSection('about')">LIVE</a></li>
+                <li><a href="#" onclick="navigateTo('notifications')" style="color:#00d2ff;">NOTIFICATIONS</a></li>
+                <li><a href="#" onclick="navigateTo('contact')" class="btn-primary">CONTACT DIRECT</a></li>
                 
                 <!-- NEW ADMIN MOVE BUTTON (Hidden by default) -->
                 <li id="nav-admin-change" style="display: none;">
-                    <a href="#" onclick="toggleMoveMode()" style="color: rgb(255, 193, 7); font-weight: bold; border-radius: 5px; background: transparent;" class=""><i class="fa-solid fa-arrows-up-down-left-right"></i> MOVE ITEMS</a>
+                    <a href="#" onclick="toggleMoveMode()" style="color:#ffc107; font-weight:bold; border: 1px dashed #ffc107; padding: 5px 10px; border-radius: 5px;">
+                        <i class="fa-solid fa-arrows-up-down-left-right"></i> MOVE ITEMS
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -206,8 +208,8 @@
             <div class="hero-container">
                 <div class="hero-text">
                     <span class="badge">eSports Gaming</span>
-                    <h1 class="">YouTube <span class="highlight">MANI M4 PRO</span></h1>
-                    <p class="">🔥 WELCOME TO GAMING WORLD 🔥 — BGMI &amp; PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
+                    <h1>YouTube <span class="highlight">MANI M4 PRO</span></h1>
+                    <p>🔥 WELCOME TO GAMING WORLD 🔥 — BGMI & PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
                     <div class="hero-btns">
                         <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="btn-main"><i class="fa-brands fa-youtube"></i> YouTube</a>
                         <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="btn-secondary"><i class="fa-brands fa-instagram"></i> Instagram</a>
@@ -215,19 +217,19 @@
                 </div>
                 
                 <div class="hero-3d-card-wrapper">
-                    <div class="card-3d-main" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); transition: transform 0.5s ease-in-out;">
+                    <div class="card-3d-main" id="tilt-card" style="position:relative;">
                         <div class="slider-wrapper">
-                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
-                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(-200%);">
-                                <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
-                                <img src="images/feature2.jpg" alt="Front 2" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
-                                <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
+                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">&#10094;</button>
+                            <div class="slider-track" id="frontSliderTrack">
+                                <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">
+                                <img src="images/feature2.jpg" alt="Front 2" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'">
+                                <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80'">
                             </div>
-                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">❯</button>
+                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">&#10095;</button>
                         </div>
                         <div class="card-glass-overlay">
-                            <h3 class="">Subscribe &amp; Stay Connected</h3>
-                            <p class="">Subscribe to MANI M4YT Channel and become a part of our family!</p>
+                            <h3>Subscribe & Stay Connected</h3>
+                            <p>Subscribe to MANI M4YT Channel and become a part of our family!</p>
                         </div>
                     </div>
                 </div>
@@ -239,29 +241,29 @@
             <h2 class="section-title">MAIN <span class="highlight">FEATURES</span></h2>
             <p class="section-subtitle">Special facilities for Gamers</p>
             <div class="cards-grid">
-                <div class="card-3d" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="card-3d">
                     <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
                     <div class="card-img-container">
-                        <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                        <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
                     </div>
-                    <h3 class="">BGMI Live Highlights</h3>
-                    <p class="">CAN YOU SUBSCRIBE.</p>
+                    <h3>BGMI Live Highlights</h3>
+                    <p>CAN YOU SUBSCRIBE.</p>
                 </div>
-                <div class="card-3d" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="card-3d">
                     <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
                     <div class="card-img-container">
-                        <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                        <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
                     </div>
-                    <h3 class="">eSports Custom Rooms</h3>
-                    <p class="">JOIN FOR TOURNAMENT PROGRAMS.</p>
+                    <h3>eSports Custom Rooms</h3>
+                    <p>JOIN FOR TOURNAMENT PROGRAMS.</p>
                 </div>
-                <div class="card-3d" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="card-3d">
                     <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
                     <div class="card-img-container">
-                        <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                        <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'">
                     </div>
-                    <h3 class="">Pro Controls &amp; Sensitivity</h3>
-                    <p class="">FULL GUIDE IN ESPORTS MANIM4.YT.</p>
+                    <h3>Pro Controls & Sensitivity</h3>
+                    <p>FULL GUIDE IN ESPORTS MANIM4.YT.</p>
                 </div>
             </div>
         </section>
@@ -270,25 +272,25 @@
         <section id="showcase" class="showcase-section">
             <h2 class="section-title">BGMI / PUBG <span class="highlight">3D GALLERY</span></h2>
             <div class="showcase-grid" id="galleryContainer">
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                    <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                <div class="showcase-item">
+                    <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
                     <div class="showcase-overlay">
-                        <h4 class="">Clutch Moments</h4>
-                        <p class="">1v4 BGMI Gameplay</p>
+                        <h4>Clutch Moments</h4>
+                        <p>1v4 BGMI Gameplay</p>
                     </div>
                 </div>
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                    <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                <div class="showcase-item">
+                    <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
                     <div class="showcase-overlay">
-                        <h4 class="">eSports Arena</h4>
-                        <p class="">Custom Scrims</p>
+                        <h4>eSports Arena</h4>
+                        <p>Custom Scrims</p>
                     </div>
                 </div>
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                    <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                <div class="showcase-item">
+                    <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'">
                     <div class="showcase-overlay">
-                        <h4 class="">Pro Setup</h4>
-                        <p class="">LIVE M4YT</p>
+                        <h4>Pro Setup</h4>
+                        <p>LIVE M4YT</p>
                     </div>
                 </div>
             </div>
@@ -297,8 +299,8 @@
         <!-- About Us -->
         <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.6);">
             <h2 class="section-title">ABOUT <span class="highlight">US</span></h2>
-            <div class="about-card" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                <p class="">Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
+            <div class="about-card">
+                <p>Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
             </div>
         </section>
     </div>
@@ -314,7 +316,7 @@
                     <div class="notif-text">
                         <div class="notif-title">Welcome to the new Esports Hub! (Click for details)</div>
                         <div class="notif-desc" style="display:none;">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys!</div>
-                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="media-target notif-hidden-media" style="display:none;">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" class="media-target notif-hidden-media" style="display:none;">
                     </div>
                 </div>
             </div>
@@ -323,24 +325,29 @@
 
     <!-- ==================== PAGE 3: CONTACT ==================== -->
     <div id="page-contact" class="page-view">
-        <h1 class="page-header">MESSAGE <span class="highlight">ADMIN</span></h1>
+        <h1 class="page-header">CONTACT <span class="highlight">ADMIN</span></h1>
         
         <div class="contact-page-wrapper">
-            <div class="contact-box admin-box" style="transform: translateY(30px) scale(0.95); max-width: 600px; padding: 40px; opacity: 0; transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                <h2 style="margin-bottom: 20px;" class=""><i class="fa-solid fa-envelope"></i> DIRECT EMAIL SUPPORT</h2>
-                <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;" class="">Send a message directly to manipubji@gmail.com</p>
+            <div class="contact-box admin-box" style="transform: scale(1.1); max-width: 600px; padding: 40px;">
+                <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-envelope"></i> SEND A MESSAGE</h2>
+                <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;">Send a message directly to MANI M4YT</p>
                 
-                <form action="mailto:manipubji@gmail.com" method="post" enctype="text/plain">
+                <!-- CONTACT FORM CHANGED -->
+                <form id="siteContactForm" onsubmit="submitUserMessage(event)">
                     <div class="form-group" style="text-align: left;">
-                        <label style="color:#00d2ff; font-weight:bold;" class="">YOUR NAME / EMAIL:</label>
-                        <input type="text" name="Name" required="" placeholder="Enter your name...">
+                        <label style="color:#00d2ff; font-weight:bold;">YOUR NAME:</label>
+                        <input type="text" id="senderName" required placeholder="Enter your name...">
                     </div>
                     <div class="form-group" style="text-align: left;">
-                        <label style="color:#00d2ff; font-weight:bold;" class="">MESSAGE FOR DEVELOPER:</label>
-                        <textarea name="Message" rows="5" required="" placeholder="Write your message here..."></textarea>
+                        <label style="color:#00d2ff; font-weight:bold;">YOUR EMAIL:</label>
+                        <input type="email" id="senderEmail" required placeholder="Enter your email...">
                     </div>
-                    <button type="submit" class="btn-submit" style="font-size: 16px; margin-top: 10px;">
-                        <i class="fa-solid fa-paper-plane"></i> SEND EMAIL NOW
+                    <div class="form-group" style="text-align: left;">
+                        <label style="color:#00d2ff; font-weight:bold;">MESSAGE:</label>
+                        <textarea id="senderMsg" rows="5" required placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" style="font-size: 16px; margin-top: 10px; background:#00d2ff; color:#000; padding:12px; border:none; width:100%; border-radius:5px; font-weight:bold; cursor:pointer;">
+                        <i class="fa-solid fa-paper-plane"></i> SEND MESSAGE
                     </button>
                 </form>
             </div>
@@ -351,7 +358,7 @@
     <footer>
         <div class="footer-container">
             <div class="footer-logo">
-                <i class="fa-solid fa-gamepad"></i> MANI<span class="">M4YT</span>
+                <i class="fa-solid fa-gamepad"></i> MANI<span>M4YT</span>
             </div>
             <div class="social-links">
                 <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="yt-icon"><i class="fa-brands fa-youtube"></i></a>
@@ -360,34 +367,50 @@
             <p class="email-text">
                 <i class="fa-solid fa-envelope"></i> Email: <a href="mailto:manipubji@gmail.com">manipubji@gmail.com</a>
             </p>
-            <p class="">© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
+            <p>© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
         </div>
     </footer>
 
     <!-- ADMIN LOGIN MODAL -->
-    <div id="adminLoginModal" class="admin-modal" style="display: none;">
+    <div id="adminLoginModal" class="admin-modal">
         <div class="admin-box">
-            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:24px; font-weight:bold;">×</span>
-            <h2 class=""><i class="fa-solid fa-user-shield"></i> ADMIN PANEL LOGIN</h2>
+            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:24px; font-weight:bold;">&times;</span>
+            <h2><i class="fa-solid fa-user-shield"></i> ADMIN PANEL LOGIN</h2>
             
             <form onsubmit="handleLogin(event)" autocomplete="off">
-                <input type="text" id="adminUserX" autocomplete="off" placeholder="Enter Username..." required="">
-                <input type="password" id="adminPassX" autocomplete="off" placeholder="Enter Password..." required="">
+                <input type="text" id="adminUserX" autocomplete="off" placeholder="Enter Username..." required>
+                <input type="password" id="adminPassX" autocomplete="off" placeholder="Enter Password..." required>
                 <button type="submit"><i class="fa-solid fa-key"></i> LOG IN TO EDIT SITE</button>
             </form>
         </div>
     </div>
+    
+    <!-- ADMIN VIEW MESSAGES MODAL -->
+    <div id="adminMessagesModal" class="admin-modal">
+        <div class="admin-box" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+            <span class="close-btn" onclick="closeAdminMessages()" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
+            <h2 style="color: #00d2ff; text-align: left;"><i class="fa-solid fa-inbox"></i> USER MESSAGES</h2>
+            
+            <div id="messagesListContainer" style="text-align: left; margin-top: 20px;">
+                <!-- Messages Dynamically Injected Here -->
+            </div>
+            
+            <button onclick="clearAllMessages()" style="background:#dc3545; color:white; margin-top: 20px;">
+                <i class="fa-solid fa-trash-can"></i> CLEAR ALL MESSAGES
+            </button>
+        </div>
+    </div>
 
     <!-- VIEW NOTIFICATION MODAL -->
-    <div id="viewNotifModal" class="admin-modal" onclick="closeViewNotif(event)" style="display: none;">
+    <div id="viewNotifModal" class="admin-modal" onclick="closeViewNotif(event)">
         <div class="admin-box view-notif-box" style="max-width: 600px; padding: 25px;" onclick="event.stopPropagation()">
-            <span class="close-btn" onclick="closeViewNotif()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
-            <h2 id="viewNotifTitle" style="text-align:left; color:#00d2ff; margin-bottom:15px; font-size:1.4rem;" class="">Title</h2>
+            <span class="close-btn" onclick="closeViewNotif()" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
+            <h2 id="viewNotifTitle" style="text-align:left; color:#00d2ff; margin-bottom:15px; font-size:1.4rem;">Title</h2>
             
             <img id="viewNotifImg" src="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
-            <video id="viewNotifVid" src="" controls="" autoplay="" muted="" loop="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);"></video>
+            <video id="viewNotifVid" src="" controls autoplay muted loop style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);"></video>
             
-            <p id="viewNotifDesc" style="text-align:left; line-height:1.6; color:#b3b3cc; white-space:pre-wrap; font-size:1.1rem;" class=""></p>
+            <p id="viewNotifDesc" style="text-align:left; line-height:1.6; color:#b3b3cc; white-space:pre-wrap; font-size:1.1rem;"></p>
             
             <button id="adminEditNotifBtn" style="display:none; background:#ffc107; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; margin-top: 20px; font-size: 15px;" onclick="openUploadModalFromView()">
                 <i class="fa-solid fa-pen-to-square"></i> EDIT NOTIFICATION (ADMIN ONLY)
@@ -396,18 +419,18 @@
     </div>
 
     <!-- ADMIN EDIT NOTIFICATION MODAL -->
-    <div id="innerUploadModal" class="admin-modal" style="display: none;">
+    <div id="innerUploadModal" class="admin-modal">
         <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); max-width: 500px;">
-            <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
-            <h2 class=""><i class="fa-solid fa-bell"></i> Edit Notification</h2>
+            <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
+            <h2><i class="fa-solid fa-bell"></i> Edit Notification</h2>
             
-            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" class="">1. Enter Title:</p>
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">1. Enter Title:</p>
             <input type="text" id="notifEditTitle" placeholder="Notification Title..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box;">
             
-            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" class="">2. Enter Message/Details:</p>
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">2. Enter Message/Details:</p>
             <textarea id="notifEditDesc" rows="4" placeholder="Write your full message here..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box; resize:none; font-family:inherit;"></textarea>
             
-            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" class="">3. Upload Photo/Video (Optional):</p>
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">3. Upload Photo/Video (Optional):</p>
             <input type="file" id="notifMediaFile" accept="image/*,video/*" style="background:#1a1a2e; border:1px dashed #00d2ff; padding:10px; width:100%; border-radius:5px; color:white; margin-bottom:20px; cursor:pointer; box-sizing:border-box;">
             
             <button onclick="confirmNotifUpdate(event)" style="background:#00d2ff; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; font-size: 16px;">
@@ -417,13 +440,19 @@
     </div>
 
     <!-- FLOATING ADMIN DASHBOARD -->
-    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
-        <p class=""><i class="fa-solid fa-user-gear"></i> Admin Active</p>
+    <div id="adminDashboard" class="admin-dashboard">
+        <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
+        
+        <!-- NEW VIEW MESSAGES BUTTON -->
+        <button id="adminViewMsgBtn" onclick="openAdminMessages()" style="background:#8a2be2; color:white; margin-bottom: 8px;">
+            <i class="fa-solid fa-envelope-open-text"></i> View Messages (0)
+        </button>
+        
         <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
         <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
         <button onclick="addNewTextCard()" style="background:#17a2b8; color:white;"><i class="fa-solid fa-font"></i> Add Custom Text</button>
         <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
-        <button onclick="saveChangesToGitHub()" class="btn-save" id="btnSaveLive" disabled=""><i class="fa-solid fa-spinner fa-spin"></i> Saving to Live...</button>
+        <button onclick="saveChangesToGitHub()" class="btn-save" id="btnSaveLive"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
         <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:11px;"><i class="fa-solid fa-right-from-bracket"></i> Logout Admin</button>
         <button onclick="clearSavedToken()" style="background:#6c757d; color:white; font-size:10px;">Reset Git Token</button>
     </div>
@@ -434,6 +463,7 @@
     <script>
         // ================= PAGE ROUTING LOGIC ================= //
         function navigateTo(pageId) {
+            if (typeof isMoveModeActive !== 'undefined' && isMoveModeActive) return; 
             if (document.activeElement && document.activeElement.classList.contains('editable-active')) return;
             document.querySelectorAll('.page-view').forEach(page => page.classList.remove('active'));
             const targetPage = document.getElementById('page-' + pageId);
@@ -444,6 +474,7 @@
         }
 
         function goToHomeSection(sectionId) {
+            if (typeof isMoveModeActive !== 'undefined' && isMoveModeActive) return; 
             if (document.activeElement && document.activeElement.classList.contains('editable-active')) return;
             navigateTo('home');
             setTimeout(() => { document.getElementById(sectionId).scrollIntoView({behavior: 'smooth'}); }, 100);
@@ -469,12 +500,86 @@
             track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
         }
 
+        // ================= CONTACT FORM & MESSAGES SYSTEM ================= //
+        function submitUserMessage(e) {
+            e.preventDefault();
+            const name = document.getElementById('senderName').value.trim();
+            const email = document.getElementById('senderEmail').value.trim();
+            const msg = document.getElementById('senderMsg').value.trim();
+            
+            if(!name || !email || !msg) return;
+
+            const newMessage = {
+                name: name,
+                email: email,
+                message: msg,
+                date: new Date().toLocaleString()
+            };
+
+            // Get old messages, add new one, and save
+            let messagesList = JSON.parse(localStorage.getItem('mani_user_messages') || '[]');
+            messagesList.push(newMessage);
+            localStorage.setItem('mani_user_messages', JSON.stringify(messagesList));
+
+            alert('Thank you! Your message has been sent successfully.');
+            document.getElementById('siteContactForm').reset();
+            
+            // Update admin counter if logged in
+            updateMessageCounter();
+        }
+
+        function updateMessageCounter() {
+            let btn = document.getElementById('adminViewMsgBtn');
+            if(btn) {
+                let messagesList = JSON.parse(localStorage.getItem('mani_user_messages') || '[]');
+                btn.innerHTML = `<i class="fa-solid fa-envelope-open-text"></i> View Messages (${messagesList.length})`;
+                if(messagesList.length > 0) {
+                    btn.style.background = "#e91e63"; // Turn pink/red to grab attention
+                } else {
+                    btn.style.background = "#8a2be2"; // Back to purple
+                }
+            }
+        }
+
+        function openAdminMessages() {
+            const listContainer = document.getElementById('messagesListContainer');
+            let messagesList = JSON.parse(localStorage.getItem('mani_user_messages') || '[]');
+            
+            if(messagesList.length === 0) {
+                listContainer.innerHTML = '<p style="color:#b3b3cc; text-align:center;">No new messages yet.</p>';
+            } else {
+                // Generate HTML for each message (latest first)
+                listContainer.innerHTML = messagesList.reverse().map(m => `
+                    <div style="background:#1a1a2e; border:1px solid #00d2ff; padding:15px; border-radius:8px; margin-bottom:15px;">
+                        <p style="margin:0 0 5px 0; color:#00d2ff; font-size:15px;"><strong>Name:</strong> ${m.name}</p>
+                        <p style="margin:0 0 10px 0; color:#ffc107; font-size:15px;"><strong>Email:</strong> ${m.email}</p>
+                        <div style="background:#10101a; padding:10px; border-radius:5px; color:white; font-size:14px; line-height:1.5;">${m.message}</div>
+                        <small style="color:#888; display:block; margin-top:10px; font-size:11px;">Sent on: ${m.date}</small>
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('adminMessagesModal').style.display = 'flex';
+        }
+
+        function closeAdminMessages() {
+            document.getElementById('adminMessagesModal').style.display = 'none';
+        }
+
+        function clearAllMessages() {
+            if(confirm('Are you sure you want to delete all messages? This cannot be undone.')) {
+                localStorage.removeItem('mani_user_messages');
+                openAdminMessages(); // Refresh UI
+                updateMessageCounter(); // Update Dashboard button
+            }
+        }
+
+
         // ================= ADMIN AUTHENTICATION SYSTEM ================= //
         let currentTargetElement = null;
         let activeNotifCard = null;
         let currentViewedNotif = null;
         
-        // NEW VARIABLE FOR MOVE BUTTON
         let isMoveModeActive = false; 
 
         const GITHUB_OWNER = 'jorabagga12-bit';       
@@ -521,7 +626,7 @@
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
                 closeAdminLogin();
-                alert('Admin Logged In! 🚀\n\nNEW FEATURE: Click "MOVE ITEMS" in the top menu, then drag and drop any element anywhere!');
+                alert('Admin Logged In! 🚀\n\nNEW FEATURE: Click "View Messages" in Dashboard to read messages sent by users!');
                 activateAdminMode();
             } else {
                 alert('Incorrect Username or Password!');
@@ -543,6 +648,9 @@
             let moveNavBtn = document.getElementById('nav-admin-change');
             if(moveNavBtn) moveNavBtn.style.display = 'inline-block';
             
+            // Update the Message Counter
+            updateMessageCounter();
+
             const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-tag), .nav-links a, .footer-logo, footer p, .email-text, .admin-name, .btn-primary, .btn-main, .btn-secondary, label');
             textElements.forEach(el => {
                 el.contentEditable = "true";
@@ -552,22 +660,37 @@
             bindMediaClickHandlers();
         }
 
-        // ================= NEW: MOVE / DRAG SYSTEM ================= //
+        // ================= MOVE / DRAG SYSTEM ================= //
         
         function toggleMoveMode() {
             isMoveModeActive = !isMoveModeActive;
             const btn = document.querySelector('#nav-admin-change a');
+            const editableElements = document.querySelectorAll('.editable-active');
+
             if(isMoveModeActive) {
                 btn.style.color = '#ffffff'; 
-                btn.style.background = '#ff4d4d'; // Red Background
+                btn.style.background = '#ff4d4d';
                 btn.style.borderColor = '#ff4d4d';
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> STOP MOVING';
-                alert('Move Mode is ON! \n\nअब आप किसी भी फोटो, कार्ड या टेक्स्ट पर क्लिक करके उसे माउस से खींच (Drag) कर कहीं भी रख सकते हैं।');
+                
+                editableElements.forEach(el => {
+                    el.contentEditable = "false";
+                    el.style.userSelect = "none";
+                    el.style.cursor = "move";
+                });
+
+                alert('Move Mode is ON! \n\nअब आप किसी भी आइटम को पकड़ कर मूव कर सकते हैं।');
             } else {
-                btn.style.color = '#ffc107'; // Yellow Text
+                btn.style.color = '#ffc107'; 
                 btn.style.background = 'transparent';
                 btn.style.borderColor = '#ffc107';
                 btn.innerHTML = '<i class="fa-solid fa-arrows-up-down-left-right"></i> MOVE ITEMS';
+
+                editableElements.forEach(el => {
+                    el.contentEditable = "true";
+                    el.style.userSelect = "auto";
+                    el.style.cursor = "text";
+                });
             }
         }
 
@@ -582,12 +705,10 @@
             let timeDiff = currentTime - lastTapTime;
             let isDoubleTap = (timeDiff < 400 && timeDiff > 0);
             
-            // Allow drag if MOVE MODE is ON, OR if user double taps
             if (isMoveModeActive || isDoubleTap) {
-                let target = e.target.closest('h1, h2, h3, h4, p, span, img, video, .card-3d-main, .showcase-item, .card-3d, .hero-text');
+                let target = e.target.closest('a, li, .logo, .nav-links, h1, h2, h3, h4, p, span, img, video, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
                 
-                // Exclude dragging the admin dashboard, modals, or navbar
-                if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal') && !target.closest('.navbar')) {
+                if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal') && target.id !== 'nav-admin-change' && !target.closest('#nav-admin-change')) {
                     activeFreeDrag = target;
                     
                     if (window.getComputedStyle(activeFreeDrag).position === 'static') {
@@ -600,11 +721,11 @@
                     fDragX = clientX - currentLeft;
                     fDragY = clientY - currentTop;
                     
-                    activeFreeDrag.style.zIndex = "9999";
+                    activeFreeDrag.style.zIndex = "99999";
                     activeFreeDrag.style.cursor = "grabbing";
-                    activeFreeDrag.style.transition = "none"; // Disable CSS transition for smooth movement
+                    activeFreeDrag.style.transition = "none"; 
                     
-                    if(e.cancelable) e.preventDefault(); // Stop text selection / mobile scrolling
+                    if(isMoveModeActive) { e.preventDefault(); } 
                 }
             }
             lastTapTime = currentTime;
@@ -620,19 +741,17 @@
 
         function stopFreeDrag() {
             if (activeFreeDrag) {
-                activeFreeDrag.style.cursor = "";
+                activeFreeDrag.style.cursor = isMoveModeActive ? "move" : "";
                 activeFreeDrag.style.zIndex = "";
-                activeFreeDrag.style.transition = ""; // Restore transition
+                activeFreeDrag.style.transition = ""; 
                 activeFreeDrag = null;
             }
         }
 
-        // Bind Mouse Events (For PC)
         document.addEventListener('mousedown', (e) => initFreeDrag(e, e.clientX, e.clientY), {passive: false});
         document.addEventListener('mousemove', (e) => handleFreeDragMove(e, e.clientX, e.clientY), {passive: false});
         document.addEventListener('mouseup', stopFreeDrag);
 
-        // Bind Touch Events (For Mobile/Samsung Galaxy)
         document.addEventListener('touchstart', (e) => initFreeDrag(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
         document.addEventListener('touchmove', (e) => handleFreeDragMove(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
         document.addEventListener('touchend', stopFreeDrag);
@@ -646,7 +765,7 @@
                 elem.classList.add('media-editable');
                 elem.title = "Click to Edit Image";
                 elem.onclick = function(e) {
-                    if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { // Only show edit tools if move mode is OFF
+                    if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
                         e.preventDefault(); e.stopPropagation();
                         currentTargetElement = elem;
                         showAdminImageControls(e, elem);
@@ -778,9 +897,9 @@
                 let modal = clone.querySelector('#adminLoginModal'); if(modal) modal.style.display = 'none';
                 let upModal = clone.querySelector('#innerUploadModal'); if(upModal) upModal.style.display = 'none';
                 let viewModal = clone.querySelector('#viewNotifModal'); if(viewModal) viewModal.style.display = 'none';
+                let msgsModal = clone.querySelector('#adminMessagesModal'); if(msgsModal) msgsModal.style.display = 'none'; // Hide messages modal
                 let floatingControl = clone.querySelector('#admin-img-controls'); if(floatingControl) floatingControl.remove();
                 
-                // Hide the move button for public users before saving
                 let moveBtn = clone.querySelector('#nav-admin-change'); if(moveBtn) moveBtn.style.display = 'none';
 
                 clone.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
@@ -804,7 +923,7 @@
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
                     headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: 'Updated Site Layout & Positions via Secure Admin Panel', content: base64Content, sha: sha })
+                    body: JSON.stringify({ message: 'Updated Contact Form & Admin Message System', content: base64Content, sha: sha })
                 });
 
                 if (putResponse.ok) alert('🎉 Awesome! Layout and changes saved to Live Site successfully!');
@@ -818,7 +937,6 @@
         }
     </script>
     <script src="js/script.js"></script>
-
-
 </body>
 </html>
+
