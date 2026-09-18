@@ -92,7 +92,7 @@
         .custom-text-card { display: flex; align-items: center; justify-content: center; background: rgba(26, 26, 46, 0.9); padding: 20px; border: 2px solid #00d2ff; border-radius: 10px; min-height: 200px; text-align: center; width: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
     </style>
 </head>
-<body><canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas><canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas><canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
+<body><canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
 
     <!-- Background 3D Shapes -->
     <div class="bg-shape shape-1"></div>
@@ -142,13 +142,13 @@
                 <div class="hero-3d-card-wrapper">
                     <div class="card-3d-main" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); transition: transform 0.5s ease-in-out;">
                         <div class="slider-wrapper">
-                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)" fdprocessedid="o28ooq">❮</button>
+                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
                             <div class="slider-track" id="frontSliderTrack" style="transform: translateX(0%);">
                                 <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
                                 
                                 <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
                             </div>
-                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)" fdprocessedid="qgy3hn">❯</button>
+                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">❯</button>
                         </div>
                         <div class="card-glass-overlay">
                             <h3 contenteditable="false" class="">Subscribe &amp; Stay Connected</h3>
@@ -373,27 +373,27 @@
         </p>
         
         <!-- 1. ALWAYS VISIBLE: VIEW MESSAGES -->
-        <button id="adminViewMsgBtn" onclick="openAdminMessages()" style="background:#8a2be2; color:white;" fdprocessedid="639wba"><i class="fa-solid fa-envelope-open-text"></i> View Messages (0)</button>
+        <button id="adminViewMsgBtn" onclick="openAdminMessages()" style="background:#8a2be2; color:white;"><i class="fa-solid fa-envelope-open-text"></i> View Messages (0)</button>
         
         <!-- 2. ALWAYS VISIBLE: TOGGLE EDIT WEBSITE -->
-        <button id="toggleEditBtn" onclick="toggleEditWebsiteTools()" style="background: rgb(40, 167, 69); color: white; font-size: 14px;" fdprocessedid="wm53j"><i class="fa-solid fa-pen-ruler"></i> Edit Website</button>
+        <button id="toggleEditBtn" onclick="toggleEditWebsiteTools()" style="background: rgb(40, 167, 69); color: white; font-size: 14px;"><i class="fa-solid fa-pen-ruler"></i> Edit Website</button>
 
         <!-- HIDDEN TOOLS (Opens when 'Edit Website' is clicked) -->
         <div id="adminEditTools" style="display: none;">
             <p style="font-size: 11px; color: #ffc107; text-transform: uppercase; margin-bottom: 5px;" contenteditable="false" class=""><i class="fa-solid fa-toolbox"></i> Toolbox</p>
             
-            <button onclick="toggleMoveMode()" id="dashMoveBtn" style="background:#ff9800; color:black;" fdprocessedid="64prx8"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items</button>
-            <button onclick="addNewMediaCard()" fdprocessedid="063qmc"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
-            <button onclick="addYouTubeVideo()" fdprocessedid="s7guyq"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
-            <button onclick="addNewTextCard()" style="background:#17a2b8; color:white;" fdprocessedid="mxbjeg"><i class="fa-solid fa-font"></i> Add Custom Text</button>
-            <button onclick="addNewNotification()" style="background:#ffc107; color:black;" fdprocessedid="wo654"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
+            <button onclick="toggleMoveMode()" id="dashMoveBtn" style="background:#ff9800; color:black;"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items</button>
+            <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
+            <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
+            <button onclick="addNewTextCard()" style="background:#17a2b8; color:white;"><i class="fa-solid fa-font"></i> Add Custom Text</button>
+            <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
             
-            <button onclick="saveChangesToGitHub()" class="btn-save" id="btnSaveLive" style="margin-top: 15px;" fdprocessedid="awh3wk"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
-            <button onclick="clearSavedToken()" style="background:#6c757d; color:white; font-size:10px; margin-top:5px; padding: 6px;" fdprocessedid="map9ua">Reset Git Token</button>
+            <button onclick="saveChangesToGitHub()" class="btn-save" id="btnSaveLive" style="margin-top: 15px;"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
+            <button onclick="clearSavedToken()" style="background:#6c757d; color:white; font-size:10px; margin-top:5px; padding: 6px;">Reset Git Token</button>
         </div>
 
         <!-- 3. ALWAYS VISIBLE: LOGOUT -->
-        <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:12px; margin-top: 15px;" fdprocessedid="riooej">
+        <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:12px; margin-top: 15px;">
             <i class="fa-solid fa-right-from-bracket"></i> Logout Admin
         </button>
     </div>
@@ -660,9 +660,13 @@
             if (localStorage.getItem('mani_admin_logged') === 'true') { activateAdminMode(); }
         });
 
+        // GLOBAL CLICK EVENT TO HIDE POPUP CONTROLS
         document.addEventListener('click', function(e) {
-            let controls = document.getElementById('admin-img-controls');
-            if(controls && !controls.contains(e.target) && !e.target.classList.contains('media-target')) controls.remove();
+            let imgControls = document.getElementById('admin-img-controls');
+            if(imgControls && !imgControls.contains(e.target) && !e.target.classList.contains('media-target')) imgControls.remove();
+            
+            let textControls = document.getElementById('admin-text-controls');
+            if(textControls && !textControls.contains(e.target) && !e.target.classList.contains('editable-active')) textControls.remove();
         });
 
         function handleAdminBadgeClick() {
@@ -694,7 +698,6 @@
             alert('Admin logged out successfully!'); window.location.reload();
         }
 
-        // --- FIX: Login karte hi ab details dotted (editable) nahi hongi ---
         function activateAdminMode() {
             document.getElementById('adminDashboard').style.display = 'block';
             document.getElementById('adminTagLabel').innerText = "ADMIN (LOGGED IN)";
@@ -703,7 +706,6 @@
         }
 
         // ================= EDIT TOOLS TOGGLE ================= //
-        // --- FIX: Sirf tabhi editable hoga jab admin Edit Website par click karega ---
         function toggleEditWebsiteTools() {
             const toolsMenu = document.getElementById('adminEditTools');
             const editBtn = document.getElementById('toggleEditBtn');
@@ -718,14 +720,18 @@
                 textElements.forEach(el => { 
                     el.contentEditable = "false"; 
                     el.classList.remove('editable-active'); 
+                    el.onclick = null; // Remove text control popups
                 });
                 document.querySelectorAll('.media-target').forEach(elem => {
                     elem.classList.remove('media-editable');
                     elem.removeAttribute('title');
                     elem.onclick = null;
                 });
-                let floatingControl = document.getElementById('admin-img-controls'); 
-                if(floatingControl) floatingControl.remove();
+                let floatingControlImg = document.getElementById('admin-img-controls'); 
+                if(floatingControlImg) floatingControlImg.remove();
+                
+                let floatingControlText = document.getElementById('admin-text-controls'); 
+                if(floatingControlText) floatingControlText.remove();
 
             } else {
                 // ON
@@ -736,9 +742,53 @@
                 textElements.forEach(el => { 
                     el.contentEditable = "true"; 
                     el.classList.add('editable-active'); 
+                    
+                    // Bind Text Control click
+                    el.onclick = function(e) {
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
+                            showAdminTextControls(e, el);
+                        }
+                    };
                 });
                 bindMediaClickHandlers();
             }
+        }
+
+        // ================= TEXT EDIT CONTROLS ================= //
+        let currentTextElement = null;
+
+        function showAdminTextControls(e, elem) {
+            currentTextElement = elem;
+            let existingText = document.getElementById('admin-text-controls'); if(existingText) existingText.remove();
+            let existingImg = document.getElementById('admin-img-controls'); if(existingImg) existingImg.remove();
+            
+            let controls = document.createElement('div'); controls.id = 'admin-text-controls';
+            controls.style.position = 'absolute'; 
+            controls.style.left = Math.min(e.pageX, window.innerWidth - 200) + 'px'; 
+            controls.style.top = (e.pageY - 50) + 'px';
+            controls.style.background = '#10101a'; 
+            controls.style.border = '2px solid #00d2ff'; 
+            controls.style.padding = '8px 12px'; 
+            controls.style.borderRadius = '8px'; 
+            controls.style.zIndex = '100000'; 
+            controls.style.display = 'flex'; 
+            controls.style.gap = '6px'; 
+            controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
+            
+            controls.innerHTML = `
+                <button onclick="changeTextSize(2, event)" style="background:#28a745; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Increase Size"><i class="fa-solid fa-plus"></i> A</button>
+                <button onclick="changeTextSize(-2, event)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Decrease Size"><i class="fa-solid fa-minus"></i> A</button>
+                <button onclick="this.parentElement.remove()" style="background:transparent; color:red; border:none; cursor:pointer; font-size:18px; padding:0 4px;">&times;</button>
+            `;
+            document.body.appendChild(controls);
+        }
+
+        function changeTextSize(step, e) {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
+            if(!currentTextElement) return;
+            let currentSize = window.getComputedStyle(currentTextElement).fontSize;
+            let newSize = parseFloat(currentSize) + step;
+            currentTextElement.style.fontSize = newSize + 'px';
         }
 
         // ================= ADD NEW CARDS ================= //
@@ -809,21 +859,37 @@
             if(isMoveModeActive) {
                 btn.style.background = '#ff4d4d'; btn.style.color = '#fff';
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> Stop Moving';
-                editableElements.forEach(el => { el.contentEditable = "false"; el.style.userSelect = "none"; el.style.cursor = "move"; });
+                editableElements.forEach(el => { el.contentEditable = "false"; el.style.userSelect = "none"; el.style.cursor = "move"; el.onclick = null; });
+                
+                let floatingControlText = document.getElementById('admin-text-controls'); 
+                if(floatingControlText) floatingControlText.remove();
+                let floatingControlImg = document.getElementById('admin-img-controls'); 
+                if(floatingControlImg) floatingControlImg.remove();
+
                 alert('Move Mode is ON! \n\nअब आप किसी भी आइटम को पकड़ कर मूव कर सकते हैं।');
             } else {
                 btn.style.background = '#ff9800'; btn.style.color = '#000';
                 btn.innerHTML = '<i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items';
-                editableElements.forEach(el => { el.contentEditable = "true"; el.style.userSelect = "auto"; el.style.cursor = "text"; });
+                editableElements.forEach(el => { 
+                    el.contentEditable = "true"; 
+                    el.style.userSelect = "auto"; 
+                    el.style.cursor = "text"; 
+                    
+                    el.onclick = function(e) {
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
+                            showAdminTextControls(e, el);
+                        }
+                    };
+                });
             }
         }
 
-        let activeFreeDrag = null; let fDragX = 0, fDragY = 0; let lastTapTime = 0;
+        let activeFreeDrag = null; let fDragX = 0, fDragY = 0; 
         function initFreeDrag(e, clientX, clientY) {
             if (localStorage.getItem('mani_admin_logged') !== 'true') return;
-            let currentTime = new Date().getTime(); let isDoubleTap = ((currentTime - lastTapTime) < 400 && (currentTime - lastTapTime) > 0);
             
-            if (isMoveModeActive || isDoubleTap) {
+            // FIXED: Removed Double tap logic to stop random moving. Now it ONLY works when isMoveModeActive is true.
+            if (isMoveModeActive) {
                 let target = e.target.closest('a, li, .logo, .nav-links, h1, h2, h3, h4, p, span, img, video, iframe, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
                 
                 if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
@@ -835,7 +901,6 @@
                     if(isMoveModeActive) { e.preventDefault(); } 
                 }
             }
-            lastTapTime = currentTime;
         }
 
         function handleFreeDragMove(e, clientX, clientY) {
@@ -873,6 +938,7 @@
         }
 
         function showAdminImageControls(e, elem) {
+            let existingText = document.getElementById('admin-text-controls'); if(existingText) existingText.remove();
             let existing = document.getElementById('admin-img-controls'); if(existing) existing.remove();
             let controls = document.createElement('div'); controls.id = 'admin-img-controls';
             controls.style.position = 'absolute'; controls.style.left = Math.min(e.pageX, window.innerWidth - 300) + 'px'; controls.style.top = (e.pageY + 10) + 'px';
@@ -942,12 +1008,11 @@
             alert("GitHub Token Removed! You will be asked again on your next save.");
         }
 
-        // --- FIX: Token popup flow and fixing the forever spinning button ---
         async function saveChangesToGitHub() {
             let token = localStorage.getItem('gh_token_bagga');
             if (!token) { 
                 token = prompt("Enter your GitHub Personal Access Token to Save Changes:"); 
-                if (!token) return; // User ne cancel kar diya
+                if (!token) return; 
                 localStorage.setItem('gh_token_bagga', token.trim()); 
             }
 
@@ -961,7 +1026,7 @@
                 
                 if (!getResponse.ok) {
                     if (getResponse.status === 401) {
-                        localStorage.removeItem('gh_token_bagga'); // Token is expired or invalid
+                        localStorage.removeItem('gh_token_bagga');
                         throw new Error("GitHub Token Invalid or Expired! Please try saving again and enter the correct token.");
                     }
                     throw new Error("GitHub Repository File or Token Invalid!");
@@ -975,7 +1040,6 @@
 
                 let clone = document.documentElement.cloneNode(true);
                 
-                // === CRITICAL BUG FIX: Restore button before saving clone ===
                 let clonedSaveBtn = clone.querySelector('#btnSaveLive'); 
                 if(clonedSaveBtn) { 
                     clonedSaveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site'; 
@@ -987,7 +1051,9 @@
                 let upModal = clone.querySelector('#innerUploadModal'); if(upModal) upModal.style.display = 'none';
                 let viewModal = clone.querySelector('#viewNotifModal'); if(viewModal) viewModal.style.display = 'none';
                 let msgsModal = clone.querySelector('#adminMessagesModal'); if(msgsModal) msgsModal.style.display = 'none'; 
-                let floatingControl = clone.querySelector('#admin-img-controls'); if(floatingControl) floatingControl.remove();
+                
+                let floatingControlImg = clone.querySelector('#admin-img-controls'); if(floatingControlImg) floatingControlImg.remove();
+                let floatingControlText = clone.querySelector('#admin-text-controls'); if(floatingControlText) floatingControlText.remove();
                 
                 clone.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
                 let homeP = clone.querySelector('#page-home'); if(homeP) homeP.classList.add('active');
@@ -995,7 +1061,7 @@
                 const tagLbl = clone.querySelector('#adminTagLabel'); if(tagLbl) { tagLbl.innerText = "ADMIN"; tagLbl.style.color = ""; }
 
                 clone.querySelectorAll('.editable-active').forEach(el => {
-                    el.removeAttribute('contenteditable'); el.classList.remove('editable-active');
+                    el.removeAttribute('contenteditable'); el.classList.remove('editable-active'); el.onclick = null;
                     el.style.border = ''; el.style.padding = '';
                 });
                 
@@ -1033,10 +1099,5 @@
         }
     </script>
     <script src="js/script.js"></script>
-
-
-
-<span id="PING_IFRAME_FORM_DETECTION" contenteditable="false" style="display: none;" class=""></span>
-<span id="PING_IFRAME_FORM_DETECTION" contenteditable="false" style="display: none;" class=""></span>
-<span id="PING_IFRAME_FORM_DETECTION" contenteditable="false" style="display: none;" class=""></span></body>
+</body>
 </html>
