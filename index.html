@@ -138,7 +138,7 @@
     <!-- Navigation Bar -->
     <header>
         <nav class="navbar">
-            <div class="admin-badge-left" onclick="openAdminLogin()" style="cursor: pointer;" title="Click to Login Admin">
+            <div class="admin-badge-left" onclick="handleAdminBadgeClick()" style="cursor: pointer;" title="Admin Panel">
                 <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
                 <div class="admin-info">
                     <span class="admin-name">MANI M4</span>
@@ -270,7 +270,7 @@
         <h1 class="page-header">LATEST <span class="highlight">UPDATES</span></h1>
         
         <div class="notif-container" id="notifWrapper">
-            <!-- 3D Notification Card (Click to edit only for Admin) -->
+            <!-- 3D Notification Card -->
             <div class="notif-3d-card" onclick="openUploadModal(this)">
                 <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" alt="Update" class="media-target">
                 <h2 class="notif-title">Welcome to the new Esports Hub!</h2>
@@ -322,13 +322,12 @@
         </div>
     </footer>
 
-    <!-- ADMIN LOGIN MODAL (Autofill Bug Fixed Here) -->
+    <!-- ADMIN LOGIN MODAL -->
     <div id="adminLoginModal" class="admin-modal">
         <div class="admin-box">
             <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:20px;">&times;</span>
             <h2><i class="fa-solid fa-user-shield"></i> ADMIN LOGIN</h2>
             
-            <!-- Added autocomplete="off" and fake inputs to trick browser autofill -->
             <form onsubmit="handleLogin(event)" autocomplete="off">
                 <input style="display:none" type="text" name="fakeusernameremembered"/>
                 <input style="display:none" type="password" name="fakepasswordremembered"/>
@@ -340,7 +339,7 @@
         </div>
     </div>
 
-    <!-- NOTIFICATION MEDIA + TEXT UPLOAD MODAL (Message Bug Fixed Here) -->
+    <!-- NOTIFICATION MEDIA + TEXT UPLOAD MODAL -->
     <div id="innerUploadModal" class="admin-modal">
         <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); max-width: 500px;">
             <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
@@ -369,7 +368,8 @@
         <button onclick="changePhotoByUrl()"><i class="fa-solid fa-link"></i> Photo/Video URL</button>
         <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
         <button onclick="saveChangesToGitHub()" class="btn-save"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
-        <button onclick="clearSavedToken()" style="background:#dc3545; color:white; font-size:10px;">Reset Token</button>
+        <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:11px;"><i class="fa-solid fa-right-from-bracket"></i> Logout Admin</button>
+        <button onclick="clearSavedToken()" style="background:#6c757d; color:white; font-size:10px;">Reset Git Token</button>
     </div>
 
     <!-- HIDDEN FILE INPUT FOR SELECTOR -->
@@ -409,21 +409,35 @@
             track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
         }
 
-        // ================= ADMIN PANEL LOGIC & AUTOFILL FIX ================= //
-        let isAdminLoggedIn = false;
+        // ================= PERSISTENT ADMIN SYSTEM ================= //
         let currentTargetElement = null;
         let activeNotifCard = null;
 
         const GITHUB_OWNER = 'jorabagga12-bit';       
         const GITHUB_REPO = 'mani-bagga';             
-        const FILE_PATH = 'index.html';
+        FILE_PATH = 'index.html';
+
+        // Check if admin was previously logged in on this browser session
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('mani_admin_logged') === 'true') {
+                activateAdminMode();
+            }
+        });
+
+        function handleAdminBadgeClick() {
+            if (localStorage.getItem('mani_admin_logged') === 'true') {
+                alert('Admin Mode is already active! 🚀 You can edit text or click photos.');
+            } else {
+                openAdminLogin();
+            }
+        }
 
         function openAdminLogin() {
-            // हर बार क्लिक करने पर बॉक्स एकदम खाली मिलेगा
             document.getElementById('adminUserX').value = '';
             document.getElementById('adminPassX').value = '';
             document.getElementById('adminLoginModal').style.display = 'flex';
         }
+
         function closeAdminLogin() {
             document.getElementById('adminLoginModal').style.display = 'none';
         }
@@ -434,13 +448,19 @@
             const pass = document.getElementById('adminPassX').value;
 
             if (user === 'bagga' && pass === 'iphonex0421&') {
-                isAdminLoggedIn = true;
+                localStorage.setItem('mani_admin_logged', 'true');
                 closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\n1. Click text to edit.\n2. Click any photo/video to change it.\n3. Click Notifications to add Message+Photo.\n4. Click "Save to Live Site" to publish!');
+                alert('Welcome Admin Bagga! 🚀\nNow you can click any photo, text or notification without re-logging in.');
                 activateAdminMode();
             } else {
                 alert('Invalid Username or Password!');
             }
+        }
+
+        function logoutAdmin() {
+            localStorage.removeItem('mani_admin_logged');
+            alert('Admin logged out successfully!');
+            window.location.reload();
         }
 
         function activateAdminMode() {
@@ -457,12 +477,13 @@
 
         // ================= NOTIFICATION UPLOAD (MESSAGE + MEDIA) ================= //
         function openUploadModal(cardElement) {
-            // अगर एडमिन लॉगिन नहीं है, तो आम यूजर को पॉपअप नहीं दिखेगा (सिक्योरिटी)
-            if (!isAdminLoggedIn) return; 
+            // अगर एडमिन लॉगिन नहीं है, तभी लॉगिन मांगेगा वरना सीधा पॉपअप खुलेगा
+            if (localStorage.getItem('mani_admin_logged') !== 'true') {
+                openAdminLogin();
+                return;
+            } 
 
             activeNotifCard = cardElement;
-            
-            // पुराने टेक्स्ट को बॉक्स में भर देना
             let titleEl = cardElement.querySelector('.notif-title');
             let descEl = cardElement.querySelector('.notif-desc');
             
@@ -482,14 +503,12 @@
             if(event) event.stopPropagation();
             if(!activeNotifCard) return;
 
-            // 1. टेक्स्ट और टाइटल अपडेट करना
             let newTitle = document.getElementById('notifEditTitle').value;
             let newDesc = document.getElementById('notifEditDesc').value;
             
             activeNotifCard.querySelector('.notif-title').innerText = newTitle;
             activeNotifCard.querySelector('.notif-desc').innerText = newDesc;
 
-            // 2. मीडिया (फोटो/वीडियो) अपडेट करना
             let fileInput = document.getElementById('notifMediaFile');
             if (fileInput.files && fileInput.files[0]) {
                 let file = fileInput.files[0];
@@ -510,7 +529,7 @@
                     } else if (file.type.startsWith('video/')) {
                         let newVideo = document.createElement('video');
                         newVideo.src = fileData;
-                        newVideo.controls = true; autoplay = true; muted = false;
+                        newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false;
                         newVideo.className = mediaTarget.className;
                         mediaTarget.parentNode.replaceChild(newVideo, mediaTarget);
                     }
@@ -534,17 +553,17 @@
                     <p class="notif-desc">Click here to edit this notification and add your message & photo...</p>
                 </div>`;
             notifWrapper.insertAdjacentHTML('afterbegin', newNotifHTML);
-            if (isAdminLoggedIn) activateAdminMode();
+            if (localStorage.getItem('mani_admin_logged') === 'true') activateAdminMode();
         }
 
-        // ================= NORMAL MEDIA BINDING ================= //
+        // ================= MEDIA CLICKS & HANDLERS ================= //
         function bindMediaClickHandlers() {
             const mediaElements = document.querySelectorAll('.media-target:not(.notif-3d-card .media-target)');
             mediaElements.forEach(elem => {
                 elem.classList.add('media-editable');
                 elem.title = "Click to Change Photo/Video";
                 elem.onclick = function(e) {
-                    if (isAdminLoggedIn) {
+                    if (localStorage.getItem('mani_admin_logged') === 'true') {
                         e.preventDefault();
                         e.stopPropagation();
                         currentTargetElement = elem;
@@ -554,13 +573,15 @@
                         } else {
                             changePhotoByUrl();
                         }
+                    } else {
+                        openAdminLogin();
                     }
                 };
             });
         }
 
         function changePhotoByUrl() {
-            if(!currentTargetElement && isAdminLoggedIn) {
+            if(!currentTargetElement && localStorage.getItem('mani_admin_logged') === 'true') {
                 alert("Please click on a photo or card first to change it!");
                 return;
             }
@@ -624,7 +645,7 @@
                     </div>
                 </div>`;
             gallery.insertAdjacentHTML('beforeend', newCardHTML);
-            if (isAdminLoggedIn) activateAdminMode();
+            if (localStorage.getItem('mani_admin_logged') === 'true') activateAdminMode();
         }
 
         function addYouTubeVideo() {
@@ -643,13 +664,13 @@
                         </div>
                     </div>`;
                 gallery.insertAdjacentHTML('beforeend', newVideoHTML);
-                if (isAdminLoggedIn) activateAdminMode();
+                if (localStorage.getItem('mani_admin_logged') === 'true') activateAdminMode();
             }
         }
 
         function clearSavedToken() {
             localStorage.removeItem('gh_token_bagga');
-            alert('Saved token has been removed! You can enter a new token now.');
+            alert('Saved GitHub token has been removed!');
         }
 
         // ================= 🚀 LIVE GITHUB AUTO-SAVE SYSTEM 🚀 ================= //
@@ -717,14 +738,14 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        message: 'Updated Pages (Fixed Autofill & Notif Message Bug) from Admin Panel',
+                        message: 'Updated Live via Admin Panel',
                         content: base64Content,
                         sha: sha
                     })
                 });
 
                 if (putResponse.ok) {
-                    alert('Congratulations! All changes have been saved to GitHub. 🎉\n(It will be live for the public in 1-2 minutes)');
+                    alert('Congratulations! Changes saved to GitHub successfully! 🎉');
                 } else {
                     const errorDetails = await putResponse.json();
                     throw new Error(errorDetails.message);
@@ -739,3 +760,4 @@
     </script>
 </body>
 </html>
+
