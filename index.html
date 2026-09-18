@@ -44,7 +44,8 @@
         /* FRONT IMAGE SLIDER */
         .slider-wrapper { position: relative; overflow: hidden; border-radius: 15px; width: 100%; height: 350px; box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
         .slider-track { display: flex; transition: transform 0.4s ease-in-out; height: 100%; }
-        .slider-track img { min-width: 100%; height: 100%; object-fit: cover; border-radius: 0; margin-bottom: 0; box-shadow: none; }
+        /* FIXED: Added .slider-track video so videos fit perfectly in the slider */
+        .slider-track img, .slider-track video { min-width: 100%; height: 100%; object-fit: cover; border-radius: 0; margin-bottom: 0; box-shadow: none; }
         .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.6); color: #00d2ff; border: 1px solid #00d2ff; border-radius: 50%; padding: 8px 14px; cursor: pointer; font-size: 18px; z-index: 10; transition: 0.3s; }
         .slider-btn:hover { background: #00d2ff; color: #000; }
         .prev-btn { left: 10px; } .next-btn { right: 10px; }
@@ -63,7 +64,7 @@
         
         /* Floating Admin Dashboard (Hidden initially) */
         .admin-dashboard {
-            display: none; /* By default hidden for normal users */
+            display: none; 
             position: fixed; bottom: 20px; right: 20px; background: #10101a;
             color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold;
             border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 230px;
@@ -82,7 +83,7 @@
         
         /* Edit Tools Section inside Dashboard */
         #adminEditTools {
-            display: none; /* Toggle state */
+            display: none;
             margin-top: 15px;
             border-top: 1px dashed #00d2ff;
             padding-top: 10px;
@@ -382,6 +383,9 @@
         <div id="adminEditTools" style="display: none;">
             <p style="font-size: 11px; color: #ffc107; text-transform: uppercase; margin-bottom: 5px;" contenteditable="false" class=""><i class="fa-solid fa-toolbox"></i> Toolbox</p>
             
+            <!-- FIXED: ADDED HERO SLIDE BUTTON -->
+            <button onclick="addHeroSlide()" style="background:#e91e63; color:white;"><i class="fa-solid fa-images"></i> Add Hero Slide</button>
+
             <button onclick="toggleMoveMode()" id="dashMoveBtn" style="background:#ff9800; color:black;"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items</button>
             <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
             <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
@@ -791,7 +795,33 @@
             currentTextElement.style.fontSize = newSize + 'px';
         }
 
-        // ================= ADD NEW CARDS ================= //
+        // ================= ADD NEW CARDS & SLIDES ================= //
+
+        /* FIXED: ADDED NEW FUNCTION FOR ADDING HERO SLIDES */
+        function addHeroSlide() {
+            const track = document.getElementById('frontSliderTrack');
+            if(!track) { alert("Slider not found!"); return; }
+            
+            // Create a dummy image placeholder
+            const newMedia = document.createElement('img');
+            newMedia.src = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'; 
+            newMedia.alt = 'New Hero Slide';
+            newMedia.className = 'media-target media-editable';
+            newMedia.title = "Click to Edit Image";
+            
+            // Append it to the slider
+            track.appendChild(newMedia);
+            
+            // Re-bind click handlers so you can immediately upload to it
+            bindMediaClickHandlers();
+            
+            // Auto slide to the newly created slide
+            currentSlideIndex = track.children.length - 1;
+            track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+            
+            alert('New Slide Box added! Click on this new photo to Upload your own Image or Paste Video URL.');
+        }
+
         function addNewMediaCard() {
             const galleryContainer = document.getElementById('galleryContainer');
             if(!galleryContainer) { alert('Gallery section not found on page!'); return; }
@@ -888,7 +918,6 @@
         function initFreeDrag(e, clientX, clientY) {
             if (localStorage.getItem('mani_admin_logged') !== 'true') return;
             
-            // FIXED: Removed Double tap logic to stop random moving. Now it ONLY works when isMoveModeActive is true.
             if (isMoveModeActive) {
                 let target = e.target.closest('a, li, .logo, .nav-links, h1, h2, h3, h4, p, span, img, video, iframe, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
                 
