@@ -32,134 +32,64 @@
         }
 
         /* ================== NOTIFICATION LIST UI ================== */
-        .notif-container {
-            max-width: 900px; margin: 0 auto; padding: 0 20px;
-        }
-        
-        .notif-list-wrapper {
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 210, 255, 0.2);
-            overflow: hidden;
-        }
-        
-        .notif-list-item {
-            display: flex;
-            padding: 16px 20px;
-            border-bottom: 1px solid #e0e0e0;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            align-items: center;
-        }
-        
-        .notif-list-item:hover {
-            background: #f0f7ff;
-        }
-        
-        .notif-list-item:last-child {
-            border-bottom: none;
-        }
-        
-        .notif-date {
-            flex: 0 0 110px;
-            font-size: 14px;
-            color: #444;
-            font-weight: 700;
-            border-right: 2px solid #00d2ff;
-            margin-right: 15px;
-            padding-right: 10px;
-        }
-        
-        .notif-text {
-            flex: 1;
-        }
-        
-        .notif-title {
-            font-size: 16px;
-            color: #004085;
-            font-weight: 600;
-            line-height: 1.4;
-        }
+        .notif-container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        .notif-list-wrapper { background: #ffffff; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 210, 255, 0.2); overflow: hidden; }
+        .notif-list-item { display: flex; padding: 16px 20px; border-bottom: 1px solid #e0e0e0; cursor: pointer; transition: background 0.3s ease; align-items: center; }
+        .notif-list-item:hover { background: #f0f7ff; }
+        .notif-list-item:last-child { border-bottom: none; }
+        .notif-date { flex: 0 0 110px; font-size: 14px; color: #444; font-weight: 700; border-right: 2px solid #00d2ff; margin-right: 15px; padding-right: 10px; }
+        .notif-text { flex: 1; }
+        .notif-title { font-size: 16px; color: #004085; font-weight: 600; line-height: 1.4; }
 
         /* FRONT IMAGE SLIDER */
-        .slider-wrapper {
-            position: relative; overflow: hidden; border-radius: 15px; width: 100%; height: 350px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-        }
-        .slider-track {
-            display: flex; transition: transform 0.4s ease-in-out; height: 100%;
-        }
-        .slider-track img {
-            min-width: 100%; height: 100%; object-fit: cover; border-radius: 0; margin-bottom: 0; box-shadow: none;
-        }
-        .slider-btn {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.6); color: #00d2ff; border: 1px solid #00d2ff;
-            border-radius: 50%; padding: 8px 14px; cursor: pointer; font-size: 18px; z-index: 10;
-            transition: 0.3s;
-        }
+        .slider-wrapper { position: relative; overflow: hidden; border-radius: 15px; width: 100%; height: 350px; box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
+        .slider-track { display: flex; transition: transform 0.4s ease-in-out; height: 100%; }
+        .slider-track img { min-width: 100%; height: 100%; object-fit: cover; border-radius: 0; margin-bottom: 0; box-shadow: none; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.6); color: #00d2ff; border: 1px solid #00d2ff; border-radius: 50%; padding: 8px 14px; cursor: pointer; font-size: 18px; z-index: 10; transition: 0.3s; }
         .slider-btn:hover { background: #00d2ff; color: #000; }
-        .prev-btn { left: 10px; }
-        .next-btn { right: 10px; }
+        .prev-btn { left: 10px; } .next-btn { right: 10px; }
 
         /* CONTACT PAGE */
-        .contact-page-wrapper {
-            display: flex; justify-content: center; align-items: center; 
-            padding: 20px; margin-top: 50px;
-        }
-        .contact-box form .form-group input, .contact-box form .form-group textarea {
-            width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px;
-            background: #1a1a2e; color: white; border: 1px solid #00d2ff; border-radius: 5px;
-            outline: none; box-sizing: border-box;
-        }
+        .contact-page-wrapper { display: flex; justify-content: center; align-items: center; padding: 20px; margin-top: 50px; }
+        .contact-box form .form-group input, .contact-box form .form-group textarea { width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px; background: #1a1a2e; color: white; border: 1px solid #00d2ff; border-radius: 5px; outline: none; box-sizing: border-box; }
 
         /* ================== ADMIN PANEL STYLES ================== */
-        .admin-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); z-index: 10000; justify-content: center; align-items: center;
-            backdrop-filter: blur(8px);
-        }
-        .admin-box {
-            background: linear-gradient(135deg, #1e1e2f, #10101a); padding: 30px; border-radius: 15px;
-            border: 2px solid #00d2ff; box-shadow: 0 0 25px rgba(0, 210, 255, 0.6); width: 90%; max-width: 450px;
-            text-align: center; color: white; position: relative;
-        }
+        .admin-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+        .admin-box { background: linear-gradient(135deg, #1e1e2f, #10101a); padding: 30px; border-radius: 15px; border: 2px solid #00d2ff; box-shadow: 0 0 25px rgba(0, 210, 255, 0.6); width: 90%; max-width: 450px; text-align: center; color: white; position: relative; }
         .admin-box h2 { margin-bottom: 20px; color: #00d2ff; }
-        .admin-box input {
-            width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #00d2ff;
-            background: #2a2a40; color: white; outline: none; box-sizing: border-box;
-        }
-        .admin-box button {
-            width: 100%; padding: 12px; margin-top: 15px; border-radius: 5px; border: none;
-            background: #00d2ff; color: #000; font-weight: bold; cursor: pointer; transition: 0.3s;
-            font-size: 16px;
-        }
+        .admin-box input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #00d2ff; background: #2a2a40; color: white; outline: none; box-sizing: border-box; }
+        .admin-box button { width: 100%; padding: 12px; margin-top: 15px; border-radius: 5px; border: none; background: #00d2ff; color: #000; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 16px; }
         .admin-box button:hover { opacity: 0.9; transform: scale(1.02); }
         
-        /* Floating Admin Dashboard */
+        /* Floating Admin Dashboard (Hidden initially) */
         .admin-dashboard {
-            display: none; position: fixed; bottom: 20px; right: 20px; background: #10101a;
+            display: none; /* By default hidden for normal users */
+            position: fixed; bottom: 20px; right: 20px; background: #10101a;
             color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold;
             border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 230px;
+            max-height: 85vh; overflow-y: auto;
         }
         .admin-dashboard button {
-            background: #00d2ff; color: #000; border: none; padding: 8px 10px;
+            background: #00d2ff; color: #000; border: none; padding: 10px 10px;
             margin-top: 8px; cursor: pointer; border-radius: 5px; width: 100%; font-weight: bold;
             transition: 0.2s ease;
         }
         .admin-dashboard button:hover { transform: translateY(-2px); }
-        .btn-save { background: #28a745 !important; color: white !important; }
+        .btn-save { background: #28a745 !important; color: white !important; font-size:15px; padding: 12px 10px !important;}
         
         .editable-active { border: 1px dashed #00d2ff !important; padding: 2px; }
         .media-editable { cursor: pointer; outline: 3px dashed #00d2ff !important; }
+        
+        /* Edit Tools Section inside Dashboard */
+        #adminEditTools {
+            display: none; /* Toggle state */
+            margin-top: 15px;
+            border-top: 1px dashed #00d2ff;
+            padding-top: 10px;
+        }
 
         /* CUSTOM TEXT CARD STYLE */
-        .custom-text-card {
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(26, 26, 46, 0.9); padding: 20px; 
-            border: 2px solid #00d2ff; border-radius: 10px; min-height: 200px;
-            text-align: center; width: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
+        .custom-text-card { display: flex; align-items: center; justify-content: center; background: rgba(26, 26, 46, 0.9); padding: 20px; border: 2px solid #00d2ff; border-radius: 10px; min-height: 200px; text-align: center; width: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
@@ -190,13 +120,6 @@
                 <li><a href="#" onclick="goToHomeSection('about')">LIVE</a></li>
                 <li><a href="#" onclick="navigateTo('notifications')" style="color:#00d2ff;">NOTIFICATIONS</a></li>
                 <li><a href="#" onclick="navigateTo('contact')" class="btn-primary">CONTACT DIRECT</a></li>
-                
-                <!-- NEW ADMIN MOVE BUTTON (Hidden by default) -->
-                <li id="nav-admin-change" style="display: none;">
-                    <a href="#" onclick="toggleMoveMode()" style="color:#ffc107; font-weight:bold; border: 1px dashed #ffc107; padding: 5px 10px; border-radius: 5px;">
-                        <i class="fa-solid fa-arrows-up-down-left-right"></i> MOVE ITEMS
-                    </a>
-                </li>
             </ul>
         </nav>
     </header>
@@ -332,7 +255,6 @@
                 <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-envelope"></i> SEND A MESSAGE</h2>
                 <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;">Send a message directly to MANI M4YT</p>
                 
-                <!-- CONTACT FORM CHANGED -->
                 <form id="siteContactForm" onsubmit="submitUserMessage(event)">
                     <div class="form-group" style="text-align: left;">
                         <label style="color:#00d2ff; font-weight:bold;">YOUR NAME:</label>
@@ -413,7 +335,7 @@
             <p id="viewNotifDesc" style="text-align:left; line-height:1.6; color:#b3b3cc; white-space:pre-wrap; font-size:1.1rem;"></p>
             
             <button id="adminEditNotifBtn" style="display:none; background:#ffc107; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; margin-top: 20px; font-size: 15px;" onclick="openUploadModalFromView()">
-                <i class="fa-solid fa-pen-to-square"></i> EDIT NOTIFICATION (ADMIN ONLY)
+                <i class="fa-solid fa-pen-to-square"></i> EDIT NOTIFICATION
             </button>
         </div>
     </div>
@@ -439,22 +361,41 @@
         </div>
     </div>
 
-    <!-- FLOATING ADMIN DASHBOARD -->
+    <!-- FLOATING ADMIN DASHBOARD (Hidden for normal users) -->
     <div id="adminDashboard" class="admin-dashboard">
-        <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
+        <!-- Main Info -->
+        <p style="margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 8px;">
+            <i class="fa-solid fa-user-gear"></i> Admin Logged In
+        </p>
         
-        <!-- NEW VIEW MESSAGES BUTTON -->
-        <button id="adminViewMsgBtn" onclick="openAdminMessages()" style="background:#8a2be2; color:white; margin-bottom: 8px;">
+        <!-- 1. ALWAYS VISIBLE: VIEW MESSAGES -->
+        <button id="adminViewMsgBtn" onclick="openAdminMessages()" style="background:#8a2be2; color:white;">
             <i class="fa-solid fa-envelope-open-text"></i> View Messages (0)
         </button>
         
-        <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
-        <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
-        <button onclick="addNewTextCard()" style="background:#17a2b8; color:white;"><i class="fa-solid fa-font"></i> Add Custom Text</button>
-        <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
-        <button onclick="saveChangesToGitHub()" class="btn-save" id="btnSaveLive"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
-        <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:11px;"><i class="fa-solid fa-right-from-bracket"></i> Logout Admin</button>
-        <button onclick="clearSavedToken()" style="background:#6c757d; color:white; font-size:10px;">Reset Git Token</button>
+        <!-- 2. ALWAYS VISIBLE: TOGGLE EDIT WEBSITE -->
+        <button id="toggleEditBtn" onclick="toggleEditWebsiteTools()" style="background:#28a745; color:white; font-size:14px;">
+            <i class="fa-solid fa-pen-ruler"></i> Edit Website
+        </button>
+
+        <!-- HIDDEN TOOLS (Opens when 'Edit Website' is clicked) -->
+        <div id="adminEditTools">
+            <p style="font-size: 11px; color: #ffc107; text-transform: uppercase; margin-bottom: 5px;"><i class="fa-solid fa-toolbox"></i> Toolbox</p>
+            
+            <button onclick="toggleMoveMode()" id="dashMoveBtn" style="background:#ff9800; color:black;"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items</button>
+            <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
+            <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
+            <button onclick="addNewTextCard()" style="background:#17a2b8; color:white;"><i class="fa-solid fa-font"></i> Add Custom Text</button>
+            <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
+            
+            <button onclick="saveChangesToGitHub()" class="btn-save" id="btnSaveLive" style="margin-top: 15px;"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
+            <button onclick="clearSavedToken()" style="background:#6c757d; color:white; font-size:10px; margin-top:5px; padding: 6px;">Reset Git Token</button>
+        </div>
+
+        <!-- 3. ALWAYS VISIBLE: LOGOUT -->
+        <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:12px; margin-top: 15px;">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout Admin
+        </button>
     </div>
 
     <!-- HIDDEN FILE INPUT FOR SELECTOR -->
@@ -467,10 +408,7 @@
             if (document.activeElement && document.activeElement.classList.contains('editable-active')) return;
             document.querySelectorAll('.page-view').forEach(page => page.classList.remove('active'));
             const targetPage = document.getElementById('page-' + pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-                window.scrollTo(0, 0); 
-            }
+            if (targetPage) { targetPage.classList.add('active'); window.scrollTo(0, 0); }
         }
 
         function goToHomeSection(sectionId) {
@@ -481,19 +419,13 @@
         }
 
         // ================= AUTO SLIDER ================= //
-        let currentSlideIndex = 0;
-        let sliderInterval;
-        
-        function startSlider() {
-            sliderInterval = setInterval(() => { moveFrontSlide(1); }, 3000);
-        }
-
+        let currentSlideIndex = 0; let sliderInterval;
+        function startSlider() { sliderInterval = setInterval(() => { moveFrontSlide(1); }, 3000); }
         function moveFrontSlide(direction, event) {
             if(event) { event.stopPropagation(); clearInterval(sliderInterval); startSlider(); } 
             const track = document.getElementById('frontSliderTrack');
             if(!track || track.children.length === 0) return;
             const totalSlides = track.children.length;
-            
             currentSlideIndex += direction;
             if (currentSlideIndex < 0) currentSlideIndex = totalSlides - 1;
             if (currentSlideIndex >= totalSlides) currentSlideIndex = 0;
@@ -506,25 +438,15 @@
             const name = document.getElementById('senderName').value.trim();
             const email = document.getElementById('senderEmail').value.trim();
             const msg = document.getElementById('senderMsg').value.trim();
-            
             if(!name || !email || !msg) return;
 
-            const newMessage = {
-                name: name,
-                email: email,
-                message: msg,
-                date: new Date().toLocaleString()
-            };
-
-            // Get old messages, add new one, and save
+            const newMessage = { name: name, email: email, message: msg, date: new Date().toLocaleString() };
             let messagesList = JSON.parse(localStorage.getItem('mani_user_messages') || '[]');
             messagesList.push(newMessage);
             localStorage.setItem('mani_user_messages', JSON.stringify(messagesList));
 
             alert('Thank you! Your message has been sent successfully.');
             document.getElementById('siteContactForm').reset();
-            
-            // Update admin counter if logged in
             updateMessageCounter();
         }
 
@@ -533,22 +455,17 @@
             if(btn) {
                 let messagesList = JSON.parse(localStorage.getItem('mani_user_messages') || '[]');
                 btn.innerHTML = `<i class="fa-solid fa-envelope-open-text"></i> View Messages (${messagesList.length})`;
-                if(messagesList.length > 0) {
-                    btn.style.background = "#e91e63"; // Turn pink/red to grab attention
-                } else {
-                    btn.style.background = "#8a2be2"; // Back to purple
-                }
+                if(messagesList.length > 0) btn.style.background = "#e91e63"; // Highlight if there are messages
+                else btn.style.background = "#8a2be2";
             }
         }
 
         function openAdminMessages() {
             const listContainer = document.getElementById('messagesListContainer');
             let messagesList = JSON.parse(localStorage.getItem('mani_user_messages') || '[]');
-            
             if(messagesList.length === 0) {
                 listContainer.innerHTML = '<p style="color:#b3b3cc; text-align:center;">No new messages yet.</p>';
             } else {
-                // Generate HTML for each message (latest first)
                 listContainer.innerHTML = messagesList.reverse().map(m => `
                     <div style="background:#1a1a2e; border:1px solid #00d2ff; padding:15px; border-radius:8px; margin-bottom:15px;">
                         <p style="margin:0 0 5px 0; color:#00d2ff; font-size:15px;"><strong>Name:</strong> ${m.name}</p>
@@ -558,29 +475,18 @@
                     </div>
                 `).join('');
             }
-            
             document.getElementById('adminMessagesModal').style.display = 'flex';
         }
 
-        function closeAdminMessages() {
-            document.getElementById('adminMessagesModal').style.display = 'none';
-        }
-
+        function closeAdminMessages() { document.getElementById('adminMessagesModal').style.display = 'none'; }
         function clearAllMessages() {
             if(confirm('Are you sure you want to delete all messages? This cannot be undone.')) {
-                localStorage.removeItem('mani_user_messages');
-                openAdminMessages(); // Refresh UI
-                updateMessageCounter(); // Update Dashboard button
+                localStorage.removeItem('mani_user_messages'); openAdminMessages(); updateMessageCounter();
             }
         }
 
-
         // ================= ADMIN AUTHENTICATION SYSTEM ================= //
-        let currentTargetElement = null;
-        let activeNotifCard = null;
-        let currentViewedNotif = null;
-        
-        let isMoveModeActive = false; 
+        let currentTargetElement = null; let isMoveModeActive = false; 
 
         const GITHUB_OWNER = 'jorabagga12-bit';       
         const GITHUB_REPO = 'mani-bagga';             
@@ -588,143 +494,106 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             startSlider(); 
-            if (localStorage.getItem('mani_admin_logged') === 'true') {
-                activateAdminMode();
-            }
+            if (localStorage.getItem('mani_admin_logged') === 'true') { activateAdminMode(); }
         });
 
         document.addEventListener('click', function(e) {
             let controls = document.getElementById('admin-img-controls');
-            if(controls && !controls.contains(e.target) && !e.target.classList.contains('media-target')) {
-                controls.remove();
-            }
+            if(controls && !controls.contains(e.target) && !e.target.classList.contains('media-target')) controls.remove();
         });
 
         function handleAdminBadgeClick() {
             if (localStorage.getItem('mani_admin_logged') === 'true') {
-                alert('Admin Mode is Active! Click "MOVE ITEMS" button in the menu to drag elements anywhere.');
-            } else {
-                openAdminLogin();
-            }
+                alert('Admin Mode is Active! Use the tools floating at the bottom right.');
+            } else { openAdminLogin(); }
         }
 
         function openAdminLogin() {
-            document.getElementById('adminUserX').value = '';
-            document.getElementById('adminPassX').value = '';
+            document.getElementById('adminUserX').value = ''; document.getElementById('adminPassX').value = '';
             document.getElementById('adminLoginModal').style.display = 'flex';
         }
-
-        function closeAdminLogin() {
-            document.getElementById('adminLoginModal').style.display = 'none';
-        }
+        function closeAdminLogin() { document.getElementById('adminLoginModal').style.display = 'none'; }
 
         function handleLogin(e) {
             e.preventDefault();
             const user = document.getElementById('adminUserX').value.trim();
             const pass = document.getElementById('adminPassX').value.trim();
-
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
                 closeAdminLogin();
-                alert('Admin Logged In! 🚀\n\nNEW FEATURE: Click "View Messages" in Dashboard to read messages sent by users!');
+                alert('Admin Logged In! 🚀\n\n- Click "View Messages" to read contact forms.\n- Click "Edit Website" to open editing tools.');
                 activateAdminMode();
-            } else {
-                alert('Incorrect Username or Password!');
-            }
+            } else { alert('Incorrect Username or Password!'); }
         }
 
         function logoutAdmin() {
             localStorage.removeItem('mani_admin_logged');
-            alert('Admin logged out successfully!');
-            window.location.reload();
+            alert('Admin logged out successfully!'); window.location.reload();
         }
 
         function activateAdminMode() {
+            // Dashboard now visible for Admin ONLY
             document.getElementById('adminDashboard').style.display = 'block';
             document.getElementById('adminTagLabel').innerText = "ADMIN (LOGGED IN)";
             document.getElementById('adminTagLabel').style.color = "#28a745";
             
-            // SHOW THE NEW MOVE BUTTON IN NAVBAR
-            let moveNavBtn = document.getElementById('nav-admin-change');
-            if(moveNavBtn) moveNavBtn.style.display = 'inline-block';
-            
-            // Update the Message Counter
             updateMessageCounter();
 
             const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-tag), .nav-links a, .footer-logo, footer p, .email-text, .admin-name, .btn-primary, .btn-main, .btn-secondary, label');
-            textElements.forEach(el => {
-                el.contentEditable = "true";
-                el.classList.add('editable-active');
-            });
+            textElements.forEach(el => { el.contentEditable = "true"; el.classList.add('editable-active'); });
 
             bindMediaClickHandlers();
         }
 
-        // ================= MOVE / DRAG SYSTEM ================= //
-        
-        function toggleMoveMode() {
-            isMoveModeActive = !isMoveModeActive;
-            const btn = document.querySelector('#nav-admin-change a');
-            const editableElements = document.querySelectorAll('.editable-active');
-
-            if(isMoveModeActive) {
-                btn.style.color = '#ffffff'; 
-                btn.style.background = '#ff4d4d';
-                btn.style.borderColor = '#ff4d4d';
-                btn.innerHTML = '<i class="fa-solid fa-check"></i> STOP MOVING';
-                
-                editableElements.forEach(el => {
-                    el.contentEditable = "false";
-                    el.style.userSelect = "none";
-                    el.style.cursor = "move";
-                });
-
-                alert('Move Mode is ON! \n\nअब आप किसी भी आइटम को पकड़ कर मूव कर सकते हैं।');
+        // ================= EDIT TOOLS TOGGLE ================= //
+        function toggleEditWebsiteTools() {
+            const toolsMenu = document.getElementById('adminEditTools');
+            const editBtn = document.getElementById('toggleEditBtn');
+            
+            if (toolsMenu.style.display === 'block') {
+                toolsMenu.style.display = 'none';
+                editBtn.innerHTML = '<i class="fa-solid fa-pen-ruler"></i> Edit Website';
+                editBtn.style.background = '#28a745';
             } else {
-                btn.style.color = '#ffc107'; 
-                btn.style.background = 'transparent';
-                btn.style.borderColor = '#ffc107';
-                btn.innerHTML = '<i class="fa-solid fa-arrows-up-down-left-right"></i> MOVE ITEMS';
-
-                editableElements.forEach(el => {
-                    el.contentEditable = "true";
-                    el.style.userSelect = "auto";
-                    el.style.cursor = "text";
-                });
+                toolsMenu.style.display = 'block';
+                editBtn.innerHTML = '<i class="fa-solid fa-xmark"></i> Close Tools';
+                editBtn.style.background = '#dc3545';
             }
         }
 
-        let activeFreeDrag = null;
-        let fDragX = 0, fDragY = 0;
-        let lastTapTime = 0;
+        // ================= MOVE / DRAG SYSTEM ================= //
+        function toggleMoveMode() {
+            isMoveModeActive = !isMoveModeActive;
+            const btn = document.getElementById('dashMoveBtn');
+            const editableElements = document.querySelectorAll('.editable-active');
+
+            if(isMoveModeActive) {
+                btn.style.background = '#ff4d4d'; btn.style.color = '#fff';
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Stop Moving';
+                editableElements.forEach(el => { el.contentEditable = "false"; el.style.userSelect = "none"; el.style.cursor = "move"; });
+                alert('Move Mode is ON! \n\nअब आप किसी भी आइटम को पकड़ कर मूव कर सकते हैं।');
+            } else {
+                btn.style.background = '#ff9800'; btn.style.color = '#000';
+                btn.innerHTML = '<i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items';
+                editableElements.forEach(el => { el.contentEditable = "true"; el.style.userSelect = "auto"; el.style.cursor = "text"; });
+            }
+        }
+
+        let activeFreeDrag = null; let fDragX = 0, fDragY = 0; let lastTapTime = 0;
 
         function initFreeDrag(e, clientX, clientY) {
             if (localStorage.getItem('mani_admin_logged') !== 'true') return;
-            
-            let currentTime = new Date().getTime();
-            let timeDiff = currentTime - lastTapTime;
-            let isDoubleTap = (timeDiff < 400 && timeDiff > 0);
+            let currentTime = new Date().getTime(); let isDoubleTap = ((currentTime - lastTapTime) < 400 && (currentTime - lastTapTime) > 0);
             
             if (isMoveModeActive || isDoubleTap) {
                 let target = e.target.closest('a, li, .logo, .nav-links, h1, h2, h3, h4, p, span, img, video, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
                 
-                if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal') && target.id !== 'nav-admin-change' && !target.closest('#nav-admin-change')) {
+                if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
                     activeFreeDrag = target;
-                    
-                    if (window.getComputedStyle(activeFreeDrag).position === 'static') {
-                        activeFreeDrag.style.position = 'relative';
-                    }
-                    
-                    let currentLeft = parseFloat(activeFreeDrag.style.left) || 0;
-                    let currentTop = parseFloat(activeFreeDrag.style.top) || 0;
-                    
-                    fDragX = clientX - currentLeft;
-                    fDragY = clientY - currentTop;
-                    
-                    activeFreeDrag.style.zIndex = "99999";
-                    activeFreeDrag.style.cursor = "grabbing";
-                    activeFreeDrag.style.transition = "none"; 
-                    
+                    if (window.getComputedStyle(activeFreeDrag).position === 'static') activeFreeDrag.style.position = 'relative';
+                    let currentLeft = parseFloat(activeFreeDrag.style.left) || 0; let currentTop = parseFloat(activeFreeDrag.style.top) || 0;
+                    fDragX = clientX - currentLeft; fDragY = clientY - currentTop;
+                    activeFreeDrag.style.zIndex = "99999"; activeFreeDrag.style.cursor = "grabbing"; activeFreeDrag.style.transition = "none"; 
                     if(isMoveModeActive) { e.preventDefault(); } 
                 }
             }
@@ -742,56 +611,35 @@
         function stopFreeDrag() {
             if (activeFreeDrag) {
                 activeFreeDrag.style.cursor = isMoveModeActive ? "move" : "";
-                activeFreeDrag.style.zIndex = "";
-                activeFreeDrag.style.transition = ""; 
-                activeFreeDrag = null;
+                activeFreeDrag.style.zIndex = ""; activeFreeDrag.style.transition = ""; activeFreeDrag = null;
             }
         }
 
         document.addEventListener('mousedown', (e) => initFreeDrag(e, e.clientX, e.clientY), {passive: false});
         document.addEventListener('mousemove', (e) => handleFreeDragMove(e, e.clientX, e.clientY), {passive: false});
         document.addEventListener('mouseup', stopFreeDrag);
-
         document.addEventListener('touchstart', (e) => initFreeDrag(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
         document.addEventListener('touchmove', (e) => handleFreeDragMove(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
         document.addEventListener('touchend', stopFreeDrag);
-        // ================= END MOVE / DRAG SYSTEM ================= //
 
-
-        // ================= MEDIA EDIT, ZOOM & DELETE HANDLERS ================= //
+        // ================= MEDIA EDIT HANDLERS ================= //
         function bindMediaClickHandlers() {
             const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
             mediaElements.forEach(elem => {
-                elem.classList.add('media-editable');
-                elem.title = "Click to Edit Image";
+                elem.classList.add('media-editable'); elem.title = "Click to Edit Image";
                 elem.onclick = function(e) {
                     if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
-                        e.preventDefault(); e.stopPropagation();
-                        currentTargetElement = elem;
-                        showAdminImageControls(e, elem);
+                        e.preventDefault(); e.stopPropagation(); currentTargetElement = elem; showAdminImageControls(e, elem);
                     }
                 };
             });
         }
 
         function showAdminImageControls(e, elem) {
-            let existing = document.getElementById('admin-img-controls');
-            if(existing) existing.remove();
-
-            let controls = document.createElement('div');
-            controls.id = 'admin-img-controls';
-            controls.style.position = 'absolute';
-            controls.style.left = Math.min(e.pageX, window.innerWidth - 300) + 'px';
-            controls.style.top = (e.pageY + 10) + 'px';
-            controls.style.background = '#10101a';
-            controls.style.border = '2px solid #00d2ff';
-            controls.style.padding = '8px 12px';
-            controls.style.borderRadius = '8px';
-            controls.style.zIndex = '100000';
-            controls.style.display = 'flex';
-            controls.style.gap = '6px';
-            controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
-
+            let existing = document.getElementById('admin-img-controls'); if(existing) existing.remove();
+            let controls = document.createElement('div'); controls.id = 'admin-img-controls';
+            controls.style.position = 'absolute'; controls.style.left = Math.min(e.pageX, window.innerWidth - 300) + 'px'; controls.style.top = (e.pageY + 10) + 'px';
+            controls.style.background = '#10101a'; controls.style.border = '2px solid #00d2ff'; controls.style.padding = '8px 12px'; controls.style.borderRadius = '8px'; controls.style.zIndex = '100000'; controls.style.display = 'flex'; controls.style.gap = '6px'; controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
             controls.innerHTML = `
                 <button onclick="document.getElementById('adminFileInput').click()" style="background:#00d2ff; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Upload"><i class="fa-solid fa-upload"></i></button>
                 <button onclick="changePhotoByUrl()" style="background:#ffc107; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Paste URL"><i class="fa-solid fa-link"></i></button>
@@ -806,10 +654,8 @@
         function deleteMediaElement() {
             if (confirm("Are you sure you want to completely delete this item?")) {
                 if (currentTargetElement) {
-                    currentTargetElement.remove();
-                    document.getElementById('admin-img-controls')?.remove();
-                    const track = document.getElementById('frontSliderTrack');
-                    if (track) { currentSlideIndex = 0; track.style.transform = `translateX(0%)`; }
+                    currentTargetElement.remove(); document.getElementById('admin-img-controls')?.remove();
+                    const track = document.getElementById('frontSliderTrack'); if (track) { currentSlideIndex = 0; track.style.transform = `translateX(0%)`; }
                     currentTargetElement = null;
                 }
             }
@@ -817,91 +663,71 @@
 
         function zoomElement(step) {
             if(!currentTargetElement) return;
-            let currentScale = parseFloat(currentTargetElement.getAttribute('data-scale')) || 1;
-            currentScale += step;
+            let currentScale = parseFloat(currentTargetElement.getAttribute('data-scale')) || 1; currentScale += step;
             if(currentScale < 0.3) currentScale = 0.3; if(currentScale > 3.0) currentScale = 3.0; 
-            
-            currentTargetElement.setAttribute('data-scale', currentScale.toFixed(2));
-            currentTargetElement.style.transform = `scale(${currentScale.toFixed(2)})`;
+            currentTargetElement.setAttribute('data-scale', currentScale.toFixed(2)); currentTargetElement.style.transform = `scale(${currentScale.toFixed(2)})`;
         }
 
         function changePhotoByUrl() {
             let url = prompt("Paste direct Image or Video URL here:");
             if(url && currentTargetElement) {
                 if(url.match(/\.(mp4|webm|ogg)$/i)) {
-                    let newVideo = document.createElement('video');
-                    newVideo.src = url; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true;
-                    newVideo.className = currentTargetElement.className;
-                    currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
+                    let newVideo = document.createElement('video'); newVideo.src = url; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true; newVideo.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
                 } else { currentTargetElement.src = url; }
-                document.getElementById('admin-img-controls')?.remove();
-                bindMediaClickHandlers();
+                document.getElementById('admin-img-controls')?.remove(); bindMediaClickHandlers();
             }
         }
 
         function handleFileSelected(event) {
-            const file = event.target.files[0];
-            if (!file || !currentTargetElement) return;
-
+            const file = event.target.files[0]; if (!file || !currentTargetElement) return;
             const reader = new FileReader();
             reader.onload = function(e) {
                 const fileData = e.target.result;
                 if (file.type.startsWith('image/')) {
-                    if (currentTargetElement.tagName.toLowerCase() === 'video') {
-                        const newImg = document.createElement('img'); newImg.src = fileData; newImg.className = currentTargetElement.className;
-                        currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement); currentTargetElement = newImg;
-                    } else { currentTargetElement.src = fileData; }
+                    if (currentTargetElement.tagName.toLowerCase() === 'video') { const newImg = document.createElement('img'); newImg.src = fileData; newImg.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement); currentTargetElement = newImg; } 
+                    else { currentTargetElement.src = fileData; }
                 } else if (file.type.startsWith('video/')) {
-                    const newVideo = document.createElement('video'); newVideo.src = fileData; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true;
-                    newVideo.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement); currentTargetElement = newVideo;
+                    const newVideo = document.createElement('video'); newVideo.src = fileData; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true; newVideo.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement); currentTargetElement = newVideo;
                 }
-                document.getElementById('admin-img-controls')?.remove();
-                bindMediaClickHandlers();
+                document.getElementById('admin-img-controls')?.remove(); bindMediaClickHandlers();
             };
-            reader.readAsDataURL(file);
-            event.target.value = '';
+            reader.readAsDataURL(file); event.target.value = '';
         }
 
         // ================= GITHUB AUTO-SAVE ================= //
         function stringToBase64UTF8(str) {
-            const encoder = new TextEncoder();
-            const bytes = encoder.encode(str);
-            let binary = '';
-            for (let i = 0; i < bytes.byteLength; i++) { binary += String.fromCharCode(bytes[i]); }
-            return btoa(binary);
+            const encoder = new TextEncoder(); const bytes = encoder.encode(str); let binary = '';
+            for (let i = 0; i < bytes.byteLength; i++) { binary += String.fromCharCode(bytes[i]); } return btoa(binary);
         }
 
         async function saveChangesToGitHub() {
             let token = localStorage.getItem('gh_token_bagga');
-            if (!token) {
-                token = prompt("Enter your GitHub Personal Access Token:");
-                if (!token) return;
-                localStorage.setItem('gh_token_bagga', token.trim());
-            }
+            if (!token) { token = prompt("Enter your GitHub Personal Access Token:"); if (!token) return; localStorage.setItem('gh_token_bagga', token.trim()); }
 
             const saveBtn = document.getElementById('btnSaveLive');
-            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving to Live...';
-            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...'; saveBtn.disabled = true;
 
             try {
                 const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
                 const getResponse = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } }); 
                 if (!getResponse.ok) throw new Error("GitHub Repository File or Token Invalid!");
-                
-                const fileData = await getResponse.json();
-                const sha = fileData.sha;
+                const fileData = await getResponse.json(); const sha = fileData.sha;
+
+                // Ensure tools are visually closed before cloning
+                const toolsMenu = document.getElementById('adminEditTools');
+                const wasOpen = toolsMenu.style.display === 'block';
+                if(wasOpen) toggleEditWebsiteTools(); // Close it
 
                 let clone = document.documentElement.cloneNode(true);
                 
-                let dash = clone.querySelector('#adminDashboard'); if(dash) dash.style.display = 'none';
+                // Hide purely admin things in clone
+                let dash = clone.querySelector('#adminDashboard'); if(dash) dash.style.display = 'none'; // CRITICAL: Hidden for normal users
                 let modal = clone.querySelector('#adminLoginModal'); if(modal) modal.style.display = 'none';
                 let upModal = clone.querySelector('#innerUploadModal'); if(upModal) upModal.style.display = 'none';
                 let viewModal = clone.querySelector('#viewNotifModal'); if(viewModal) viewModal.style.display = 'none';
-                let msgsModal = clone.querySelector('#adminMessagesModal'); if(msgsModal) msgsModal.style.display = 'none'; // Hide messages modal
+                let msgsModal = clone.querySelector('#adminMessagesModal'); if(msgsModal) msgsModal.style.display = 'none'; 
                 let floatingControl = clone.querySelector('#admin-img-controls'); if(floatingControl) floatingControl.remove();
                 
-                let moveBtn = clone.querySelector('#nav-admin-change'); if(moveBtn) moveBtn.style.display = 'none';
-
                 clone.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
                 let homeP = clone.querySelector('#page-home'); if(homeP) homeP.classList.add('active');
                 
@@ -923,20 +749,21 @@
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
                     headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: 'Updated Contact Form & Admin Message System', content: base64Content, sha: sha })
+                    body: JSON.stringify({ message: 'Added Toggle Edit Tools & Hidden Messages Panel', content: base64Content, sha: sha })
                 });
 
                 if (putResponse.ok) alert('🎉 Awesome! Layout and changes saved to Live Site successfully!');
                 else { const errorDetails = await putResponse.json(); throw new Error(errorDetails.message || "Failed to update GitHub"); }
+                
+                if(wasOpen) toggleEditWebsiteTools(); // Reopen if it was open
+
             } catch (error) {
                 console.error("Save Error:", error); alert('Save Error: ' + error.message);
             } finally {
-                saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site';
-                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site'; saveBtn.disabled = false;
             }
         }
     </script>
     <script src="js/script.js"></script>
 </body>
 </html>
-
