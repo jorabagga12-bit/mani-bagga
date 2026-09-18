@@ -125,7 +125,7 @@
             text-align: center; color: white; position: relative;
         }
         .admin-box h2 { margin-bottom: 20px; color: #00d2ff; }
-        .admin-box input {
+        .admin-box input, .admin-box textarea {
             width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #00d2ff;
             background: #2a2a40; color: white; outline: none; box-sizing: border-box;
         }
@@ -139,47 +139,28 @@
         /* Floating Admin Dashboard */
         .admin-dashboard {
             display: none; position: fixed; bottom: 20px; right: 20px; background: #10101a;
-            color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold;
+            color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9999; font-weight: bold;
             border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 230px;
         }
         .admin-dashboard button {
             background: #00d2ff; color: #000; border: none; padding: 8px 10px;
             margin-top: 8px; cursor: pointer; border-radius: 5px; width: 100%; font-weight: bold;
-            transition: 0.2s ease;
+            transition: 0.2s ease; font-size: 13px;
         }
         .admin-dashboard button:hover { transform: translateY(-2px); }
-        .btn-save { background: #28a745 !important; color: white !important; }
+        .btn-save { background: #28a745 !important; color: white !important; font-size: 14px !important; }
         
-        .editable-active { border: 1px dashed #00d2ff !important; padding: 2px; }
+        .editable-active { border: 1px dashed rgba(0, 210, 255, 0.5) !important; padding: 2px; cursor: pointer; }
         .media-editable { cursor: pointer; outline: 3px dashed #00d2ff !important; }
 
-        /* GALLERY DRAG & DROP */
-        .showcase-item {
-            position: relative;
-            transition: transform 0.3s ease, border 0.3s ease;
-        }
-        .admin-item-controls {
-            position: absolute; top: 10px; right: 10px;
-            display: none; gap: 8px; z-index: 100;
-        }
-        .showcase-item:hover .admin-item-controls {
-            display: flex;
-        }
-        .admin-item-controls button {
-            background: #ffc107; color: #000; border: none; border-radius: 4px;
-            width: 32px; height: 32px; font-weight: bold; cursor: pointer;
-            font-size: 16px; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.6); margin: 0; padding: 0;
-        }
-        .admin-item-controls button.drag-handle { background: #00d2ff; cursor: grab; }
-        .admin-item-controls button.delete-btn { background: #dc3545; color: white; cursor: pointer; } 
-        
-        .showcase-item.dragging {
-            opacity: 0.5; border: 3px dashed #00d2ff; transform: scale(0.95) !important;
-            z-index: 1000;
-        }
-        .showcase-item.over {
-            border: 3px solid #28a745; border-radius: 10px;
+        /* ALIGNMENT GRID CSS */
+        body.grid-active::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(rgba(0, 210, 255, 0.35) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.35) 1px, transparent 1px);
+            background-size: 40px 40px; /* Adjust spacing here */
+            z-index: 9997; pointer-events: none;
         }
 
         /* CUSTOM TEXT CARD STYLE */
@@ -200,7 +181,6 @@
     <!-- Navigation Bar -->
     <header>
         <nav class="navbar">
-            <!-- Click here to open Admin Login Modal -->
             <div class="admin-badge-left" onclick="handleAdminBadgeClick()" style="cursor: pointer;" title="Click to open Admin Login Panel">
                 <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
                 <div class="admin-info">
@@ -444,6 +424,7 @@
     <!-- FLOATING ADMIN DASHBOARD -->
     <div id="adminDashboard" class="admin-dashboard">
         <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
+        <button onclick="toggleGrid()" style="background:#6f42c1; color:white;"><i class="fa-solid fa-border-all"></i> Toggle Grid Lines</button>
         <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
         <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
         <button onclick="addNewTextCard()" style="background:#17a2b8; color:white;"><i class="fa-solid fa-font"></i> Add Custom Text</button>
@@ -459,12 +440,8 @@
     <script>
         // ================= PAGE ROUTING LOGIC ================= //
         function navigateTo(pageId) {
-            // Check if user is currently editing a navigation link, prevent redirection
             if (document.activeElement && document.activeElement.classList.contains('editable-active')) return;
-            
-            document.querySelectorAll('.page-view').forEach(page => {
-                page.classList.remove('active');
-            });
+            document.querySelectorAll('.page-view').forEach(page => page.classList.remove('active'));
             const targetPage = document.getElementById('page-' + pageId);
             if (targetPage) {
                 targetPage.classList.add('active');
@@ -473,13 +450,9 @@
         }
 
         function goToHomeSection(sectionId) {
-            // Check if user is currently editing a navigation link, prevent redirection
             if (document.activeElement && document.activeElement.classList.contains('editable-active')) return;
-
             navigateTo('home');
-            setTimeout(() => {
-                document.getElementById(sectionId).scrollIntoView({behavior: 'smooth'});
-            }, 100);
+            setTimeout(() => { document.getElementById(sectionId).scrollIntoView({behavior: 'smooth'}); }, 100);
         }
 
         // ================= AUTO SLIDER ================= //
@@ -491,29 +464,22 @@
         }
 
         function moveFrontSlide(direction, event) {
-            if(event) { 
-                event.stopPropagation(); 
-                clearInterval(sliderInterval); 
-                startSlider(); 
-            } 
+            if(event) { event.stopPropagation(); clearInterval(sliderInterval); startSlider(); } 
             const track = document.getElementById('frontSliderTrack');
-            if(!track) return;
+            if(!track || track.children.length === 0) return;
             const totalSlides = track.children.length;
             
-            if (totalSlides === 0) return; // Prevent errors if all images deleted
-
             currentSlideIndex += direction;
             if (currentSlideIndex < 0) currentSlideIndex = totalSlides - 1;
             if (currentSlideIndex >= totalSlides) currentSlideIndex = 0;
-            
             track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
         }
 
         // ================= ADMIN AUTHENTICATION SYSTEM ================= //
         let currentTargetElement = null;
+        window.currentTextTarget = null;
         let activeNotifCard = null;
         let currentViewedNotif = null;
-        let draggedItem = null;
 
         const GITHUB_OWNER = 'jorabagga12-bit';       
         const GITHUB_REPO = 'mani-bagga';             
@@ -526,16 +492,22 @@
             }
         });
 
+        // Clear popups when clicking outside
         document.addEventListener('click', function(e) {
-            let controls = document.getElementById('admin-img-controls');
-            if(controls && !controls.contains(e.target) && !e.target.classList.contains('media-target')) {
-                controls.remove();
+            let imgControls = document.getElementById('admin-img-controls');
+            if(imgControls && !imgControls.contains(e.target) && !e.target.classList.contains('media-target')) {
+                imgControls.remove();
+            }
+            
+            let txtControls = document.getElementById('admin-text-controls');
+            if(txtControls && !txtControls.contains(e.target) && !e.target.classList.contains('editable-active')) {
+                txtControls.remove();
             }
         });
 
         function handleAdminBadgeClick() {
             if (localStorage.getItem('mani_admin_logged') === 'true') {
-                alert('Admin Mode is already Active! 🚀 You can edit text, click photos to zoom/upload/delete, drag items, and delete them.');
+                alert('Admin Mode is Active! 🚀 \n- DOUBLE TAP & HOLD to move items.\n- CLICK ON TEXT to resize and align.\n- TOGGLE GRID to level perfectly!');
             } else {
                 openAdminLogin();
             }
@@ -559,7 +531,7 @@
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
                 closeAdminLogin();
-                alert('Admin Logged In Successfully! 🚀 You can now edit text everywhere, edit photos, and drag/delete items.');
+                alert('Admin Logged In! 🚀\n\nNEW FEATURES:\n1. Click text to resize (Zoom) and Align.\n2. Toggle Grid lines from dashboard for leveling.\n3. Double tap & hold to free drag anything!');
                 activateAdminMode();
             } else {
                 alert('Incorrect Username or Password!');
@@ -577,237 +549,149 @@
             document.getElementById('adminTagLabel').innerText = "ADMIN (LOGGED IN)";
             document.getElementById('adminTagLabel').style.color = "#28a745";
             
-            // UPDATED SELECTOR: Added .nav-links a, footer texts, admin name, buttons etc. so everything can be edited!
             const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-tag), .nav-links a, .footer-logo, footer p, .email-text, .admin-name, .btn-primary, .btn-main, .btn-secondary, label');
-            
             textElements.forEach(el => {
                 el.contentEditable = "true";
                 el.classList.add('editable-active');
+                
+                // Add click listener for TEXT controls (Zoom / Align)
+                el.onclick = function(e) {
+                    if (localStorage.getItem('mani_admin_logged') === 'true') {
+                        e.stopPropagation();
+                        showAdminTextControls(e, el);
+                    }
+                };
             });
 
             bindMediaClickHandlers();
-            makeGalleryItemsDraggableAndResizable();
         }
 
-        // ================= GALLERY DRAG, DROP & DELETE ================= //
-        function makeGalleryItemsDraggableAndResizable() {
-            const items = document.querySelectorAll('.showcase-item');
+        // ================= ALIGNMENT GRID TOGGLE ================= //
+        function toggleGrid() {
+            document.body.classList.toggle('grid-active');
+        }
+
+        // ================= NEW: TEXT ZOOM & ALIGNMENT CONTROLS ================= //
+        function showAdminTextControls(e, elem) {
+            let existing = document.getElementById('admin-text-controls');
+            if(existing) existing.remove();
+
+            let controls = document.createElement('div');
+            controls.id = 'admin-text-controls';
+            controls.style.position = 'absolute';
+            controls.style.left = Math.min(e.pageX, window.innerWidth - 220) + 'px';
+            controls.style.top = (e.pageY - 60) + 'px';
+            controls.style.background = '#10101a';
+            controls.style.border = '2px solid #00d2ff';
+            controls.style.padding = '8px 12px';
+            controls.style.borderRadius = '8px';
+            controls.style.zIndex = '100000';
+            controls.style.display = 'flex';
+            controls.style.gap = '6px';
+            controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
+
+            window.currentTextTarget = elem;
+
+            controls.innerHTML = `
+                <button onclick="changeFontSize(2)" style="background:#28a745; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom Text In">A+</button>
+                <button onclick="changeFontSize(-2)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom Text Out">A-</button>
+                <button onclick="changeAlignment('left')" style="background:#007bff; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Align Left"><i class="fa-solid fa-align-left"></i></button>
+                <button onclick="changeAlignment('center')" style="background:#007bff; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Align Center"><i class="fa-solid fa-align-center"></i></button>
+                <button onclick="changeAlignment('right')" style="background:#007bff; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Align Right"><i class="fa-solid fa-align-right"></i></button>
+                <button onclick="this.parentElement.remove()" style="background:transparent; color:red; border:none; cursor:pointer; font-size:18px; padding:0 4px;">&times;</button>
+            `;
+            document.body.appendChild(controls);
+        }
+
+        function changeFontSize(step) {
+            if(!window.currentTextTarget) return;
+            let style = window.getComputedStyle(window.currentTextTarget);
+            let currentSize = parseFloat(style.fontSize);
+            window.currentTextTarget.style.fontSize = (currentSize + step) + 'px';
+        }
+
+        function changeAlignment(align) {
+            if(!window.currentTextTarget) return;
+            window.currentTextTarget.style.textAlign = align;
+            window.currentTextTarget.style.display = 'block'; // Block required for text-align to work perfectly inside containers
+        }
+
+        // ================= FREE DRAG ANYWHERE (Double Tap & Drag) ================= //
+        let activeFreeDrag = null;
+        let fDragX = 0, fDragY = 0;
+        let lastTapTime = 0;
+
+        function initFreeDrag(e, clientX, clientY) {
+            if (localStorage.getItem('mani_admin_logged') !== 'true') return;
             
-            items.forEach(item => {
-                if(!item.querySelector('.admin-item-controls')) {
-                    item.setAttribute('draggable', 'true');
-                    
-                    item.addEventListener('dragstart', function(e) {
-                        if (localStorage.getItem('mani_admin_logged') !== 'true') {
-                            e.preventDefault(); return;
-                        }
-                        draggedItem = this;
-                        e.dataTransfer.effectAllowed = 'move';
-                        setTimeout(() => this.classList.add('dragging'), 0);
-                    });
-                    
-                    item.addEventListener('dragover', function(e) {
-                        e.preventDefault();
-                        if(draggedItem && draggedItem !== this) {
-                            this.classList.add('over');
-                        }
-                        return false;
-                    });
-                    
-                    item.addEventListener('dragleave', function(e) {
-                        this.classList.remove('over');
-                    });
-                    
-                    item.addEventListener('drop', function(e) {
-                        e.stopPropagation();
-                        this.classList.remove('over');
-                        if (draggedItem && draggedItem !== this) {
-                            const container = this.parentNode;
-                            const allItems = [...container.querySelectorAll('.showcase-item')];
-                            const draggedIndex = allItems.indexOf(draggedItem);
-                            const targetIndex = allItems.indexOf(this);
-                            
-                            if (draggedIndex < targetIndex) {
-                                this.after(draggedItem);
-                            } else {
-                                this.before(draggedItem);
-                            }
-                        }
-                        return false;
-                    });
-                    
-                    item.addEventListener('dragend', function(e) {
-                        this.classList.remove('dragging');
-                        document.querySelectorAll('.showcase-item').forEach(el => el.classList.remove('over'));
-                    });
-
-                    // Delete Button included in controls
-                    let controlsHTML = document.createElement('div');
-                    controlsHTML.className = 'admin-item-controls';
-                    controlsHTML.innerHTML = `
-                        <button type="button" class="drag-handle" title="Drag to reorder"><i class="fa-solid fa-up-down-left-right"></i></button>
-                        <button type="button" class="delete-btn" title="Delete this item" onclick="if(confirm('Are you sure you want to delete this?')) this.closest('.showcase-item').remove();"><i class="fa-solid fa-trash"></i></button>
-                    `;
-                    item.appendChild(controlsHTML);
-                }
-            });
-        }
-
-        // ================= ADD NEW TEXT FUNCTION ================= //
-        function addNewTextCard() {
-            navigateTo('home');
-            setTimeout(() => { document.getElementById('showcase').scrollIntoView(); }, 100);
+            let currentTime = new Date().getTime();
+            let timeDiff = currentTime - lastTapTime;
             
-            let gallery = document.getElementById('galleryContainer');
-            let newTextHTML = `
-                <div class="showcase-item">
-                    <div class="custom-text-card">
-                        <h3 class="editable-active" contenteditable="true" style="color:#00d2ff; font-size:1.5rem; margin:0; outline:none;">Your Custom Editable Text Here</h3>
-                    </div>
-                </div>`;
-            gallery.insertAdjacentHTML('beforeend', newTextHTML);
-            if (localStorage.getItem('mani_admin_logged') === 'true') {
-                makeGalleryItemsDraggableAndResizable();
-                activateAdminMode();
-            }
-        }
-
-        // ================= NOTIFICATIONS SYSTEM ================= //
-        function viewNotification(notifItem) {
-            currentViewedNotif = notifItem;
-            const title = notifItem.querySelector('.notif-title').innerText;
-            const desc = notifItem.querySelector('.notif-desc').innerText;
-            const media = notifItem.querySelector('.media-target');
-
-            document.getElementById('viewNotifTitle').innerText = title;
-            document.getElementById('viewNotifDesc').innerText = desc;
-            
-            const imgEl = document.getElementById('viewNotifImg');
-            const vidEl = document.getElementById('viewNotifVid');
-            imgEl.style.display = 'none';
-            vidEl.style.display = 'none';
-
-            if (media && media.tagName.toLowerCase() === 'img') {
-                imgEl.src = media.src;
-                imgEl.style.display = 'block';
-            } else if (media && media.tagName.toLowerCase() === 'video') {
-                vidEl.src = media.src;
-                vidEl.style.display = 'block';
-            }
-
-            if (localStorage.getItem('mani_admin_logged') === 'true') {
-                document.getElementById('adminEditNotifBtn').style.display = 'block';
-            } else {
-                document.getElementById('adminEditNotifBtn').style.display = 'none';
-            }
-
-            document.getElementById('viewNotifModal').style.display = 'flex';
-        }
-
-        function closeViewNotif(e) {
-            if(e && e.target !== e.currentTarget) return;
-            document.getElementById('viewNotifModal').style.display = 'none';
-        }
-
-        function openUploadModalFromView() {
-            closeViewNotif();
-            activeNotifCard = currentViewedNotif;
-            let titleEl = activeNotifCard.querySelector('.notif-title');
-            let descEl = activeNotifCard.querySelector('.notif-desc');
-            
-            document.getElementById('notifEditTitle').value = titleEl ? titleEl.innerText : '';
-            document.getElementById('notifEditDesc').value = descEl ? descEl.innerText : '';
-            document.getElementById('notifMediaFile').value = ''; 
-
-            document.getElementById('innerUploadModal').style.display = 'flex';
-        }
-
-        function closeUploadModal(event) {
-            if(event) event.stopPropagation();
-            document.getElementById('innerUploadModal').style.display = 'none';
-        }
-
-        function confirmNotifUpdate(event) {
-            if(event) event.stopPropagation();
-            if(!activeNotifCard) return;
-
-            let newTitle = document.getElementById('notifEditTitle').value;
-            let newDesc = document.getElementById('notifEditDesc').value;
-            
-            activeNotifCard.querySelector('.notif-title').innerText = newTitle;
-            activeNotifCard.querySelector('.notif-desc').innerText = newDesc;
-
-            let fileInput = document.getElementById('notifMediaFile');
-            if (fileInput.files && fileInput.files[0]) {
-                let file = fileInput.files[0];
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    let fileData = e.target.result;
-                    let mediaTarget = activeNotifCard.querySelector('.media-target');
+            // If double tapped within 400ms
+            if (timeDiff < 400 && timeDiff > 0) {
+                let target = e.target.closest('h1, h2, h3, h4, p, span, img, video, .card-3d-main, .showcase-item, .card-3d, .hero-text');
+                
+                // Exclude dragging the admin dashboard or modals
+                if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
+                    activeFreeDrag = target;
                     
-                    if (file.type.startsWith('image/')) {
-                        if (mediaTarget.tagName.toLowerCase() === 'video') {
-                            let newImg = document.createElement('img');
-                            newImg.src = fileData;
-                            newImg.className = mediaTarget.className;
-                            newImg.style.display = 'none';
-                            mediaTarget.parentNode.replaceChild(newImg, mediaTarget);
-                        } else {
-                            mediaTarget.src = fileData;
-                        }
-                    } else if (file.type.startsWith('video/')) {
-                        let newVideo = document.createElement('video');
-                        newVideo.src = fileData;
-                        newVideo.className = mediaTarget.className;
-                        newVideo.style.display = 'none';
-                        mediaTarget.parentNode.replaceChild(newVideo, mediaTarget);
+                    if (window.getComputedStyle(activeFreeDrag).position === 'static') {
+                        activeFreeDrag.style.position = 'relative';
                     }
-                    alert('Notification Updated Successfully! 🔥');
-                    closeUploadModal();
-                    viewNotification(activeNotifCard);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('Notification Updated Successfully! 🔥');
-                closeUploadModal();
-                viewNotification(activeNotifCard);
+                    
+                    let currentLeft = parseFloat(activeFreeDrag.style.left) || 0;
+                    let currentTop = parseFloat(activeFreeDrag.style.top) || 0;
+                    
+                    fDragX = clientX - currentLeft;
+                    fDragY = clientY - currentTop;
+                    
+                    activeFreeDrag.style.zIndex = "9999";
+                    activeFreeDrag.style.cursor = "grabbing";
+                    activeFreeDrag.style.transition = "none"; 
+                    
+                    if(e.cancelable) e.preventDefault(); 
+                }
+            }
+            lastTapTime = currentTime;
+        }
+
+        function handleFreeDragMove(e, clientX, clientY) {
+            if (activeFreeDrag) {
+                activeFreeDrag.style.left = (clientX - fDragX) + 'px';
+                activeFreeDrag.style.top = (clientY - fDragY) + 'px';
+                if(e.cancelable) e.preventDefault();
             }
         }
 
-        function addNewNotification() {
-            navigateTo('notifications'); 
-            let notifWrapper = document.getElementById('notifWrapper');
-            
-            let today = new Date();
-            let dateStr = ("0" + today.getDate()).slice(-2) + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + today.getFullYear();
-            
-            let newNotifHTML = `
-                <div class="notif-list-item" onclick="viewNotification(this)">
-                    <div class="notif-date">${dateStr}</div>
-                    <div class="notif-text">
-                        <div class="notif-title">New Update Title (Click to Open)</div>
-                        <div class="notif-desc" style="display:none;">Add your full message here...</div>
-                        <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80" class="media-target notif-hidden-media" style="display:none;">
-                    </div>
-                </div>`;
-            notifWrapper.insertAdjacentHTML('afterbegin', newNotifHTML);
-            if (localStorage.getItem('mani_admin_logged') === 'true') activateAdminMode();
+        function stopFreeDrag() {
+            if (activeFreeDrag) {
+                activeFreeDrag.style.cursor = "";
+                activeFreeDrag.style.zIndex = "";
+                activeFreeDrag.style.transition = ""; 
+                activeFreeDrag = null;
+            }
         }
+
+        document.addEventListener('mousedown', (e) => initFreeDrag(e, e.clientX, e.clientY), {passive: false});
+        document.addEventListener('mousemove', (e) => handleFreeDragMove(e, e.clientX, e.clientY), {passive: false});
+        document.addEventListener('mouseup', stopFreeDrag);
+
+        document.addEventListener('touchstart', (e) => initFreeDrag(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
+        document.addEventListener('touchmove', (e) => handleFreeDragMove(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
+        document.addEventListener('touchend', stopFreeDrag);
+
 
         // ================= MEDIA EDIT, ZOOM & DELETE HANDLERS ================= //
         function bindMediaClickHandlers() {
             const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
             mediaElements.forEach(elem => {
                 elem.classList.add('media-editable');
-                elem.title = "Click to Edit, Upload, Zoom, or Delete";
+                elem.title = "Click to Edit | Double-Tap to Drag";
                 elem.onclick = function(e) {
                     if (localStorage.getItem('mani_admin_logged') === 'true') {
-                        e.preventDefault();
-                        e.stopPropagation();
+                        e.preventDefault(); e.stopPropagation();
                         currentTargetElement = elem;
                         showAdminImageControls(e, elem);
-                    } else {
-                        openAdminLogin();
                     }
                 };
             });
@@ -831,7 +715,6 @@
             controls.style.gap = '6px';
             controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
 
-            // NEW: Added Trash (Delete) Button here!
             controls.innerHTML = `
                 <button onclick="document.getElementById('adminFileInput').click()" style="background:#00d2ff; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Upload"><i class="fa-solid fa-upload"></i></button>
                 <button onclick="changePhotoByUrl()" style="background:#ffc107; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Paste URL"><i class="fa-solid fa-link"></i></button>
@@ -843,21 +726,13 @@
             document.body.appendChild(controls);
         }
 
-        // NEW: Function to delete slider images or any media element
         function deleteMediaElement() {
-            if (confirm("Are you sure you want to completely delete this image/video?")) {
+            if (confirm("Are you sure you want to completely delete this item?")) {
                 if (currentTargetElement) {
                     currentTargetElement.remove();
-                    let controls = document.getElementById('admin-img-controls');
-                    if (controls) controls.remove();
-                    
-                    // If it was a slider image, reset the slider view to prevent empty spaces
+                    document.getElementById('admin-img-controls')?.remove();
                     const track = document.getElementById('frontSliderTrack');
-                    if (track) {
-                        currentSlideIndex = 0;
-                        track.style.transform = `translateX(0%)`;
-                    }
-                    
+                    if (track) { currentSlideIndex = 0; track.style.transform = `translateX(0%)`; }
                     currentTargetElement = null;
                 }
             }
@@ -867,12 +742,10 @@
             if(!currentTargetElement) return;
             let currentScale = parseFloat(currentTargetElement.getAttribute('data-scale')) || 1;
             currentScale += step;
-            if(currentScale < 0.3) currentScale = 0.3; 
-            if(currentScale > 3.0) currentScale = 3.0; 
+            if(currentScale < 0.3) currentScale = 0.3; if(currentScale > 3.0) currentScale = 3.0; 
             
             currentTargetElement.setAttribute('data-scale', currentScale.toFixed(2));
             currentTargetElement.style.transform = `scale(${currentScale.toFixed(2)})`;
-            currentTargetElement.style.transition = "transform 0.2s ease";
         }
 
         function changePhotoByUrl() {
@@ -883,9 +756,7 @@
                     newVideo.src = url; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true;
                     newVideo.className = currentTargetElement.className;
                     currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
-                } else {
-                    currentTargetElement.src = url;
-                }
+                } else { currentTargetElement.src = url; }
                 document.getElementById('admin-img-controls')?.remove();
                 bindMediaClickHandlers();
             }
@@ -898,24 +769,14 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 const fileData = e.target.result;
-
                 if (file.type.startsWith('image/')) {
                     if (currentTargetElement.tagName.toLowerCase() === 'video') {
-                        const newImg = document.createElement('img');
-                        newImg.src = fileData;
-                        newImg.className = currentTargetElement.className;
-                        currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement);
-                        currentTargetElement = newImg;
-                    } else {
-                        currentTargetElement.src = fileData;
-                    }
+                        const newImg = document.createElement('img'); newImg.src = fileData; newImg.className = currentTargetElement.className;
+                        currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement); currentTargetElement = newImg;
+                    } else { currentTargetElement.src = fileData; }
                 } else if (file.type.startsWith('video/')) {
-                    const newVideo = document.createElement('video');
-                    newVideo.src = fileData;
-                    newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true;
-                    newVideo.className = currentTargetElement.className;
-                    currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
-                    currentTargetElement = newVideo;
+                    const newVideo = document.createElement('video'); newVideo.src = fileData; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true;
+                    newVideo.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement); currentTargetElement = newVideo;
                 }
                 document.getElementById('admin-img-controls')?.remove();
                 bindMediaClickHandlers();
@@ -924,68 +785,17 @@
             event.target.value = '';
         }
 
-        function addNewMediaCard() {
-            navigateTo('home');
-            setTimeout(() => { document.getElementById('showcase').scrollIntoView(); }, 100);
-            
-            let gallery = document.getElementById('galleryContainer');
-            let newCardHTML = `
-                <div class="showcase-item">
-                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="New Item" class="media-target">
-                    <div class="showcase-overlay">
-                        <h4>New Media Title</h4>
-                        <p>Description Here</p>
-                    </div>
-                </div>`;
-            gallery.insertAdjacentHTML('beforeend', newCardHTML);
-            if (localStorage.getItem('mani_admin_logged') === 'true') {
-                makeGalleryItemsDraggableAndResizable();
-                activateAdminMode();
-            }
-        }
-
-        function addYouTubeVideo() {
-            navigateTo('home');
-            setTimeout(() => { document.getElementById('showcase').scrollIntoView(); }, 100);
-            
-            let videoLink = prompt("Enter YouTube Video Embed Link (e.g., https://www.youtube.com/embed/XXXX)");
-            if (videoLink) {
-                let gallery = document.getElementById('galleryContainer');
-                let newVideoHTML = `
-                    <div class="showcase-item">
-                        <iframe width="100%" height="220" src="${videoLink}" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
-                        <div class="showcase-overlay">
-                            <h4>YouTube Live Stream</h4>
-                            <p>Watch Highlights</p>
-                        </div>
-                    </div>`;
-                gallery.insertAdjacentHTML('beforeend', newVideoHTML);
-                if (localStorage.getItem('mani_admin_logged') === 'true') {
-                    makeGalleryItemsDraggableAndResizable();
-                    activateAdminMode();
-                }
-            }
-        }
-
-        function clearSavedToken() {
-            localStorage.removeItem('gh_token_bagga');
-            alert('Saved GitHub token removed!');
-        }
-
-        // ================= GITHUB AUTO-SAVE (FIXED FOR UTF-8) ================= //
+        // ================= GITHUB AUTO-SAVE ================= //
         function stringToBase64UTF8(str) {
             const encoder = new TextEncoder();
             const bytes = encoder.encode(str);
             let binary = '';
-            for (let i = 0; i < bytes.byteLength; i++) {
-                binary += String.fromCharCode(bytes[i]);
-            }
+            for (let i = 0; i < bytes.byteLength; i++) { binary += String.fromCharCode(bytes[i]); }
             return btoa(binary);
         }
 
         async function saveChangesToGitHub() {
             let token = localStorage.getItem('gh_token_bagga');
-            
             if (!token) {
                 token = prompt("Enter your GitHub Personal Access Token:");
                 if (!token) return;
@@ -997,12 +807,11 @@
             saveBtn.disabled = true;
 
             try {
+                // Ensure grid is turned off before saving so the public doesn't see it
+                document.body.classList.remove('grid-active');
+
                 const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
-                
-                const getResponse = await fetch(apiUrl, {
-                    headers: { 'Authorization': `token ${token}` }
-                }); 
-                
+                const getResponse = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } }); 
                 if (!getResponse.ok) throw new Error("GitHub Repository File or Token Invalid!");
                 
                 const fileData = await getResponse.json();
@@ -1010,80 +819,48 @@
 
                 let clone = document.documentElement.cloneNode(true);
                 
-                // Hide Modals and Admin UI for general public view before saving
-                let dash = clone.querySelector('#adminDashboard');
-                if(dash) dash.style.display = 'none';
-                let modal = clone.querySelector('#adminLoginModal');
-                if(modal) modal.style.display = 'none';
-                let upModal = clone.querySelector('#innerUploadModal');
-                if(upModal) upModal.style.display = 'none';
-                let viewModal = clone.querySelector('#viewNotifModal');
-                if(viewModal) viewModal.style.display = 'none';
-                let floatingControl = clone.querySelector('#admin-img-controls');
-                if(floatingControl) floatingControl.remove();
+                let dash = clone.querySelector('#adminDashboard'); if(dash) dash.style.display = 'none';
+                let modal = clone.querySelector('#adminLoginModal'); if(modal) modal.style.display = 'none';
+                let upModal = clone.querySelector('#innerUploadModal'); if(upModal) upModal.style.display = 'none';
+                let viewModal = clone.querySelector('#viewNotifModal'); if(viewModal) viewModal.style.display = 'none';
+                let floatingControlImg = clone.querySelector('#admin-img-controls'); if(floatingControlImg) floatingControlImg.remove();
+                let floatingControlTxt = clone.querySelector('#admin-text-controls'); if(floatingControlTxt) floatingControlTxt.remove();
 
                 clone.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
-                let homeP = clone.querySelector('#page-home');
-                if(homeP) homeP.classList.add('active');
+                let homeP = clone.querySelector('#page-home'); if(homeP) homeP.classList.add('active');
                 
-                // Reset admin visual cues
-                const tagLbl = clone.querySelector('#adminTagLabel');
-                if(tagLbl) { tagLbl.innerText = "ADMIN"; tagLbl.style.color = ""; }
+                const tagLbl = clone.querySelector('#adminTagLabel'); if(tagLbl) { tagLbl.innerText = "ADMIN"; tagLbl.style.color = ""; }
 
-                const editables = clone.querySelectorAll('.editable-active');
-                editables.forEach(el => {
-                    el.removeAttribute('contenteditable');
-                    el.classList.remove('editable-active');
-                    el.style.border = '';
-                    el.style.padding = '';
+                clone.querySelectorAll('.editable-active').forEach(el => {
+                    el.removeAttribute('contenteditable'); el.classList.remove('editable-active');
+                    el.style.border = ''; el.style.padding = ''; el.onclick = null;
                 });
                 
-                const medias = clone.querySelectorAll('.media-editable');
-                medias.forEach(el => {
-                    el.classList.remove('media-editable');
-                    el.removeAttribute('title');
-                    el.style.outline = '';
-                    el.onclick = null;
+                clone.querySelectorAll('.media-editable').forEach(el => {
+                    el.classList.remove('media-editable'); el.removeAttribute('title');
+                    el.style.outline = ''; el.onclick = null;
                 });
-
-                const adminControls = clone.querySelectorAll('.admin-item-controls');
-                adminControls.forEach(el => el.remove());
-                const draggableItems = clone.querySelectorAll('.showcase-item[draggable]');
-                draggableItems.forEach(el => el.removeAttribute('draggable'));
 
                 const fullHTML = "<!DOCTYPE html>\n<html lang=\"en\">\n" + clone.innerHTML + "\n</html>";
                 const base64Content = stringToBase64UTF8(fullHTML);
 
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: 'Updated Live via Secure Admin Panel',
-                        content: base64Content,
-                        sha: sha
-                    })
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: 'Updated Site Layout & Positions via Secure Admin Panel', content: base64Content, sha: sha })
                 });
 
-                if (putResponse.ok) {
-                    alert('🎉 Changes saved to Live Site successfully!');
-                } else {
-                    const errorDetails = await putResponse.json();
-                    throw new Error(errorDetails.message || "Failed to update GitHub");
-                }
+                if (putResponse.ok) alert('🎉 Awesome! Layout and changes saved to Live Site successfully!');
+                else { const errorDetails = await putResponse.json(); throw new Error(errorDetails.message || "Failed to update GitHub"); }
             } catch (error) {
-                console.error("Save Error:", error);
-                alert('Save Error: ' + error.message);
+                console.error("Save Error:", error); alert('Save Error: ' + error.message);
             } finally {
                 saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site';
                 saveBtn.disabled = false;
             }
         }
     </script>
-    
-    <!-- External JS Link for 3D Tilt Effect -->
     <script src="js/script.js"></script>
 </body>
 </html>
+
