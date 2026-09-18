@@ -172,7 +172,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.6); margin: 0; padding: 0;
         }
         .admin-item-controls button.drag-handle { background: #00d2ff; cursor: grab; }
-        .admin-item-controls button.delete-btn { background: #dc3545; color: white; cursor: pointer; } /* Delete Button Style */
+        .admin-item-controls button.delete-btn { background: #dc3545; color: white; cursor: pointer; } 
         
         .showcase-item.dragging {
             opacity: 0.5; border: 3px dashed #00d2ff; transform: scale(0.95) !important;
@@ -459,6 +459,9 @@
     <script>
         // ================= PAGE ROUTING LOGIC ================= //
         function navigateTo(pageId) {
+            // Check if user is currently editing a navigation link, prevent redirection
+            if (document.activeElement && document.activeElement.classList.contains('editable-active')) return;
+            
             document.querySelectorAll('.page-view').forEach(page => {
                 page.classList.remove('active');
             });
@@ -470,6 +473,9 @@
         }
 
         function goToHomeSection(sectionId) {
+            // Check if user is currently editing a navigation link, prevent redirection
+            if (document.activeElement && document.activeElement.classList.contains('editable-active')) return;
+
             navigateTo('home');
             setTimeout(() => {
                 document.getElementById(sectionId).scrollIntoView({behavior: 'smooth'});
@@ -494,6 +500,8 @@
             if(!track) return;
             const totalSlides = track.children.length;
             
+            if (totalSlides === 0) return; // Prevent errors if all images deleted
+
             currentSlideIndex += direction;
             if (currentSlideIndex < 0) currentSlideIndex = totalSlides - 1;
             if (currentSlideIndex >= totalSlides) currentSlideIndex = 0;
@@ -527,7 +535,7 @@
 
         function handleAdminBadgeClick() {
             if (localStorage.getItem('mani_admin_logged') === 'true') {
-                alert('Admin Mode is already Active! 🚀 You can edit text, click photos to zoom or upload, drag items, and delete them.');
+                alert('Admin Mode is already Active! 🚀 You can edit text, click photos to zoom/upload/delete, drag items, and delete them.');
             } else {
                 openAdminLogin();
             }
@@ -551,7 +559,7 @@
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
                 closeAdminLogin();
-                alert('Admin Logged In Successfully! 🚀 You can now edit text, photos, and drag/delete items.');
+                alert('Admin Logged In Successfully! 🚀 You can now edit text everywhere, edit photos, and drag/delete items.');
                 activateAdminMode();
             } else {
                 alert('Incorrect Username or Password!');
@@ -569,7 +577,9 @@
             document.getElementById('adminTagLabel').innerText = "ADMIN (LOGGED IN)";
             document.getElementById('adminTagLabel').style.color = "#28a745";
             
-            const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-name):not(.admin-tag)');
+            // UPDATED SELECTOR: Added .nav-links a, footer texts, admin name, buttons etc. so everything can be edited!
+            const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-tag), .nav-links a, .footer-logo, footer p, .email-text, .admin-name, .btn-primary, .btn-main, .btn-secondary, label');
+            
             textElements.forEach(el => {
                 el.contentEditable = "true";
                 el.classList.add('editable-active');
@@ -631,7 +641,7 @@
                         document.querySelectorAll('.showcase-item').forEach(el => el.classList.remove('over'));
                     });
 
-                    // ADDED: Delete Button included in controls
+                    // Delete Button included in controls
                     let controlsHTML = document.createElement('div');
                     controlsHTML.className = 'admin-item-controls';
                     controlsHTML.innerHTML = `
@@ -784,12 +794,12 @@
             if (localStorage.getItem('mani_admin_logged') === 'true') activateAdminMode();
         }
 
-        // ================= MEDIA EDIT & ZOOM HANDLERS ================= //
+        // ================= MEDIA EDIT, ZOOM & DELETE HANDLERS ================= //
         function bindMediaClickHandlers() {
             const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
             mediaElements.forEach(elem => {
                 elem.classList.add('media-editable');
-                elem.title = "Click to Edit, Upload, or Zoom";
+                elem.title = "Click to Edit, Upload, Zoom, or Delete";
                 elem.onclick = function(e) {
                     if (localStorage.getItem('mani_admin_logged') === 'true') {
                         e.preventDefault();
@@ -810,7 +820,7 @@
             let controls = document.createElement('div');
             controls.id = 'admin-img-controls';
             controls.style.position = 'absolute';
-            controls.style.left = Math.min(e.pageX, window.innerWidth - 260) + 'px';
+            controls.style.left = Math.min(e.pageX, window.innerWidth - 300) + 'px';
             controls.style.top = (e.pageY + 10) + 'px';
             controls.style.background = '#10101a';
             controls.style.border = '2px solid #00d2ff';
@@ -821,14 +831,36 @@
             controls.style.gap = '6px';
             controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
 
+            // NEW: Added Trash (Delete) Button here!
             controls.innerHTML = `
-                <button onclick="document.getElementById('adminFileInput').click()" style="background:#00d2ff; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;"><i class="fa-solid fa-upload"></i></button>
-                <button onclick="changePhotoByUrl()" style="background:#ffc107; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;"><i class="fa-solid fa-link"></i></button>
+                <button onclick="document.getElementById('adminFileInput').click()" style="background:#00d2ff; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Upload"><i class="fa-solid fa-upload"></i></button>
+                <button onclick="changePhotoByUrl()" style="background:#ffc107; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Paste URL"><i class="fa-solid fa-link"></i></button>
                 <button onclick="zoomElement(0.1)" style="background:#28a745; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i> +</button>
                 <button onclick="zoomElement(-0.1)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i> -</button>
+                <button onclick="deleteMediaElement()" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Delete Image/Video"><i class="fa-solid fa-trash"></i></button>
                 <button onclick="this.parentElement.remove()" style="background:transparent; color:red; border:none; cursor:pointer; font-size:18px; padding:0 4px;">&times;</button>
             `;
             document.body.appendChild(controls);
+        }
+
+        // NEW: Function to delete slider images or any media element
+        function deleteMediaElement() {
+            if (confirm("Are you sure you want to completely delete this image/video?")) {
+                if (currentTargetElement) {
+                    currentTargetElement.remove();
+                    let controls = document.getElementById('admin-img-controls');
+                    if (controls) controls.remove();
+                    
+                    // If it was a slider image, reset the slider view to prevent empty spaces
+                    const track = document.getElementById('frontSliderTrack');
+                    if (track) {
+                        currentSlideIndex = 0;
+                        track.style.transform = `translateX(0%)`;
+                    }
+                    
+                    currentTargetElement = null;
+                }
+            }
         }
 
         function zoomElement(step) {
@@ -1052,8 +1084,6 @@
     </script>
     
     <!-- External JS Link for 3D Tilt Effect -->
-    <!-- अगर आपकी JS फाइल किसी फोल्डर में है, तो उसका नाम यहाँ सही कर लें -->
     <script src="js/script.js"></script>
 </body>
 </html>
-
