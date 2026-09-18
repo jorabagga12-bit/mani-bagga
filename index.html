@@ -340,11 +340,11 @@
         </div>
     </div>
 
-    <!-- ADMIN EDIT NOTIFICATION MODAL -->
+    <!-- ADMIN ADD/EDIT NOTIFICATION MODAL -->
     <div id="innerUploadModal" class="admin-modal">
         <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); max-width: 500px;">
             <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
-            <h2><i class="fa-solid fa-bell"></i> Edit Notification</h2>
+            <h2 id="notifModalHeader"><i class="fa-solid fa-bell"></i> Add/Edit Notification</h2>
             
             <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">1. Enter Title:</p>
             <input type="text" id="notifEditTitle" placeholder="Notification Title..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box;">
@@ -355,8 +355,8 @@
             <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">3. Upload Photo/Video (Optional):</p>
             <input type="file" id="notifMediaFile" accept="image/*,video/*" style="background:#1a1a2e; border:1px dashed #00d2ff; padding:10px; width:100%; border-radius:5px; color:white; margin-bottom:20px; cursor:pointer; box-sizing:border-box;">
             
-            <button onclick="confirmNotifUpdate(event)" style="background:#00d2ff; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; font-size: 16px;">
-                <i class="fa-solid fa-check-circle"></i> UPDATE NOTIFICATION
+            <button id="notifSubmitBtn" onclick="confirmNotifAction(event)" style="background:#00d2ff; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; font-size: 16px;">
+                <i class="fa-solid fa-check-circle"></i> SAVE NOTIFICATION
             </button>
         </div>
     </div>
@@ -455,7 +455,7 @@
             if(btn) {
                 let messagesList = JSON.parse(localStorage.getItem('mani_user_messages') || '[]');
                 btn.innerHTML = `<i class="fa-solid fa-envelope-open-text"></i> View Messages (${messagesList.length})`;
-                if(messagesList.length > 0) btn.style.background = "#e91e63"; // Highlight if there are messages
+                if(messagesList.length > 0) btn.style.background = "#e91e63"; 
                 else btn.style.background = "#8a2be2";
             }
         }
@@ -482,6 +482,174 @@
         function clearAllMessages() {
             if(confirm('Are you sure you want to delete all messages? This cannot be undone.')) {
                 localStorage.removeItem('mani_user_messages'); openAdminMessages(); updateMessageCounter();
+            }
+        }
+
+        // ================= NOTIFICATION SYSTEM (FIXED & FULLY WORKING) ================= //
+        let currentActiveNotifItem = null;
+
+        function viewNotification(item) {
+            currentActiveNotifItem = item;
+            const title = item.querySelector('.notif-title').innerText;
+            const desc = item.querySelector('.notif-desc').innerText;
+            const imgElem = item.querySelector('img.notif-hidden-media');
+            const vidElem = item.querySelector('video.notif-hidden-media');
+
+            document.getElementById('viewNotifTitle').innerText = title;
+            document.getElementById('viewNotifDesc').innerText = desc;
+
+            const modalImg = document.getElementById('viewNotifImg');
+            const modalVid = document.getElementById('viewNotifVid');
+
+            modalImg.style.display = 'none';
+            modalVid.style.display = 'none';
+
+            if (imgElem && imgElem.src) {
+                modalImg.src = imgElem.src;
+                modalImg.style.display = 'block';
+            } else if (vidElem && vidElem.src) {
+                modalVid.src = vidElem.src;
+                modalVid.style.display = 'block';
+            }
+
+            // Show Edit button inside popup if admin is logged in
+            if (localStorage.getItem('mani_admin_logged') === 'true') {
+                document.getElementById('adminEditNotifBtn').style.display = 'block';
+            } else {
+                document.getElementById('adminEditNotifBtn').style.display = 'none';
+            }
+
+            document.getElementById('viewNotifModal').style.display = 'flex';
+        }
+
+        function closeViewNotif(e) {
+            if(e && e.target !== document.getElementById('viewNotifModal')) return;
+            document.getElementById('viewNotifModal').style.display = 'none';
+            const modalVid = document.getElementById('viewNotifVid');
+            modalVid.pause();
+            currentActiveNotifItem = null;
+        }
+
+        function addNewNotification() {
+            currentActiveNotifItem = null; // New item creation
+            document.getElementById('notifModalHeader').innerHTML = '<i class="fa-solid fa-bell"></i> Add New Notification';
+            document.getElementById('notifEditTitle').value = '';
+            document.getElementById('notifEditDesc').value = '';
+            document.getElementById('notifMediaFile').value = '';
+            document.getElementById('notifSubmitBtn').innerHTML = '<i class="fa-solid fa-plus-circle"></i> PUBLISH NOTIFICATION';
+            document.getElementById('innerUploadModal').style.display = 'flex';
+        }
+
+        function openUploadModalFromView() {
+            if(!currentActiveNotifItem) return;
+            document.getElementById('viewNotifModal').style.display = 'none';
+            document.getElementById('notifModalHeader').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Edit Notification';
+            document.getElementById('notifEditTitle').value = currentActiveNotifItem.querySelector('.notif-title').innerText;
+            document.getElementById('notifEditDesc').value = currentActiveNotifItem.querySelector('.notif-desc').innerText;
+            document.getElementById('notifMediaFile').value = '';
+            document.getElementById('notifSubmitBtn').innerHTML = '<i class="fa-solid fa-check-circle"></i> UPDATE NOTIFICATION';
+            document.getElementById('innerUploadModal').style.display = 'flex';
+        }
+
+        function closeUploadModal(e) {
+            document.getElementById('innerUploadModal').style.display = 'none';
+        }
+
+        function confirmNotifAction(e) {
+            e.preventDefault();
+            const title = document.getElementById('notifEditTitle').value.trim();
+            const desc = document.getElementById('notifEditDesc').value.trim();
+            const fileInput = document.getElementById('notifMediaFile');
+            
+            if(!title || !desc) {
+                alert('Please enter both title and message.');
+                return;
+            }
+
+            const todayDate = new Date().toLocaleDateString('en-GB').split('/').join('-');
+
+            if (currentActiveNotifItem) {
+                // Edit existing
+                currentActiveNotifItem.querySelector('.notif-title').innerText = title;
+                currentActiveNotifItem.querySelector('.notif-desc').innerText = desc;
+                
+                if (fileInput.files && fileInput.files[0]) {
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        const fileData = evt.target.result;
+                        let oldImg = currentActiveNotifItem.querySelector('img.notif-hidden-media');
+                        let oldVid = currentActiveNotifItem.querySelector('video.notif-hidden-media');
+                        if(oldImg) oldImg.remove();
+                        if(oldVid) oldVid.remove();
+
+                        const textContainer = currentActiveNotifItem.querySelector('.notif-text');
+                        if(file.type.startsWith('image/')) {
+                            let newImg = document.createElement('img');
+                            newImg.src = fileData;
+                            newImg.className = 'media-target notif-hidden-media';
+                            newImg.style.display = 'none';
+                            textContainer.appendChild(newImg);
+                        } else if(file.type.startsWith('video/')) {
+                            let newVid = document.createElement('video');
+                            newVid.src = fileData;
+                            newVid.className = 'media-target notif-hidden-media';
+                            newVid.style.display = 'none';
+                            textContainer.appendChild(newVid);
+                        }
+                        bindMediaClickHandlers();
+                        alert('Notification Updated Successfully!');
+                        closeUploadModal();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Notification Updated Successfully!');
+                    closeUploadModal();
+                }
+            } else {
+                // Create brand new notification item
+                const wrapper = document.getElementById('notifWrapper');
+                const newItem = document.createElement('div');
+                newItem.className = 'notif-list-item';
+                newItem.onclick = function() { viewNotification(newItem); };
+
+                let mediaHTML = '';
+                if (fileInput.files && fileInput.files[0]) {
+                    // We will read it synchronously/via FileReader before appending
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        const fileData = evt.target.result;
+                        let tagMarkup = file.type.startsWith('video/') ? 
+                            `<video src="${fileData}" class="media-target notif-hidden-media" style="display:none;"></video>` : 
+                            `<img src="${fileData}" class="media-target notif-hidden-media" style="display:none;">`;
+                        
+                        newItem.innerHTML = `
+                            <div class="notif-date">${todayDate}</div>
+                            <div class="notif-text">
+                                <div class="notif-title">${title}</div>
+                                <div class="notif-desc" style="display:none;">${desc}</div>
+                                ${tagMarkup}
+                            </div>
+                        `;
+                        wrapper.insertBefore(newItem, wrapper.firstChild);
+                        bindMediaClickHandlers();
+                        alert('New Notification Published Successfully! Go to Notifications page to view it.');
+                        closeUploadModal();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    newItem.innerHTML = `
+                        <div class="notif-date">${todayDate}</div>
+                        <div class="notif-text">
+                            <div class="notif-title">${title}</div>
+                            <div class="notif-desc" style="display:none;">${desc}</div>
+                        </div>
+                    `;
+                    wrapper.insertBefore(newItem, wrapper.firstChild);
+                    alert('New Notification Published Successfully! Go to Notifications page to view it.');
+                    closeUploadModal();
+                }
             }
         }
 
@@ -532,7 +700,6 @@
         }
 
         function activateAdminMode() {
-            // Dashboard now visible for Admin ONLY
             document.getElementById('adminDashboard').style.display = 'block';
             document.getElementById('adminTagLabel').innerText = "ADMIN (LOGGED IN)";
             document.getElementById('adminTagLabel').style.color = "#28a745";
@@ -561,6 +728,75 @@
             }
         }
 
+        // ================= ADD NEW GALLERY CARD (FIXED) ================= //
+        function addNewMediaCard() {
+            const galleryContainer = document.getElementById('galleryContainer');
+            if(!galleryContainer) {
+                alert('Gallery section not found on page!');
+                return;
+            }
+            const newItem = document.createElement('div');
+            newItem.className = 'showcase-item';
+            newItem.innerHTML = `
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="New Gallery Item" class="media-target">
+                <div class="showcase-overlay">
+                    <h4 contenteditable="true" class="editable-active">New Epic Moment</h4>
+                    <p contenteditable="true" class="editable-active">BGMI Gameplay Highlight</p>
+                </div>
+            `;
+            galleryContainer.appendChild(newItem);
+            bindMediaClickHandlers();
+            alert('New Gallery Card Added Successfully!');
+        }
+
+        // ================= ADD YOUTUBE VIDEO CARD (FIXED) ================= //
+        function addYouTubeVideo() {
+            let ytUrl = prompt("Enter YouTube Video ID or Embed/Watch URL:");
+            if(!ytUrl) return;
+            
+            // Extract simple ID or use direct link if valid
+            let videoEmbedUrl = ytUrl;
+            if(ytUrl.includes("watch?v=")) {
+                let parts = ytUrl.split('watch?v=');
+                let vidId = parts[1].split('&')[0];
+                videoEmbedUrl = `https://www.youtube.com/embed/${vidId}`;
+            } else if(ytUrl.length === 11) {
+                videoEmbedUrl = `https://www.youtube.com/embed/${ytUrl}`;
+            }
+
+            const galleryContainer = document.getElementById('galleryContainer');
+            if(!galleryContainer) return;
+
+            const newItem = document.createElement('div');
+            newItem.className = 'showcase-item';
+            newItem.innerHTML = `
+                <iframe width="100%" height="220" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px;"></iframe>
+                <div class="showcase-overlay" style="position:relative; background:rgba(0,0,0,0.8); padding:10px; margin-top:5px; border-radius:5px;">
+                    <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
+                    <p contenteditable="true" class="editable-active">Watch full match on channel</p>
+                </div>
+            `;
+            galleryContainer.appendChild(newItem);
+            alert('YouTube Video Card Added Successfully!');
+        }
+
+        // ================= ADD CUSTOM TEXT CARD (FIXED) ================= //
+        function addNewTextCard() {
+            const galleryContainer = document.getElementById('galleryContainer');
+            if(!galleryContainer) return;
+
+            const newItem = document.createElement('div');
+            newItem.className = 'showcase-item custom-text-card';
+            newItem.innerHTML = `
+                <div>
+                    <h3 contenteditable="true" class="editable-active" style="color:#00d2ff; margin-bottom:10px;">Custom Announcement</h3>
+                    <p contenteditable="true" class="editable-active" style="color:white; font-size:15px;">Write your custom message or tournament details here...</p>
+                </div>
+            `;
+            galleryContainer.appendChild(newItem);
+            alert('Custom Text Card Added Successfully!');
+        }
+
         // ================= MOVE / DRAG SYSTEM ================= //
         function toggleMoveMode() {
             isMoveModeActive = !isMoveModeActive;
@@ -586,7 +822,7 @@
             let currentTime = new Date().getTime(); let isDoubleTap = ((currentTime - lastTapTime) < 400 && (currentTime - lastTapTime) > 0);
             
             if (isMoveModeActive || isDoubleTap) {
-                let target = e.target.closest('a, li, .logo, .nav-links, h1, h2, h3, h4, p, span, img, video, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
+                let target = e.target.closest('a, li, .logo, .nav-links, h1, h2, h3, h4, p, span, img, video, iframe, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
                 
                 if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
                     activeFreeDrag = target;
@@ -713,14 +949,12 @@
                 if (!getResponse.ok) throw new Error("GitHub Repository File or Token Invalid!");
                 const fileData = await getResponse.json(); const sha = fileData.sha;
 
-                // Ensure tools are visually closed before cloning
                 const toolsMenu = document.getElementById('adminEditTools');
                 const wasOpen = toolsMenu.style.display === 'block';
-                if(wasOpen) toggleEditWebsiteTools(); // Close it
+                if(wasOpen) toggleEditWebsiteTools(); 
 
                 let clone = document.documentElement.cloneNode(true);
                 
-                // Hide purely admin things in clone
                 let dash = clone.querySelector('#adminDashboard'); if(dash) dash.style.display = 'none'; // CRITICAL: Hidden for normal users
                 let modal = clone.querySelector('#adminLoginModal'); if(modal) modal.style.display = 'none';
                 let upModal = clone.querySelector('#innerUploadModal'); if(upModal) upModal.style.display = 'none';
@@ -749,13 +983,13 @@
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
                     headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: 'Added Toggle Edit Tools & Hidden Messages Panel', content: base64Content, sha: sha })
+                    body: JSON.stringify({ message: 'Fixed Gallery, Video, and Notification Adding Tools', content: base64Content, sha: sha })
                 });
 
-                if (putResponse.ok) alert('🎉 Awesome! Layout and changes saved to Live Site successfully!');
+                if (putResponse.ok) alert('🎉 Awesome! All tools & layout saved to Live Site successfully!');
                 else { const errorDetails = await putResponse.json(); throw new Error(errorDetails.message || "Failed to update GitHub"); }
                 
-                if(wasOpen) toggleEditWebsiteTools(); // Reopen if it was open
+                if(wasOpen) toggleEditWebsiteTools(); 
 
             } catch (error) {
                 console.error("Save Error:", error); alert('Save Error: ' + error.message);
