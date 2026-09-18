@@ -125,7 +125,7 @@
             text-align: center; color: white; position: relative;
         }
         .admin-box h2 { margin-bottom: 20px; color: #00d2ff; }
-        .admin-box input, .admin-box textarea {
+        .admin-box input {
             width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #00d2ff;
             background: #2a2a40; color: white; outline: none; box-sizing: border-box;
         }
@@ -139,29 +139,19 @@
         /* Floating Admin Dashboard */
         .admin-dashboard {
             display: none; position: fixed; bottom: 20px; right: 20px; background: #10101a;
-            color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9999; font-weight: bold;
+            color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold;
             border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 230px;
         }
         .admin-dashboard button {
             background: #00d2ff; color: #000; border: none; padding: 8px 10px;
             margin-top: 8px; cursor: pointer; border-radius: 5px; width: 100%; font-weight: bold;
-            transition: 0.2s ease; font-size: 13px;
+            transition: 0.2s ease;
         }
         .admin-dashboard button:hover { transform: translateY(-2px); }
-        .btn-save { background: #28a745 !important; color: white !important; font-size: 14px !important; }
+        .btn-save { background: #28a745 !important; color: white !important; }
         
-        .editable-active { border: 1px dashed rgba(0, 210, 255, 0.5) !important; padding: 2px; cursor: pointer; }
+        .editable-active { border: 1px dashed #00d2ff !important; padding: 2px; }
         .media-editable { cursor: pointer; outline: 3px dashed #00d2ff !important; }
-
-        /* ALIGNMENT GRID CSS */
-        body.grid-active::before {
-            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: 
-                linear-gradient(rgba(0, 210, 255, 0.35) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 210, 255, 0.35) 1px, transparent 1px);
-            background-size: 40px 40px; /* Adjust spacing here */
-            z-index: 9997; pointer-events: none;
-        }
 
         /* CUSTOM TEXT CARD STYLE */
         .custom-text-card {
@@ -172,7 +162,7 @@
         }
     </style>
 </head>
-<body><canvas id="particles-canvas" width="1528" height="732" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
+<body>
 
     <!-- Background 3D Shapes -->
     <div class="bg-shape shape-1"></div>
@@ -184,22 +174,29 @@
             <div class="admin-badge-left" onclick="handleAdminBadgeClick()" style="cursor: pointer;" title="Click to open Admin Login Panel">
                 <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
                 <div class="admin-info">
-                    <span class="admin-name" style="font-size: 17px; text-align: right; display: block;">MANI M4</span>
-                    <span class="admin-tag" id="adminTagLabel" style="">ADMIN</span>
+                    <span class="admin-name">MANI M4</span>
+                    <span class="admin-tag" id="adminTagLabel">ADMIN</span>
                 </div>
             </div>
 
             <div class="logo">
-                <i class="fa-solid fa-gamepad"></i> MANI<span class="" style="font-size: 26px; position: relative; left: -14px; top: 98px;">M4YT</span>
+                <i class="fa-solid fa-gamepad"></i> MANI<span>M4YT</span>
             </div>
 
             <ul class="nav-links">
-                <li><a href="#" onclick="navigateTo('home')" class="">HOME</a></li>
-                <li><a href="#" onclick="goToHomeSection('features')" class="">TIPS</a></li>
-                <li><a href="#" onclick="goToHomeSection('showcase')" class="">GALLERY</a></li>
-                <li><a href="#" onclick="goToHomeSection('about')" class="">LIVE</a></li>
-                <li><a href="#" onclick="navigateTo('notifications')" style="color:#00d2ff;" class="">NOTIFICATIONS</a></li>
+                <li><a href="#" onclick="navigateTo('home')">HOME</a></li>
+                <li><a href="#" onclick="goToHomeSection('features')">TIPS</a></li>
+                <li><a href="#" onclick="goToHomeSection('showcase')">GALLERY</a></li>
+                <li><a href="#" onclick="goToHomeSection('about')">LIVE</a></li>
+                <li><a href="#" onclick="navigateTo('notifications')" style="color:#00d2ff;">NOTIFICATIONS</a></li>
                 <li><a href="#" onclick="navigateTo('contact')" class="btn-primary">CONTACT DIRECT</a></li>
+                
+                <!-- NEW ADMIN MOVE BUTTON (Hidden by default) -->
+                <li id="nav-admin-change" style="display: none;">
+                    <a href="#" onclick="toggleMoveMode()" style="color:#ffc107; font-weight:bold; border: 1px dashed #ffc107; padding: 5px 10px; border-radius: 5px;">
+                        <i class="fa-solid fa-arrows-up-down-left-right"></i> MOVE ITEMS
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -211,8 +208,8 @@
             <div class="hero-container">
                 <div class="hero-text">
                     <span class="badge">eSports Gaming</span>
-                    <h1 class="">YouTube <span class="highlight">MANI M4 PRO</span></h1>
-                    <p class="">🔥 WELCOME TO GAMING WORLD 🔥 — BGMI &amp; PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
+                    <h1>YouTube <span class="highlight">MANI M4 PRO</span></h1>
+                    <p>🔥 WELCOME TO GAMING WORLD 🔥 — BGMI & PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
                     <div class="hero-btns">
                         <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="btn-main"><i class="fa-brands fa-youtube"></i> YouTube</a>
                         <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="btn-secondary"><i class="fa-brands fa-instagram"></i> Instagram</a>
@@ -220,19 +217,19 @@
                 </div>
                 
                 <div class="hero-3d-card-wrapper">
-                    <div class="card-3d-main" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(-1.26deg) rotateY(0.32deg) scale3d(1.03, 1.03, 1.03); transition: transform 0.1s ease-out;">
+                    <div class="card-3d-main" id="tilt-card" style="position:relative;">
                         <div class="slider-wrapper">
-                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
-                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(0%);">
-                                <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
-                                <img src="images/feature2.jpg" alt="Front 2" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
-                                <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
+                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">&#10094;</button>
+                            <div class="slider-track" id="frontSliderTrack">
+                                <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">
+                                <img src="images/feature2.jpg" alt="Front 2" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'">
+                                <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80'">
                             </div>
-                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">❯</button>
+                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">&#10095;</button>
                         </div>
                         <div class="card-glass-overlay">
-                            <h3 class="">Subscribe &amp; Stay Connected</h3>
-                            <p class="">Subscribe to MANI M4YT Channel and become a part of our family!</p>
+                            <h3>Subscribe & Stay Connected</h3>
+                            <p>Subscribe to MANI M4YT Channel and become a part of our family!</p>
                         </div>
                     </div>
                 </div>
@@ -244,29 +241,29 @@
             <h2 class="section-title">MAIN <span class="highlight">FEATURES</span></h2>
             <p class="section-subtitle">Special facilities for Gamers</p>
             <div class="cards-grid">
-                <div class="card-3d" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="card-3d">
                     <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
                     <div class="card-img-container">
-                        <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                        <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
                     </div>
-                    <h3 class="">BGMI Live Highlights</h3>
-                    <p class="">CAN YOU SUBSCRIBE.</p>
+                    <h3>BGMI Live Highlights</h3>
+                    <p>CAN YOU SUBSCRIBE.</p>
                 </div>
-                <div class="card-3d" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="card-3d">
                     <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
                     <div class="card-img-container">
-                        <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                        <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
                     </div>
-                    <h3 class="">eSports Custom Rooms</h3>
-                    <p class="">JOIN FOR TOURNAMENT PROGRAMS.</p>
+                    <h3>eSports Custom Rooms</h3>
+                    <p>JOIN FOR TOURNAMENT PROGRAMS.</p>
                 </div>
-                <div class="card-3d" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="card-3d">
                     <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
                     <div class="card-img-container">
-                        <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                        <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'">
                     </div>
-                    <h3 class="">Pro Controls &amp; Sensitivity</h3>
-                    <p class="">FULL GUIDE IN ESPORTS MANIM4.YT.</p>
+                    <h3>Pro Controls & Sensitivity</h3>
+                    <p>FULL GUIDE IN ESPORTS MANIM4.YT.</p>
                 </div>
             </div>
         </section>
@@ -275,25 +272,25 @@
         <section id="showcase" class="showcase-section">
             <h2 class="section-title">BGMI / PUBG <span class="highlight">3D GALLERY</span></h2>
             <div class="showcase-grid" id="galleryContainer">
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                    <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                <div class="showcase-item">
+                    <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
                     <div class="showcase-overlay">
-                        <h4 class="">Clutch Moments</h4>
-                        <p class="">1v4 BGMI Gameplay</p>
+                        <h4>Clutch Moments</h4>
+                        <p>1v4 BGMI Gameplay</p>
                     </div>
                 </div>
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                    <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                <div class="showcase-item">
+                    <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
                     <div class="showcase-overlay">
-                        <h4 class="">eSports Arena</h4>
-                        <p class="">Custom Scrims</p>
+                        <h4>eSports Arena</h4>
+                        <p>Custom Scrims</p>
                     </div>
                 </div>
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                    <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                <div class="showcase-item">
+                    <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'">
                     <div class="showcase-overlay">
-                        <h4 class="">Pro Setup</h4>
-                        <p class="">LIVE M4YT</p>
+                        <h4>Pro Setup</h4>
+                        <p>LIVE M4YT</p>
                     </div>
                 </div>
             </div>
@@ -302,8 +299,8 @@
         <!-- About Us -->
         <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.6);">
             <h2 class="section-title">ABOUT <span class="highlight">US</span></h2>
-            <div class="about-card" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                <p class="">Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
+            <div class="about-card">
+                <p>Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
             </div>
         </section>
     </div>
@@ -319,7 +316,7 @@
                     <div class="notif-text">
                         <div class="notif-title">Welcome to the new Esports Hub! (Click for details)</div>
                         <div class="notif-desc" style="display:none;">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys!</div>
-                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="media-target notif-hidden-media" style="display:none;">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" class="media-target notif-hidden-media" style="display:none;">
                     </div>
                 </div>
             </div>
@@ -331,18 +328,18 @@
         <h1 class="page-header">MESSAGE <span class="highlight">ADMIN</span></h1>
         
         <div class="contact-page-wrapper">
-            <div class="contact-box admin-box" style="transform: translateY(30px) scale(0.95); max-width: 600px; padding: 40px; opacity: 0; transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                <h2 style="margin-bottom: 20px;" class=""><i class="fa-solid fa-envelope"></i> DIRECT EMAIL SUPPORT</h2>
-                <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;" class="">Send a message directly to manipubji@gmail.com</p>
+            <div class="contact-box admin-box" style="transform: scale(1.1); max-width: 600px; padding: 40px;">
+                <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-envelope"></i> DIRECT EMAIL SUPPORT</h2>
+                <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;">Send a message directly to manipubji@gmail.com</p>
                 
                 <form action="mailto:manipubji@gmail.com" method="post" enctype="text/plain">
                     <div class="form-group" style="text-align: left;">
-                        <label style="color:#00d2ff; font-weight:bold;" class="">YOUR NAME / EMAIL:</label>
-                        <input type="text" name="Name" required="" placeholder="Enter your name...">
+                        <label style="color:#00d2ff; font-weight:bold;">YOUR NAME / EMAIL:</label>
+                        <input type="text" name="Name" required placeholder="Enter your name...">
                     </div>
                     <div class="form-group" style="text-align: left;">
-                        <label style="color:#00d2ff; font-weight:bold;" class="">MESSAGE FOR DEVELOPER:</label>
-                        <textarea name="Message" rows="5" required="" placeholder="Write your message here..."></textarea>
+                        <label style="color:#00d2ff; font-weight:bold;">MESSAGE FOR DEVELOPER:</label>
+                        <textarea name="Message" rows="5" required placeholder="Write your message here..."></textarea>
                     </div>
                     <button type="submit" class="btn-submit" style="font-size: 16px; margin-top: 10px;">
                         <i class="fa-solid fa-paper-plane"></i> SEND EMAIL NOW
@@ -356,7 +353,7 @@
     <footer>
         <div class="footer-container">
             <div class="footer-logo">
-                <i class="fa-solid fa-gamepad"></i> MANI<span class="">M4YT</span>
+                <i class="fa-solid fa-gamepad"></i> MANI<span>M4YT</span>
             </div>
             <div class="social-links">
                 <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="yt-icon"><i class="fa-brands fa-youtube"></i></a>
@@ -365,34 +362,34 @@
             <p class="email-text">
                 <i class="fa-solid fa-envelope"></i> Email: <a href="mailto:manipubji@gmail.com">manipubji@gmail.com</a>
             </p>
-            <p class="">© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
+            <p>© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
         </div>
     </footer>
 
     <!-- ADMIN LOGIN MODAL -->
-    <div id="adminLoginModal" class="admin-modal" style="display: none;">
+    <div id="adminLoginModal" class="admin-modal">
         <div class="admin-box">
-            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:24px; font-weight:bold;">×</span>
-            <h2 class=""><i class="fa-solid fa-user-shield"></i> ADMIN PANEL LOGIN</h2>
+            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:24px; font-weight:bold;">&times;</span>
+            <h2><i class="fa-solid fa-user-shield"></i> ADMIN PANEL LOGIN</h2>
             
             <form onsubmit="handleLogin(event)" autocomplete="off">
-                <input type="text" id="adminUserX" autocomplete="off" placeholder="Enter Username..." required="">
-                <input type="password" id="adminPassX" autocomplete="off" placeholder="Enter Password..." required="">
+                <input type="text" id="adminUserX" autocomplete="off" placeholder="Enter Username..." required>
+                <input type="password" id="adminPassX" autocomplete="off" placeholder="Enter Password..." required>
                 <button type="submit"><i class="fa-solid fa-key"></i> LOG IN TO EDIT SITE</button>
             </form>
         </div>
     </div>
 
     <!-- VIEW NOTIFICATION MODAL -->
-    <div id="viewNotifModal" class="admin-modal" onclick="closeViewNotif(event)" style="display: none;">
+    <div id="viewNotifModal" class="admin-modal" onclick="closeViewNotif(event)">
         <div class="admin-box view-notif-box" style="max-width: 600px; padding: 25px;" onclick="event.stopPropagation()">
-            <span class="close-btn" onclick="closeViewNotif()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
-            <h2 id="viewNotifTitle" style="text-align:left; color:#00d2ff; margin-bottom:15px; font-size:1.4rem;" class="">Title</h2>
+            <span class="close-btn" onclick="closeViewNotif()" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
+            <h2 id="viewNotifTitle" style="text-align:left; color:#00d2ff; margin-bottom:15px; font-size:1.4rem;">Title</h2>
             
             <img id="viewNotifImg" src="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
-            <video id="viewNotifVid" src="" controls="" autoplay="" muted="" loop="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);"></video>
+            <video id="viewNotifVid" src="" controls autoplay muted loop style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);"></video>
             
-            <p id="viewNotifDesc" style="text-align:left; line-height:1.6; color:#b3b3cc; white-space:pre-wrap; font-size:1.1rem;" class=""></p>
+            <p id="viewNotifDesc" style="text-align:left; line-height:1.6; color:#b3b3cc; white-space:pre-wrap; font-size:1.1rem;"></p>
             
             <button id="adminEditNotifBtn" style="display:none; background:#ffc107; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; margin-top: 20px; font-size: 15px;" onclick="openUploadModalFromView()">
                 <i class="fa-solid fa-pen-to-square"></i> EDIT NOTIFICATION (ADMIN ONLY)
@@ -401,18 +398,18 @@
     </div>
 
     <!-- ADMIN EDIT NOTIFICATION MODAL -->
-    <div id="innerUploadModal" class="admin-modal" style="display: none;">
+    <div id="innerUploadModal" class="admin-modal">
         <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); max-width: 500px;">
-            <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
-            <h2 class=""><i class="fa-solid fa-bell"></i> Edit Notification</h2>
+            <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
+            <h2><i class="fa-solid fa-bell"></i> Edit Notification</h2>
             
-            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" class="">1. Enter Title:</p>
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">1. Enter Title:</p>
             <input type="text" id="notifEditTitle" placeholder="Notification Title..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box;">
             
-            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" class="">2. Enter Message/Details:</p>
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">2. Enter Message/Details:</p>
             <textarea id="notifEditDesc" rows="4" placeholder="Write your full message here..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box; resize:none; font-family:inherit;"></textarea>
             
-            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" class="">3. Upload Photo/Video (Optional):</p>
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;">3. Upload Photo/Video (Optional):</p>
             <input type="file" id="notifMediaFile" accept="image/*,video/*" style="background:#1a1a2e; border:1px dashed #00d2ff; padding:10px; width:100%; border-radius:5px; color:white; margin-bottom:20px; cursor:pointer; box-sizing:border-box;">
             
             <button onclick="confirmNotifUpdate(event)" style="background:#00d2ff; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; font-size: 16px;">
@@ -422,14 +419,13 @@
     </div>
 
     <!-- FLOATING ADMIN DASHBOARD -->
-    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
-        <p class=""><i class="fa-solid fa-user-gear"></i> Admin Active</p>
-        <button onclick="toggleGrid()" style="background:#6f42c1; color:white;"><i class="fa-solid fa-border-all"></i> Toggle Grid Lines</button>
+    <div id="adminDashboard" class="admin-dashboard">
+        <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
         <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
         <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
         <button onclick="addNewTextCard()" style="background:#17a2b8; color:white;"><i class="fa-solid fa-font"></i> Add Custom Text</button>
         <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
-        <button onclick="saveChangesToGitHub()" class="btn-save" id="btnSaveLive" disabled=""><i class="fa-solid fa-spinner fa-spin"></i> Saving to Live...</button>
+        <button onclick="saveChangesToGitHub()" class="btn-save" id="btnSaveLive"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
         <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:11px;"><i class="fa-solid fa-right-from-bracket"></i> Logout Admin</button>
         <button onclick="clearSavedToken()" style="background:#6c757d; color:white; font-size:10px;">Reset Git Token</button>
     </div>
@@ -477,9 +473,11 @@
 
         // ================= ADMIN AUTHENTICATION SYSTEM ================= //
         let currentTargetElement = null;
-        window.currentTextTarget = null;
         let activeNotifCard = null;
         let currentViewedNotif = null;
+        
+        // NEW VARIABLE FOR MOVE BUTTON
+        let isMoveModeActive = false; 
 
         const GITHUB_OWNER = 'jorabagga12-bit';       
         const GITHUB_REPO = 'mani-bagga';             
@@ -492,22 +490,16 @@
             }
         });
 
-        // Clear popups when clicking outside
         document.addEventListener('click', function(e) {
-            let imgControls = document.getElementById('admin-img-controls');
-            if(imgControls && !imgControls.contains(e.target) && !e.target.classList.contains('media-target')) {
-                imgControls.remove();
-            }
-            
-            let txtControls = document.getElementById('admin-text-controls');
-            if(txtControls && !txtControls.contains(e.target) && !e.target.classList.contains('editable-active')) {
-                txtControls.remove();
+            let controls = document.getElementById('admin-img-controls');
+            if(controls && !controls.contains(e.target) && !e.target.classList.contains('media-target')) {
+                controls.remove();
             }
         });
 
         function handleAdminBadgeClick() {
             if (localStorage.getItem('mani_admin_logged') === 'true') {
-                alert('Admin Mode is Active! 🚀 \n- DOUBLE TAP & HOLD to move items.\n- CLICK ON TEXT to resize and align.\n- TOGGLE GRID to level perfectly!');
+                alert('Admin Mode is Active! Click "MOVE ITEMS" button in the menu to drag elements anywhere.');
             } else {
                 openAdminLogin();
             }
@@ -531,7 +523,7 @@
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
                 closeAdminLogin();
-                alert('Admin Logged In! 🚀\n\nNEW FEATURES:\n1. Click text to resize (Zoom) and Align.\n2. Toggle Grid lines from dashboard for leveling.\n3. Double tap & hold to free drag anything!');
+                alert('Admin Logged In! 🚀\n\nNEW FEATURE: Click "MOVE ITEMS" in the top menu, then drag and drop any element anywhere!');
                 activateAdminMode();
             } else {
                 alert('Incorrect Username or Password!');
@@ -549,74 +541,38 @@
             document.getElementById('adminTagLabel').innerText = "ADMIN (LOGGED IN)";
             document.getElementById('adminTagLabel').style.color = "#28a745";
             
+            // SHOW THE NEW MOVE BUTTON IN NAVBAR
+            let moveNavBtn = document.getElementById('nav-admin-change');
+            if(moveNavBtn) moveNavBtn.style.display = 'inline-block';
+            
             const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-tag), .nav-links a, .footer-logo, footer p, .email-text, .admin-name, .btn-primary, .btn-main, .btn-secondary, label');
             textElements.forEach(el => {
                 el.contentEditable = "true";
                 el.classList.add('editable-active');
-                
-                // Add click listener for TEXT controls (Zoom / Align)
-                el.onclick = function(e) {
-                    if (localStorage.getItem('mani_admin_logged') === 'true') {
-                        e.stopPropagation();
-                        showAdminTextControls(e, el);
-                    }
-                };
             });
 
             bindMediaClickHandlers();
         }
 
-        // ================= ALIGNMENT GRID TOGGLE ================= //
-        function toggleGrid() {
-            document.body.classList.toggle('grid-active');
+        // ================= NEW: MOVE / DRAG SYSTEM ================= //
+        
+        function toggleMoveMode() {
+            isMoveModeActive = !isMoveModeActive;
+            const btn = document.querySelector('#nav-admin-change a');
+            if(isMoveModeActive) {
+                btn.style.color = '#ffffff'; 
+                btn.style.background = '#ff4d4d'; // Red Background
+                btn.style.borderColor = '#ff4d4d';
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> STOP MOVING';
+                alert('Move Mode is ON! \n\nअब आप किसी भी फोटो, कार्ड या टेक्स्ट पर क्लिक करके उसे माउस से खींच (Drag) कर कहीं भी रख सकते हैं।');
+            } else {
+                btn.style.color = '#ffc107'; // Yellow Text
+                btn.style.background = 'transparent';
+                btn.style.borderColor = '#ffc107';
+                btn.innerHTML = '<i class="fa-solid fa-arrows-up-down-left-right"></i> MOVE ITEMS';
+            }
         }
 
-        // ================= NEW: TEXT ZOOM & ALIGNMENT CONTROLS ================= //
-        function showAdminTextControls(e, elem) {
-            let existing = document.getElementById('admin-text-controls');
-            if(existing) existing.remove();
-
-            let controls = document.createElement('div');
-            controls.id = 'admin-text-controls';
-            controls.style.position = 'absolute';
-            controls.style.left = Math.min(e.pageX, window.innerWidth - 220) + 'px';
-            controls.style.top = (e.pageY - 60) + 'px';
-            controls.style.background = '#10101a';
-            controls.style.border = '2px solid #00d2ff';
-            controls.style.padding = '8px 12px';
-            controls.style.borderRadius = '8px';
-            controls.style.zIndex = '100000';
-            controls.style.display = 'flex';
-            controls.style.gap = '6px';
-            controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
-
-            window.currentTextTarget = elem;
-
-            controls.innerHTML = `
-                <button onclick="changeFontSize(2)" style="background:#28a745; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom Text In">A+</button>
-                <button onclick="changeFontSize(-2)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom Text Out">A-</button>
-                <button onclick="changeAlignment('left')" style="background:#007bff; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Align Left"><i class="fa-solid fa-align-left"></i></button>
-                <button onclick="changeAlignment('center')" style="background:#007bff; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Align Center"><i class="fa-solid fa-align-center"></i></button>
-                <button onclick="changeAlignment('right')" style="background:#007bff; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Align Right"><i class="fa-solid fa-align-right"></i></button>
-                <button onclick="this.parentElement.remove()" style="background:transparent; color:red; border:none; cursor:pointer; font-size:18px; padding:0 4px;">&times;</button>
-            `;
-            document.body.appendChild(controls);
-        }
-
-        function changeFontSize(step) {
-            if(!window.currentTextTarget) return;
-            let style = window.getComputedStyle(window.currentTextTarget);
-            let currentSize = parseFloat(style.fontSize);
-            window.currentTextTarget.style.fontSize = (currentSize + step) + 'px';
-        }
-
-        function changeAlignment(align) {
-            if(!window.currentTextTarget) return;
-            window.currentTextTarget.style.textAlign = align;
-            window.currentTextTarget.style.display = 'block'; // Block required for text-align to work perfectly inside containers
-        }
-
-        // ================= FREE DRAG ANYWHERE (Double Tap & Drag) ================= //
         let activeFreeDrag = null;
         let fDragX = 0, fDragY = 0;
         let lastTapTime = 0;
@@ -626,13 +582,14 @@
             
             let currentTime = new Date().getTime();
             let timeDiff = currentTime - lastTapTime;
+            let isDoubleTap = (timeDiff < 400 && timeDiff > 0);
             
-            // If double tapped within 400ms
-            if (timeDiff < 400 && timeDiff > 0) {
+            // Allow drag if MOVE MODE is ON, OR if user double taps
+            if (isMoveModeActive || isDoubleTap) {
                 let target = e.target.closest('h1, h2, h3, h4, p, span, img, video, .card-3d-main, .showcase-item, .card-3d, .hero-text');
                 
-                // Exclude dragging the admin dashboard or modals
-                if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
+                // Exclude dragging the admin dashboard, modals, or navbar
+                if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal') && !target.closest('.navbar')) {
                     activeFreeDrag = target;
                     
                     if (window.getComputedStyle(activeFreeDrag).position === 'static') {
@@ -647,9 +604,9 @@
                     
                     activeFreeDrag.style.zIndex = "9999";
                     activeFreeDrag.style.cursor = "grabbing";
-                    activeFreeDrag.style.transition = "none"; 
+                    activeFreeDrag.style.transition = "none"; // Disable CSS transition for smooth movement
                     
-                    if(e.cancelable) e.preventDefault(); 
+                    if(e.cancelable) e.preventDefault(); // Stop text selection / mobile scrolling
                 }
             }
             lastTapTime = currentTime;
@@ -667,18 +624,21 @@
             if (activeFreeDrag) {
                 activeFreeDrag.style.cursor = "";
                 activeFreeDrag.style.zIndex = "";
-                activeFreeDrag.style.transition = ""; 
+                activeFreeDrag.style.transition = ""; // Restore transition
                 activeFreeDrag = null;
             }
         }
 
+        // Bind Mouse Events (For PC)
         document.addEventListener('mousedown', (e) => initFreeDrag(e, e.clientX, e.clientY), {passive: false});
         document.addEventListener('mousemove', (e) => handleFreeDragMove(e, e.clientX, e.clientY), {passive: false});
         document.addEventListener('mouseup', stopFreeDrag);
 
+        // Bind Touch Events (For Mobile/Samsung Galaxy)
         document.addEventListener('touchstart', (e) => initFreeDrag(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
         document.addEventListener('touchmove', (e) => handleFreeDragMove(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
         document.addEventListener('touchend', stopFreeDrag);
+        // ================= END MOVE / DRAG SYSTEM ================= //
 
 
         // ================= MEDIA EDIT, ZOOM & DELETE HANDLERS ================= //
@@ -686,9 +646,9 @@
             const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
             mediaElements.forEach(elem => {
                 elem.classList.add('media-editable');
-                elem.title = "Click to Edit | Double-Tap to Drag";
+                elem.title = "Click to Edit Image";
                 elem.onclick = function(e) {
-                    if (localStorage.getItem('mani_admin_logged') === 'true') {
+                    if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { // Only show edit tools if move mode is OFF
                         e.preventDefault(); e.stopPropagation();
                         currentTargetElement = elem;
                         showAdminImageControls(e, elem);
@@ -807,9 +767,6 @@
             saveBtn.disabled = true;
 
             try {
-                // Ensure grid is turned off before saving so the public doesn't see it
-                document.body.classList.remove('grid-active');
-
                 const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
                 const getResponse = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } }); 
                 if (!getResponse.ok) throw new Error("GitHub Repository File or Token Invalid!");
@@ -823,8 +780,10 @@
                 let modal = clone.querySelector('#adminLoginModal'); if(modal) modal.style.display = 'none';
                 let upModal = clone.querySelector('#innerUploadModal'); if(upModal) upModal.style.display = 'none';
                 let viewModal = clone.querySelector('#viewNotifModal'); if(viewModal) viewModal.style.display = 'none';
-                let floatingControlImg = clone.querySelector('#admin-img-controls'); if(floatingControlImg) floatingControlImg.remove();
-                let floatingControlTxt = clone.querySelector('#admin-text-controls'); if(floatingControlTxt) floatingControlTxt.remove();
+                let floatingControl = clone.querySelector('#admin-img-controls'); if(floatingControl) floatingControl.remove();
+                
+                // Hide the move button for public users before saving
+                let moveBtn = clone.querySelector('#nav-admin-change'); if(moveBtn) moveBtn.style.display = 'none';
 
                 clone.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
                 let homeP = clone.querySelector('#page-home'); if(homeP) homeP.classList.add('active');
@@ -833,7 +792,7 @@
 
                 clone.querySelectorAll('.editable-active').forEach(el => {
                     el.removeAttribute('contenteditable'); el.classList.remove('editable-active');
-                    el.style.border = ''; el.style.padding = ''; el.onclick = null;
+                    el.style.border = ''; el.style.padding = '';
                 });
                 
                 clone.querySelectorAll('.media-editable').forEach(el => {
@@ -861,8 +820,5 @@
         }
     </script>
     <script src="js/script.js"></script>
-
-
-
 </body>
 </html>
