@@ -225,7 +225,6 @@
     <!-- Navigation Bar -->
     <header>
         <nav class="navbar">
-            <!-- UPDATED ONCLICK EVENT HERE -->
             <div class="admin-badge-left" onclick="handleAdminBadgeClick(event)" style="cursor: pointer;" title="Click to open Admin Login Panel">
                 <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
                 <div class="admin-info">
@@ -1146,7 +1145,7 @@
 
             let controls = document.createElement('div'); controls.id = 'admin-text-controls';
             controls.style.position = 'absolute'; 
-            controls.style.left = Math.min(e.pageX, window.innerWidth - 250) + 'px'; 
+            controls.style.left = Math.min(e.pageX, window.innerWidth - 350) + 'px'; 
             controls.style.top = (e.pageY - 50) + 'px';
             controls.style.background = '#10101a'; 
             controls.style.border = '2px solid #00d2ff'; 
@@ -1160,6 +1159,8 @@
             controls.innerHTML = `
                 <button onclick="changeTextSize(2, event)" style="background:#28a745; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Increase Size"><i class="fa-solid fa-plus"></i> A</button>
                 <button onclick="changeTextSize(-2, event)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Decrease Size"><i class="fa-solid fa-minus"></i> A</button>
+                <button onclick="resizeBoxByElement(30, currentTextElement)" style="background:#8a2be2; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Make Box Bigger">Box <i class="fa-solid fa-plus"></i></button>
+                <button onclick="resizeBoxByElement(-30, currentTextElement)" style="background:#e91e63; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Make Box Smaller">Box <i class="fa-solid fa-minus"></i></button>
                 ${cardDelBtnMarkup}
                 <button onclick="this.parentElement.remove()" style="background:transparent; color:red; border:none; cursor:pointer; font-size:18px; padding:0 4px;">&times;</button>
             `;
@@ -1396,13 +1397,15 @@
             let existingText = document.getElementById('admin-text-controls'); if(existingText) existingText.remove();
             let existing = document.getElementById('admin-img-controls'); if(existing) existing.remove();
             let controls = document.createElement('div'); controls.id = 'admin-img-controls';
-            controls.style.position = 'absolute'; controls.style.left = Math.min(e.pageX, window.innerWidth - 300) + 'px'; controls.style.top = (e.pageY + 10) + 'px';
+            controls.style.position = 'absolute'; controls.style.left = Math.min(e.pageX, window.innerWidth - 450) + 'px'; controls.style.top = (e.pageY + 10) + 'px';
             controls.style.background = '#10101a'; controls.style.border = '2px solid #00d2ff'; controls.style.padding = '8px 12px'; controls.style.borderRadius = '8px'; controls.style.zIndex = '100000'; controls.style.display = 'flex'; controls.style.gap = '6px'; controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
             controls.innerHTML = `
                 <button onclick="document.getElementById('adminFileInput').click()" style="background:#00d2ff; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Upload"><i class="fa-solid fa-upload"></i></button>
                 <button onclick="changePhotoByUrl()" style="background:#ffc107; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Paste URL"><i class="fa-solid fa-link"></i></button>
                 <button onclick="zoomElement(0.1)" style="background:#28a745; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i> +</button>
                 <button onclick="zoomElement(-0.1)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i> -</button>
+                <button onclick="resizeBoxByElement(30)" style="background:#8a2be2; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Make Box Bigger">Box <i class="fa-solid fa-plus"></i></button>
+                <button onclick="resizeBoxByElement(-30)" style="background:#e91e63; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Make Box Smaller">Box <i class="fa-solid fa-minus"></i></button>
                 <button onclick="deleteMediaElement()" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Delete Card/Image/Video"><i class="fa-solid fa-trash"></i></button>
                 <button onclick="this.parentElement.remove(); startSlider();" style="background:transparent; color:red; border:none; cursor:pointer; font-size:18px; padding:0 4px;">&times;</button>
             `;
@@ -1431,6 +1434,35 @@
             let currentScale = parseFloat(currentTargetElement.getAttribute('data-scale')) || 1; currentScale += step;
             if(currentScale < 0.3) currentScale = 0.3; if(currentScale > 3.0) currentScale = 3.0; 
             currentTargetElement.setAttribute('data-scale', currentScale.toFixed(2)); currentTargetElement.style.transform = `scale(${currentScale.toFixed(2)})`;
+        }
+
+        function resizeBoxByElement(step, targetElem) {
+            let elem = targetElem || currentTargetElement;
+            if(!elem) return;
+            let parentBox = elem.closest('.showcase-item, .card-3d, .custom-text-card');
+
+            if(!parentBox) {
+                let currentWidth = elem.offsetWidth;
+                elem.style.width = (currentWidth + step) + 'px';
+                return;
+            }
+
+            let currentWidth = parentBox.offsetWidth;
+            parentBox.style.width = (currentWidth + step) + 'px';
+            parentBox.style.minWidth = (currentWidth + step) + 'px';
+            parentBox.style.maxWidth = 'none';
+
+            if(!parentBox.classList.contains('custom-text-card')) {
+                let currentHeight = parentBox.offsetHeight;
+                parentBox.style.height = (currentHeight + step * 0.75) + 'px';
+                parentBox.style.minHeight = (currentHeight + step * 0.75) + 'px';
+
+                let imgContainer = parentBox.querySelector('.card-img-container');
+                if(imgContainer) {
+                    let currentImgHeight = imgContainer.offsetHeight;
+                    imgContainer.style.height = (currentImgHeight + step * 0.75) + 'px';
+                }
+            }
         }
 
         function changePhotoByUrl() {
@@ -1583,3 +1615,4 @@
     <script src="js/script.js"></script>
 </body>
 </html>
+
