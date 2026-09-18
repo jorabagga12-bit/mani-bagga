@@ -102,7 +102,7 @@
         .prev-btn { left: 10px; }
         .next-btn { right: 10px; }
 
-        /* 3D CONTACT PAGE */
+        /* CONTACT PAGE */
         .contact-page-wrapper {
             display: flex; justify-content: center; align-items: center; 
             padding: 20px; margin-top: 50px;
@@ -113,7 +113,7 @@
             outline: none; box-sizing: border-box;
         }
 
-        /* ================== ADMIN PANEL STYLES (SECURE & HIDDEN) ================== */
+        /* ================== ADMIN PANEL STYLES ================== */
         .admin-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85); z-index: 10000; justify-content: center; align-items: center;
@@ -121,21 +121,22 @@
         }
         .admin-box {
             background: linear-gradient(135deg, #1e1e2f, #10101a); padding: 30px; border-radius: 15px;
-            border: 2px solid #00d2ff; box-shadow: 0 0 20px #00d2ff; width: 90%; max-width: 450px;
+            border: 2px solid #00d2ff; box-shadow: 0 0 25px rgba(0, 210, 255, 0.6); width: 90%; max-width: 450px;
             text-align: center; color: white; position: relative;
         }
         .admin-box h2 { margin-bottom: 20px; color: #00d2ff; }
         .admin-box input {
-            width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none;
+            width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #00d2ff;
             background: #2a2a40; color: white; outline: none; box-sizing: border-box;
         }
         .admin-box button {
             width: 100%; padding: 12px; margin-top: 15px; border-radius: 5px; border: none;
             background: #00d2ff; color: #000; font-weight: bold; cursor: pointer; transition: 0.3s;
+            font-size: 16px;
         }
-        .admin-box button:hover { opacity: 0.8; }
+        .admin-box button:hover { opacity: 0.9; transform: scale(1.02); }
         
-        /* Floating Admin Dashboard (Hidden by default) */
+        /* Floating Admin Dashboard */
         .admin-dashboard {
             display: none; position: fixed; bottom: 20px; right: 20px; background: #10101a;
             color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold;
@@ -144,13 +145,15 @@
         .admin-dashboard button {
             background: #00d2ff; color: #000; border: none; padding: 8px 10px;
             margin-top: 8px; cursor: pointer; border-radius: 5px; width: 100%; font-weight: bold;
+            transition: 0.2s ease;
         }
+        .admin-dashboard button:hover { transform: translateY(-2px); }
         .btn-save { background: #28a745 !important; color: white !important; }
         
-        .editable-active { border: 1px dashed transparent; }
-        .media-editable:hover { opacity: 1; }
+        .editable-active { border: 1px dashed #00d2ff !important; padding: 2px; }
+        .media-editable { cursor: pointer; outline: 3px dashed #00d2ff !important; }
 
-        /* GALLERY DRAG, DROP & RESIZE (ADMIN ONLY) */
+        /* GALLERY DRAG & DROP */
         .showcase-item {
             position: relative;
             transition: transform 0.3s ease, border 0.3s ease;
@@ -165,10 +168,9 @@
         .admin-item-controls button {
             background: #ffc107; color: #000; border: none; border-radius: 4px;
             width: 32px; height: 32px; font-weight: bold; cursor: pointer;
-            font-size: 18px; display: flex; align-items: center; justify-content: center;
+            font-size: 16px; display: flex; align-items: center; justify-content: center;
             box-shadow: 0 4px 8px rgba(0,0,0,0.6); margin: 0; padding: 0;
         }
-        .admin-item-controls button:hover { background: #fff; }
         .admin-item-controls button.drag-handle { background: #00d2ff; cursor: grab; }
         
         .showcase-item.dragging {
@@ -190,11 +192,11 @@
     <header>
         <nav class="navbar">
             <!-- Click here to open Admin Login Modal -->
-            <div class="admin-badge-left" onclick="handleAdminBadgeClick()" style="cursor: pointer;" title="Admin Panel Login">
+            <div class="admin-badge-left" onclick="handleAdminBadgeClick()" style="cursor: pointer;" title="Click to open Admin Login Panel">
                 <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
                 <div class="admin-info">
                     <span class="admin-name">MANI M4</span>
-                    <span class="admin-tag">ADMIN</span>
+                    <span class="admin-tag" id="adminTagLabel">ADMIN</span>
                 </div>
             </div>
 
@@ -378,19 +380,16 @@
         </div>
     </footer>
 
-    <!-- ADMIN LOGIN MODAL (SECURE PASSWORD PROTECTION) -->
+    <!-- ADMIN LOGIN MODAL -->
     <div id="adminLoginModal" class="admin-modal">
         <div class="admin-box">
-            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:20px;">&times;</span>
-            <h2><i class="fa-solid fa-user-shield"></i> ADMIN LOGIN</h2>
+            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:24px; font-weight:bold;">&times;</span>
+            <h2><i class="fa-solid fa-user-shield"></i> ADMIN PANEL LOGIN</h2>
             
             <form onsubmit="handleLogin(event)" autocomplete="off">
-                <input style="display:none" type="text" name="fakeusernameremembered"/>
-                <input style="display:none" type="password" name="fakepasswordremembered"/>
-                
-                <input type="text" id="adminUserX" autocomplete="new-password" placeholder="Username" required>
-                <input type="password" id="adminPassX" autocomplete="new-password" placeholder="Password" required>
-                <button type="submit">LOG IN</button>
+                <input type="text" id="adminUserX" autocomplete="off" placeholder="Enter Username..." required>
+                <input type="password" id="adminPassX" autocomplete="off" placeholder="Enter Password..." required>
+                <button type="submit"><i class="fa-solid fa-key"></i> LOG IN TO EDIT SITE</button>
             </form>
         </div>
     </div>
@@ -433,13 +432,13 @@
         </div>
     </div>
 
-    <!-- FLOATING ADMIN DASHBOARD (HIDDEN UNTIL ADMIN LOGS IN) -->
+    <!-- FLOATING ADMIN DASHBOARD (VISIBLE ONLY WHEN ADMIN IS LOGGED IN) -->
     <div id="adminDashboard" class="admin-dashboard">
         <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
         <button onclick="addNewMediaCard()"><i class="fa-solid fa-plus"></i> Add Gallery Card</button>
         <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
         <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
-        <button onclick="saveChangesToGitHub()" class="btn-save"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
+        <button onclick="saveChangesToGitHub()" class="btn-save" id="btnSaveLive"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
         <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:11px;"><i class="fa-solid fa-right-from-bracket"></i> Logout Admin</button>
         <button onclick="clearSavedToken()" style="background:#6c757d; color:white; font-size:10px;">Reset Git Token</button>
     </div>
@@ -482,6 +481,7 @@
                 startSlider(); 
             } 
             const track = document.getElementById('frontSliderTrack');
+            if(!track) return;
             const totalSlides = track.children.length;
             
             currentSlideIndex += direction;
@@ -491,7 +491,7 @@
             track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
         }
 
-        // ================= SECURE ADMIN AUTHENTICATION SYSTEM ================= //
+        // ================= ADMIN AUTHENTICATION SYSTEM ================= //
         let currentTargetElement = null;
         let activeNotifCard = null;
         let currentViewedNotif = null;
@@ -503,7 +503,6 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             startSlider(); 
-            // Check if admin was already logged in during this session
             if (localStorage.getItem('mani_admin_logged') === 'true') {
                 activateAdminMode();
             }
@@ -516,10 +515,9 @@
             }
         });
 
-        // Clicking top-left badge opens password prompt modal
         function handleAdminBadgeClick() {
             if (localStorage.getItem('mani_admin_logged') === 'true') {
-                alert('Admin Mode is active! 🚀');
+                alert('Admin Mode is already Active! 🚀 You can edit text, click photos to zoom or upload, and click "Save to Live Site".');
             } else {
                 openAdminLogin();
             }
@@ -537,17 +535,16 @@
 
         function handleLogin(e) {
             e.preventDefault();
-            const user = document.getElementById('adminUserX').value;
-            const pass = document.getElementById('adminPassX').value;
+            const user = document.getElementById('adminUserX').value.trim();
+            const pass = document.getElementById('adminPassX').value.trim();
 
-            // Secure Credentials Check
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
                 closeAdminLogin();
-                alert('Admin Logged In Successfully! 🚀');
+                alert('Admin Logged In Successfully! 🚀 You can now edit text and photos.');
                 activateAdminMode();
             } else {
-                alert('Invalid Username or Password!');
+                alert('Incorrect Username or Password!');
             }
         }
 
@@ -557,23 +554,22 @@
             window.location.reload();
         }
 
-        // Only unlocks editing features when credentials match
         function activateAdminMode() {
             document.getElementById('adminDashboard').style.display = 'block';
+            document.getElementById('adminTagLabel').innerText = "ADMIN (LOGGED IN)";
+            document.getElementById('adminTagLabel').style.color = "#28a745";
             
-            const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn)');
+            const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-name):not(.admin-tag)');
             textElements.forEach(el => {
                 el.contentEditable = "true";
                 el.classList.add('editable-active');
-                el.style.border = "1px dashed #00d2ff";
-                el.style.padding = "2px";
             });
 
             bindMediaClickHandlers();
             makeGalleryItemsDraggableAndResizable();
         }
 
-        // ================= GALLERY DRAG, DROP & RESIZE ================= //
+        // ================= GALLERY DRAG & DROP ================= //
         function makeGalleryItemsDraggableAndResizable() {
             const items = document.querySelectorAll('.showcase-item');
             
@@ -628,7 +624,7 @@
                     let controlsHTML = document.createElement('div');
                     controlsHTML.className = 'admin-item-controls';
                     controlsHTML.innerHTML = `
-                        <button type="button" class="drag-handle" title="Drag to move"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>
+                        <button type="button" class="drag-handle" title="Drag to reorder"><i class="fa-solid fa-up-down-left-right"></i></button>
                     `;
                     item.appendChild(controlsHTML);
                 }
@@ -757,13 +753,12 @@
             if (localStorage.getItem('mani_admin_logged') === 'true') activateAdminMode();
         }
 
-        // ================= ZOOM & MEDIA HANDLERS ================= //
+        // ================= MEDIA EDIT & ZOOM HANDLERS ================= //
         function bindMediaClickHandlers() {
             const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
             mediaElements.forEach(elem => {
                 elem.classList.add('media-editable');
-                elem.style.outline = "3px solid #00d2ff";
-                elem.title = "Click to Edit or Zoom Photo";
+                elem.title = "Click to Edit, Upload, or Zoom";
                 elem.onclick = function(e) {
                     if (localStorage.getItem('mani_admin_logged') === 'true') {
                         e.preventDefault();
@@ -784,24 +779,23 @@
             let controls = document.createElement('div');
             controls.id = 'admin-img-controls';
             controls.style.position = 'absolute';
-            controls.style.left = e.pageX + 'px';
-            controls.style.top = e.pageY + 'px';
-            controls.style.background = '#1a1a2e';
+            controls.style.left = Math.min(e.pageX, window.innerWidth - 260) + 'px';
+            controls.style.top = (e.pageY + 10) + 'px';
+            controls.style.background = '#10101a';
             controls.style.border = '2px solid #00d2ff';
             controls.style.padding = '8px 12px';
             controls.style.borderRadius = '8px';
             controls.style.zIndex = '100000';
             controls.style.display = 'flex';
-            controls.style.gap = '8px';
-            controls.style.boxShadow = '0 5px 15px rgba(0,0,0,0.8)';
+            controls.style.gap = '6px';
+            controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
 
             controls.innerHTML = `
-                <button onclick="document.getElementById('adminFileInput').click()" style="background:#00d2ff; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;"><i class="fa-solid fa-upload"></i> Upload</button>
-                <button onclick="changePhotoByUrl()" style="background:#ffc107; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;"><i class="fa-solid fa-link"></i> URL</button>
-                <div style="border-left: 2px solid #333; margin: 0 4px;"></div>
-                <button onclick="zoomElement(0.05)" style="background:#28a745; color:#fff; padding:6px 12px; border:none; cursor:pointer; font-weight:bold; border-radius:4px; font-size:16px;"><i class="fa-solid fa-plus"></i> Zoom</button>
-                <button onclick="zoomElement(-0.05)" style="background:#dc3545; color:#fff; padding:6px 12px; border:none; cursor:pointer; font-weight:bold; border-radius:4px; font-size:16px;"><i class="fa-solid fa-minus"></i> Zoom</button>
-                <button onclick="this.parentElement.remove()" style="background:transparent; color:red; border:none; cursor:pointer; font-size:20px; padding:0 5px; margin-left: 5px;">&times;</button>
+                <button onclick="document.getElementById('adminFileInput').click()" style="background:#00d2ff; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;"><i class="fa-solid fa-upload"></i></button>
+                <button onclick="changePhotoByUrl()" style="background:#ffc107; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;"><i class="fa-solid fa-link"></i></button>
+                <button onclick="zoomElement(0.1)" style="background:#28a745; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i> +</button>
+                <button onclick="zoomElement(-0.1)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i> -</button>
+                <button onclick="this.parentElement.remove()" style="background:transparent; color:red; border:none; cursor:pointer; font-size:18px; padding:0 4px;">&times;</button>
             `;
             document.body.appendChild(controls);
         }
@@ -810,13 +804,12 @@
             if(!currentTargetElement) return;
             let currentScale = parseFloat(currentTargetElement.getAttribute('data-scale')) || 1;
             currentScale += step;
-            if(currentScale < 0.4) currentScale = 0.4; 
-            if(currentScale > 2.5) currentScale = 2.5; 
+            if(currentScale < 0.3) currentScale = 0.3; 
+            if(currentScale > 3.0) currentScale = 3.0; 
             
-            currentTargetElement.setAttribute('data-scale', currentScale);
-            currentTargetElement.style.transform = `scale(${currentScale})`;
-            currentTargetElement.style.transition = "transform 0.3s ease";
-            currentTargetElement.style.zIndex = currentScale > 1 ? '10' : '1';
+            currentTargetElement.setAttribute('data-scale', currentScale.toFixed(2));
+            currentTargetElement.style.transform = `scale(${currentScale.toFixed(2)})`;
+            currentTargetElement.style.transition = "transform 0.2s ease";
         }
 
         function changePhotoByUrl() {
@@ -826,8 +819,6 @@
                     let newVideo = document.createElement('video');
                     newVideo.src = url; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true;
                     newVideo.className = currentTargetElement.className;
-                    newVideo.style.transform = currentTargetElement.style.transform;
-                    newVideo.setAttribute('data-scale', currentTargetElement.getAttribute('data-scale') || 1);
                     currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
                 } else {
                     currentTargetElement.src = url;
@@ -844,16 +835,12 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 const fileData = e.target.result;
-                let currentScale = currentTargetElement.style.transform;
-                let dataScale = currentTargetElement.getAttribute('data-scale') || 1;
 
                 if (file.type.startsWith('image/')) {
                     if (currentTargetElement.tagName.toLowerCase() === 'video') {
                         const newImg = document.createElement('img');
                         newImg.src = fileData;
                         newImg.className = currentTargetElement.className;
-                        newImg.style.transform = currentScale;
-                        newImg.setAttribute('data-scale', dataScale);
                         currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement);
                         currentTargetElement = newImg;
                     } else {
@@ -864,8 +851,6 @@
                     newVideo.src = fileData;
                     newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true;
                     newVideo.className = currentTargetElement.className;
-                    newVideo.style.transform = currentScale;
-                    newVideo.setAttribute('data-scale', dataScale);
                     currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
                     currentTargetElement = newVideo;
                 }
@@ -884,7 +869,7 @@
             let newCardHTML = `
                 <div class="showcase-item">
                     <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="New Item" class="media-target">
-                    <div class="showcase-overlay" contenteditable="true">
+                    <div class="showcase-overlay">
                         <h4>New Media Title</h4>
                         <p>Description Here</p>
                     </div>
@@ -892,7 +877,6 @@
             gallery.insertAdjacentHTML('beforeend', newCardHTML);
             if (localStorage.getItem('mani_admin_logged') === 'true') {
                 activateAdminMode();
-                makeGalleryItemsDraggableAndResizable();
             }
         }
 
@@ -906,7 +890,7 @@
                 let newVideoHTML = `
                     <div class="showcase-item">
                         <iframe width="100%" height="220" src="${videoLink}" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
-                        <div class="showcase-overlay" contenteditable="true">
+                        <div class="showcase-overlay">
                             <h4>YouTube Live Stream</h4>
                             <p>Watch Highlights</p>
                         </div>
@@ -914,7 +898,6 @@
                 gallery.insertAdjacentHTML('beforeend', newVideoHTML);
                 if (localStorage.getItem('mani_admin_logged') === 'true') {
                     activateAdminMode();
-                    makeGalleryItemsDraggableAndResizable();
                 }
             }
         }
@@ -924,7 +907,17 @@
             alert('Saved GitHub token removed!');
         }
 
-        // ================= GITHUB AUTO-SAVE ================= //
+        // ================= GITHUB AUTO-SAVE (FIXED FOR UTF-8) ================= //
+        function stringToBase64UTF8(str) {
+            const encoder = new TextEncoder();
+            const bytes = encoder.encode(str);
+            let binary = '';
+            for (let i = 0; i < bytes.byteLength; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return btoa(binary);
+        }
+
         async function saveChangesToGitHub() {
             let token = localStorage.getItem('gh_token_bagga');
             
@@ -934,8 +927,9 @@
                 localStorage.setItem('gh_token_bagga', token.trim());
             }
 
-            const saveBtn = document.querySelector('.btn-save');
-            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Live Saving...';
+            const saveBtn = document.getElementById('btnSaveLive');
+            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving to Live...';
+            saveBtn.disabled = true;
 
             try {
                 const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
@@ -944,7 +938,7 @@
                     headers: { 'Authorization': `token ${token}` }
                 }); 
                 
-                if (!getResponse.ok) throw new Error("GitHub Repository file not found or Token Invalid!");
+                if (!getResponse.ok) throw new Error("GitHub Repository File or Token Invalid!");
                 
                 const fileData = await getResponse.json();
                 const sha = fileData.sha;
@@ -964,9 +958,13 @@
                 if(floatingControl) floatingControl.remove();
 
                 clone.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
-                clone.querySelector('#page-home').classList.add('active');
+                let homeP = clone.querySelector('#page-home');
+                if(homeP) homeP.classList.add('active');
                 
-                // Clean up admin visual cues so regular visitors don't see dashed borders
+                // Reset admin visual cues
+                const tagLbl = clone.querySelector('#adminTagLabel');
+                if(tagLbl) { tagLbl.innerText = "ADMIN"; tagLbl.style.color = ""; }
+
                 const editables = clone.querySelectorAll('.editable-active');
                 editables.forEach(el => {
                     el.removeAttribute('contenteditable');
@@ -989,7 +987,7 @@
                 draggableItems.forEach(el => el.removeAttribute('draggable'));
 
                 const fullHTML = "<!DOCTYPE html>\n<html lang=\"en\">\n" + clone.innerHTML + "\n</html>";
-                const base64Content = btoa(unescape(encodeURIComponent(fullHTML)));
+                const base64Content = stringToBase64UTF8(fullHTML);
 
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
@@ -1005,18 +1003,20 @@
                 });
 
                 if (putResponse.ok) {
-                    alert('Changes saved to Live Site successfully! 🎉');
+                    alert('🎉 Changes saved to Live Site successfully!');
                 } else {
                     const errorDetails = await putResponse.json();
-                    throw new Error(errorDetails.message);
+                    throw new Error(errorDetails.message || "Failed to update GitHub");
                 }
             } catch (error) {
                 console.error("Save Error:", error);
-                alert('Error: ' + error.message);
+                alert('Save Error: ' + error.message);
             } finally {
                 saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site';
+                saveBtn.disabled = false;
             }
         }
     </script>
 </body>
 </html>
+
