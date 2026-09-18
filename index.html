@@ -34,16 +34,19 @@
         .notif-container {
             max-width: 900px; margin: 0 auto; padding: 0 20px;
         }
+        
+        /* नोटिफिकेशन कार्ड - अब क्लिकेबल है */
         .notif-3d-card {
             background: linear-gradient(145deg, #1a1a2e, #10101a);
             border-radius: 20px; padding: 25px; margin-bottom: 40px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0, 210, 255, 0.1);
             border: 1px solid rgba(0, 210, 255, 0.2);
             transition: all 0.4s ease; transform-style: preserve-3d;
+            cursor: pointer; /* Pointer ताकि लगे कि क्लिक हो सकता है */
         }
         .notif-3d-card:hover {
             transform: translateY(-10px) rotateX(2deg) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 210, 255, 0.3), inset 0 0 20px rgba(0, 210, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 210, 255, 0.5), inset 0 0 20px rgba(0, 210, 255, 0.4);
             border-color: #00d2ff;
         }
         .notif-3d-card img, .notif-3d-card video {
@@ -57,22 +60,48 @@
             color: #b3b3cc; font-size: 1.1rem; line-height: 1.6;
         }
 
+        /* FRONT IMAGE SLIDER (स्क्रोल वाला सिस्टम) */
+        .slider-wrapper {
+            position: relative; overflow: hidden; border-radius: 15px; width: 100%; height: 350px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+        .slider-track {
+            display: flex; transition: transform 0.4s ease-in-out; height: 100%;
+        }
+        .slider-track img {
+            min-width: 100%; height: 100%; object-fit: cover; border-radius: 0; margin-bottom: 0; box-shadow: none;
+        }
+        .slider-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6); color: #00d2ff; border: 1px solid #00d2ff;
+            border-radius: 50%; padding: 8px 14px; cursor: pointer; font-size: 18px; z-index: 10;
+            transition: 0.3s;
+        }
+        .slider-btn:hover { background: #00d2ff; color: #000; }
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
         /* 3D CONTACT PAGE */
         .contact-page-wrapper {
             display: flex; justify-content: center; align-items: center; 
             padding: 20px; margin-top: 50px;
         }
+        .contact-box form .form-group input, .contact-box form .form-group textarea {
+            width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px;
+            background: #1a1a2e; color: white; border: 1px solid #00d2ff; border-radius: 5px;
+            outline: none; box-sizing: border-box;
+        }
 
-        /* Admin Modal Styles */
+        /* Admin / Upload Modal Styles */
         .admin-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); z-index: 9999; justify-content: center; align-items: center;
+            background: rgba(0, 0, 0, 0.85); z-index: 10000; justify-content: center; align-items: center;
             backdrop-filter: blur(8px);
         }
         .admin-box {
             background: linear-gradient(135deg, #1e1e2f, #10101a); padding: 30px; border-radius: 15px;
-            border: 2px solid #00d2ff; box-shadow: 0 0 20px #00d2ff; width: 90%; max-width: 400px;
-            text-align: center; color: white;
+            border: 2px solid #00d2ff; box-shadow: 0 0 20px #00d2ff; width: 90%; max-width: 450px;
+            text-align: center; color: white; position: relative;
         }
         .admin-box h2 { margin-bottom: 20px; color: #00d2ff; }
         .admin-box input {
@@ -83,6 +112,7 @@
             width: 100%; padding: 12px; margin-top: 15px; border-radius: 5px; border: none;
             background: #00d2ff; color: #000; font-weight: bold; cursor: pointer; transition: 0.3s;
         }
+        .admin-box button:hover { opacity: 0.8; }
         
         /* Floating Admin Dashboard */
         .admin-dashboard {
@@ -122,7 +152,6 @@
             </div>
 
             <ul class="nav-links">
-                <!-- Using JavaScript function to change pages -->
                 <li><a href="#" onclick="navigateTo('home')">HOME</a></li>
                 <li><a href="#" onclick="goToHomeSection('features')">TIPS</a></li>
                 <li><a href="#" onclick="goToHomeSection('showcase')">GALLERY</a></li>
@@ -147,9 +176,25 @@
                         <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="btn-secondary"><i class="fa-brands fa-instagram"></i> Instagram</a>
                     </div>
                 </div>
+                
+                <!-- फ्रंट 3D कार्ड (यहाँ स्लाइडर ऐड किया गया है) -->
                 <div class="hero-3d-card-wrapper">
-                    <div class="card-3d-main" id="tilt-card">
-                        <img src="images/hero-3d.jpg" alt="MANI M4 PRO 3D Display" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">
+                    <div class="card-3d-main" id="tilt-card" style="position:relative;">
+                        <div class="slider-wrapper">
+                            <!-- स्क्रोल बटन -->
+                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">&#10094;</button>
+                            
+                            <!-- 3-4 फोटोज का स्लाइडर -->
+                            <div class="slider-track" id="frontSliderTrack">
+                                <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">
+                                <img src="images/feature2.jpg" alt="Front 2" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'">
+                                <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80'">
+                            </div>
+                            
+                            <!-- स्क्रोल बटन -->
+                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">&#10095;</button>
+                        </div>
+                        
                         <div class="card-glass-overlay">
                             <h3>Subscribe & Stay Connected</h3>
                             <p>Subscribe to MANI M4YT Channel and become a part of our family!</p>
@@ -249,11 +294,11 @@
         <h1 class="page-header">LATEST <span class="highlight">UPDATES</span></h1>
         
         <div class="notif-container" id="notifWrapper">
-            <!-- 3D Notification Card -->
-            <div class="notif-3d-card">
+            <!-- 3D Notification Card (दबाते ही पॉपअप खुलेगा) -->
+            <div class="notif-3d-card" onclick="openUploadModal()">
                 <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" alt="Update" class="media-target">
                 <h2 class="notif-title">Welcome to the new Esports Hub!</h2>
-                <p class="notif-desc">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys!</p>
+                <p class="notif-desc">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys! (Click to View More / Upload)</p>
             </div>
         </div>
     </div>
@@ -263,19 +308,22 @@
         <h1 class="page-header">MESSAGE <span class="highlight">ADMIN</span></h1>
         
         <div class="contact-page-wrapper">
-            <div class="contact-box" style="transform: scale(1.1); max-width: 600px;">
-                <p style="text-align:center; color:#b3b3cc; margin-bottom: 20px;">DIRECT LIVE SUPPORT VIA WHATSAPP</p>
-                <form id="contactForm" onsubmit="sendMessageToAdmin(event)">
-                    <div class="form-group">
-                        <label>YOUR NAME / EMAIL:</label>
-                        <input type="text" id="senderName" required placeholder="Enter your name...">
+            <div class="contact-box admin-box" style="transform: scale(1.1); max-width: 600px; padding: 40px;">
+                <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-envelope"></i> DIRECT EMAIL SUPPORT</h2>
+                <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;">Send a message directly to manipubji@gmail.com</p>
+                
+                <!-- Email Contact Form -->
+                <form action="mailto:manipubji@gmail.com" method="post" enctype="text/plain">
+                    <div class="form-group" style="text-align: left;">
+                        <label style="color:#00d2ff; font-weight:bold;">YOUR NAME / EMAIL:</label>
+                        <input type="text" name="Name" required placeholder="Enter your name...">
                     </div>
-                    <div class="form-group">
-                        <label>MESSAGE FOR DEVELOPER:</label>
-                        <textarea id="senderMsg" rows="5" required placeholder="Write your message here..."></textarea>
+                    <div class="form-group" style="text-align: left;">
+                        <label style="color:#00d2ff; font-weight:bold;">MESSAGE FOR DEVELOPER:</label>
+                        <textarea name="Message" rows="5" required placeholder="Write your message here..."></textarea>
                     </div>
-                    <button type="submit" class="btn-submit">
-                        <i class="fa-brands fa-whatsapp"></i> SEND MESSAGE NOW
+                    <button type="submit" class="btn-submit" style="font-size: 16px; margin-top: 10px;">
+                        <i class="fa-solid fa-paper-plane"></i> SEND EMAIL NOW
                     </button>
                 </form>
             </div>
@@ -312,6 +360,21 @@
         </div>
     </div>
 
+    <!-- NOTIFICATION MEDIA UPLOAD MODAL (नया पॉपअप) -->
+    <div id="innerUploadModal" class="admin-modal">
+        <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4);">
+            <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">&times;</span>
+            <h2><i class="fa-solid fa-cloud-arrow-up"></i> Upload Media</h2>
+            <p style="margin-bottom: 20px; color:#b3b3cc;">Upload your Photos or Videos here inside the notification.</p>
+            
+            <input type="file" accept="image/*,video/*" style="background:#1a1a2e; border:1px solid #00d2ff; padding:15px; width:100%; border-radius:5px; color:white; margin-bottom:20px; cursor:pointer;">
+            
+            <button onclick="confirmUpload(event)" style="background:#00d2ff; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; font-size: 16px;">
+                <i class="fa-solid fa-upload"></i> UPLOAD NOW
+            </button>
+        </div>
+    </div>
+
     <!-- FLOATING ADMIN DASHBOARD -->
     <div id="adminDashboard" class="admin-dashboard">
         <p><i class="fa-solid fa-user-gear"></i> Admin Active</p>
@@ -326,20 +389,18 @@
     <!-- HIDDEN FILE INPUT FOR SELECTOR -->
     <input type="file" id="adminFileInput" accept="image/*,video/*" style="display: none;" onchange="handleFileSelected(event)">
 
-    <!-- External JS Logic -->
+    <!-- External JS Logic (Keep it if you have it) -->
     <script src="js/script.js"></script>
     <script>
         // ================= PAGE ROUTING LOGIC ================= //
         function navigateTo(pageId) {
-            // Hide all pages
             document.querySelectorAll('.page-view').forEach(page => {
                 page.classList.remove('active');
             });
-            // Show requested page
             const targetPage = document.getElementById('page-' + pageId);
             if (targetPage) {
                 targetPage.classList.add('active');
-                window.scrollTo(0, 0); // Scroll to top
+                window.scrollTo(0, 0); 
             }
         }
 
@@ -350,12 +411,32 @@
             }, 100);
         }
 
-        function sendMessageToAdmin(e) {
-            e.preventDefault();
-            const name = document.getElementById('senderName').value;
-            const msg = document.getElementById('senderMsg').value;
-            const text = `Hi MANI M4, I am ${encodeURIComponent(name)}. Message: ${encodeURIComponent(msg)}`;
-            window.open(`https://wa.me/qr/UT7SLRPTD2WIK1?text=${text}`, '_blank');
+        // ================= FRONT SLIDER LOGIC ================= //
+        let currentSlideIndex = 0;
+        function moveFrontSlide(direction, event) {
+            if(event) { event.stopPropagation(); } 
+            const track = document.getElementById('frontSliderTrack');
+            const totalSlides = track.children.length;
+            
+            currentSlideIndex += direction;
+            if (currentSlideIndex < 0) currentSlideIndex = totalSlides - 1;
+            if (currentSlideIndex >= totalSlides) currentSlideIndex = 0;
+            
+            track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+        }
+
+        // ================= NOTIFICATION UPLOAD MODAL ================= //
+        function openUploadModal() {
+            document.getElementById('innerUploadModal').style.display = 'flex';
+        }
+        function closeUploadModal(event) {
+            if(event) event.stopPropagation();
+            document.getElementById('innerUploadModal').style.display = 'none';
+        }
+        function confirmUpload(event) {
+            if(event) event.stopPropagation();
+            alert('File Uploaded Successfully! 🔥');
+            closeUploadModal();
         }
 
         // ================= ADMIN PANEL LOGIC ================= //
@@ -381,7 +462,7 @@
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 isAdminLoggedIn = true;
                 closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\n1. Click text to edit.\n2. Click any photo/video (even in notifications) to change it.\n3. Click "Save to Live Site" to publish!');
+                alert('Welcome Admin Bagga! 🚀\n1. Click text to edit.\n2. Click any photo/video to change it.\n3. Click "Save to Live Site" to publish!');
                 activateAdminMode();
             } else {
                 alert('Invalid Username or Password!');
@@ -421,15 +502,15 @@
             });
         }
 
-        // ==== NOTIFICATION ADD FUNCTION ====
         function addNewNotification() {
-            navigateTo('notifications'); // Automatically switch to Notifications page
+            navigateTo('notifications'); 
             let notifWrapper = document.getElementById('notifWrapper');
+            // नया कार्ड भी क्लिकेबल होगा ताकि अपलोड पेज खुल सके
             let newNotifHTML = `
-                <div class="notif-3d-card">
+                <div class="notif-3d-card" onclick="openUploadModal()">
                     <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80" alt="New Update" class="media-target">
                     <h2 class="notif-title" contenteditable="true" class="editable-active">New Update Title</h2>
-                    <p class="notif-desc" contenteditable="true" class="editable-active">Type your detailed notification message here...</p>
+                    <p class="notif-desc" contenteditable="true" class="editable-active">Type your detailed notification message here... (Click to Upload)</p>
                 </div>`;
             notifWrapper.insertAdjacentHTML('afterbegin', newNotifHTML);
             if (isAdminLoggedIn) activateAdminMode();
@@ -566,19 +647,18 @@
 
                 let clone = document.documentElement.cloneNode(true);
                 
-                // Hide admin tools before saving
                 let dash = clone.querySelector('#adminDashboard');
                 if(dash) dash.style.display = 'none';
                 let modal = clone.querySelector('#adminLoginModal');
                 if(modal) modal.style.display = 'none';
+                let upModal = clone.querySelector('#innerUploadModal');
+                if(upModal) upModal.style.display = 'none';
 
-                // Reset page view so visitors always land on Home page first
                 clone.querySelectorAll('.page-view').forEach(p => {
                     p.classList.remove('active');
                 });
                 clone.querySelector('#page-home').classList.add('active');
                 
-                // Remove editability
                 const editables = clone.querySelectorAll('.editable-active');
                 editables.forEach(el => {
                     el.removeAttribute('contenteditable');
@@ -624,3 +704,4 @@
     </script>
 </body>
 </html>
+
