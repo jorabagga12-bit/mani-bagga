@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Forced Desktop View for Mobile Devices -->
-    <meta name="viewport" content="width=1280, initial-scale=0.35, maximum-scale=3.0, user-scalable=yes">
+    <!-- Fully Responsive Mobile & Desktop Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>MANI BAGGA HUB | eSports Gaming Hub</title>
     <!-- CSS Link -->
     <link rel="stylesheet" href="css/style.css">
@@ -40,6 +40,17 @@
         .features-section {
             margin-bottom: 10px !important;
             padding-bottom: 10px !important;
+        }
+
+        /* ================== RESPONSIVE LAYOUT FIXES FOR MOBILE & DESKTOP ================== */
+        @media (max-width: 992px) {
+            .navbar { flex-wrap: wrap; justify-content: center; gap: 15px; padding: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .hero-container { flex-direction: column; text-align: center; padding: 20px 10px; }
+            .hero-btns { justify-content: center; }
+            .cards-grid, .showcase-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; gap: 20px !important; }
+            .page-header { font-size: 2rem; margin-top: 100px; }
+            .admin-badge-left { margin-bottom: 10px; }
         }
 
         /* ================== NOTIFICATION LIST UI ================== */
@@ -110,7 +121,7 @@
         }
         .admin-box button:hover { opacity: 0.95; transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 25px rgba(0, 210, 255, 0.7); }
         
-        /* ================== WRONG PASSWORD ERROR STYLES ================== */
+        /* ================== WRONG PASSWORD & ERROR STYLES ================== */
         .error-box {
             background: linear-gradient(135deg, #2a0808, #1a0000, #050000);
             border-color: #ff004c !important;
@@ -125,9 +136,7 @@
             background: linear-gradient(45deg, #ff004c, #99002e) !important;
             box-shadow: 0 5px 15px rgba(255, 0, 76, 0.5) !important;
         }
-        .error-box button:hover {
-            box-shadow: 0 8px 25px rgba(255, 0, 76, 0.8) !important;
-        }
+
         @keyframes errorShake {
             0% { transform: translateX(0); }
             20% { transform: translateX(-15px) rotate(-2deg); }
@@ -294,7 +303,7 @@
         </section>
     </div>
 
-    <!-- ==================== PAGE 2: GALLERY (PAGE REDIRECT) ==================== -->
+    <!-- ==================== PAGE 2: GALLERY ==================== -->
     <div id="page-gallery" class="page-view">
         <h1 class="page-header" contenteditable="false">BGMI / PUBG <span class="highlight" contenteditable="false">3D GALLERY</span></h1>
         <section id="showcase" class="showcase-section" style="padding-top: 0;">
@@ -324,7 +333,7 @@
         </section>
     </div>
 
-    <!-- ==================== PAGE 3: LIVE / ABOUT (PAGE REDIRECT) ==================== -->
+    <!-- ==================== PAGE 3: LIVE / ABOUT ==================== -->
     <div id="page-about" class="page-view">
         <h1 class="page-header" contenteditable="false">LIVE STREAM &amp; <span class="highlight" contenteditable="false">ABOUT US</span></h1>
         <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.05); border-radius: 15px; margin: 0 20px;">
@@ -398,6 +407,51 @@
             <p contenteditable="false" class="">© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
         </div>
     </footer>
+
+    <!-- ==================== DYNAMIC CUSTOM ALERT MODAL ==================== -->
+    <div id="customAlertModal" class="admin-modal" style="display: none; z-index: 100010;">
+        <div class="admin-box" id="customAlertBox" style="max-width: 420px; padding: 30px;">
+            <div id="customAlertIcon" style="font-size: 55px; margin-bottom: 15px; color: #00d2ff; text-shadow: 0 0 15px #00d2ff;">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <h2 id="customAlertTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;">NOTIFICATION</h2>
+            <p id="customAlertMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px; white-space: pre-wrap;"></p>
+            <button id="customAlertBtn" onclick="closeCustomAlert()" style="background: linear-gradient(45deg, #00d2ff, #0072ff); color: #fff; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; border: none; cursor: pointer;">
+                <i class="fa-solid fa-check"></i> OK
+            </button>
+        </div>
+    </div>
+
+    <!-- CUSTOM CONFIRMATION MODAL -->
+    <div id="customConfirmModal" class="admin-modal" style="display: none; z-index: 100012;">
+        <div class="admin-box" style="max-width: 420px; padding: 30px;">
+            <div style="font-size: 55px; margin-bottom: 15px; color: #ffc107; text-shadow: 0 0 15px #ffc107;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h2 style="color: #ffc107; font-size: 20px; margin-bottom: 10px;">CONFIRM ACTION</h2>
+            <p id="customConfirmMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px;"></p>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="handleConfirmChoice(true)" style="background: linear-gradient(45deg, #28a745, #1e7e34); flex: 1;">YES</button>
+                <button onclick="handleConfirmChoice(false)" style="background: linear-gradient(45deg, #dc3545, #bd2130); flex: 1;">NO</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM PROMPT MODAL -->
+    <div id="customPromptModal" class="admin-modal" style="display: none; z-index: 100015;">
+        <div class="admin-box" style="max-width: 450px; padding: 30px;">
+            <div style="font-size: 50px; margin-bottom: 15px; color: #00d2ff;">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+            <h2 id="customPromptTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;">INPUT REQUIRED</h2>
+            <p id="customPromptMsg" style="color: #ccc; font-size: 14px; margin-bottom: 15px;"></p>
+            <input type="text" id="customPromptInput" placeholder="Enter here..." style="background: #1a1a2e; border: 2px solid #00d2ff; padding: 12px; width: 100%; border-radius: 8px; color: white; margin-bottom: 15px; outline: none; box-sizing: border-box;">
+            <div style="display: flex; gap: 10px;">
+                <button onclick="submitCustomPrompt()" style="background: linear-gradient(45deg, #00d2ff, #0072ff); flex: 1;">SUBMIT</button>
+                <button onclick="closeCustomPrompt()" style="background: #6c757d; flex: 1;">CANCEL</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ADMIN LOGIN MODAL -->
     <div id="adminLoginModal" class="admin-modal" style="display: none;">
@@ -530,6 +584,67 @@
     <input type="file" id="adminFileInput" accept="image/*,video/*" style="display: none;" onchange="handleFileSelected(event)">
 
     <script>
+        // ================= DYNAMIC CUSTOM ALERT SYSTEM ================= //
+        let customAlertCallback = null;
+        function customAlert(msg, title = "NOTIFICATION", icon = "fa-circle-info", type = "info", callback = null) {
+            const modal = document.getElementById('customAlertModal');
+            const titleElem = document.getElementById('customAlertTitle');
+            const msgElem = document.getElementById('customAlertMsg');
+            const iconElem = document.getElementById('customAlertIcon');
+            
+            titleElem.innerText = title;
+            msgElem.innerText = msg;
+            iconElem.innerHTML = `<i class="fa-solid ${icon}"></i>`;
+            
+            if(type === 'success') {
+                iconElem.style.color = '#28a745'; iconElem.style.textShadow = '0 0 15px #28a745'; titleElem.style.color = '#28a745';
+            } else if(type === 'error') {
+                iconElem.style.color = '#ff004c'; iconElem.style.textShadow = '0 0 15px #ff004c'; titleElem.style.color = '#ff004c';
+            } else {
+                iconElem.style.color = '#00d2ff'; iconElem.style.textShadow = '0 0 15px #00d2ff'; titleElem.style.color = '#00d2ff';
+            }
+            
+            customAlertCallback = callback;
+            modal.style.display = 'flex';
+        }
+
+        function closeCustomAlert() {
+            document.getElementById('customAlertModal').style.display = 'none';
+            if(customAlertCallback) { customAlertCallback(); customAlertCallback = null; }
+        }
+
+        let customConfirmCallback = null;
+        function customConfirm(msg, callback) {
+            document.getElementById('customConfirmMsg').innerText = msg;
+            customConfirmCallback = callback;
+            document.getElementById('customConfirmModal').style.display = 'flex';
+        }
+
+        function handleConfirmChoice(choice) {
+            document.getElementById('customConfirmModal').style.display = 'none';
+            if(customConfirmCallback) { customConfirmCallback(choice); customConfirmCallback = null; }
+        }
+
+        let customPromptCallback = null;
+        function customPrompt(title, msg, callback) {
+            document.getElementById('customPromptTitle').innerText = title;
+            document.getElementById('customPromptMsg').innerText = msg;
+            document.getElementById('customPromptInput').value = '';
+            customPromptCallback = callback;
+            document.getElementById('customPromptModal').style.display = 'flex';
+        }
+
+        function submitCustomPrompt() {
+            const val = document.getElementById('customPromptInput').value.trim();
+            document.getElementById('customPromptModal').style.display = 'none';
+            if(customPromptCallback) { customPromptCallback(val); customPromptCallback = null; }
+        }
+
+        function closeCustomPrompt() {
+            document.getElementById('customPromptModal').style.display = 'none';
+            if(customPromptCallback) { customPromptCallback(null); customPromptCallback = null; }
+        }
+
         // ================= PAGE ROUTING LOGIC ================= //
         function navigateTo(pageId) {
             if (typeof isMoveModeActive !== 'undefined' && isMoveModeActive) return; 
@@ -581,7 +696,7 @@
             messagesList.push(newMessage);
             localStorage.setItem('mani_user_messages', JSON.stringify(messagesList));
 
-            alert('Thank you! Your message has been sent successfully.');
+            customAlert('Thank you! Your message has been sent successfully.', 'MESSAGE SENT', 'fa-paper-plane', 'success');
             document.getElementById('siteContactForm').reset();
             updateMessageCounter();
         }
@@ -616,9 +731,11 @@
 
         function closeAdminMessages() { document.getElementById('adminMessagesModal').style.display = 'none'; }
         function clearAllMessages() {
-            if(confirm('Are you sure you want to delete all messages? This cannot be undone.')) {
-                localStorage.removeItem('mani_user_messages'); openAdminMessages(); updateMessageCounter();
-            }
+            customConfirm('Are you sure you want to delete all messages? This cannot be undone.', function(confirmed) {
+                if(confirmed) {
+                    localStorage.removeItem('mani_user_messages'); openAdminMessages(); updateMessageCounter();
+                }
+            });
         }
 
         // ================= NOTIFICATION SYSTEM ================= //
@@ -697,7 +814,7 @@
             const fileInput = document.getElementById('notifMediaFile');
             
             if(!title || !desc) {
-                alert('Please enter both title and message.');
+                customAlert('Please enter both title and message.', 'WARNING', 'fa-triangle-exclamation', 'error');
                 return;
             }
 
@@ -732,12 +849,12 @@
                             textContainer.appendChild(newVid);
                         }
                         bindMediaClickHandlers();
-                        alert('Notification Updated Successfully!');
+                        customAlert('Notification Updated Successfully!', 'SUCCESS', 'fa-circle-check', 'success');
                         closeUploadModal();
                     };
                     reader.readAsDataURL(file);
                 } else {
-                    alert('Notification Updated Successfully!');
+                    customAlert('Notification Updated Successfully!', 'SUCCESS', 'fa-circle-check', 'success');
                     closeUploadModal();
                 }
             } else {
@@ -765,7 +882,7 @@
                         `;
                         wrapper.insertBefore(newItem, wrapper.firstChild);
                         bindMediaClickHandlers();
-                        alert('New Notification Published Successfully! Go to Notifications page to view it.');
+                        customAlert('New Notification Published Successfully! Go to Notifications page to view it.', 'PUBLISHED', 'fa-circle-check', 'success');
                         closeUploadModal();
                     };
                     reader.readAsDataURL(file);
@@ -778,7 +895,7 @@
                         </div>
                     `;
                     wrapper.insertBefore(newItem, wrapper.firstChild);
-                    alert('New Notification Published Successfully! Go to Notifications page to view it.');
+                    customAlert('New Notification Published Successfully! Go to Notifications page to view it.', 'PUBLISHED', 'fa-circle-check', 'success');
                     closeUploadModal();
                 }
             }
@@ -807,7 +924,7 @@
 
         function handleAdminBadgeClick() {
             if (localStorage.getItem('mani_admin_logged') === 'true') {
-                alert('Admin Mode is Active! Use the tools floating at the bottom right.');
+                customAlert('Admin Mode is Active! Use the tools floating at the bottom right.', 'ADMIN MODE', 'fa-user-gear', 'info');
             } else { openAdminLogin(); }
         }
 
@@ -825,10 +942,9 @@
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
                 closeAdminLogin();
-                alert('Admin Logged In! 🚀\n\n- Click "View Messages" to read contact forms.\n- Click "Edit Website" to open editing tools.');
+                customAlert('Admin Logged In! 🚀\n\n- Click "View Messages" to read contact forms.\n- Click "Edit Website" to open editing tools.', 'WELCOME ADMIN', 'fa-shield-halved', 'success');
                 activateAdminMode();
             } else {
-                // DYNAMIC WRONG PASSWORD ALERT
                 document.getElementById('wrongPassModal').style.display = 'flex';
                 const errBox = document.getElementById('errorBoxAnim');
                 errBox.style.animation = 'none';
@@ -838,7 +954,9 @@
 
         function logoutAdmin() {
             localStorage.removeItem('mani_admin_logged');
-            alert('Admin logged out successfully!'); window.location.reload();
+            customAlert('Admin logged out successfully!', 'LOGOUT', 'fa-right-from-bracket', 'info', function() {
+                window.location.reload();
+            });
         }
 
         function activateAdminMode() {
@@ -851,10 +969,12 @@
         // ================= CARD DELETION HELPER FUNCTIONS ================= //
         function deleteThisCard(btn, event) {
             if (event) { event.stopPropagation(); event.preventDefault(); }
-            if (confirm("क्या आप इस पूरे कार्ड/गैलरी आइटम को डिलीट करना चाहते हैं?")) {
-                const card = btn.closest('.showcase-item, .card-3d');
-                if (card) { card.remove(); }
-            }
+            customConfirm("क्या आप इस पूरे कार्ड/गैलरी आइटम को डिलीट करना चाहते हैं?", function(confirmed) {
+                if(confirmed) {
+                    const card = btn.closest('.showcase-item, .card-3d');
+                    if (card) { card.remove(); }
+                }
+            });
         }
 
         function deleteCardFromTextControls(event) {
@@ -862,10 +982,12 @@
             if (!currentTextElement) return;
             const card = currentTextElement.closest('.showcase-item, .card-3d');
             if (card) {
-                if (confirm("क्या आप इस पूरे कार्ड को डिलीट करना चाहते हैं?")) {
-                    card.remove();
-                    document.getElementById('admin-text-controls')?.remove();
-                }
+                customConfirm("क्या आप इस पूरे कार्ड को डिलीट करना चाहते हैं?", function(confirmed) {
+                    if(confirmed) {
+                        card.remove();
+                        document.getElementById('admin-text-controls')?.remove();
+                    }
+                });
             }
         }
 
@@ -980,7 +1102,7 @@
         // ================= ADD NEW CARDS & SLIDES ================= //
         function addHeroSlide() {
             const track = document.getElementById('frontSliderTrack');
-            if(!track) { alert("Slider not found!"); return; }
+            if(!track) { customAlert("Slider not found!", "ERROR", "fa-triangle-exclamation", "error"); return; }
             
             const newMedia = document.createElement('img');
             newMedia.src = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'; 
@@ -994,12 +1116,12 @@
             currentSlideIndex = track.children.length - 1;
             track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
             
-            alert('New Slide Box added! Click on this new photo to Upload your own Image or Paste Video URL.');
+            customAlert('New Slide Box added! Click on this new photo to Upload your own Image or Paste Video URL.', 'SLIDE ADDED', 'fa-images', 'success');
         }
 
         function addNewMediaCard() {
             const galleryContainer = document.getElementById('galleryContainer');
-            if(!galleryContainer) { alert('Gallery section not found on page!'); return; }
+            if(!galleryContainer) { customAlert('Gallery section not found on page!', 'ERROR', 'fa-triangle-exclamation', 'error'); return; }
             const newItem = document.createElement('div');
             newItem.className = 'showcase-item';
             newItem.innerHTML = `
@@ -1012,34 +1134,35 @@
             galleryContainer.appendChild(newItem);
             attachDeleteBtnIfEditing(newItem);
             bindMediaClickHandlers();
-            alert('New Gallery Card Added Successfully!');
+            customAlert('New Gallery Card Added Successfully!', 'CARD ADDED', 'fa-circle-check', 'success');
         }
 
         function addYouTubeVideo() {
-            let ytUrl = prompt("Enter YouTube Video ID or Embed/Watch URL:");
-            if(!ytUrl) return;
-            let videoEmbedUrl = ytUrl;
-            if(ytUrl.includes("watch?v=")) {
-                let parts = ytUrl.split('watch?v=');
-                let vidId = parts[1].split('&')[0];
-                videoEmbedUrl = `https://www.youtube.com/embed/${vidId}`;
-            } else if(ytUrl.length === 11) {
-                videoEmbedUrl = `https://www.youtube.com/embed/${ytUrl}`;
-            }
-            const galleryContainer = document.getElementById('galleryContainer');
-            if(!galleryContainer) return;
-            const newItem = document.createElement('div');
-            newItem.className = 'showcase-item';
-            newItem.innerHTML = `
-                <iframe width="100%" height="220" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px;"></iframe>
-                <div class="showcase-overlay" style="position:relative; background:rgba(0,0,0,0.8); padding:10px; margin-top:5px; border-radius:5px;">
-                    <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
-                    <p contenteditable="true" class="editable-active">Watch full match on channel</p>
-                </div>
-            `;
-            galleryContainer.appendChild(newItem);
-            attachDeleteBtnIfEditing(newItem);
-            alert('YouTube Video Card Added Successfully!');
+            customPrompt("ADD YOUTUBE VIDEO", "Enter YouTube Video ID or Embed/Watch URL:", function(ytUrl) {
+                if(!ytUrl) return;
+                let videoEmbedUrl = ytUrl;
+                if(ytUrl.includes("watch?v=")) {
+                    let parts = ytUrl.split('watch?v=');
+                    let vidId = parts[1].split('&')[0];
+                    videoEmbedUrl = `https://www.youtube.com/embed/${vidId}`;
+                } else if(ytUrl.length === 11) {
+                    videoEmbedUrl = `https://www.youtube.com/embed/${ytUrl}`;
+                }
+                const galleryContainer = document.getElementById('galleryContainer');
+                if(!galleryContainer) return;
+                const newItem = document.createElement('div');
+                newItem.className = 'showcase-item';
+                newItem.innerHTML = `
+                    <iframe width="100%" height="220" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px;"></iframe>
+                    <div class="showcase-overlay" style="position:relative; background:rgba(0,0,0,0.8); padding:10px; margin-top:5px; border-radius:5px;">
+                        <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
+                        <p contenteditable="true" class="editable-active">Watch full match on channel</p>
+                    </div>
+                `;
+                galleryContainer.appendChild(newItem);
+                attachDeleteBtnIfEditing(newItem);
+                customAlert('YouTube Video Card Added Successfully!', 'VIDEO ADDED', 'fa-brands fa-youtube', 'success');
+            });
         }
 
         function addNewTextCard() {
@@ -1055,7 +1178,7 @@
             `;
             galleryContainer.appendChild(newItem);
             attachDeleteBtnIfEditing(newItem);
-            alert('Custom Text Card Added Successfully!');
+            customAlert('Custom Text Card Added Successfully!', 'TEXT CARD ADDED', 'fa-font', 'success');
         }
 
         // ================= MOVE / DRAG SYSTEM ================= //
@@ -1074,7 +1197,7 @@
                 let floatingControlImg = document.getElementById('admin-img-controls'); 
                 if(floatingControlImg) floatingControlImg.remove();
 
-                alert('Move Mode is ON! \n\nअब आप किसी भी आइटम को पकड़ कर मूव कर सकते हैं।');
+                customAlert('Move Mode is ON! \n\nअब आप किसी भी आइटम को पकड़ कर मूव कर सकते हैं।', 'MOVE MODE ACTIVE', 'fa-arrows-up-down-left-right', 'info');
             } else {
                 btn.style.background = '#ff9800'; btn.style.color = '#000';
                 btn.innerHTML = '<i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items';
@@ -1162,8 +1285,8 @@
         }
 
         function deleteMediaElement() {
-            if (confirm("Are you sure you want to delete this photo/card?")) {
-                if (currentTargetElement) {
+            customConfirm("Are you sure you want to delete this photo/card?", function(confirmed) {
+                if(confirmed && currentTargetElement) {
                     let parentCard = currentTargetElement.closest('.showcase-item');
                     if (parentCard) {
                         parentCard.remove();
@@ -1174,7 +1297,7 @@
                     const track = document.getElementById('frontSliderTrack'); if (track) { currentSlideIndex = 0; track.style.transform = `translateX(0%)`; }
                     currentTargetElement = null;
                 }
-            }
+            });
         }
 
         function zoomElement(step) {
@@ -1185,13 +1308,14 @@
         }
 
         function changePhotoByUrl() {
-            let url = prompt("Paste direct Image or Video URL here:");
-            if(url && currentTargetElement) {
-                if(url.match(/\.(mp4|webm|ogg)$/i)) {
-                    let newVideo = document.createElement('video'); newVideo.src = url; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true; newVideo.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
-                } else { currentTargetElement.src = url; }
-                document.getElementById('admin-img-controls')?.remove(); bindMediaClickHandlers();
-            }
+            customPrompt("PASTE IMAGE / VIDEO URL", "Paste direct URL here:", function(url) {
+                if(url && currentTargetElement) {
+                    if(url.match(/\.(mp4|webm|ogg)$/i)) {
+                        let newVideo = document.createElement('video'); newVideo.src = url; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = false; newVideo.loop = true; newVideo.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
+                    } else { currentTargetElement.src = url; }
+                    document.getElementById('admin-img-controls')?.remove(); bindMediaClickHandlers();
+                }
+            });
         }
 
         function handleFileSelected(event) {
@@ -1218,7 +1342,7 @@
 
         function clearSavedToken() {
             localStorage.removeItem('gh_token_bagga');
-            alert("GitHub Token Removed! You will be asked again on your next save.");
+            customAlert("GitHub Token Removed! You will be asked again on your next save.", "TOKEN RESET", "fa-key", "info");
         }
 
         function closeGithubModal() {
@@ -1227,7 +1351,7 @@
 
         function saveGithubTokenAndProceed() {
             const inputVal = document.getElementById('githubTokenInputModal').value.trim();
-            if(!inputVal) { alert('Please enter a valid GitHub token.'); return; }
+            if(!inputVal) { customAlert('Please enter a valid GitHub token.', 'INVALID TOKEN', 'fa-triangle-exclamation', 'error'); return; }
             localStorage.setItem('gh_token_bagga', inputVal);
             closeGithubModal();
             saveChangesToGitHub();
@@ -1278,6 +1402,9 @@
                 let viewModal = clone.querySelector('#viewNotifModal'); if(viewModal) viewModal.style.display = 'none';
                 let msgsModal = clone.querySelector('#adminMessagesModal'); if(msgsModal) msgsModal.style.display = 'none'; 
                 let wrongModal = clone.querySelector('#wrongPassModal'); if(wrongModal) wrongModal.style.display = 'none';
+                let customAlertM = clone.querySelector('#customAlertModal'); if(customAlertM) customAlertM.style.display = 'none';
+                let customConfirmM = clone.querySelector('#customConfirmModal'); if(customConfirmM) customConfirmM.style.display = 'none';
+                let customPromptM = clone.querySelector('#customPromptModal'); if(customPromptM) customPromptM.style.display = 'none';
                 
                 let floatingControlImg = clone.querySelector('#admin-img-controls'); if(floatingControlImg) floatingControlImg.remove();
                 let floatingControlText = clone.querySelector('#admin-text-controls'); if(floatingControlText) floatingControlText.remove();
@@ -1309,7 +1436,7 @@
                 });
 
                 if (putResponse.ok) {
-                    alert('🎉 Awesome! All changes saved to Live Site successfully!');
+                    customAlert('🎉 Awesome! All changes saved to Live Site successfully!', 'PUBLISHED TO LIVE', 'fa-cloud-arrow-up', 'success');
                 } else { 
                     const errorDetails = await putResponse.json(); 
                     if(putResponse.status === 401) localStorage.removeItem('gh_token_bagga');
@@ -1320,7 +1447,7 @@
 
             } catch (error) {
                 console.error("Save Error:", error); 
-                alert('Save Error: ' + error.message);
+                customAlert('Save Error: ' + error.message, 'ERROR', 'fa-triangle-exclamation', 'error');
             } finally {
                 saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site'; 
                 saveBtn.disabled = false;
