@@ -9,9 +9,61 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Admin Modal CSS -->
     <style>
-        /* Admin Login Modal Styles */
+        /* ================== PAGE ROUTING SYSTEM ================== */
+        .page-view {
+            display: none;
+            min-height: 100vh;
+            padding-bottom: 50px;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .page-view.active {
+            display: block;
+        }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(15px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* 3D NOTIFICATION CARDS */
+        .page-header {
+            text-align: center; margin: 120px 0 40px 0; color: #00d2ff;
+            font-size: 2.8rem; text-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+        .notif-container {
+            max-width: 900px; margin: 0 auto; padding: 0 20px;
+        }
+        .notif-3d-card {
+            background: linear-gradient(145deg, #1a1a2e, #10101a);
+            border-radius: 20px; padding: 25px; margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0, 210, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            transition: all 0.4s ease; transform-style: preserve-3d;
+        }
+        .notif-3d-card:hover {
+            transform: translateY(-10px) rotateX(2deg) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 210, 255, 0.3), inset 0 0 20px rgba(0, 210, 255, 0.2);
+            border-color: #00d2ff;
+        }
+        .notif-3d-card img, .notif-3d-card video {
+            width: 100%; height: 350px; object-fit: cover; border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6); margin-bottom: 20px;
+        }
+        .notif-title {
+            color: #fff; font-size: 1.8rem; margin-bottom: 10px; text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+        .notif-desc {
+            color: #b3b3cc; font-size: 1.1rem; line-height: 1.6;
+        }
+
+        /* 3D CONTACT PAGE */
+        .contact-page-wrapper {
+            display: flex; justify-content: center; align-items: center; 
+            padding: 20px; margin-top: 50px;
+        }
+
+        /* Admin Modal Styles */
         .admin-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85); z-index: 9999; justify-content: center; align-items: center;
@@ -31,8 +83,6 @@
             width: 100%; padding: 12px; margin-top: 15px; border-radius: 5px; border: none;
             background: #00d2ff; color: #000; font-weight: bold; cursor: pointer; transition: 0.3s;
         }
-        .admin-box button:hover { background: #00a3cc; box-shadow: 0 0 10px #00d2ff; }
-        .close-btn { color: red; float: right; cursor: pointer; font-size: 20px; }
         
         /* Floating Admin Dashboard */
         .admin-dashboard {
@@ -44,30 +94,10 @@
             background: #00d2ff; color: #000; border: none; padding: 8px 10px;
             margin-top: 8px; cursor: pointer; border-radius: 5px; width: 100%; font-weight: bold;
         }
-        .admin-dashboard button:hover { background: #00a3cc; }
-        
-        /* Save Button Style */
         .btn-save { background: #28a745 !important; color: white !important; }
-        .btn-save:hover { background: #218838 !important; box-shadow: 0 0 10px #28a745; }
-
-        /* Editable Highlight */
+        
         .editable-active { border: 1px dashed #00d2ff !important; padding: 2px; }
         .media-editable:hover { opacity: 0.8; cursor: pointer; outline: 3px solid #00d2ff; }
-
-        /* Notification Modal Styles */
-        #notificationModal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(16, 16, 26, 0.95); z-index: 9999; overflow-y: auto; padding: 40px 20px;
-            backdrop-filter: blur(10px);
-        }
-        .notif-container { max-width: 800px; margin: 0 auto; padding-top: 40px; }
-        .notif-card {
-            background: #1e1e2f; padding: 20px; border-radius: 15px; margin-bottom: 25px;
-            border: 1px solid #00d2ff; box-shadow: 0 5px 15px rgba(0, 210, 255, 0.2);
-        }
-        .notif-card img, .notif-card video {
-            width: 100%; height: 250px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;
-        }
     </style>
 </head>
 <body>
@@ -79,7 +109,6 @@
     <!-- Navigation Bar -->
     <header>
         <nav class="navbar">
-            <!-- Admin Profile (Left Corner) -->
             <div class="admin-badge-left" onclick="openAdminLogin()" style="cursor: pointer;" title="Click to Login Admin">
                 <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
                 <div class="admin-info">
@@ -88,193 +117,192 @@
                 </div>
             </div>
 
-            <!-- BANNER -->
             <div class="logo">
                 <i class="fa-solid fa-gamepad"></i> MANI<span>M4YT</span>
             </div>
 
-            <!-- LINKS -->
             <ul class="nav-links">
-                <li><a href="#home">HOME</a></li>
-                <li><a href="#features">TIPS</a></li>
-                <li><a href="#showcase">GALLERY</a></li>
-                <li><a href="#about">LIVE</a></li>
-                <li><a href="#" onclick="openNotifications()" style="color:#00d2ff;">NOTIFICATIONS <i class="fa-solid fa-bell"></i></a></li>
-                <li><a href="#contact" class="btn-primary">CONTACT DIRECT</a></li>
+                <!-- Using JavaScript function to change pages -->
+                <li><a href="#" onclick="navigateTo('home')">HOME</a></li>
+                <li><a href="#" onclick="goToHomeSection('features')">TIPS</a></li>
+                <li><a href="#" onclick="goToHomeSection('showcase')">GALLERY</a></li>
+                <li><a href="#" onclick="goToHomeSection('about')">LIVE</a></li>
+                <li><a href="#" onclick="navigateTo('notifications')" style="color:#00d2ff;">NOTIFICATIONS</a></li>
+                <li><a href="#" onclick="navigateTo('contact')" class="btn-primary">CONTACT DIRECT</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-text">
-                <span class="badge">eSports Gaming</span>
-                <h1>YouTube <span class="highlight">MANI M4 PRO</span></h1>
-                <p>🔥 WELCOME TO GAMING WORLD 🔥 — BGMI & PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
-                <div class="hero-btns">
-                    <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="btn-main"><i class="fa-brands fa-youtube"></i> YouTube</a>
-                    <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="btn-secondary"><i class="fa-brands fa-instagram"></i> Instagram</a>
+    <!-- ==================== PAGE 1: HOME ==================== -->
+    <div id="page-home" class="page-view active">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-container">
+                <div class="hero-text">
+                    <span class="badge">eSports Gaming</span>
+                    <h1>YouTube <span class="highlight">MANI M4 PRO</span></h1>
+                    <p>🔥 WELCOME TO GAMING WORLD 🔥 — BGMI & PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
+                    <div class="hero-btns">
+                        <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="btn-main"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                        <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="btn-secondary"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-3d-card-wrapper">
-                <div class="card-3d-main" id="tilt-card">
-                    <img src="images/hero-3d.jpg" alt="MANI M4 PRO 3D Display" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">
-                    <div class="card-glass-overlay">
-                        <h3>Subscribe & Stay Connected</h3>
-                        <p>Subscribe to MANI M4YT Channel and become a part of our family!</p>
+                <div class="hero-3d-card-wrapper">
+                    <div class="card-3d-main" id="tilt-card">
+                        <img src="images/hero-3d.jpg" alt="MANI M4 PRO 3D Display" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">
+                        <div class="card-glass-overlay">
+                            <h3>Subscribe & Stay Connected</h3>
+                            <p>Subscribe to MANI M4YT Channel and become a part of our family!</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features-section">
-        <h2 class="section-title">MAIN <span class="highlight">FEATURES</span></h2>
-        <p class="section-subtitle">Special facilities for Gamers</p>
-
-        <div class="cards-grid">
-            <div class="card-3d">
-                <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
-                <div class="card-img-container">
-                    <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <h2 class="section-title">MAIN <span class="highlight">FEATURES</span></h2>
+            <p class="section-subtitle">Special facilities for Gamers</p>
+            <div class="cards-grid">
+                <div class="card-3d">
+                    <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
+                    <div class="card-img-container">
+                        <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
+                    </div>
+                    <h3>BGMI Live Highlights</h3>
+                    <p>CAN YOU SUBSCRIBE.</p>
                 </div>
-                <h3>BGMI Live Highlights</h3>
-                <p>CAN YOU SUBSCRIBE.</p>
-            </div>
-            <div class="card-3d">
-                <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
-                <div class="card-img-container">
-                    <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
+                <div class="card-3d">
+                    <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <div class="card-img-container">
+                        <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
+                    </div>
+                    <h3>eSports Custom Rooms</h3>
+                    <p>JOIN FOR TOURNAMENT PROGRAMS.</p>
                 </div>
-                <h3>eSports Custom Rooms</h3>
-                <p>JOIN FOR TOURNAMENT PROGRAMS.</p>
-            </div>
-            <div class="card-3d">
-                <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
-                <div class="card-img-container">
-                    <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'">
-                </div>
-                <h3>Pro Controls & Sensitivity</h3>
-                <p>FULL GUIDE IN ESPORTS MANIM4.YT.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Showcase / Gallery -->
-    <section id="showcase" class="showcase-section">
-        <h2 class="section-title">BGMI / PUBG <span class="highlight">3D GALLERY</span></h2>
-        <div class="showcase-grid" id="galleryContainer">
-            <div class="showcase-item">
-                <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
-                <div class="showcase-overlay">
-                    <h4>Clutch Moments</h4>
-                    <p>1v4 BGMI Gameplay</p>
+                <div class="card-3d">
+                    <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
+                    <div class="card-img-container">
+                        <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'">
+                    </div>
+                    <h3>Pro Controls & Sensitivity</h3>
+                    <p>FULL GUIDE IN ESPORTS MANIM4.YT.</p>
                 </div>
             </div>
-            <div class="showcase-item">
-                <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
-                <div class="showcase-overlay">
-                    <h4>eSports Arena</h4>
-                    <p>Custom Scrims</p>
+        </section>
+
+        <!-- Showcase / Gallery -->
+        <section id="showcase" class="showcase-section">
+            <h2 class="section-title">BGMI / PUBG <span class="highlight">3D GALLERY</span></h2>
+            <div class="showcase-grid" id="galleryContainer">
+                <div class="showcase-item">
+                    <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80'">
+                    <div class="showcase-overlay">
+                        <h4>Clutch Moments</h4>
+                        <p>1v4 BGMI Gameplay</p>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80'">
+                    <div class="showcase-overlay">
+                        <h4>eSports Arena</h4>
+                        <p>Custom Scrims</p>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'">
+                    <div class="showcase-overlay">
+                        <h4>Pro Setup</h4>
+                        <p>LIVE M4YT</p>
+                    </div>
                 </div>
             </div>
-            <div class="showcase-item">
-                <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80'">
-                <div class="showcase-overlay">
-                    <h4>Pro Setup</h4>
-                    <p>LIVE M4YT</p>
-                </div>
+        </section>
+
+        <!-- About Us -->
+        <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.6);">
+            <h2 class="section-title">ABOUT <span class="highlight">US</span></h2>
+            <div class="about-card">
+                <p>Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Us -->
-    <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.6);">
-        <h2 class="section-title">ABOUT <span class="highlight">US</span></h2>
-        <div class="about-card">
-            <p>Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
-        </div>
-    </section>
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stat-card">
+                <h2>eSports</h2>
+                <p>BAGGA M4.YT</p>
+            </div>
+            <div class="stat-card">
+                <h2>BGMI Pro</h2>
+                <p>1v4 Clutch Master</p>
+            </div>
+            <div class="stat-card">
+                <h2>GAMING TIPS</h2>
+                <p>ALL IN ONE WEB</p>
+            </div>
+        </section>
+    </div>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="stat-card">
-            <h2>eSports</h2>
-            <p>BAGGA M4.YT</p>
-        </div>
-        <div class="stat-card">
-            <h2>BGMI Pro</h2>
-            <p>1v4 Clutch Master</p>
-        </div>
-        <div class="stat-card">
-            <h2>GAMING TIPS</h2>
-            <p>ALL IN ONE WEB</p>
-        </div>
-    </section>
-
-    <!-- Admin Contact Section -->
-    <section id="contact" class="features-section">
-        <h2 class="section-title">MESSAGE <span class="highlight">ADMIN</span></h2>
-        <p class="section-subtitle">LIVE SUPPORT</p>
+    <!-- ==================== PAGE 2: NOTIFICATIONS ==================== -->
+    <div id="page-notifications" class="page-view">
+        <h1 class="page-header">LATEST <span class="highlight">UPDATES</span></h1>
         
-        <div class="contact-box">
-            <form id="contactForm" onsubmit="sendMessageToAdmin(event)">
-                <div class="form-group">
-                    <label>YOUR NAME / EMAIL:</label>
-                    <input type="text" id="senderName" required placeholder="Enter your name...">
-                </div>
-                <div class="form-group">
-                    <label>MESSAGE FOR DEVELOPER:</label>
-                    <textarea id="senderMsg" rows="4" required placeholder="Write your message here..."></textarea>
-                </div>
-                <button type="submit" class="btn-submit">
-                    <i class="fa-brands fa-whatsapp"></i> SEND MESSAGE
-                </button>
-            </form>
+        <div class="notif-container" id="notifWrapper">
+            <!-- 3D Notification Card -->
+            <div class="notif-3d-card">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" alt="Update" class="media-target">
+                <h2 class="notif-title">Welcome to the new Esports Hub!</h2>
+                <p class="notif-desc">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys!</p>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
+    <!-- ==================== PAGE 3: CONTACT ==================== -->
+    <div id="page-contact" class="page-view">
+        <h1 class="page-header">MESSAGE <span class="highlight">ADMIN</span></h1>
+        
+        <div class="contact-page-wrapper">
+            <div class="contact-box" style="transform: scale(1.1); max-width: 600px;">
+                <p style="text-align:center; color:#b3b3cc; margin-bottom: 20px;">DIRECT LIVE SUPPORT VIA WHATSAPP</p>
+                <form id="contactForm" onsubmit="sendMessageToAdmin(event)">
+                    <div class="form-group">
+                        <label>YOUR NAME / EMAIL:</label>
+                        <input type="text" id="senderName" required placeholder="Enter your name...">
+                    </div>
+                    <div class="form-group">
+                        <label>MESSAGE FOR DEVELOPER:</label>
+                        <textarea id="senderMsg" rows="5" required placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fa-brands fa-whatsapp"></i> SEND MESSAGE NOW
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (Visible on all pages) -->
     <footer>
         <div class="footer-container">
             <div class="footer-logo">
                 <i class="fa-solid fa-gamepad"></i> MANI<span>M4YT</span>
             </div>
-            
             <div class="social-links">
                 <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="yt-icon"><i class="fa-brands fa-youtube"></i></a>
                 <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="ig-icon"><i class="fa-brands fa-instagram"></i></a>
             </div>
-
             <p class="email-text">
                 <i class="fa-solid fa-envelope"></i> Email: <a href="mailto:manipubji@gmail.com">manipubji@gmail.com</a>
             </p>
-
             <p>© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
         </div>
     </footer>
 
-    <!-- NOTIFICATION MODAL PAGE -->
-    <div id="notificationModal">
-        <span onclick="closeNotifications()" class="close-btn" style="position:fixed; top:20px; right:30px; font-size:40px;">&times;</span>
-        <h1 style="color:#00d2ff; text-align:center; font-size: 2.5rem; margin-bottom: 30px;"><i class="fa-solid fa-bell"></i> LATEST UPDATES</h1>
-        
-        <div class="notif-container" id="notifWrapper">
-            <!-- Default Notification (You can edit/delete this later) -->
-            <div class="notif-card">
-                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" alt="Update" class="media-target">
-                <h2 style="color:white; margin-top:10px;">Welcome to the new Website!</h2>
-                <p style="color:#aaa; font-size:16px; margin-top:5px;">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT.</p>
-            </div>
-        </div>
-    </div>
-
     <!-- ADMIN LOGIN MODAL -->
     <div id="adminLoginModal" class="admin-modal">
         <div class="admin-box">
-            <span class="close-btn" onclick="closeAdminLogin()">&times;</span>
+            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:20px;">&times;</span>
             <h2><i class="fa-solid fa-user-shield"></i> ADMIN LOGIN</h2>
             <form onsubmit="handleLogin(event)">
                 <input type="text" id="adminUser" placeholder="Username" required>
@@ -290,17 +318,38 @@
         <button onclick="addNewMediaCard()"><i class="fa-solid fa-plus"></i> Add Gallery Card</button>
         <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
         <button onclick="changePhotoByUrl()"><i class="fa-solid fa-link"></i> Photo/Video URL</button>
-        <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-bell"></i> Add Notification</button>
+        <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
         <button onclick="saveChangesToGitHub()" class="btn-save"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
         <button onclick="clearSavedToken()" style="background:#dc3545; color:white; font-size:10px;">Reset Token</button>
     </div>
 
-    <!-- HIDDEN FILE INPUT FOR GALLERY SELECTOR -->
+    <!-- HIDDEN FILE INPUT FOR SELECTOR -->
     <input type="file" id="adminFileInput" accept="image/*,video/*" style="display: none;" onchange="handleFileSelected(event)">
 
     <!-- External JS Logic -->
     <script src="js/script.js"></script>
     <script>
+        // ================= PAGE ROUTING LOGIC ================= //
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-view').forEach(page => {
+                page.classList.remove('active');
+            });
+            // Show requested page
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0); // Scroll to top
+            }
+        }
+
+        function goToHomeSection(sectionId) {
+            navigateTo('home');
+            setTimeout(() => {
+                document.getElementById(sectionId).scrollIntoView({behavior: 'smooth'});
+            }, 100);
+        }
+
         function sendMessageToAdmin(e) {
             e.preventDefault();
             const name = document.getElementById('senderName').value;
@@ -308,33 +357,6 @@
             const text = `Hi MANI M4, I am ${encodeURIComponent(name)}. Message: ${encodeURIComponent(msg)}`;
             window.open(`https://wa.me/qr/UT7SLRPTD2WIK1?text=${text}`, '_blank');
         }
-
-        // ================= NOTIFICATION LOGIC ================= //
-        function openNotifications() {
-            document.getElementById('notificationModal').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Stop background scrolling
-        }
-
-        function closeNotifications() {
-            document.getElementById('notificationModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        function addNewNotification() {
-            let notifWrapper = document.getElementById('notifWrapper');
-            let newNotifHTML = `
-                <div class="notif-card">
-                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80" alt="New Update" class="media-target">
-                    <h2 style="color:white; margin-top:10px;" contenteditable="true" class="editable-active">New Update Title</h2>
-                    <p style="color:#aaa; font-size:16px; margin-top:5px;" contenteditable="true" class="editable-active">Type your notification details here...</p>
-                </div>`;
-            notifWrapper.insertAdjacentHTML('afterbegin', newNotifHTML); // Adds to the top
-            
-            // Automatically open notifications page so admin can see and edit the new card
-            openNotifications();
-            if (isAdminLoggedIn) activateAdminMode();
-        }
-
 
         // ================= ADMIN PANEL LOGIC ================= //
         let isAdminLoggedIn = false;
@@ -347,7 +369,6 @@
         function openAdminLogin() {
             document.getElementById('adminLoginModal').style.display = 'flex';
         }
-
         function closeAdminLogin() {
             document.getElementById('adminLoginModal').style.display = 'none';
         }
@@ -360,7 +381,7 @@
             if (user === 'bagga' && pass === 'iphonex0421&') {
                 isAdminLoggedIn = true;
                 closeAdminLogin();
-                alert('Welcome Admin Bagga! 🚀\n1. Click on any text to edit.\n2. Click photos to add Video/Photo.\n3. Click "Save to Live Site" to publish changes!');
+                alert('Welcome Admin Bagga! 🚀\n1. Click text to edit.\n2. Click any photo/video (even in notifications) to change it.\n3. Click "Save to Live Site" to publish!');
                 activateAdminMode();
             } else {
                 alert('Invalid Username or Password!');
@@ -369,8 +390,7 @@
 
         function activateAdminMode() {
             document.getElementById('adminDashboard').style.display = 'block';
-
-            // Make Text Editable
+            
             const textElements = document.querySelectorAll('h1, h2, h3, h4, p, span:not(.close-btn)');
             textElements.forEach(el => {
                 el.contentEditable = "true";
@@ -401,6 +421,20 @@
             });
         }
 
+        // ==== NOTIFICATION ADD FUNCTION ====
+        function addNewNotification() {
+            navigateTo('notifications'); // Automatically switch to Notifications page
+            let notifWrapper = document.getElementById('notifWrapper');
+            let newNotifHTML = `
+                <div class="notif-3d-card">
+                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80" alt="New Update" class="media-target">
+                    <h2 class="notif-title" contenteditable="true" class="editable-active">New Update Title</h2>
+                    <p class="notif-desc" contenteditable="true" class="editable-active">Type your detailed notification message here...</p>
+                </div>`;
+            notifWrapper.insertAdjacentHTML('afterbegin', newNotifHTML);
+            if (isAdminLoggedIn) activateAdminMode();
+        }
+
         function changePhotoByUrl() {
             if(!currentTargetElement && isAdminLoggedIn) {
                 alert("Please click on a photo or card first to change it!");
@@ -416,13 +450,6 @@
                     newVideo.muted = false;        
                     newVideo.playsInline = true;   
                     newVideo.loop = true;
-                    newVideo.style.width = "100%";
-                    if(currentTargetElement.closest('.notif-card')) {
-                        newVideo.style.height = "250px";
-                    } else {
-                        newVideo.style.height = "220px";
-                    }
-                    newVideo.style.objectFit = "cover";
                     newVideo.className = currentTargetElement.className;
                     currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
                 } else {
@@ -457,13 +484,6 @@
                     newVideo.muted = false;        
                     newVideo.playsInline = true;   
                     newVideo.loop = true;
-                    newVideo.style.width = "100%";
-                    if(currentTargetElement.closest('.notif-card')) {
-                        newVideo.style.height = "250px";
-                    } else {
-                        newVideo.style.height = "220px";
-                    }
-                    newVideo.style.objectFit = "cover";
                     newVideo.className = currentTargetElement.className;
                     currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
                     currentTargetElement = newVideo;
@@ -475,6 +495,9 @@
         }
 
         function addNewMediaCard() {
+            navigateTo('home');
+            setTimeout(() => { document.getElementById('showcase').scrollIntoView(); }, 100);
+            
             let gallery = document.getElementById('galleryContainer');
             let newCardHTML = `
                 <div class="showcase-item">
@@ -489,6 +512,9 @@
         }
 
         function addYouTubeVideo() {
+            navigateTo('home');
+            setTimeout(() => { document.getElementById('showcase').scrollIntoView(); }, 100);
+            
             let videoLink = prompt("Enter YouTube Video Embed Link (e.g., https://www.youtube.com/embed/XXXX)");
             if (videoLink) {
                 let gallery = document.getElementById('galleryContainer');
@@ -533,30 +559,26 @@
                     headers: { 'Authorization': `token ${token}` }
                 }); 
                 
-                if (getResponse.status === 401 || getResponse.status === 403 || getResponse.status === 404) {
-                    localStorage.removeItem('gh_token_bagga');
-                    throw new Error("Your GitHub Token is Invalid.\nPlease ensure you checked the 'repo' box when generating the token!");
-                }
-                
-                if (!getResponse.ok) throw new Error("GitHub Repository file not found!");
+                if (!getResponse.ok) throw new Error("GitHub Repository file not found or Token Invalid!");
                 
                 const fileData = await getResponse.json();
                 const sha = fileData.sha;
 
                 let clone = document.documentElement.cloneNode(true);
                 
+                // Hide admin tools before saving
                 let dash = clone.querySelector('#adminDashboard');
                 if(dash) dash.style.display = 'none';
-                
                 let modal = clone.querySelector('#adminLoginModal');
                 if(modal) modal.style.display = 'none';
 
-                // Force notification modal to be hidden on save so it doesn't open automatically for users
-                let notifModal = clone.querySelector('#notificationModal');
-                if(notifModal) notifModal.style.display = 'none';
-                let bodyClone = clone.querySelector('body');
-                if(bodyClone) bodyClone.style.overflow = 'auto';
+                // Reset page view so visitors always land on Home page first
+                clone.querySelectorAll('.page-view').forEach(p => {
+                    p.classList.remove('active');
+                });
+                clone.querySelector('#page-home').classList.add('active');
                 
+                // Remove editability
                 const editables = clone.querySelectorAll('.editable-active');
                 editables.forEach(el => {
                     el.removeAttribute('contenteditable');
@@ -580,7 +602,7 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        message: 'Updated site content and notifications from Admin Panel',
+                        message: 'Updated Pages (Home/Notifications/Contact) from Admin Panel',
                         content: base64Content,
                         sha: sha
                     })
