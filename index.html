@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- FORCED DESKTOP VIEWPORT FOR ALL DEVICES -->
-    <meta name="viewport" content="width=1040, user-scalable=yes">
+    <!-- FORCED DESKTOP VIEWPORT FOR ALL DEVICES (FIXED SCALE) -->
+    <meta name="viewport" content="width=1200, initial-scale=0.3, maximum-scale=3.0, user-scalable=yes">
     <title>MANI BAGGA HUB | eSports Gaming Hub</title>
     <!-- CSS Link -->
     <link rel="stylesheet" href="css/style.css">
@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* ================== FORCE EXACT DESKTOP VIEW ON ALL DEVICES ================== */
+        body {
+            min-width: 1200px !important;
+            overflow-x: auto !important;
+        }
+
         /* ================== PAGE ROUTING SYSTEM ================== */
         .page-view {
             display: none;
@@ -40,17 +46,6 @@
         .features-section {
             margin-bottom: 10px !important;
             padding-bottom: 10px !important;
-        }
-
-        /* ================== RESPONSIVE LAYOUT FIXES FOR MOBILE & DESKTOP ================== */
-        @media (max-width: 992px) {
-            .navbar { flex-wrap: wrap; justify-content: center; gap: 15px; padding: 15px; }
-            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
-            .hero-container { flex-direction: column; text-align: center; padding: 20px 10px; }
-            .hero-btns { justify-content: center; }
-            .cards-grid, .showcase-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; gap: 20px !important; }
-            .page-header { font-size: 2rem; margin-top: 100px; }
-            .admin-badge-left { margin-bottom: 10px; }
         }
 
         /* COLORFUL NAV BUTTON HOVER EFFECT (GLOW REDUCED) */
@@ -1330,7 +1325,6 @@
             if (localStorage.getItem('mani_admin_logged') !== 'true') return;
             
             if (isMoveModeActive) {
-                // FIXED SELECTOR: Now handles Admin Badge, Logo, Navbar etc explicitly first
                 let target = e.target.closest('.admin-badge-left') || e.target.closest('.logo') || e.target.closest('.nav-links') || e.target.closest('.navbar') || e.target.closest('a, li, h1, h2, h3, h4, p, span, img, video, iframe, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
                 
                 if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
@@ -1365,7 +1359,7 @@
         document.addEventListener('touchmove', (e) => handleFreeDragMove(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
         document.addEventListener('touchend', stopFreeDrag);
 
-        // ================= MEDIA EDIT HANDLERS (EXACT CLICKED ITEM ZOOM FIX) ================= //
+        // ================= MEDIA EDIT HANDLERS ================= //
         function bindMediaClickHandlers() {
             const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
             mediaElements.forEach(elem => {
@@ -1374,7 +1368,7 @@
                     if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
                         e.preventDefault(); 
                         e.stopPropagation(); 
-                        currentTargetElement = elem; // STRICTLY TARGET ONLY THIS CLICKED ELEMENT
+                        currentTargetElement = elem; 
                         showAdminImageControls(e, elem);
                     }
                 };
@@ -1400,9 +1394,8 @@
         }
 
         function showAdminImageControls(e, elem) {
-            if (elem) currentTargetElement = elem; // ALWAYS ENSURE STRICT CURRENT TARGET
+            if (elem) currentTargetElement = elem; 
             
-            // Pause Slider while editing
             if(typeof sliderInterval !== 'undefined') { clearInterval(sliderInterval); }
 
             let existingText = document.getElementById('admin-text-controls'); if(existingText) existingText.remove();
@@ -1440,7 +1433,6 @@
             });
         }
 
-        // STRICT ZOOM FUNCTION ONLY FOR THE SELECTED ELEMENT
         function zoomElement(step, event) {
             if (event) { event.preventDefault(); event.stopPropagation(); }
             if(!currentTargetElement) return;
@@ -1529,15 +1521,13 @@
             const inputVal = document.getElementById('githubTokenInputModal').value.trim();
             if(!inputVal) { customAlert('Please enter a valid GitHub token.', 'INVALID TOKEN', 'fa-triangle-exclamation', 'error'); return; }
             
-            // localStorage में सेव नहीं करेंगे ताकि हर बार नया मांगे 
             window.temp_gh_token_bagga = inputVal; 
             
             closeGithubModal();
-            saveChangesToGitHub(true); // true पास करेंगे ताकि सेव प्रक्रिया चालू हो सके
+            saveChangesToGitHub(true); 
         }
 
         async function saveChangesToGitHub(isTokenReady = false) {
-            // अगर सीधे सेव बटन दबाया है (isTokenReady true नहीं है), तो हर बार Modal खुलेगा
             if (isTokenReady !== true) { 
                 document.getElementById('githubTokenInputModal').value = '';
                 document.getElementById('githubTokenModal').style.display = 'flex';
@@ -1630,7 +1620,7 @@
             } finally {
                 saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site'; 
                 saveBtn.disabled = false;
-                window.temp_gh_token_bagga = null; // सुरक्षा के लिए सेव होने के बाद टोकन को मेमोरी से भी साफ कर दें
+                window.temp_gh_token_bagga = null; 
             }
         }
     </script>
