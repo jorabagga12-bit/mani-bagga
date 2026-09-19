@@ -600,8 +600,7 @@
             <p style="font-size: 11px; color: #ffc107; text-transform: uppercase; margin-bottom: 5px;" contenteditable="false" class=""><i class="fa-solid fa-toolbox"></i> Toolbox</p>
             
             <button onclick="toggleAlignmentGrid()" style="background:#00bcd4; color:white;"><i class="fa-solid fa-border-top-left"></i> Toggle Level Grid</button>
-            <button onclick="expandPageSpace(100)" style="background:#009688; color:white;"><i class="fa-solid fa-arrows-up-down"></i> Expand Page Space (+)</button>
-            <button onclick="expandPageSpace(-100)" style="background:#795548; color:white;"><i class="fa-solid fa-arrows-up-down"></i> Reduce Page Space (-)</button>
+            <button onclick="toggleResizeMode()" id="dashResizeBtn" style="background:#673ab7; color:white;"><i class="fa-solid fa-crop-simple"></i> Resize Items</button>
             <button onclick="addHeroSlide()" style="background:#e91e63; color:white;"><i class="fa-solid fa-images"></i> Add Hero Slide</button>
 
             <button onclick="toggleMoveMode()" id="dashMoveBtn" style="background:#ff9800; color:black;"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items</button>
@@ -692,20 +691,9 @@
             }
         }
 
-        // ================= PAGE SPACE EXPANDER ================= //
-        function expandPageSpace(amount) {
-            const activePage = document.querySelector('.page-view.active');
-            if(activePage) {
-                let currentPadding = parseInt(window.getComputedStyle(activePage).paddingBottom) || 50;
-                let newPadding = Math.max(20, currentPadding + amount);
-                activePage.style.paddingBottom = newPadding + 'px';
-                customAlert('Page bottom space updated: ' + newPadding + 'px', 'SPACE UPDATED', 'fa-arrows-up-down', 'success');
-            }
-        }
-
         // ================= PAGE ROUTING LOGIC ================= //
         function navigateTo(pageId) {
-            if (typeof isMoveModeActive !== 'undefined' && isMoveModeActive) return; 
+            if ((typeof isMoveModeActive !== 'undefined' && isMoveModeActive) || (typeof isResizeModeActive !== 'undefined' && isResizeModeActive)) return; 
             if (document.activeElement && document.activeElement.classList.contains('editable-active')) return;
             
             document.querySelectorAll('.page-view').forEach(page => page.classList.remove('active'));
@@ -717,7 +705,7 @@
         }
 
         function goToHomeSection(sectionId) {
-            if (typeof isMoveModeActive !== 'undefined' && isMoveModeActive) return; 
+            if ((typeof isMoveModeActive !== 'undefined' && isMoveModeActive) || (typeof isResizeModeActive !== 'undefined' && isResizeModeActive)) return; 
             if (document.activeElement && document.activeElement.classList.contains('editable-active')) return;
             
             navigateTo('home');
@@ -963,7 +951,7 @@
         }
 
         // ================= ADMIN AUTHENTICATION SYSTEM ================= //
-        let currentTargetElement = null; let isMoveModeActive = false; 
+        let currentTargetElement = null; 
         let isWaitingToPlaceText = false; // TEXT CARD PLACEMENT FIX
 
         const GITHUB_OWNER = 'jorabagga12-bit';       
@@ -1024,7 +1012,7 @@
         });
 
         function handleAdminBadgeClick(e) {
-            if (typeof isMoveModeActive !== 'undefined' && isMoveModeActive) {
+            if ((typeof isMoveModeActive !== 'undefined' && isMoveModeActive) || (typeof isResizeModeActive !== 'undefined' && isResizeModeActive)) {
                 if(e) e.preventDefault();
                 return;
             }
@@ -1165,7 +1153,7 @@
                     el.classList.add('editable-active'); 
                     
                     el.onclick = function(e) {
-                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive && !isResizeModeActive) { 
                             showAdminTextControls(e, el);
                         }
                     };
@@ -1174,7 +1162,7 @@
                 // EDIT INSTAGRAM & YOUTUBE SOCIAL LINKS IN EDIT MODE
                 document.querySelectorAll('.hero-btns a, .social-links a, .email-text a').forEach(link => {
                     link.onclick = function(e) {
-                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) {
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive && !isResizeModeActive) {
                             e.preventDefault();
                             e.stopPropagation();
                             customPrompt("EDIT LINK URL", "Enter Instagram / YouTube / Email URL for this button:", function(newUrl) {
@@ -1345,8 +1333,85 @@
             document.body.style.cursor = 'crosshair';
         }
 
+        // ================= RESIZE SYSTEM ================= //
+        let isResizeModeActive = false;
+        let activeResize = null;
+        let startW = 0, startH = 0, startX = 0, startY = 0;
+
+        function toggleResizeMode() {
+            isResizeModeActive = !isResizeModeActive;
+            const btn = document.getElementById('dashResizeBtn');
+
+            if(isResizeModeActive) {
+                if (typeof isMoveModeActive !== 'undefined' && isMoveModeActive) toggleMoveMode();
+                btn.style.background = '#ff4d4d'; btn.style.color = '#fff';
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Stop Resizing';
+
+                let floatingControlText = document.getElementById('admin-text-controls');
+                if(floatingControlText) floatingControlText.remove();
+                let floatingControlImg = document.getElementById('admin-img-controls');
+                if(floatingControlImg) floatingControlImg.remove();
+                startSlider();
+
+                customAlert('Resize Mode is ON! \n\nअब आप किसी भी आइटम (फोटो, कार्ड, टेक्स्ट) या खाली पेज को पकड़ कर खींचें (Drag करें) उसे अपनी मर्ज़ी से बड़ा या छोटा करने के लिए।', 'RESIZE MODE ACTIVE', 'fa-crop-simple', 'info');
+            } else {
+                btn.style.background = '#673ab7'; btn.style.color = '#fff';
+                btn.innerHTML = '<i class="fa-solid fa-crop-simple"></i> Resize Items';
+            }
+        }
+
+        function initFreeResize(e, clientX, clientY) {
+            if (localStorage.getItem('mani_admin_logged') !== 'true') return;
+            if (isResizeModeActive) {
+                let target = e.target.closest('.card-3d, .showcase-item, img, video, iframe, .custom-text-card, .hero-text, section, .page-view');
+                if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
+                    activeResize = target;
+                    let compStyle = window.getComputedStyle(activeResize);
+                    startW = parseFloat(compStyle.width) || activeResize.offsetWidth;
+                    startH = parseFloat(compStyle.height) || activeResize.offsetHeight;
+                    startX = clientX;
+                    startY = clientY;
+                    activeResize.style.transition = "none";
+                    activeResize.style.maxWidth = "none";
+                    
+                    if (activeResize.tagName.toLowerCase() !== 'section' && !activeResize.classList.contains('page-view')) {
+                         activeResize.style.zIndex = "99999";
+                    }
+                    if(e.cancelable && !activeResize.classList.contains('page-view') && activeResize.tagName.toLowerCase() !== 'section') e.preventDefault();
+                }
+            }
+        }
+
+        function handleFreeResizeMove(e, clientX, clientY) {
+            if (activeResize && isResizeModeActive) {
+                let deltaX = clientX - startX;
+                let deltaY = clientY - startY;
+                
+                if (activeResize.classList.contains('page-view') || activeResize.tagName.toLowerCase() === 'section') {
+                    // Resize page background container
+                    activeResize.style.minHeight = Math.max(100, startH + deltaY) + 'px';
+                } else {
+                    // Resize specific items
+                    activeResize.style.width = Math.max(20, startW + deltaX) + 'px';
+                    activeResize.style.height = Math.max(20, startH + deltaY) + 'px';
+                }
+                if(e.cancelable) e.preventDefault();
+            }
+        }
+
+        function stopFreeResize() {
+            if (activeResize) {
+                activeResize.style.transition = "";
+                activeResize.style.zIndex = "";
+                activeResize = null;
+            }
+        }
+
         // ================= MOVE / DRAG SYSTEM ================= //
+        let isMoveModeActive = false; 
+
         function toggleMoveMode() {
+            if (typeof isResizeModeActive !== 'undefined' && isResizeModeActive) toggleResizeMode(); // Turn off resize if on
             isMoveModeActive = !isMoveModeActive;
             const btn = document.getElementById('dashMoveBtn');
             const editableElements = document.querySelectorAll('.editable-active');
@@ -1372,7 +1437,7 @@
                     el.style.cursor = "text"; 
                     
                     el.onclick = function(e) {
-                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive && !isResizeModeActive) { 
                             showAdminTextControls(e, el);
                         }
                     };
@@ -1412,12 +1477,26 @@
             }
         }
 
-        document.addEventListener('mousedown', (e) => initFreeDrag(e, e.clientX, e.clientY), {passive: false});
-        document.addEventListener('mousemove', (e) => handleFreeDragMove(e, e.clientX, e.clientY), {passive: false});
-        document.addEventListener('mouseup', stopFreeDrag);
-        document.addEventListener('touchstart', (e) => initFreeDrag(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
-        document.addEventListener('touchmove', (e) => handleFreeDragMove(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
-        document.addEventListener('touchend', stopFreeDrag);
+        // UNIFIED POINTER EVENTS FOR BOTH MOVE & RESIZE
+        function unifiedPointerDown(e, clientX, clientY) {
+            if(typeof isResizeModeActive !== 'undefined' && isResizeModeActive) initFreeResize(e, clientX, clientY);
+            else if(typeof isMoveModeActive !== 'undefined' && isMoveModeActive) initFreeDrag(e, clientX, clientY);
+        }
+        function unifiedPointerMove(e, clientX, clientY) {
+            if(typeof isResizeModeActive !== 'undefined' && isResizeModeActive) handleFreeResizeMove(e, clientX, clientY);
+            else if(typeof isMoveModeActive !== 'undefined' && isMoveModeActive) handleFreeDragMove(e, clientX, clientY);
+        }
+        function unifiedPointerUp() {
+            if(typeof stopFreeResize !== 'undefined') stopFreeResize();
+            if(typeof stopFreeDrag !== 'undefined') stopFreeDrag();
+        }
+
+        document.addEventListener('mousedown', (e) => unifiedPointerDown(e, e.clientX, e.clientY), {passive: false});
+        document.addEventListener('mousemove', (e) => unifiedPointerMove(e, e.clientX, e.clientY), {passive: false});
+        document.addEventListener('mouseup', unifiedPointerUp);
+        document.addEventListener('touchstart', (e) => unifiedPointerDown(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
+        document.addEventListener('touchmove', (e) => unifiedPointerMove(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
+        document.addEventListener('touchend', unifiedPointerUp);
 
         // ================= MEDIA EDIT HANDLERS & CROP SYSTEM ================= //
         function bindMediaClickHandlers() {
@@ -1425,7 +1504,7 @@
             mediaElements.forEach(elem => {
                 elem.classList.add('media-editable'); elem.title = "Click to Edit Image/Video";
                 elem.onclick = function(e) {
-                    if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
+                    if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive && !isResizeModeActive) { 
                         e.preventDefault(); 
                         e.stopPropagation(); 
                         currentTargetElement = elem; 
@@ -1435,7 +1514,7 @@
                 
                 if(elem.tagName.toLowerCase() === 'video') {
                     elem.onpause = function() {
-                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive && !isResizeModeActive) { 
                             currentTargetElement = elem; 
                             let rect = elem.getBoundingClientRect();
                             let mockEvent = {
