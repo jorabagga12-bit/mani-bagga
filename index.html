@@ -224,7 +224,7 @@
         .card-delete-btn:hover { background: #ff0000; transform: scale(1.1); }
     </style>
 </head>
-<body><canvas id="particles-canvas" width="1200" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;" height="2185"></canvas><canvas id="particles-canvas" width="1200" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;" height="2185"></canvas>
+<body><canvas id="particles-canvas" width="1920" height="912" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas><canvas id="particles-canvas" width="1200" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;" height="2185"></canvas><canvas id="particles-canvas" width="1200" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;" height="2185"></canvas>
     <canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
 
     <!-- LEVEL ALIGNMENT GRID OVERLAY -->
@@ -244,10 +244,10 @@
     <!-- Navigation Bar -->
     <header>
         <nav class="navbar">
-            <div class="admin-badge-left" onclick="handleAdminBadgeClick(event)" style="cursor: pointer;" title="Click to open Admin Login Panel">
+            <div class="admin-badge-left" onclick="handleAdminBadgeClick(event)" style="cursor: move; position: relative; left: -30px; top: -3px;" title="Click to open Admin Login Panel">
                 <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
                 <div class="admin-info">
-                    <span class="admin-name" contenteditable="false" style="user-select: auto; cursor: text;">MANI M4</span>
+                    <span class="admin-name" contenteditable="false" style="user-select: auto; cursor: text;">M4 YT</span>
                     <span class="admin-tag" id="adminTagLabel" style="">ADMIN</span>
                 </div>
             </div>
@@ -283,10 +283,10 @@
                 </div>
                 
                 <div class="hero-3d-card-wrapper">
-                    <div class="card-3d-main" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); transition: transform 0.5s ease-in-out;">
+                    <div class="card-3d-main" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(-13.59deg) rotateY(-14.12deg) scale3d(1.03, 1.03, 1.03); transition: transform 0.1s ease-out;">
                         <div class="slider-wrapper">
                             <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
-                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(0%);">
+                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(-100%); position: relative;">
                                 <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
                                 <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
                             </div>
@@ -306,7 +306,7 @@
             <h2 class="section-title" contenteditable="false" style="user-select: auto; cursor: text;">MAIN <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">FEATURES &amp; TIPS</span></h2>
             <p class="section-subtitle" contenteditable="false" style="user-select: auto; cursor: text;">Special facilities for Gamers</p>
             <div class="cards-grid">
-                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative;">
                     <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
                     <div class="card-img-container">
                         <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
@@ -314,15 +314,8 @@
                     <h3 contenteditable="false" class="" style="user-select: auto; cursor: text;">BGMI Live Highlights</h3>
                     <p contenteditable="false" class="" style="user-select: auto; cursor: text;">CAN YOU SUBSCRIBE.</p>
                 </div>
-                <div class="card-3d" style="opacity: 1; transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                    <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
-                    <div class="card-img-container">
-                        
-                    </div>
-                    <h3 contenteditable="false" class="" style="user-select: auto; cursor: text;">eSports Custom Rooms</h3>
-                    <p contenteditable="false" class="" style="user-select: auto; cursor: text;">JOIN FOR TOURNAMENT PROGRAMS.</p>
-                </div>
-                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                
+                <div class="card-3d" style="opacity: 1; transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative;">
                     <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
                     <div class="card-img-container">
                         <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
@@ -330,14 +323,7 @@
                     <h3 contenteditable="false" class="" style="user-select: auto; cursor: text;">Pro Controls &amp; Sensitivity</h3>
                     <p contenteditable="false" class="" style="user-select: auto; cursor: text;">FULL GUIDE IN ESPORTS MANIM4.YT.</p>
                 </div>
-            <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); width: 1106px; min-width: 1106px; max-width: none; height: 936.5px; min-height: 936.5px;">
-                    <div class="card-icon"><i class="fa-solid fa-image"></i></div>
-                    <div class="card-img-container" style="height: 780.5px;">
-                        <iframe class="media-target" src="https://www.youtube.com/embed/qKmkRMJveuo?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="width: 100%; height: 100%; border-radius: inherit;"></iframe>
-                    </div>
-                    <h3 contenteditable="false" class="" style="user-select: auto; cursor: text;">LIVE FOR BGMI VERR</h3>
-                    <p contenteditable="false" class="" style="user-select: auto; cursor: text;">Description here.</p>
-                </div></div>
+            </div>
         </section>
     </div>
 
@@ -346,21 +332,21 @@
         <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">BGMI / PUBG <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">3D GALLERY</span></h1>
         <section id="showcase" class="showcase-section" style="padding-top: 0;">
             <div class="showcase-grid" id="galleryContainer">
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="showcase-item" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                     <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     <div class="showcase-overlay">
                         <h4 contenteditable="false" class="" style="user-select: auto; cursor: text;">Clutch Moments</h4>
                         <p contenteditable="false" class="" style="user-select: auto; cursor: text;">1v4 BGMI Gameplay</p>
                     </div>
                 </div>
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="showcase-item" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                     <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     <div class="showcase-overlay">
                         <h4 contenteditable="false" class="" style="user-select: auto; cursor: text;">eSports Arena</h4>
                         <p contenteditable="false" class="" style="user-select: auto; cursor: text;">Custom Scrims</p>
                     </div>
                 </div>
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="showcase-item" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                     <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     <div class="showcase-overlay">
                         <h4 contenteditable="false" class="" style="user-select: auto; cursor: text;">Pro Setup</h4>
@@ -375,7 +361,7 @@
     <div id="page-about" class="page-view">
         <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">LIVE STREAM &amp; <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">ABOUT US</span></h1>
         <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.05); border-radius: 15px; margin: 0 20px;">
-            <div class="about-card" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+            <div class="about-card" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                 <p contenteditable="false" class="" style="user-select: auto; cursor: text;">Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
             </div>
         </section>
@@ -404,7 +390,7 @@
         <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">CONTACT <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">ADMIN</span></h1>
         
         <div class="contact-page-wrapper">
-            <div class="contact-box admin-box" style="transform: translateY(30px) scale(0.95); max-width: 600px; padding: 40px; opacity: 0; transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+            <div class="contact-box admin-box" style="transform: translateY(0px) scale(1); max-width: 600px; padding: 40px; opacity: 1; transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                 <h2 style="margin-bottom: 20px; user-select: auto; cursor: text;" contenteditable="false" class=""><i class="fa-solid fa-envelope"></i> SEND A MESSAGE</h2>
                 <p style="text-align: center; color: rgb(179, 179, 204); margin-bottom: 25px; user-select: auto; cursor: text;" contenteditable="false" class="">Send a message directly to MANI M4YT</p>
                 
@@ -592,7 +578,7 @@
             <i class="fa-solid fa-user-gear"></i> Admin Logged In
         </p>
         
-        <button id="adminViewMsgBtn" onclick="openAdminMessages()" style="background:#8a2be2; color:white;"><i class="fa-solid fa-envelope-open-text"></i> View Messages (0)</button>
+        <button id="adminViewMsgBtn" onclick="openAdminMessages()" style="background: rgb(233, 30, 99); color: white;"><i class="fa-solid fa-envelope-open-text"></i> View Messages (1)</button>
         
         <button id="toggleEditBtn" onclick="toggleEditWebsiteTools()" style="background: rgb(40, 167, 69); color: white; font-size: 14px;"><i class="fa-solid fa-pen-ruler"></i> Edit Website</button>
 
@@ -1688,6 +1674,7 @@
         }
     </script>
     <script src="js/script.js"></script>
+
 
 
 
