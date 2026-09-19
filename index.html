@@ -225,7 +225,7 @@
         .card-delete-btn:hover { background: #ff0000; transform: scale(1.1); }
     </style>
 </head>
-<body><canvas id="particles-canvas" width="1200" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;" height="2185"></canvas>
+<body>
     <canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
 
     <!-- LEVEL ALIGNMENT GRID OVERLAY -->
@@ -257,17 +257,17 @@
                 </div>
             </div>
 
-            <div class="logo" contenteditable="false">
+            <div class="logo">
                 <i class="fa-solid fa-gamepad"></i> <span contenteditable="false" class="">MANI M4YT YUONG&nbsp;</span>
             </div>
 
             <!-- UNIFORM BLUE NAVIGATION BUTTONS SYSTEM -->
             <ul class="nav-links">
-                <li><a href="#" onclick="navigateTo('home')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;" class="">HOME</a></li>
-                <li><a href="#" onclick="navigateTo('gallery')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;" class="">GALLERY</a></li>
-                <li><a href="#" onclick="navigateTo('about')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;" class="">LIVE</a></li>
-                <li><a href="#" onclick="navigateTo('notifications')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;" class="">NOTIFICATIONS</a></li>
-                <li><a href="#" onclick="navigateTo('contact')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block; position: relative;" class="">CONTACT&nbsp;</a></li>
+                <li><a href="#" onclick="navigateTo('home')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;">HOME</a></li>
+                <li><a href="#" onclick="navigateTo('gallery')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;">GALLERY</a></li>
+                <li><a href="#" onclick="navigateTo('about')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;">LIVE</a></li>
+                <li><a href="#" onclick="navigateTo('notifications')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;">NOTIFICATIONS</a></li>
+                <li><a href="#" onclick="navigateTo('contact')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block; position: relative;">CONTACT&nbsp;</a></li>
             </ul>
         </nav>
     </header>
@@ -291,7 +291,7 @@
                     <div class="card-3d-main" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); transition: transform 0.5s ease-in-out;">
                         <div class="slider-wrapper">
                             <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
-                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(-100%);">
+                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(0%);">
                                 <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
                                 <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
                             </div>
@@ -319,10 +319,10 @@
                     <h3 contenteditable="false" class="">BGMI Live Highlights</h3>
                     <p contenteditable="false" class="">CAN YOU SUBSCRIBE.</p>
                 </div>
-                <div class="card-3d" style="opacity: 1; transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                     <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
                     <div class="card-img-container">
-                        <div class="clean-video-wrapper" style="position: relative; width: 100%; height: 100%; min-height: 220px; overflow: hidden; border-radius: inherit;"><iframe class="media-target" src="https://www.youtube.com/embed/pLdP6kUy4IQ?autoplay=1&amp;mute=0&amp;controls=1&amp;loop=1&amp;playlist=pLdP6kUy4IQ&amp;rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="width: 100%; height: 100%; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: inherit; transform: scale(1.18); transform-origin: center center;"></iframe><div class="yt-blocker-top" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 60px; z-index: 5; background: transparent;"></div></div>
+                        <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     </div>
                     <h3 contenteditable="false" class="">eSports Custom Rooms</h3>
                     <p contenteditable="false" class="">JOIN FOR TOURNAMENT PROGRAMS.</p>
@@ -344,21 +344,21 @@
         <h1 class="page-header" contenteditable="false">BGMI / PUBG <span class="highlight" contenteditable="false">3D GALLERY</span></h1>
         <section id="showcase" class="showcase-section" style="padding-top: 0;">
             <div class="showcase-grid" id="galleryContainer">
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="showcase-item">
                     <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     <div class="showcase-overlay">
                         <h4 contenteditable="false" class="">Clutch Moments</h4>
                         <p contenteditable="false" class="">1v4 BGMI Gameplay</p>
                     </div>
                 </div>
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="showcase-item">
                     <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     <div class="showcase-overlay">
                         <h4 contenteditable="false" class="">eSports Arena</h4>
                         <p contenteditable="false" class="">Custom Scrims</p>
                     </div>
                 </div>
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="showcase-item">
                     <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     <div class="showcase-overlay">
                         <h4 contenteditable="false" class="">Pro Setup</h4>
@@ -373,7 +373,7 @@
     <div id="page-about" class="page-view">
         <h1 class="page-header" contenteditable="false">LIVE STREAM &amp; <span class="highlight" contenteditable="false">ABOUT US</span></h1>
         <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.05); border-radius: 15px; margin: 0 20px;">
-            <div class="about-card" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+            <div class="about-card" style="opacity: 1; transform: translateY(0px) scale(1);">
                 <p contenteditable="false" class="">Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
             </div>
         </section>
@@ -402,7 +402,7 @@
         <h1 class="page-header" contenteditable="false">CONTACT <span class="highlight" contenteditable="false">ADMIN</span></h1>
         
         <div class="contact-page-wrapper">
-            <div class="contact-box admin-box" style="transform: translateY(30px) scale(0.95); max-width: 600px; padding: 40px; opacity: 0; transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+            <div class="contact-box admin-box" style="transform: translateY(0px) scale(1); max-width: 600px; padding: 40px; opacity: 1;">
                 <h2 style="margin-bottom: 20px;" contenteditable="false" class=""><i class="fa-solid fa-envelope"></i> SEND A MESSAGE</h2>
                 <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;" contenteditable="false" class="">Send a message directly to MANI M4YT</p>
                 
@@ -450,8 +450,8 @@
             <div id="customAlertIcon" style="font-size: 55px; margin-bottom: 15px; color: #00d2ff; text-shadow: 0 0 15px #00d2ff;">
                 <i class="fa-solid fa-circle-info"></i>
             </div>
-            <h2 id="customAlertTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;" contenteditable="false" class="">NOTIFICATION</h2>
-            <p id="customAlertMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px; white-space: pre-wrap;" contenteditable="false" class=""></p>
+            <h2 id="customAlertTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;">NOTIFICATION</h2>
+            <p id="customAlertMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px; white-space: pre-wrap;"></p>
             <button id="customAlertBtn" onclick="closeCustomAlert()" style="background: linear-gradient(45deg, #00d2ff, #0072ff); color: #fff; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; border: none; cursor: pointer;">
                 <i class="fa-solid fa-check"></i> OK
             </button>
@@ -464,8 +464,8 @@
             <div style="font-size: 55px; margin-bottom: 15px; color: #ffc107; text-shadow: 0 0 15px #ffc107;">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h2 style="color: #ffc107; font-size: 20px; margin-bottom: 10px;" contenteditable="false" class="">CONFIRM ACTION</h2>
-            <p id="customConfirmMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px;" contenteditable="false" class=""></p>
+            <h2 style="color: #ffc107; font-size: 20px; margin-bottom: 10px;">CONFIRM ACTION</h2>
+            <p id="customConfirmMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px;"></p>
             <div style="display: flex; gap: 10px;">
                 <button onclick="handleConfirmChoice(true)" style="background: linear-gradient(45deg, #28a745, #1e7e34); flex: 1;">YES</button>
                 <button onclick="handleConfirmChoice(false)" style="background: linear-gradient(45deg, #dc3545, #bd2130); flex: 1;">NO</button>
@@ -479,8 +479,8 @@
             <div style="font-size: 50px; margin-bottom: 15px; color: #00d2ff;">
                 <i class="fa-solid fa-pen-to-square"></i>
             </div>
-            <h2 id="customPromptTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;" contenteditable="false" class="">PASTE IMAGE / VIDEO / INSTA URL</h2>
-            <p id="customPromptMsg" style="color: #ccc; font-size: 14px; margin-bottom: 15px;" contenteditable="false" class="">Paste direct URL, YouTube link, or Instagram post/reel link here:</p>
+            <h2 id="customPromptTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;">INPUT REQUIRED</h2>
+            <p id="customPromptMsg" style="color: #ccc; font-size: 14px; margin-bottom: 15px;"></p>
             <input type="text" id="customPromptInput" placeholder="Enter here..." style="background: #1a1a2e; border: 2px solid #00d2ff; padding: 12px; width: 100%; border-radius: 8px; color: white; margin-bottom: 15px; outline: none; box-sizing: border-box;">
             <div style="display: flex; gap: 10px;">
                 <button onclick="submitCustomPrompt()" style="background: linear-gradient(45deg, #00d2ff, #0072ff); flex: 1;">SUBMIT</button>
@@ -506,8 +506,8 @@
     <!-- DYNAMIC WRONG PASSWORD ERROR MODAL -->
     <div id="wrongPassModal" class="admin-modal" style="display: none; z-index: 100005;">
         <div class="admin-box error-box" id="errorBoxAnim">
-            <h2 contenteditable="false" class=""><i class="fa-solid fa-triangle-exclamation"></i> ACCESS DENIED!</h2>
-            <p style="font-size: 18px; color: #fff; font-weight: bold; margin: 20px 0; letter-spacing: 1px;" contenteditable="false" class="">
+            <h2><i class="fa-solid fa-triangle-exclamation"></i> ACCESS DENIED!</h2>
+            <p style="font-size: 18px; color: #fff; font-weight: bold; margin: 20px 0; letter-spacing: 1px;">
                 INCORRECT USERNAME OR PASSWORD!
             </p>
             <div style="font-size: 50px; margin-bottom: 20px; color: #ff004c; text-shadow: 0 0 20px #ff004c;">
@@ -526,8 +526,8 @@
             <div>
                 <i class="fa-brands fa-github github-3d-icon"></i>
             </div>
-            <h2 style="color:#00d2ff; margin-bottom: 10px;" contenteditable="false" class=""><i class="fa-solid fa-key"></i> GITHUB ACCESS TOKEN</h2>
-            <p style="color:#ccc; font-size:14px; margin-bottom: 15px;" contenteditable="false" class="">Enter your GitHub Personal Access Token to save live changes:</p>
+            <h2 style="color:#00d2ff; margin-bottom: 10px;"><i class="fa-solid fa-key"></i> GITHUB ACCESS TOKEN</h2>
+            <p style="color:#ccc; font-size:14px; margin-bottom: 15px;">Enter your GitHub Personal Access Token to save live changes:</p>
             
             <input type="password" id="githubTokenInputModal" class="github-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
             <button onclick="saveGithubTokenAndProceed()"><i class="fa-solid fa-cloud-arrow-up"></i> SAVE TOKEN &amp; PUBLISH</button>
@@ -1296,8 +1296,8 @@
                 let ytMatch = ytUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|live\/|shorts\/))([^"&?\/\s]{11})/);
                 let vidId = (ytMatch && ytMatch[1]) ? ytMatch[1] : (ytUrl.length === 11 ? ytUrl : ytUrl);
                 
-                // CLEAN EMBED WITHOUT YOUTUBE BRANDING / EXTRA LINKS / TITLES / REDIRECTS
-                let videoEmbedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${vidId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+                // NO-COOKIE YOUTUBE TO REDUCE ADS & NO-BRANDING
+                let videoEmbedUrl = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${vidId}&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&enablejsapi=1`;
                 
                 const container = getActiveContainer();
                 if(!container) return;
@@ -1311,9 +1311,10 @@
                 }
 
                 newItem.innerHTML = `
-                    <div class="clean-video-wrapper" style="position:relative; width:100%; height:220px; overflow:hidden; border-radius:10px;">
-                        <iframe class="media-target" width="100%" height="100%" src="${videoEmbedUrl}" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px; border:none; transform:scale(1.18); transform-origin:center;"></iframe>
-                        <div class="yt-blocker-top" style="position:absolute; top:0; left:0; width:100%; height:60px; z-index:5; background:transparent;"></div>
+                    <div class="clean-video-wrapper" style="position:relative; width:100%; height:220px; overflow:hidden; border-radius:10px; background:#000;">
+                        <div class="yt-blocker-top" style="position:absolute; top:0; left:0; width:100%; height:70px; z-index:5; background:transparent; cursor:default;"></div>
+                        <div class="yt-blocker-logo" style="position:absolute; bottom:0; right:0; width:100px; height:50px; z-index:5; background:transparent; cursor:default;"></div>
+                        <iframe class="media-target" width="100%" height="100%" src="${videoEmbedUrl}" sandbox="allow-scripts allow-same-origin allow-presentation" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px; border:none; pointer-events:auto;"></iframe>
                     </div>
                     <div class="showcase-overlay" style="position:relative; background:rgba(0,0,0,0.8); padding:10px; margin-top:5px; border-radius:5px;">
                         <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
@@ -1518,10 +1519,10 @@
 
                 let parentWrapper = elem.closest('.clean-video-wrapper');
                 if (parentWrapper) {
-                    let blocker = parentWrapper.querySelector('.yt-blocker-top');
-                    if (blocker) {
-                        blocker.onclick = handleMediaClick;
-                    }
+                    let blockerTop = parentWrapper.querySelector('.yt-blocker-top');
+                    if (blockerTop) blockerTop.onclick = handleMediaClick;
+                    let blockerLogo = parentWrapper.querySelector('.yt-blocker-logo');
+                    if (blockerLogo) blockerLogo.onclick = handleMediaClick;
                 }
                 
                 if(elem.tagName.toLowerCase() === 'video') {
@@ -1657,40 +1658,54 @@
                     let igId = (igMatch && igMatch[1]) ? igMatch[1] : null;
 
                     if (ytId) {
-                        let cleanEmbedSrc = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${ytId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+                        let cleanEmbedSrc = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${ytId}&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&enablejsapi=1`;
                         
                         let parentWrapper = currentTargetElement.closest('.clean-video-wrapper');
                         if (parentWrapper) {
                             let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
                             iframe.src = cleanEmbedSrc;
-                            iframe.style.transform = 'scale(1.18)';
-                            iframe.style.transformOrigin = 'center';
+                            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+                            iframe.style.transform = 'none';
+                            iframe.style.pointerEvents = 'auto';
+                            
                             if (!parentWrapper.querySelector('.yt-blocker-top')) {
-                                let blocker = document.createElement('div');
-                                blocker.className = 'yt-blocker-top';
-                                blocker.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:60px; z-index:5; background:transparent;';
-                                parentWrapper.appendChild(blocker);
+                                let blockerTop = document.createElement('div');
+                                blockerTop.className = 'yt-blocker-top';
+                                blockerTop.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:70px; z-index:5; background:transparent; cursor:default;';
+                                parentWrapper.appendChild(blockerTop);
+                            }
+                            if (!parentWrapper.querySelector('.yt-blocker-logo')) {
+                                let blockerLogo = document.createElement('div');
+                                blockerLogo.className = 'yt-blocker-logo';
+                                blockerLogo.style.cssText = 'position:absolute; bottom:0; right:0; width:100px; height:50px; z-index:5; background:transparent; cursor:default;';
+                                parentWrapper.appendChild(blockerLogo);
                             }
                             currentTargetElement = iframe;
                         } else {
                             let wrapper = document.createElement('div');
                             wrapper.className = 'clean-video-wrapper';
-                            wrapper.style.cssText = 'position:relative; width:100%; height:100%; min-height:220px; overflow:hidden; border-radius:inherit;';
+                            wrapper.style.cssText = 'position:relative; width:100%; height:100%; min-height:220px; overflow:hidden; border-radius:inherit; background:#000;';
 
                             let iframe = document.createElement('iframe');
                             iframe.className = currentTargetElement.className;
                             iframe.src = cleanEmbedSrc;
                             iframe.setAttribute('frameborder', '0');
+                            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
                             iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
                             iframe.setAttribute('allowfullscreen', 'true');
-                            iframe.style.cssText = 'width:100%; height:100%; border:none; border-radius:inherit; transform:scale(1.18); transform-origin:center;';
+                            iframe.style.cssText = 'width:100%; height:100%; border:none; border-radius:inherit; pointer-events:auto;';
 
-                            let blocker = document.createElement('div');
-                            blocker.className = 'yt-blocker-top';
-                            blocker.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:60px; z-index:5; background:transparent;';
+                            let blockerTop = document.createElement('div');
+                            blockerTop.className = 'yt-blocker-top';
+                            blockerTop.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:70px; z-index:5; background:transparent; cursor:default;';
+
+                            let blockerLogo = document.createElement('div');
+                            blockerLogo.className = 'yt-blocker-logo';
+                            blockerLogo.style.cssText = 'position:absolute; bottom:0; right:0; width:100px; height:50px; z-index:5; background:transparent; cursor:default;';
 
                             wrapper.appendChild(iframe);
-                            wrapper.appendChild(blocker);
+                            wrapper.appendChild(blockerTop);
+                            wrapper.appendChild(blockerLogo);
 
                             currentTargetElement.parentNode.replaceChild(wrapper, currentTargetElement);
                             currentTargetElement = iframe;
@@ -1881,7 +1896,5 @@
         }
     </script>
     <script src="js/script.js"></script>
-
-
 </body>
 </html>
