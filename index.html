@@ -53,13 +53,13 @@
             .admin-badge-left { margin-bottom: 10px; }
         }
 
-        /* COLORFUL NAV BUTTON HOVER EFFECT */
+        /* COLORFUL NAV BUTTON HOVER EFFECT (GLOW REDUCED) */
         .nav-links a {
             transition: transform 0.3s ease, box-shadow 0.3s ease !important;
         }
         .nav-links a:hover {
-            transform: translateY(-3px) scale(1.08) !important;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.9) !important;
+            transform: translateY(-2px) scale(1.05) !important;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
         }
 
         /* ================== NOTIFICATION LIST UI ================== */
@@ -135,7 +135,7 @@
         }
 
         .admin-box button {
-            width: 100%; padding: 14px; margin-top: 15px; border-radius: 10px; border: none;
+            width: 100%; padding: 14px; margin: 12px 0; border-radius: 10px; border: none;
             background: linear-gradient(45deg, #00d2ff, #0072ff); color: #fff; font-weight: bold;
             cursor: pointer; transition: 0.3s; font-size: 16px;
             box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4); text-transform: uppercase; letter-spacing: 1px;
@@ -246,13 +246,13 @@
                 <i class="fa-solid fa-gamepad"></i> MANI<span contenteditable="false" class="">M4YT YUONG&nbsp;</span>
             </div>
 
-            <!-- COLORFUL NAVIGATION BUTTONS SYSTEM -->
+            <!-- COLORFUL NAVIGATION BUTTONS SYSTEM (GLOW REDUCED) -->
             <ul class="nav-links">
-                <li><a href="#" onclick="navigateTo('home')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 12px rgba(0, 198, 255, 0.6); text-decoration: none; display: inline-block;">HOME</a></li>
-                <li><a href="#" onclick="navigateTo('gallery')" contenteditable="false" style="background: linear-gradient(135deg, #ff0844, #ffb199); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 12px rgba(255, 8, 68, 0.6); text-decoration: none; display: inline-block;">GALLERY</a></li>
-                <li><a href="#" onclick="navigateTo('about')" contenteditable="false" style="background: linear-gradient(135deg, #f12711, #f5af19); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 12px rgba(245, 175, 25, 0.6); text-decoration: none; display: inline-block;">LIVE</a></li>
-                <li><a href="#" onclick="navigateTo('notifications')" contenteditable="false" style="background: linear-gradient(135deg, #b224ef, #7579ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 12px rgba(178, 36, 239, 0.6); text-decoration: none; display: inline-block;">NOTIFICATIONS</a></li>
-                <li><a href="#" onclick="navigateTo('contact')" contenteditable="false" style="background: linear-gradient(135deg, #11998e, #38ef7d); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 12px rgba(56, 239, 125, 0.6); text-decoration: none; display: inline-block; position: relative;">CONTACT&nbsp;</a></li>
+                <li><a href="#" onclick="navigateTo('home')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;">HOME</a></li>
+                <li><a href="#" onclick="navigateTo('gallery')" contenteditable="false" style="background: linear-gradient(135deg, #ff0844, #ffb199); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(255, 8, 68, 0.4); text-decoration: none; display: inline-block;">GALLERY</a></li>
+                <li><a href="#" onclick="navigateTo('about')" contenteditable="false" style="background: linear-gradient(135deg, #f12711, #f5af19); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(245, 175, 25, 0.4); text-decoration: none; display: inline-block;">LIVE</a></li>
+                <li><a href="#" onclick="navigateTo('notifications')" contenteditable="false" style="background: linear-gradient(135deg, #b224ef, #7579ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(178, 36, 239, 0.4); text-decoration: none; display: inline-block;">NOTIFICATIONS</a></li>
+                <li><a href="#" onclick="navigateTo('contact')" contenteditable="false" style="background: linear-gradient(135deg, #11998e, #38ef7d); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(56, 239, 125, 0.4); text-decoration: none; display: inline-block; position: relative;">CONTACT&nbsp;</a></li>
             </ul>
         </nav>
     </header>
@@ -987,6 +987,11 @@
         });
 
         function handleAdminBadgeClick(e) {
+            if (typeof isMoveModeActive !== 'undefined' && isMoveModeActive) {
+                if(e) e.preventDefault();
+                return;
+            }
+
             if (localStorage.getItem('mani_admin_logged') === 'true') {
                 const toolsMenu = document.getElementById('adminEditTools');
                 
@@ -1325,7 +1330,8 @@
             if (localStorage.getItem('mani_admin_logged') !== 'true') return;
             
             if (isMoveModeActive) {
-                let target = e.target.closest('a, li, .logo, .nav-links, h1, h2, h3, h4, p, span, img, video, iframe, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
+                // FIXED SELECTOR: Now handles Admin Badge, Logo, Navbar etc explicitly first
+                let target = e.target.closest('.admin-badge-left') || e.target.closest('.logo') || e.target.closest('.nav-links') || e.target.closest('.navbar') || e.target.closest('a, li, h1, h2, h3, h4, p, span, img, video, iframe, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
                 
                 if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
                     activeFreeDrag = target;
@@ -1512,7 +1518,7 @@
 
         function clearSavedToken() {
             localStorage.removeItem('gh_token_bagga');
-            customAlert("GitHub Token Removed! You will be asked again on your next save.", "TOKEN RESET", "fa-key", "info");
+            customAlert("GitHub Token is already set to ask every time now. Old tokens cleared!", "TOKEN RESET", "fa-key", "info");
         }
 
         function closeGithubModal() {
@@ -1522,18 +1528,23 @@
         function saveGithubTokenAndProceed() {
             const inputVal = document.getElementById('githubTokenInputModal').value.trim();
             if(!inputVal) { customAlert('Please enter a valid GitHub token.', 'INVALID TOKEN', 'fa-triangle-exclamation', 'error'); return; }
-            localStorage.setItem('gh_token_bagga', inputVal);
+            
+            // localStorage में सेव नहीं करेंगे ताकि हर बार नया मांगे 
+            window.temp_gh_token_bagga = inputVal; 
+            
             closeGithubModal();
-            saveChangesToGitHub();
+            saveChangesToGitHub(true); // true पास करेंगे ताकि सेव प्रक्रिया चालू हो सके
         }
 
-        async function saveChangesToGitHub() {
-            let token = localStorage.getItem('gh_token_bagga');
-            if (!token) { 
+        async function saveChangesToGitHub(isTokenReady = false) {
+            // अगर सीधे सेव बटन दबाया है (isTokenReady true नहीं है), तो हर बार Modal खुलेगा
+            if (isTokenReady !== true) { 
                 document.getElementById('githubTokenInputModal').value = '';
                 document.getElementById('githubTokenModal').style.display = 'flex';
                 return; 
             }
+
+            let token = window.temp_gh_token_bagga;
 
             const saveBtn = document.getElementById('btnSaveLive');
             saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...'; 
@@ -1545,7 +1556,6 @@
                 
                 if (!getResponse.ok) {
                     if (getResponse.status === 401) {
-                        localStorage.removeItem('gh_token_bagga');
                         throw new Error("GitHub Token Invalid or Expired! Please click Save again to re-enter your Token.");
                     }
                     throw new Error("GitHub Repository File or Token Invalid!");
@@ -1609,7 +1619,6 @@
                     customAlert('🎉 Awesome! All changes saved to Live Site successfully!', 'PUBLISHED TO LIVE', 'fa-cloud-arrow-up', 'success');
                 } else { 
                     const errorDetails = await putResponse.json(); 
-                    if(putResponse.status === 401) localStorage.removeItem('gh_token_bagga');
                     throw new Error(errorDetails.message || "Failed to update GitHub"); 
                 }
                 
@@ -1621,6 +1630,7 @@
             } finally {
                 saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site'; 
                 saveBtn.disabled = false;
+                window.temp_gh_token_bagga = null; // सुरक्षा के लिए सेव होने के बाद टोकन को मेमोरी से भी साफ कर दें
             }
         }
     </script>
