@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- FIX 1: PROPER RESPONSIVE VIEWPORT (SOLVES HALF SCREEN DESKTOP ISSUE) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <!-- FIX 1: FORCED DESKTOP VIEWPORT FOR ALL DEVICES -->
+    <meta name="viewport" content="width=1250, user-scalable=yes">
     <title>MANI BAGGA HUB | eSports Gaming Hub</title>
     <!-- CSS Link -->
     <link rel="stylesheet" href="css/style.css">
@@ -12,18 +12,18 @@
     
     <style>
         /* ================== PAGE ROUTING SYSTEM ================== */
-        /* FIX 2: GLOBAL CENTERING TO PREVENT HALF-SCREEN LOOK ON LAPTOP */
+        /* FIX 2: FORCE MINIMUM DESKTOP WIDTH */
         html, body {
             width: 100%;
+            min-width: 1250px; /* यह फोन में भी लैपटॉप वाली चौड़ाई रखेगा */
             overflow-x: hidden;
         }
         .page-view {
             display: none;
             min-height: 100vh;
             padding-bottom: 50px;
-            max-width: 1250px; /* Restricts maximum width cleanly */
+            width: 1250px; /* Restricts width cleanly */
             margin: 0 auto !important; /* Forces perfect centering on large screens */
-            width: 100%;
             box-sizing: border-box;
             animation: fadeIn 0.4s ease-in-out;
         }
@@ -52,15 +52,7 @@
             width: 100%;
         }
 
-        /* ================== RESPONSIVE LAYOUT FIXES FOR MOBILE & DESKTOP ================== */
-        @media (max-width: 992px) {
-            .navbar { flex-wrap: wrap; justify-content: center; gap: 15px; padding: 15px; }
-            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
-            .hero-container { flex-direction: column; text-align: center; padding: 20px 10px; }
-            .hero-btns { justify-content: center; }
-            .page-header { font-size: 2rem; margin-top: 100px; }
-            .admin-badge-left { margin-bottom: 10px; }
-        }
+        /* (मोबाइल वाली Media Query यहाँ से हटा दी गई है ताकि डेस्कटॉप व्यू ही रहे) */
 
         /* ================== NOTIFICATION LIST UI ================== */
         .notif-container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
@@ -223,10 +215,10 @@
         }
         .card-delete-btn:hover { background: #ff0000; transform: scale(1.1); }
 
-        /* ================== LAPTOP GALLERY & LIVE PAGE FIXES (CORRECTED) ================== */
+        /* ================== DESKTOP GALLERY & LIVE PAGE FIXES ================== */
         .cards-grid, .showcase-grid {
             display: grid !important;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important; /* Perfect scaling for Desktop & Mobile */
+            grid-template-columns: repeat(3, 1fr) !important; /* Force 3 columns like desktop always */
             gap: 25px !important;
             width: 100% !important;
             justify-content: center !important;
@@ -239,7 +231,7 @@
             overflow: hidden !important;
             border-radius: 12px !important;
             width: 100% !important;
-            height: auto !important; /* Allow natural fit */
+            height: auto !important;
             min-height: 240px !important;
             background: #1a1a2e !important;
             display: flex !important;
@@ -258,7 +250,7 @@
         /* LIVE PAGE CENTER FIX */
         #page-about .features-section {
             max-width: 800px !important;
-            margin: 40px auto !important; /* Perfect Center */
+            margin: 40px auto !important;
             text-align: center !important;
             display: flex !important;
             justify-content: center !important;
@@ -484,6 +476,8 @@
         </div>
     </footer>
 
+    <!-- (बाकी सारे Modals और Script टैग्स जो पहले थे, वो बिल्कुल सेम हैं) -->
+    
     <!-- ==================== DYNAMIC CUSTOM ALERT MODAL ==================== -->
     <div id="customAlertModal" class="admin-modal" style="display: none; z-index: 100010;">
         <div class="admin-box" id="customAlertBox" style="max-width: 420px; padding: 30px;">
@@ -986,7 +980,7 @@
 
         // ================= ADMIN AUTHENTICATION SYSTEM ================= //
         let currentTargetElement = null; let isMoveModeActive = false; 
-        let isWaitingToPlaceText = false; // TEXT CARD PLACEMENT FIX
+        let isWaitingToPlaceText = false;
 
         const GITHUB_OWNER = 'jorabagga12-bit';       
         const GITHUB_REPO = 'mani-bagga';             
@@ -999,7 +993,7 @@
 
         // GLOBAL CLICK EVENT TO HIDE POPUP CONTROLS & ADD TEXT CARD
         document.addEventListener('click', function(e) {
-            // FIX 2: Text Card Click Placement
+            // Text Card Click Placement
             if (isWaitingToPlaceText) {
                 // If clicked on alert OK button or any admin panel, ignore this click
                 if (e.target.closest('.admin-modal') || e.target.closest('.admin-dashboard') || e.target.closest('#customAlertModal')) {
@@ -1021,7 +1015,7 @@
                 newItem.style.left = e.pageX + 'px';
                 newItem.style.top = e.pageY + 'px';
                 newItem.style.zIndex = '50';
-                newItem.style.width = '300px'; // Giving a nice default width for absolute text cards
+                newItem.style.width = '300px'; 
                 
                 newItem.innerHTML = `
                     <div>
@@ -1048,7 +1042,7 @@
             if(textControls && !textControls.contains(e.target) && !e.target.classList.contains('editable-active')) textControls.remove();
         });
 
-        // FIX 3: Editable Profile Image Logic
+        // Editable Profile Image Logic
         function handleAdminBadgeClick(e) {
             if (localStorage.getItem('mani_admin_logged') === 'true') {
                 const toolsMenu = document.getElementById('adminEditTools');
@@ -1244,7 +1238,6 @@
         }
 
         // ================= ADD NEW CARDS & SLIDES ================= //
-        // FIX 1: Active Page Container Finder
         function getActiveContainer() {
             const activePage = document.querySelector('.page-view.active');
             if(!activePage) return null;
@@ -1346,7 +1339,6 @@
         }
 
         function addNewTextCard() {
-            // FIX 2 logic initiation
             isWaitingToPlaceText = true;
             customAlert('अब स्क्रीन पर कहीं भी टैप करें जहाँ आप टेक्स्ट लगाना चाहते हैं।', 'TAP TO PLACE', 'fa-hand-pointer', 'info');
             document.body.style.cursor = 'crosshair';
@@ -1437,7 +1429,6 @@
                     }
                 };
                 
-                // NEW: Video resize options appear exactly when paused in Admin Mode
                 if(elem.tagName.toLowerCase() === 'video') {
                     elem.onpause = function() {
                         if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) { 
