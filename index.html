@@ -1296,8 +1296,8 @@
                 let ytMatch = ytUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|live\/|shorts\/))([^"&?\/\s]{11})/);
                 let vidId = (ytMatch && ytMatch[1]) ? ytMatch[1] : (ytUrl.length === 11 ? ytUrl : ytUrl);
                 
-                // CLEAN EMBED WITHOUT YOUTUBE BRANDING / EXTRA LINKS
-                let videoEmbedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1&iv_load_policy=3`;
+                // CLEAN EMBED WITHOUT YOUTUBE BRANDING / EXTRA LINKS / TITLES / REDIRECTS
+                let videoEmbedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${vidId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
                 
                 const container = getActiveContainer();
                 if(!container) return;
@@ -1312,7 +1312,8 @@
 
                 newItem.innerHTML = `
                     <div class="clean-video-wrapper" style="position:relative; width:100%; height:220px; overflow:hidden; border-radius:10px;">
-                        <iframe class="media-target" width="100%" height="100%" src="${videoEmbedUrl}" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px; border:none;"></iframe>
+                        <iframe class="media-target" width="100%" height="100%" src="${videoEmbedUrl}" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px; border:none; transform:scale(1.18); transform-origin:center;"></iframe>
+                        <div class="yt-blocker-top" style="position:absolute; top:0; left:0; width:100%; height:60px; z-index:5; background:transparent;"></div>
                     </div>
                     <div class="showcase-overlay" style="position:relative; background:rgba(0,0,0,0.8); padding:10px; margin-top:5px; border-radius:5px;">
                         <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
@@ -1503,7 +1504,8 @@
             const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
             mediaElements.forEach(elem => {
                 elem.classList.add('media-editable'); elem.title = "Click to Edit Image/Video";
-                elem.onclick = function(e) {
+                
+                const handleMediaClick = function(e) {
                     if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive && !isResizeModeActive) { 
                         e.preventDefault(); 
                         e.stopPropagation(); 
@@ -1511,6 +1513,16 @@
                         showAdminImageControls(e, elem);
                     }
                 };
+
+                elem.onclick = handleMediaClick;
+
+                let parentWrapper = elem.closest('.clean-video-wrapper');
+                if (parentWrapper) {
+                    let blocker = parentWrapper.querySelector('.yt-blocker-top');
+                    if (blocker) {
+                        blocker.onclick = handleMediaClick;
+                    }
+                }
                 
                 if(elem.tagName.toLowerCase() === 'video') {
                     elem.onpause = function() {
@@ -1645,19 +1657,44 @@
                     let igId = (igMatch && igMatch[1]) ? igMatch[1] : null;
 
                     if (ytId) {
-                        let iframe = document.createElement('iframe');
-                        iframe.className = currentTargetElement.className;
-                        iframe.src = `https://www.youtube.com/embed/${ytId}?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1&iv_load_policy=3`;
-                        iframe.setAttribute('frameborder', '0');
-                        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-                        iframe.setAttribute('allowfullscreen', 'true');
-                        iframe.style.width = '100%';
-                        iframe.style.height = '100%';
-                        iframe.style.borderRadius = 'inherit';
-                        iframe.style.border = 'none';
+                        let cleanEmbedSrc = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${ytId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
                         
-                        currentTargetElement.parentNode.replaceChild(iframe, currentTargetElement);
-                        currentTargetElement = iframe;
+                        let parentWrapper = currentTargetElement.closest('.clean-video-wrapper');
+                        if (parentWrapper) {
+                            let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
+                            iframe.src = cleanEmbedSrc;
+                            iframe.style.transform = 'scale(1.18)';
+                            iframe.style.transformOrigin = 'center';
+                            if (!parentWrapper.querySelector('.yt-blocker-top')) {
+                                let blocker = document.createElement('div');
+                                blocker.className = 'yt-blocker-top';
+                                blocker.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:60px; z-index:5; background:transparent;';
+                                parentWrapper.appendChild(blocker);
+                            }
+                            currentTargetElement = iframe;
+                        } else {
+                            let wrapper = document.createElement('div');
+                            wrapper.className = 'clean-video-wrapper';
+                            wrapper.style.cssText = 'position:relative; width:100%; height:100%; min-height:220px; overflow:hidden; border-radius:inherit;';
+
+                            let iframe = document.createElement('iframe');
+                            iframe.className = currentTargetElement.className;
+                            iframe.src = cleanEmbedSrc;
+                            iframe.setAttribute('frameborder', '0');
+                            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                            iframe.setAttribute('allowfullscreen', 'true');
+                            iframe.style.cssText = 'width:100%; height:100%; border:none; border-radius:inherit; transform:scale(1.18); transform-origin:center;';
+
+                            let blocker = document.createElement('div');
+                            blocker.className = 'yt-blocker-top';
+                            blocker.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:60px; z-index:5; background:transparent;';
+
+                            wrapper.appendChild(iframe);
+                            wrapper.appendChild(blocker);
+
+                            currentTargetElement.parentNode.replaceChild(wrapper, currentTargetElement);
+                            currentTargetElement = iframe;
+                        }
                     } 
                     else if (igId) {
                         let iframe = document.createElement('iframe');
