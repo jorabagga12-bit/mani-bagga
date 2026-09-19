@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- FORCED DESKTOP VIEWPORT FOR ALL DEVICES -->
-    <meta name="viewport" content="width=1200, user-scalable=yes">
+    <!-- FIX 1: PROPER RESPONSIVE VIEWPORT (SOLVES HALF SCREEN DESKTOP ISSUE) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>MANI BAGGA HUB | eSports Gaming Hub</title>
     <!-- CSS Link -->
     <link rel="stylesheet" href="css/style.css">
@@ -12,10 +12,19 @@
     
     <style>
         /* ================== PAGE ROUTING SYSTEM ================== */
+        /* FIX 2: GLOBAL CENTERING TO PREVENT HALF-SCREEN LOOK ON LAPTOP */
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
         .page-view {
             display: none;
             min-height: 100vh;
             padding-bottom: 50px;
+            max-width: 1250px; /* Restricts maximum width cleanly */
+            margin: 0 auto !important; /* Forces perfect centering on large screens */
+            width: 100%;
+            box-sizing: border-box;
             animation: fadeIn 0.4s ease-in-out;
         }
         .page-view.active {
@@ -40,6 +49,7 @@
         .features-section {
             margin-bottom: 10px !important;
             padding-bottom: 10px !important;
+            width: 100%;
         }
 
         /* ================== RESPONSIVE LAYOUT FIXES FOR MOBILE & DESKTOP ================== */
@@ -48,7 +58,6 @@
             .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
             .hero-container { flex-direction: column; text-align: center; padding: 20px 10px; }
             .hero-btns { justify-content: center; }
-            .cards-grid, .showcase-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; gap: 20px !important; }
             .page-header { font-size: 2rem; margin-top: 100px; }
             .admin-badge-left { margin-bottom: 10px; }
         }
@@ -214,24 +223,27 @@
         }
         .card-delete-btn:hover { background: #ff0000; transform: scale(1.1); }
 
-        /* ================== LAPTOP GALLERY & LIVE PAGE FIXES (NEWLY ADDED) ================== */
-        .showcase-grid {
+        /* ================== LAPTOP GALLERY & LIVE PAGE FIXES (CORRECTED) ================== */
+        .cards-grid, .showcase-grid {
             display: grid !important;
-            grid-template-columns: repeat(3, 1fr) !important; /* Forces 3 items per row, stops half screen stretching */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important; /* Perfect scaling for Desktop & Mobile */
             gap: 25px !important;
-            max-width: 1100px !important;
-            margin: 0 auto !important;
+            width: 100% !important;
+            justify-content: center !important;
             padding: 20px !important;
+            box-sizing: border-box;
         }
         
-        .showcase-item {
+        .showcase-item, .card-3d {
             position: relative !important;
             overflow: hidden !important;
             border-radius: 12px !important;
             width: 100% !important;
-            height: 240px !important; /* Fixed height for uniformity */
+            height: auto !important; /* Allow natural fit */
+            min-height: 240px !important;
             background: #1a1a2e !important;
             display: flex !important;
+            flex-direction: column;
             justify-content: center !important;
             align-items: center !important;
         }
@@ -627,7 +639,11 @@
         <div id="adminEditTools" style="display: none;">
             <p style="font-size: 11px; color: #ffc107; text-transform: uppercase; margin-bottom: 5px;" contenteditable="false" class=""><i class="fa-solid fa-toolbox"></i> Toolbox</p>
             
+            <!-- EXISITNG ADD SLIDE BUTTON -->
             <button onclick="addHeroSlide()" style="background:#e91e63; color:white;"><i class="fa-solid fa-images"></i> Add Hero Slide</button>
+            
+            <!-- NEW ADD SLIDE BUTTON AS REQUESTED -->
+            <button onclick="addHeroSlide()" style="background:#0072ff; color:white; margin-top: 5px;"><i class="fa-solid fa-plus-square"></i> Add to Slide New Slider</button>
 
             <button onclick="toggleMoveMode()" id="dashMoveBtn" style="background:#ff9800; color:black;"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items</button>
             <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
