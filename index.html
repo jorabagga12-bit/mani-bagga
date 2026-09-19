@@ -53,13 +53,13 @@
             .admin-badge-left { margin-bottom: 10px; }
         }
 
-        /* COLORFUL NAV BUTTON HOVER EFFECT (GLOW REDUCED) */
+        /* UNIFORM BLUE NAV BUTTON HOVER EFFECT */
         .nav-links a {
             transition: transform 0.3s ease, box-shadow 0.3s ease !important;
         }
         .nav-links a:hover {
             transform: translateY(-2px) scale(1.05) !important;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.8) !important;
         }
 
         /* ================== NOTIFICATION LIST UI ================== */
@@ -77,7 +77,7 @@
         .slider-track { display: flex; transition: transform 0.4s ease-in-out; height: 100%; }
         
         /* VIDEO FIT CSS FIX */
-        .slider-track img, .slider-track video, video.media-target { 
+        .slider-track img, .slider-track video, video.media-target, iframe.media-target { 
             min-width: 100% !important; 
             width: 100% !important; 
             height: 100% !important; 
@@ -86,6 +86,7 @@
             margin-bottom: 0; 
             box-shadow: none; 
             overflow: hidden;
+            border: none !important;
         }
 
         .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.6); color: #00d2ff; border: 1px solid #00d2ff; border-radius: 50%; padding: 8px 14px; cursor: pointer; font-size: 18px; z-index: 10; transition: 0.3s; }
@@ -224,17 +225,21 @@
         .card-delete-btn:hover { background: #ff0000; transform: scale(1.1); }
     </style>
 </head>
-<body><canvas id="particles-canvas" width="1920" height="912" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas><canvas id="particles-canvas" width="1920" height="912" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas><canvas id="particles-canvas" width="1920" height="912" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas><canvas id="particles-canvas" width="1920" height="912" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas><canvas id="particles-canvas" width="1200" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;" height="2185"></canvas><canvas id="particles-canvas" width="1200" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;" height="2185"></canvas>
+<body>
     <canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
 
     <!-- LEVEL ALIGNMENT GRID OVERLAY -->
     <div id="alignmentGridOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 999999;">
-        <div style="position: absolute; top: 25%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.5);"></div>
+        <div style="position: absolute; top: 15%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; top: 30%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.6);"></div>
         <div style="position: absolute; top: 50%; width: 100%; border-top: 1px dashed rgba(255, 0, 127, 0.8);"></div>
-        <div style="position: absolute; top: 75%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.5);"></div>
-        <div style="position: absolute; left: 25%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.5);"></div>
+        <div style="position: absolute; top: 70%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; top: 85%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; left: 15%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; left: 30%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.6);"></div>
         <div style="position: absolute; left: 50%; height: 100%; border-left: 1px dashed rgba(255, 0, 127, 0.8);"></div>
-        <div style="position: absolute; left: 75%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.5);"></div>
+        <div style="position: absolute; left: 70%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; left: 85%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.6);"></div>
     </div>
 
     <!-- Background 3D Shapes -->
@@ -244,25 +249,25 @@
     <!-- Navigation Bar -->
     <header>
         <nav class="navbar">
-            <div class="admin-badge-left" onclick="handleAdminBadgeClick(event)" style="cursor: move; position: relative; left: -30px; top: -3px;" title="Click to open Admin Login Panel">
+            <div class="admin-badge-left" onclick="handleAdminBadgeClick(event)" style="cursor: pointer;" title="Click to open Admin Login Panel">
                 <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
                 <div class="admin-info">
-                    <span class="admin-name" contenteditable="false" style="user-select: auto; cursor: text;">MANI M4 YT</span>
+                    <span class="admin-name" contenteditable="false">MANI M4</span>
                     <span class="admin-tag" id="adminTagLabel" style="">ADMIN</span>
                 </div>
             </div>
 
             <div class="logo">
-                <i class="fa-solid fa-gamepad"></i> MANI<span contenteditable="false" class="" style="user-select: auto; cursor: text;">BAGGA</span>
+                <i class="fa-solid fa-gamepad"></i> <span contenteditable="false" class="">MANI M4YT YUONG&nbsp;</span>
             </div>
 
-            <!-- COLORFUL NAVIGATION BUTTONS SYSTEM (GLOW REDUCED) -->
+            <!-- UNIFORM BLUE NAVIGATION BUTTONS SYSTEM -->
             <ul class="nav-links">
-                <li><a href="#" onclick="navigateTo('home')" contenteditable="false" style="background: linear-gradient(135deg, rgb(0, 198, 255), rgb(0, 114, 255)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(0, 198, 255, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; user-select: auto; cursor: text;" class="">HOME</a></li>
-                <li><a href="#" onclick="navigateTo('gallery')" contenteditable="false" style="background: linear-gradient(135deg, rgb(255, 8, 68), rgb(255, 177, 153)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(255, 8, 68, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; user-select: auto; cursor: text;" class="">STUDIO</a></li>
-                <li><a href="#" onclick="navigateTo('about')" contenteditable="false" style="background: linear-gradient(135deg, rgb(241, 39, 17), rgb(245, 175, 25)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(245, 175, 25, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; user-select: auto; cursor: text;" class="">LIVE</a></li>
-                <li><a href="#" onclick="navigateTo('notifications')" contenteditable="false" style="background: linear-gradient(135deg, rgb(178, 36, 239), rgb(117, 121, 255)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(178, 36, 239, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; user-select: auto; cursor: text;" class="">NOTIFICATIONS</a></li>
-                <li><a href="#" onclick="navigateTo('contact')" contenteditable="false" style="background: linear-gradient(135deg, rgb(17, 153, 142), rgb(56, 239, 125)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(56, 239, 125, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; position: relative; user-select: auto; cursor: text;" class="">CONTACT&nbsp;</a></li>
+                <li><a href="#" onclick="navigateTo('home')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;">HOME</a></li>
+                <li><a href="#" onclick="navigateTo('gallery')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;">GALLERY</a></li>
+                <li><a href="#" onclick="navigateTo('about')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;">LIVE</a></li>
+                <li><a href="#" onclick="navigateTo('notifications')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;">NOTIFICATIONS</a></li>
+                <li><a href="#" onclick="navigateTo('contact')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block; position: relative;">CONTACT&nbsp;</a></li>
             </ul>
         </nav>
     </header>
@@ -273,12 +278,12 @@
         <section id="home" class="hero">
             <div class="hero-container">
                 <div class="hero-text">
-                    <span class="badge" contenteditable="false" style="user-select: auto; cursor: text;">eSports Gaming</span>
-                    <h1 contenteditable="false" class="" style="user-select: auto; cursor: text;">YouTube <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">MANI M4 PRO</span></h1>
-                    <p contenteditable="false" class="" style="user-select: auto; cursor: text;">🔥 WELCOME TO GAMING WORLD 🔥 — BGMI &amp; PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
+                    <span class="badge" contenteditable="false">eSports Gaming</span>
+                    <h1 contenteditable="false" class="">YouTube <span class="highlight" contenteditable="false">MANI M4 PRO</span></h1>
+                    <p contenteditable="false" class="">🔥 WELCOME TO GAMING WORLD 🔥 — BGMI &amp; PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
                     <div class="hero-btns">
-                        <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="btn-main" contenteditable="false" style="user-select: auto; cursor: text;"><i class="fa-brands fa-youtube"></i> YouTube</a>
-                        <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="btn-secondary" contenteditable="false" style="user-select: auto; cursor: text;"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                        <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="btn-main" contenteditable="false"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                        <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="btn-secondary" contenteditable="false"><i class="fa-brands fa-instagram"></i> Instagram</a>
                     </div>
                 </div>
                 
@@ -286,15 +291,15 @@
                     <div class="card-3d-main" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); transition: transform 0.5s ease-in-out;">
                         <div class="slider-wrapper">
                             <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
-                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(-200%); position: relative;">
+                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(0%);">
                                 <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
                                 <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
-                            <img src="data:image/jpeg;base64,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" alt="New Hero Slide" class="media-target"><div style="position: absolute; top: 8px; left: 586px; z-index: 1000; cursor: pointer; opacity: 0; transition: opacity 200ms; width: 24px; height: 24px;"><svg viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg"><title>Add to Photoshop Extension</title><path d="M44.26 0H9.74C4.36075 0 0 4.36075 0 9.74V44.26C0 49.6393 4.36075 54 9.74 54H44.26C49.6393 54 54 49.6393 54 44.26V9.74C54 4.36075 49.6393 0 44.26 0Z" fill="#001E36"></path><path d="M18.7398 14.4297C25.7698 14.4297 29.7298 17.7197 29.7298 23.2397C29.7298 29.6797 24.3598 32.2697 19.3298 32.2697H15.9298V39.2297H9.0498V14.4297H18.7498H18.7398ZM15.9298 20.3097V26.3797H18.9598C21.0698 26.3797 22.5498 25.5297 22.5498 23.3797C22.5498 21.4197 21.2898 20.3097 19.1098 20.3097H15.9298Z" fill="#31A8FF"></path><path d="M31.4299 37.9995L31.4699 32.2595C33.4299 33.5595 36.1699 34.3695 38.0599 34.3695C39.3499 34.3695 39.9499 33.9995 39.9499 33.3295C39.9499 32.5895 39.1399 32.2895 37.5799 31.8095C34.5799 30.9195 31.2899 29.6995 31.2899 25.7795C31.2899 21.8595 34.5799 19.5595 39.3599 19.5595C41.6199 19.5595 43.4699 19.8895 45.0999 20.5995L45.0599 26.0795C43.7699 25.2995 41.2099 24.5995 39.5499 24.5995C38.3299 24.5995 37.8499 24.9695 37.8499 25.5295C37.8499 26.1995 38.4399 26.3795 40.2199 26.9395C43.6599 27.9795 46.5499 29.0895 46.5499 33.1195C46.5499 37.1495 43.3999 39.5595 38.4799 39.5595C35.8899 39.5595 33.4499 39.1195 31.4499 38.0095L31.4299 37.9995Z" fill="#31A8FF"></path></svg></div></div>
+                            </div>
                             <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">❯</button>
                         </div>
                         <div class="card-glass-overlay">
-                            <h3 contenteditable="false" class="" style="user-select: auto; cursor: text;">Subscribe &amp; Stay Connected</h3>
-                            <p contenteditable="false" class="" style="user-select: auto; cursor: text;">Subscribe to MANI M4YT Channel and become a part of our family!</p>
+                            <h3 contenteditable="false" class="">Subscribe &amp; Stay Connected</h3>
+                            <p contenteditable="false" class="">Subscribe to MANI M4YT Channel and become a part of our family!</p>
                         </div>
                     </div>
                 </div>
@@ -303,25 +308,32 @@
 
         <!-- Features Section -->
         <section id="features" class="features-section">
-            <h2 class="section-title" contenteditable="false" style="user-select: auto; cursor: text;">MAIN <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">FEATURES &amp; TIPS</span></h2>
-            <p class="section-subtitle" contenteditable="false" style="user-select: auto; cursor: text;">Special facilities for Gamers</p>
+            <h2 class="section-title" contenteditable="false">MAIN <span class="highlight" contenteditable="false">FEATURES &amp; TIPS</span></h2>
+            <p class="section-subtitle" contenteditable="false">Special facilities for Gamers</p>
             <div class="cards-grid">
-                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative;">
+                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                     <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
                     <div class="card-img-container">
                         <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     </div>
-                    <h3 contenteditable="false" class="" style="user-select: auto; cursor: text;">BGMI Live Highlights</h3>
-                    <p contenteditable="false" class="" style="user-select: auto; cursor: text;">CAN YOU SUBSCRIBE.</p>
+                    <h3 contenteditable="false" class="">BGMI Live Highlights</h3>
+                    <p contenteditable="false" class="">CAN YOU SUBSCRIBE.</p>
                 </div>
-                
-                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative;">
+                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <div class="card-img-container">
+                        <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    </div>
+                    <h3 contenteditable="false" class="">eSports Custom Rooms</h3>
+                    <p contenteditable="false" class="">JOIN FOR TOURNAMENT PROGRAMS.</p>
+                </div>
+                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                     <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
                     <div class="card-img-container">
                         <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     </div>
-                    <h3 contenteditable="false" class="" style="user-select: auto; cursor: text;">Pro Controls &amp; Sensitivity</h3>
-                    <p contenteditable="false" class="" style="user-select: auto; cursor: text;">FULL GUIDE IN ESPORTS MANIM4.YT.</p>
+                    <h3 contenteditable="false" class="">Pro Controls &amp; Sensitivity</h3>
+                    <p contenteditable="false" class="">FULL GUIDE IN ESPORTS MANIM4.YT.</p>
                 </div>
             </div>
         </section>
@@ -329,28 +341,28 @@
 
     <!-- ==================== PAGE 2: GALLERY ==================== -->
     <div id="page-gallery" class="page-view">
-        <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">m4 studio&nbsp;</h1>
+        <h1 class="page-header" contenteditable="false">BGMI / PUBG <span class="highlight" contenteditable="false">3D GALLERY</span></h1>
         <section id="showcase" class="showcase-section" style="padding-top: 0;">
             <div class="showcase-grid" id="galleryContainer">
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="showcase-item">
                     <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     <div class="showcase-overlay">
-                        <h4 contenteditable="false" class="" style="user-select: auto; cursor: text;">Clutch Moments</h4>
-                        <p contenteditable="false" class="" style="user-select: auto; cursor: text;">1v4 BGMI Gameplay</p>
+                        <h4 contenteditable="false" class="">Clutch Moments</h4>
+                        <p contenteditable="false" class="">1v4 BGMI Gameplay</p>
                     </div>
                 </div>
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                    <img src="data:image/jpeg;base64,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" class="media-target">
+                <div class="showcase-item">
+                    <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     <div class="showcase-overlay">
-                        <h4 contenteditable="false" class="" style="user-select: auto; cursor: text;">eSports Arena</h4>
-                        <p contenteditable="false" class="" style="user-select: auto; cursor: text;">Custom Scrims</p>
+                        <h4 contenteditable="false" class="">eSports Arena</h4>
+                        <p contenteditable="false" class="">Custom Scrims</p>
                     </div>
                 </div>
-                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <div class="showcase-item">
                     <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
                     <div class="showcase-overlay">
-                        <h4 contenteditable="false" class="" style="user-select: auto; cursor: text;">Pro Setup</h4>
-                        <p contenteditable="false" class="" style="user-select: auto; cursor: text;">LIVE M4YT</p>
+                        <h4 contenteditable="false" class="">Pro Setup</h4>
+                        <p contenteditable="false" class="">LIVE M4YT</p>
                     </div>
                 </div>
             </div>
@@ -359,17 +371,17 @@
 
     <!-- ==================== PAGE 3: LIVE / ABOUT ==================== -->
     <div id="page-about" class="page-view">
-        <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">LIVE STREAM &amp; <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">ABOUT US</span></h1>
+        <h1 class="page-header" contenteditable="false">LIVE STREAM &amp; <span class="highlight" contenteditable="false">ABOUT US</span></h1>
         <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.05); border-radius: 15px; margin: 0 20px;">
-            <div class="about-card" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                <p contenteditable="false" class="" style="user-select: auto; cursor: text;">Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
+            <div class="about-card" style="opacity: 1; transform: translateY(0px) scale(1);">
+                <p contenteditable="false" class="">Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
             </div>
         </section>
     </div>
 
     <!-- ==================== PAGE 4: NOTIFICATIONS ==================== -->
     <div id="page-notifications" class="page-view">
-        <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">LATEST <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">NOTIFICATIONS</span></h1>
+        <h1 class="page-header" contenteditable="false">LATEST <span class="highlight" contenteditable="false">NOTIFICATIONS</span></h1>
         
         <div class="notif-container">
             <div class="notif-list-wrapper" id="notifWrapper">
@@ -387,24 +399,24 @@
 
     <!-- ==================== PAGE 5: CONTACT ==================== -->
     <div id="page-contact" class="page-view">
-        <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">CONTACT <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">ADMIN</span></h1>
+        <h1 class="page-header" contenteditable="false">CONTACT <span class="highlight" contenteditable="false">ADMIN</span></h1>
         
         <div class="contact-page-wrapper">
-            <div class="contact-box admin-box" style="transform: translateY(30px) scale(0.95); max-width: 600px; padding: 40px; opacity: 0; transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
-                <h2 style="margin-bottom: 20px; user-select: auto; cursor: text;" contenteditable="false" class=""><i class="fa-solid fa-envelope"></i> SEND A MESSAGE</h2>
-                <p style="text-align: center; color: rgb(179, 179, 204); margin-bottom: 25px; user-select: auto; cursor: text;" contenteditable="false" class="">Send a message directly to MANI M4YT</p>
+            <div class="contact-box admin-box" style="transform: translateY(0px) scale(1); max-width: 600px; padding: 40px; opacity: 1;">
+                <h2 style="margin-bottom: 20px;" contenteditable="false" class=""><i class="fa-solid fa-envelope"></i> SEND A MESSAGE</h2>
+                <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;" contenteditable="false" class="">Send a message directly to MANI M4YT</p>
                 
                 <form id="siteContactForm" onsubmit="submitUserMessage(event)">
                     <div class="form-group" style="text-align: left;">
-                        <label style="color: rgb(0, 210, 255); font-weight: bold; user-select: auto; cursor: text;" contenteditable="false" class="">YOUR NAME:</label>
+                        <label style="color:#00d2ff; font-weight:bold;" contenteditable="false" class="">YOUR NAME:</label>
                         <input type="text" id="senderName" required="" placeholder="Enter your name...">
                     </div>
                     <div class="form-group" style="text-align: left;">
-                        <label style="color: rgb(0, 210, 255); font-weight: bold; user-select: auto; cursor: text;" contenteditable="false" class="">YOUR EMAIL:</label>
+                        <label style="color:#00d2ff; font-weight:bold;" contenteditable="false" class="">YOUR EMAIL:</label>
                         <input type="email" id="senderEmail" required="" placeholder="Enter your email...">
                     </div>
                     <div class="form-group" style="text-align: left;">
-                        <label style="color: rgb(0, 210, 255); font-weight: bold; user-select: auto; cursor: text;" contenteditable="false" class="">MESSAGE:</label>
+                        <label style="color:#00d2ff; font-weight:bold;" contenteditable="false" class="">MESSAGE:</label>
                         <textarea id="senderMsg" rows="5" required="" placeholder="Write your message here..."></textarea>
                     </div>
                     <button type="submit" class="btn-submit" style="font-size: 16px; margin-top: 10px; background:linear-gradient(45deg, #00d2ff, #0072ff); color:#fff; padding:12px; border:none; width:100%; border-radius:5px; font-weight:bold; cursor:pointer;">
@@ -418,26 +430,28 @@
     <!-- Footer -->
     <footer>
         <div class="footer-container">
-            <div class="footer-logo" contenteditable="false" style="user-select: auto; cursor: text;">
-                <i class="fa-solid fa-gamepad"></i> MANI<span contenteditable="false" class="" style="user-select: auto; cursor: text;">M4YT</span>
+            <div class="footer-logo" contenteditable="false">
+                <i class="fa-solid fa-gamepad"></i> MANI<span contenteditable="false" class="">M4YT</span>
             </div>
             <div class="social-links">
                 <a href="https://www.youtube.com/@MANI_M4YT" target="_blank" class="yt-icon"><i class="fa-brands fa-youtube"></i></a>
                 <a href="https://www.instagram.com/mani._.71_?stkn=MThvOGM5ZjloZ3Fm" target="_blank" class="ig-icon"><i class="fa-brands fa-instagram"></i></a>
             </div>
-            <p class="email-text" contenteditable="false" style="user-select: auto; cursor: text;">
+            <p class="email-text" contenteditable="false">
                 <i class="fa-solid fa-envelope"></i> Email: <a href="mailto:manipubji@gmail.com">manipubji@gmail.com</a>
             </p>
-            <p contenteditable="false" class="" style="user-select: auto; cursor: text;">© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
+            <p contenteditable="false" class="">© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
         </div>
     </footer>
 
     <!-- ==================== DYNAMIC CUSTOM ALERT MODAL ==================== -->
     <div id="customAlertModal" class="admin-modal" style="display: none; z-index: 100010;">
         <div class="admin-box" id="customAlertBox" style="max-width: 420px; padding: 30px;">
-            <div id="customAlertIcon" style="font-size: 55px; margin-bottom: 15px; color: rgb(0, 210, 255); text-shadow: rgb(0, 210, 255) 0px 0px 15px;"><i class="fa-solid fa-user-gear"></i></div>
-            <h2 id="customAlertTitle" style="color: rgb(0, 210, 255); font-size: 20px; margin-bottom: 10px; user-select: auto; cursor: text;" contenteditable="false" class="">ADMIN MODE</h2>
-            <p id="customAlertMsg" style="color: rgb(255, 255, 255); font-size: 15px; line-height: 1.5; margin-bottom: 20px; white-space: pre-wrap; user-select: auto; cursor: text;" contenteditable="false" class="">Admin Mode is Active! Use the tools floating at the bottom right.</p>
+            <div id="customAlertIcon" style="font-size: 55px; margin-bottom: 15px; color: #00d2ff; text-shadow: 0 0 15px #00d2ff;">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <h2 id="customAlertTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;">NOTIFICATION</h2>
+            <p id="customAlertMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px; white-space: pre-wrap;"></p>
             <button id="customAlertBtn" onclick="closeCustomAlert()" style="background: linear-gradient(45deg, #00d2ff, #0072ff); color: #fff; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; border: none; cursor: pointer;">
                 <i class="fa-solid fa-check"></i> OK
             </button>
@@ -450,8 +464,8 @@
             <div style="font-size: 55px; margin-bottom: 15px; color: #ffc107; text-shadow: 0 0 15px #ffc107;">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h2 style="color: rgb(255, 193, 7); font-size: 20px; margin-bottom: 10px; user-select: auto; cursor: text;" contenteditable="false" class="">CONFIRM ACTION</h2>
-            <p id="customConfirmMsg" style="color: rgb(255, 255, 255); font-size: 15px; line-height: 1.5; margin-bottom: 20px; user-select: auto; cursor: text;" contenteditable="false" class="">क्या आप इस पूरे कार्ड/गैलरी आइटम को डिलीट करना चाहते हैं?</p>
+            <h2 style="color: #ffc107; font-size: 20px; margin-bottom: 10px;">CONFIRM ACTION</h2>
+            <p id="customConfirmMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px;"></p>
             <div style="display: flex; gap: 10px;">
                 <button onclick="handleConfirmChoice(true)" style="background: linear-gradient(45deg, #28a745, #1e7e34); flex: 1;">YES</button>
                 <button onclick="handleConfirmChoice(false)" style="background: linear-gradient(45deg, #dc3545, #bd2130); flex: 1;">NO</button>
@@ -465,8 +479,8 @@
             <div style="font-size: 50px; margin-bottom: 15px; color: #00d2ff;">
                 <i class="fa-solid fa-pen-to-square"></i>
             </div>
-            <h2 id="customPromptTitle" style="color: rgb(0, 210, 255); font-size: 20px; margin-bottom: 10px; user-select: auto; cursor: text;" contenteditable="false" class="">PASTE IMAGE / VIDEO URL</h2>
-            <p id="customPromptMsg" style="color: rgb(204, 204, 204); font-size: 14px; margin-bottom: 15px; user-select: auto; cursor: text;" contenteditable="false" class="">Paste direct URL or YouTube link here:</p>
+            <h2 id="customPromptTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;">INPUT REQUIRED</h2>
+            <p id="customPromptMsg" style="color: #ccc; font-size: 14px; margin-bottom: 15px;"></p>
             <input type="text" id="customPromptInput" placeholder="Enter here..." style="background: #1a1a2e; border: 2px solid #00d2ff; padding: 12px; width: 100%; border-radius: 8px; color: white; margin-bottom: 15px; outline: none; box-sizing: border-box;">
             <div style="display: flex; gap: 10px;">
                 <button onclick="submitCustomPrompt()" style="background: linear-gradient(45deg, #00d2ff, #0072ff); flex: 1;">SUBMIT</button>
@@ -479,7 +493,7 @@
     <div id="adminLoginModal" class="admin-modal" style="display: none;">
         <div class="admin-box">
             <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:24px; font-weight:bold;">×</span>
-            <h2 contenteditable="false" class="" style="user-select: auto; cursor: text;"><i class="fa-solid fa-user-shield"></i> ADMIN PANEL LOGIN</h2>
+            <h2 contenteditable="false" class=""><i class="fa-solid fa-user-shield"></i> ADMIN PANEL LOGIN</h2>
             
             <form onsubmit="handleLogin(event)" autocomplete="off">
                 <input type="text" id="adminUserX" autocomplete="off" placeholder="Enter Username..." required="">
@@ -492,8 +506,8 @@
     <!-- DYNAMIC WRONG PASSWORD ERROR MODAL -->
     <div id="wrongPassModal" class="admin-modal" style="display: none; z-index: 100005;">
         <div class="admin-box error-box" id="errorBoxAnim">
-            <h2 contenteditable="false" class="" style="user-select: auto; cursor: text;"><i class="fa-solid fa-triangle-exclamation"></i> ACCESS DENIED!</h2>
-            <p style="font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; margin: 20px 0px; letter-spacing: 1px; user-select: auto; cursor: text;" contenteditable="false" class="">
+            <h2><i class="fa-solid fa-triangle-exclamation"></i> ACCESS DENIED!</h2>
+            <p style="font-size: 18px; color: #fff; font-weight: bold; margin: 20px 0; letter-spacing: 1px;">
                 INCORRECT USERNAME OR PASSWORD!
             </p>
             <div style="font-size: 50px; margin-bottom: 20px; color: #ff004c; text-shadow: 0 0 20px #ff004c;">
@@ -512,8 +526,8 @@
             <div>
                 <i class="fa-brands fa-github github-3d-icon"></i>
             </div>
-            <h2 style="color: rgb(0, 210, 255); margin-bottom: 10px; user-select: auto; cursor: text;" contenteditable="false" class=""><i class="fa-solid fa-key"></i> GITHUB ACCESS TOKEN</h2>
-            <p style="color: rgb(204, 204, 204); font-size: 14px; margin-bottom: 15px; user-select: auto; cursor: text;" contenteditable="false" class="">Enter your GitHub Personal Access Token to save live changes:</p>
+            <h2 style="color:#00d2ff; margin-bottom: 10px;"><i class="fa-solid fa-key"></i> GITHUB ACCESS TOKEN</h2>
+            <p style="color:#ccc; font-size:14px; margin-bottom: 15px;">Enter your GitHub Personal Access Token to save live changes:</p>
             
             <input type="password" id="githubTokenInputModal" class="github-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
             <button onclick="saveGithubTokenAndProceed()"><i class="fa-solid fa-cloud-arrow-up"></i> SAVE TOKEN &amp; PUBLISH</button>
@@ -524,9 +538,9 @@
     <div id="adminMessagesModal" class="admin-modal" style="display: none;">
         <div class="admin-box" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
             <span class="close-btn" onclick="closeAdminMessages()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
-            <h2 style="color: rgb(0, 210, 255); text-align: left; user-select: auto; cursor: text;" contenteditable="false" class=""><i class="fa-solid fa-inbox"></i> USER MESSAGES</h2>
+            <h2 style="color: #00d2ff; text-align: left;" contenteditable="false" class=""><i class="fa-solid fa-inbox"></i> USER MESSAGES</h2>
             
-            <div id="messagesListContainer" style="text-align: left; margin-top: 20px;"><p style="color: rgb(179, 179, 204); text-align: center; user-select: auto; cursor: text;" contenteditable="false" class="">No new messages yet.</p></div>
+            <div id="messagesListContainer" style="text-align: left; margin-top: 20px;"><p style="color:#b3b3cc; text-align:center;" contenteditable="false" class="">No new messages yet.</p></div>
             
             <button onclick="clearAllMessages()" style="background:#dc3545; color:white; margin-top: 20px;">
                 <i class="fa-solid fa-trash-can"></i> CLEAR ALL MESSAGES
@@ -538,12 +552,12 @@
     <div id="viewNotifModal" class="admin-modal" onclick="closeViewNotif(event)" style="display: none;">
         <div class="admin-box view-notif-box" style="max-width: 600px; padding: 25px;" onclick="event.stopPropagation()">
             <span class="close-btn" onclick="closeViewNotif()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
-            <h2 id="viewNotifTitle" style="text-align: left; color: rgb(0, 210, 255); margin-bottom: 15px; font-size: 1.4rem; user-select: auto; cursor: text;" contenteditable="false" class="">Title</h2>
+            <h2 id="viewNotifTitle" style="text-align:left; color:#00d2ff; margin-bottom:15px; font-size:1.4rem;" contenteditable="false" class="">Title</h2>
             
             <img id="viewNotifImg" src="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
             <video id="viewNotifVid" src="" controls="" autoplay="" muted="" loop="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);"></video>
             
-            <p id="viewNotifDesc" style="text-align: left; line-height: 1.6; color: rgb(179, 179, 204); white-space: pre-wrap; font-size: 1.1rem; user-select: auto; cursor: text;" contenteditable="false" class=""></p>
+            <p id="viewNotifDesc" style="text-align:left; line-height:1.6; color:#b3b3cc; white-space:pre-wrap; font-size:1.1rem;" contenteditable="false" class=""></p>
             
             <button id="adminEditNotifBtn" style="display:none; background:#ffc107; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; margin-top: 20px; font-size: 15px;" onclick="openUploadModalFromView()">
                 <i class="fa-solid fa-pen-to-square"></i> EDIT NOTIFICATION
@@ -555,15 +569,15 @@
     <div id="innerUploadModal" class="admin-modal" style="display: none;">
         <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); max-width: 500px;">
             <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
-            <h2 id="notifModalHeader" contenteditable="false" class="" style="user-select: auto; cursor: text;"><i class="fa-solid fa-bell"></i> Add/Edit Notification</h2>
+            <h2 id="notifModalHeader" contenteditable="false" class=""><i class="fa-solid fa-bell"></i> Add/Edit Notification</h2>
             
-            <p style="text-align: left; color: rgb(0, 210, 255); margin-bottom: 5px; font-size: 14px; font-weight: bold; user-select: auto; cursor: text;" contenteditable="false" class="">1. Enter Title:</p>
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" contenteditable="false" class="">1. Enter Title:</p>
             <input type="text" id="notifEditTitle" placeholder="Notification Title..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box;">
             
-            <p style="text-align: left; color: rgb(0, 210, 255); margin-bottom: 5px; font-size: 14px; font-weight: bold; user-select: auto; cursor: text;" contenteditable="false" class="">2. Enter Message/Details:</p>
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" contenteditable="false" class="">2. Enter Message/Details:</p>
             <textarea id="notifEditDesc" rows="4" placeholder="Write your full message here..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box; resize:none; font-family:inherit;"></textarea>
             
-            <p style="text-align: left; color: rgb(0, 210, 255); margin-bottom: 5px; font-size: 14px; font-weight: bold; user-select: auto; cursor: text;" contenteditable="false" class="">3. Upload Photo/Video (Optional):</p>
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" contenteditable="false" class="">3. Upload Photo/Video (Optional):</p>
             <input type="file" id="notifMediaFile" accept="image/*,video/*" style="background:#1a1a2e; border:1px dashed #00d2ff; padding:10px; width:100%; border-radius:5px; color:white; margin-bottom:20px; cursor:pointer; box-sizing:border-box;">
             
             <button id="notifSubmitBtn" onclick="confirmNotifAction(event)" style="background:#00d2ff; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; font-size: 16px;">
@@ -574,20 +588,23 @@
 
     <!-- FLOATING ADMIN DASHBOARD -->
     <div id="adminDashboard" class="admin-dashboard" style="display: none;">
-        <p style="margin-bottom: 12px; border-bottom: 1px solid rgb(51, 51, 51); padding-bottom: 8px; user-select: auto; cursor: text;" contenteditable="false" class="">
+        <p style="margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 8px;" contenteditable="false" class="">
             <i class="fa-solid fa-user-gear"></i> Admin Logged In
         </p>
         
-        <button id="adminViewMsgBtn" onclick="openAdminMessages()" style="background: rgb(233, 30, 99); color: white;"><i class="fa-solid fa-envelope-open-text"></i> View Messages (1)</button>
+        <button id="adminViewMsgBtn" onclick="openAdminMessages()" style="background:#8a2be2; color:white;"><i class="fa-solid fa-envelope-open-text"></i> View Messages (0)</button>
         
         <button id="toggleEditBtn" onclick="toggleEditWebsiteTools()" style="background: rgb(40, 167, 69); color: white; font-size: 14px;"><i class="fa-solid fa-pen-ruler"></i> Edit Website</button>
 
         <div id="adminEditTools" style="display: none;">
-            <p style="font-size: 11px; color: rgb(255, 193, 7); text-transform: uppercase; margin-bottom: 5px; user-select: auto; cursor: text;" contenteditable="false" class=""><i class="fa-solid fa-toolbox"></i> Toolbox</p>
+            <p style="font-size: 11px; color: #ffc107; text-transform: uppercase; margin-bottom: 5px;" contenteditable="false" class=""><i class="fa-solid fa-toolbox"></i> Toolbox</p>
             
+            <button onclick="toggleAlignmentGrid()" style="background:#00bcd4; color:white;"><i class="fa-solid fa-border-top-left"></i> Toggle Level Grid</button>
+            <button onclick="expandPageSpace(100)" style="background:#009688; color:white;"><i class="fa-solid fa-arrows-up-down"></i> Expand Page Space (+)</button>
+            <button onclick="expandPageSpace(-100)" style="background:#795548; color:white;"><i class="fa-solid fa-arrows-up-down"></i> Reduce Page Space (-)</button>
             <button onclick="addHeroSlide()" style="background:#e91e63; color:white;"><i class="fa-solid fa-images"></i> Add Hero Slide</button>
 
-            <button onclick="toggleMoveMode()" id="dashMoveBtn" style="background: rgb(255, 152, 0); color: rgb(0, 0, 0);"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items</button>
+            <button onclick="toggleMoveMode()" id="dashMoveBtn" style="background:#ff9800; color:black;"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items</button>
             <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
             <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
             <button onclick="addNewTextCard()" style="background:#17a2b8; color:white;"><i class="fa-solid fa-font"></i> Add Custom Text</button>
@@ -665,6 +682,25 @@
         function closeCustomPrompt() {
             document.getElementById('customPromptModal').style.display = 'none';
             if(customPromptCallback) { customPromptCallback(null); customPromptCallback = null; }
+        }
+
+        // ================= ALIGNMENT GRID TOGGLE ================= //
+        function toggleAlignmentGrid() {
+            const grid = document.getElementById('alignmentGridOverlay');
+            if (grid) {
+                grid.style.display = (grid.style.display === 'none' || grid.style.display === '') ? 'block' : 'none';
+            }
+        }
+
+        // ================= PAGE SPACE EXPANDER ================= //
+        function expandPageSpace(amount) {
+            const activePage = document.querySelector('.page-view.active');
+            if(activePage) {
+                let currentPadding = parseInt(window.getComputedStyle(activePage).paddingBottom) || 50;
+                let newPadding = Math.max(20, currentPadding + amount);
+                activePage.style.paddingBottom = newPadding + 'px';
+                customAlert('Page bottom space updated: ' + newPadding + 'px', 'SPACE UPDATED', 'fa-arrows-up-down', 'success');
+            }
         }
 
         // ================= PAGE ROUTING LOGIC ================= //
@@ -1091,7 +1127,7 @@
         function toggleEditWebsiteTools() {
             const toolsMenu = document.getElementById('adminEditTools');
             const editBtn = document.getElementById('toggleEditBtn');
-            const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-tag), .nav-links a, .footer-logo, footer p, .email-text, .admin-name, .btn-primary, .btn-main, .btn-secondary, label');
+            const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-tag), .nav-links a, .footer-logo, footer p, .email-text, .admin-name, .btn-primary, .btn-main, .btn-secondary, label, .logo, .logo span');
 
             if (toolsMenu.style.display === 'block') {
                 toolsMenu.style.display = 'none';
@@ -1134,6 +1170,23 @@
                         }
                     };
                 });
+
+                // EDIT INSTAGRAM & YOUTUBE SOCIAL LINKS IN EDIT MODE
+                document.querySelectorAll('.hero-btns a, .social-links a, .email-text a').forEach(link => {
+                    link.onclick = function(e) {
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            customPrompt("EDIT LINK URL", "Enter Instagram / YouTube / Email URL for this button:", function(newUrl) {
+                                if(newUrl) {
+                                    link.href = newUrl;
+                                    customAlert("Link URL updated successfully!", "URL UPDATED", "fa-link", "success");
+                                }
+                            });
+                        }
+                    };
+                });
+
                 bindMediaClickHandlers();
 
                 document.querySelectorAll('.showcase-item, .card-3d').forEach(item => {
@@ -1255,7 +1308,8 @@
                 let ytMatch = ytUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|live\/|shorts\/))([^"&?\/\s]{11})/);
                 let vidId = (ytMatch && ytMatch[1]) ? ytMatch[1] : (ytUrl.length === 11 ? ytUrl : ytUrl);
                 
-                let videoEmbedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1`;
+                // CLEAN EMBED WITHOUT YOUTUBE BRANDING / EXTRA LINKS
+                let videoEmbedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1&iv_load_policy=3`;
                 
                 const container = getActiveContainer();
                 if(!container) return;
@@ -1269,7 +1323,9 @@
                 }
 
                 newItem.innerHTML = `
-                    <iframe class="media-target" width="100%" height="220" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px;"></iframe>
+                    <div class="clean-video-wrapper" style="position:relative; width:100%; height:220px; overflow:hidden; border-radius:10px;">
+                        <iframe class="media-target" width="100%" height="100%" src="${videoEmbedUrl}" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px; border:none;"></iframe>
+                    </div>
                     <div class="showcase-overlay" style="position:relative; background:rgba(0,0,0,0.8); padding:10px; margin-top:5px; border-radius:5px;">
                         <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
                         <p contenteditable="true" class="editable-active">Watch full match on channel</p>
@@ -1279,7 +1335,7 @@
                 container.appendChild(newItem);
                 attachDeleteBtnIfEditing(newItem);
                 bindMediaClickHandlers(); 
-                customAlert('YouTube Video Card Added Successfully on current page!', 'VIDEO ADDED', 'fa-brands fa-youtube', 'success');
+                customAlert('Clean Video Card Added Successfully on current page!', 'VIDEO ADDED', 'fa-brands fa-youtube', 'success');
             });
         }
 
@@ -1329,7 +1385,6 @@
             if (localStorage.getItem('mani_admin_logged') !== 'true') return;
             
             if (isMoveModeActive) {
-                // FIXED SELECTOR: Now handles Admin Badge, Logo, Navbar etc explicitly first
                 let target = e.target.closest('.admin-badge-left') || e.target.closest('.logo') || e.target.closest('.nav-links') || e.target.closest('.navbar') || e.target.closest('a, li, h1, h2, h3, h4, p, span, img, video, iframe, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
                 
                 if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
@@ -1364,7 +1419,7 @@
         document.addEventListener('touchmove', (e) => handleFreeDragMove(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
         document.addEventListener('touchend', stopFreeDrag);
 
-        // ================= MEDIA EDIT HANDLERS (EXACT CLICKED ITEM ZOOM FIX) ================= //
+        // ================= MEDIA EDIT HANDLERS & CROP SYSTEM ================= //
         function bindMediaClickHandlers() {
             const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
             mediaElements.forEach(elem => {
@@ -1411,6 +1466,7 @@
             controls.innerHTML = `
                 <button onclick="document.getElementById('adminFileInput').click()" style="background:#00d2ff; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Upload"><i class="fa-solid fa-upload"></i></button>
                 <button onclick="changePhotoByUrl()" style="background:#ffc107; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Paste URL"><i class="fa-solid fa-link"></i></button>
+                <button onclick="toggleImageCrop(event)" style="background:#ff5722; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Crop / Fit Mode"><i class="fa-solid fa-crop-simple"></i> Crop</button>
                 <button onclick="zoomElement(0.1, event)" style="background:#28a745; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i> +</button>
                 <button onclick="zoomElement(-0.1, event)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i> -</button>
                 <button onclick="resizeBoxByElement(30)" style="background:#8a2be2; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Make Box Bigger">Box <i class="fa-solid fa-plus"></i></button>
@@ -1419,6 +1475,23 @@
                 <button onclick="this.parentElement.remove(); startSlider();" style="background:transparent; color:red; border:none; cursor:pointer; font-size:18px; padding:0 4px;">&times;</button>
             `;
             document.body.appendChild(controls);
+        }
+
+        // CROP / FIT TOGGLE FUNCTION
+        function toggleImageCrop(e) {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
+            if(!currentTargetElement) return;
+            let currentFit = currentTargetElement.style.objectFit || 'cover';
+            if(currentFit === 'cover') {
+                currentTargetElement.style.objectFit = 'contain';
+                customAlert("Image mode changed to: CONTAIN (Full image, no crop)", "IMAGE FIT", "fa-crop-simple", "info");
+            } else if(currentFit === 'contain') {
+                currentTargetElement.style.objectFit = 'fill';
+                customAlert("Image mode changed to: FILL (Stretched)", "IMAGE FIT", "fa-crop-simple", "info");
+            } else {
+                currentTargetElement.style.objectFit = 'cover';
+                customAlert("Image mode changed to: COVER (Cropped to box)", "IMAGE FIT", "fa-crop-simple", "info");
+            }
         }
 
         function deleteMediaElement() {
@@ -1481,27 +1554,48 @@
         }
 
         function changePhotoByUrl() {
-            customPrompt("PASTE IMAGE / VIDEO URL", "Paste direct URL or YouTube link here:", function(url) {
+            customPrompt("PASTE IMAGE / VIDEO / INSTA URL", "Paste direct URL, YouTube link, or Instagram post/reel link here:", function(url) {
                 if(url && currentTargetElement) {
                     
-                    // YOUTUBE URL PARSER (Handles Normal, Live, Shorts, youtu.be)
+                    // YOUTUBE CLEAN EMBED PARSER
                     let ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|live\/|shorts\/))([^"&?\/\s]{11})/);
-                    let ytId = (ytMatch && ytMatch[1]) ? ytMatch[1] : (url.length === 11 ? url : null);
+                    let ytId = (ytMatch && ytMatch[1]) ? ytMatch[1] : (url.length === 11 && !url.includes('/') ? url : null);
+
+                    // INSTAGRAM CLEAN EMBED PARSER
+                    let igMatch = url.match(/(?:instagram\.com\/(?:p|reel|reels)\/)([^"&?\/\s]+)/);
+                    let igId = (igMatch && igMatch[1]) ? igMatch[1] : null;
 
                     if (ytId) {
                         let iframe = document.createElement('iframe');
                         iframe.className = currentTargetElement.className;
-                        iframe.src = `https://www.youtube.com/embed/${ytId}?autoplay=1`;
+                        iframe.src = `https://www.youtube.com/embed/${ytId}?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1&iv_load_policy=3`;
                         iframe.setAttribute('frameborder', '0');
                         iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
                         iframe.setAttribute('allowfullscreen', 'true');
                         iframe.style.width = '100%';
                         iframe.style.height = '100%';
                         iframe.style.borderRadius = 'inherit';
+                        iframe.style.border = 'none';
                         
                         currentTargetElement.parentNode.replaceChild(iframe, currentTargetElement);
                         currentTargetElement = iframe;
                     } 
+                    else if (igId) {
+                        let iframe = document.createElement('iframe');
+                        iframe.className = currentTargetElement.className;
+                        iframe.src = `https://www.instagram.com/p/${igId}/embed`;
+                        iframe.setAttribute('frameborder', '0');
+                        iframe.setAttribute('scrolling', 'no');
+                        iframe.setAttribute('allowtransparency', 'true');
+                        iframe.style.width = '100%';
+                        iframe.style.height = '100%';
+                        iframe.style.minHeight = '350px';
+                        iframe.style.borderRadius = 'inherit';
+                        iframe.style.border = 'none';
+                        
+                        currentTargetElement.parentNode.replaceChild(iframe, currentTargetElement);
+                        currentTargetElement = iframe;
+                    }
                     else if(url.match(/\.(mp4|webm|ogg)$/i)) {
                         let newVideo = document.createElement('video'); 
                         newVideo.src = url; 
@@ -1568,15 +1662,12 @@
             const inputVal = document.getElementById('githubTokenInputModal').value.trim();
             if(!inputVal) { customAlert('Please enter a valid GitHub token.', 'INVALID TOKEN', 'fa-triangle-exclamation', 'error'); return; }
             
-            // localStorage में सेव नहीं करेंगे ताकि हर बार नया मांगे 
             window.temp_gh_token_bagga = inputVal; 
-            
             closeGithubModal();
-            saveChangesToGitHub(true); // true पास करेंगे ताकि सेव प्रक्रिया चालू हो सके
+            saveChangesToGitHub(true);
         }
 
         async function saveChangesToGitHub(isTokenReady = false) {
-            // अगर सीधे सेव बटन दबाया है (isTokenReady true नहीं है), तो हर बार Modal खुलेगा
             if (isTokenReady !== true) { 
                 document.getElementById('githubTokenInputModal').value = '';
                 document.getElementById('githubTokenModal').style.display = 'flex';
@@ -1669,18 +1760,10 @@
             } finally {
                 saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site'; 
                 saveBtn.disabled = false;
-                window.temp_gh_token_bagga = null; // सुरक्षा के लिए सेव होने के बाद टोकन को मेमोरी से भी साफ कर दें
+                window.temp_gh_token_bagga = null; 
             }
         }
     </script>
     <script src="js/script.js"></script>
-
-
-
-
-
-
-
-
 </body>
 </html>
