@@ -1312,9 +1312,8 @@
 
                 newItem.innerHTML = `
                     <div class="clean-video-wrapper" style="position:relative; width:100%; height:220px; overflow:hidden; border-radius:10px; background:#000;">
-                        <div class="yt-blocker-top" style="position:absolute; top:0; left:0; width:100%; height:70px; z-index:5; background:transparent; cursor:default;"></div>
                         <div class="yt-blocker-logo" style="position:absolute; bottom:0; right:0; width:100px; height:50px; z-index:5; background:transparent; cursor:default;"></div>
-                        <iframe class="media-target" width="100%" height="100%" src="${videoEmbedUrl}" sandbox="allow-scripts allow-same-origin allow-presentation" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px; border:none; pointer-events:auto;"></iframe>
+                        <iframe class="media-target" src="${videoEmbedUrl}" sandbox="allow-scripts allow-same-origin allow-presentation" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:-60px; left:0; width:100%; height:calc(100% + 60px); border-radius:10px; border:none; pointer-events:auto;"></iframe>
                     </div>
                     <div class="showcase-overlay" style="position:relative; background:rgba(0,0,0,0.8); padding:10px; margin-top:5px; border-radius:5px;">
                         <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
@@ -1349,6 +1348,9 @@
                 btn.style.background = '#ff4d4d'; btn.style.color = '#fff';
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> Stop Resizing';
 
+                // Disable iframes during resize to allow mouse dragging
+                document.querySelectorAll('iframe, video').forEach(el => el.style.pointerEvents = 'none');
+
                 let floatingControlText = document.getElementById('admin-text-controls');
                 if(floatingControlText) floatingControlText.remove();
                 let floatingControlImg = document.getElementById('admin-img-controls');
@@ -1359,13 +1361,16 @@
             } else {
                 btn.style.background = '#673ab7'; btn.style.color = '#fff';
                 btn.innerHTML = '<i class="fa-solid fa-crop-simple"></i> Resize Items';
+                
+                // Enable iframes again
+                document.querySelectorAll('iframe, video').forEach(el => el.style.pointerEvents = 'auto');
             }
         }
 
         function initFreeResize(e, clientX, clientY) {
             if (localStorage.getItem('mani_admin_logged') !== 'true') return;
             if (isResizeModeActive) {
-                let target = e.target.closest('.card-3d, .showcase-item, img, video, iframe, .custom-text-card, .hero-text, section, .page-view');
+                let target = e.target.closest('.card-3d, .showcase-item, img, video, iframe, .clean-video-wrapper, .custom-text-card, .hero-text, section, .page-view');
                 if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
                     activeResize = target;
                     let compStyle = window.getComputedStyle(activeResize);
@@ -1421,6 +1426,10 @@
             if(isMoveModeActive) {
                 btn.style.background = '#ff4d4d'; btn.style.color = '#fff';
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> Stop Moving';
+                
+                // Disable iframes during move so the wrapper can be clicked and dragged
+                document.querySelectorAll('iframe, video').forEach(el => el.style.pointerEvents = 'none');
+
                 editableElements.forEach(el => { el.contentEditable = "false"; el.style.userSelect = "none"; el.style.cursor = "move"; el.onclick = null; });
                 
                 let floatingControlText = document.getElementById('admin-text-controls'); 
@@ -1429,10 +1438,14 @@
                 if(floatingControlImg) floatingControlImg.remove();
                 startSlider();
 
-                customAlert('Move Mode is ON! \n\nअब आप किसी भी आइटम को पकड़ कर मूव कर सकते हैं।', 'MOVE MODE ACTIVE', 'fa-arrows-up-down-left-right', 'info');
+                customAlert('Move Mode is ON! \n\nअब आप किसी भी आइटम (फोटो, वीडियो, कार्ड) को पकड़ कर मूव कर सकते हैं।', 'MOVE MODE ACTIVE', 'fa-arrows-up-down-left-right', 'info');
             } else {
                 btn.style.background = '#ff9800'; btn.style.color = '#000';
                 btn.innerHTML = '<i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items';
+                
+                // Enable iframes again
+                document.querySelectorAll('iframe, video').forEach(el => el.style.pointerEvents = 'auto');
+
                 editableElements.forEach(el => { 
                     el.contentEditable = "true"; 
                     el.style.userSelect = "auto"; 
@@ -1452,7 +1465,7 @@
             if (localStorage.getItem('mani_admin_logged') !== 'true') return;
             
             if (isMoveModeActive) {
-                let target = e.target.closest('.admin-badge-left') || e.target.closest('.logo') || e.target.closest('.nav-links') || e.target.closest('.navbar') || e.target.closest('a, li, h1, h2, h3, h4, p, span, img, video, iframe, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
+                let target = e.target.closest('.admin-badge-left, .logo, .nav-links, .navbar, a, li, h1, h2, h3, h4, p, span, img, video, iframe, .clean-video-wrapper, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
                 
                 if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
                     activeFreeDrag = target;
@@ -1519,8 +1532,6 @@
 
                 let parentWrapper = elem.closest('.clean-video-wrapper');
                 if (parentWrapper) {
-                    let blockerTop = parentWrapper.querySelector('.yt-blocker-top');
-                    if (blockerTop) blockerTop.onclick = handleMediaClick;
                     let blockerLogo = parentWrapper.querySelector('.yt-blocker-logo');
                     if (blockerLogo) blockerLogo.onclick = handleMediaClick;
                 }
@@ -1665,15 +1676,8 @@
                             let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
                             iframe.src = cleanEmbedSrc;
                             iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
-                            iframe.style.transform = 'none';
-                            iframe.style.pointerEvents = 'auto';
+                            iframe.style.cssText = 'position:absolute; top:-60px; left:0; width:100%; height:calc(100% + 60px); border:none; border-radius:inherit; pointer-events:auto;';
                             
-                            if (!parentWrapper.querySelector('.yt-blocker-top')) {
-                                let blockerTop = document.createElement('div');
-                                blockerTop.className = 'yt-blocker-top';
-                                blockerTop.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:70px; z-index:5; background:transparent; cursor:default;';
-                                parentWrapper.appendChild(blockerTop);
-                            }
                             if (!parentWrapper.querySelector('.yt-blocker-logo')) {
                                 let blockerLogo = document.createElement('div');
                                 blockerLogo.className = 'yt-blocker-logo';
@@ -1693,18 +1697,13 @@
                             iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
                             iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
                             iframe.setAttribute('allowfullscreen', 'true');
-                            iframe.style.cssText = 'width:100%; height:100%; border:none; border-radius:inherit; pointer-events:auto;';
-
-                            let blockerTop = document.createElement('div');
-                            blockerTop.className = 'yt-blocker-top';
-                            blockerTop.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:70px; z-index:5; background:transparent; cursor:default;';
+                            iframe.style.cssText = 'position:absolute; top:-60px; left:0; width:100%; height:calc(100% + 60px); border:none; border-radius:inherit; pointer-events:auto;';
 
                             let blockerLogo = document.createElement('div');
                             blockerLogo.className = 'yt-blocker-logo';
                             blockerLogo.style.cssText = 'position:absolute; bottom:0; right:0; width:100px; height:50px; z-index:5; background:transparent; cursor:default;';
 
                             wrapper.appendChild(iframe);
-                            wrapper.appendChild(blockerTop);
                             wrapper.appendChild(blockerLogo);
 
                             currentTargetElement.parentNode.replaceChild(wrapper, currentTargetElement);
