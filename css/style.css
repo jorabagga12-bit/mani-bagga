@@ -438,3 +438,18 @@ footer {
     .hero-btns { justify-content: center; }
     .nav-links { font-size: 13px; gap: 10px; }
 }
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* Horizontal scrolling aur layout break rokne ke liye */
+  }
+  img, video, iframe, div {
+    max-width: 100%; /* Elements ko screen ke bahar jaane se rokne ke liye */
+  }
+</style>
