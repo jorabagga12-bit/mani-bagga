@@ -430,3 +430,16 @@ footer {
 .email-text a {
     color: var(--dark-blue);
 }
+/* Sabhi elements ko rigid (solid) banayein taaki zoom par aapas me na takrayein */
+html, body {
+    width: 1280px !important;
+    min-width: 1280px !important;
+    max-width: 1280px !important;
+    margin: 0 auto !important;
+    position: relative !important;
+}
+
+/* Kisi bhi box ko niche girne ya wrap hone se rokein */
+div, section, header, footer, .row {
+    flex-wrap: nowrap !important;
+}
