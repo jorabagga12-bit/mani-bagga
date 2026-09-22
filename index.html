@@ -1,1 +1,1886 @@
-<meta name="google-site-verification" content="Or5JbtfQH0gGANckua64EHZYJ_xr-wmy5QeWB-W5O2w" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- FORCED DESKTOP VIEWPORT FOR ALL DEVICES -->
+    <meta name="viewport" content="width=1200, user-scalable=yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANI BAGGA HUB | eSports Gaming Hub</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ================== PAGE ROUTING SYSTEM ================== */
+        .page-view {
+            display: none;
+            min-height: 100vh;
+            padding-bottom: 50px;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .page-view.active {
+            display: block;
+        }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(15px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .page-header {
+            text-align: center; margin: 120px 0 40px 0; color: #00d2ff;
+            font-size: 2.8rem; text-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        /* ================== REDUCE BOTTOM SPACE FIX ================== */
+        #page-home {
+            min-height: auto !important;
+            padding-bottom: 20px !important;
+        }
+        .features-section {
+            margin-bottom: 10px !important;
+            padding-bottom: 10px !important;
+        }
+
+        /* ================== RESPONSIVE LAYOUT FIXES FOR MOBILE & DESKTOP ================== */
+        @media (max-width: 992px) {
+            .navbar { flex-wrap: wrap; justify-content: center; gap: 15px; padding: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .hero-container { flex-direction: column; text-align: center; padding: 20px 10px; }
+            .hero-btns { justify-content: center; }
+            .cards-grid, .showcase-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; gap: 20px !important; }
+            .page-header { font-size: 2rem; margin-top: 100px; }
+            .admin-badge-left { margin-bottom: 10px; }
+        }
+
+        /* UNIFORM BLUE NAV BUTTON HOVER EFFECT */
+        .nav-links a {
+            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+        }
+        .nav-links a:hover {
+            transform: translateY(-2px) scale(1.05) !important;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.8) !important;
+        }
+
+        /* ================== NOTIFICATION LIST UI ================== */
+        .notif-container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        .notif-list-wrapper { background: #ffffff; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 210, 255, 0.2); overflow: hidden; }
+        .notif-list-item { display: flex; padding: 16px 20px; border-bottom: 1px solid #e0e0e0; cursor: pointer; transition: background 0.3s ease; align-items: center; }
+        .notif-list-item:hover { background: #f0f7ff; }
+        .notif-list-item:last-child { border-bottom: none; }
+        .notif-date { flex: 0 0 110px; font-size: 14px; color: #444; font-weight: 700; border-right: 2px solid #00d2ff; margin-right: 15px; padding-right: 10px; }
+        .notif-text { flex: 1; }
+        .notif-title { font-size: 16px; color: #004085; font-weight: 600; line-height: 1.4; }
+
+        /* FRONT IMAGE SLIDER & VIDEO FIXES */
+        .slider-wrapper { position: relative; overflow: hidden; border-radius: 15px; width: 100%; height: 350px; box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
+        .slider-track { display: flex; transition: transform 0.4s ease-in-out; height: 100%; }
+        
+        /* VIDEO FIT CSS FIX */
+        .slider-track img, .slider-track video, video.media-target, iframe.media-target { 
+            min-width: 100% !important; 
+            width: 100% !important; 
+            height: 100% !important; 
+            object-fit: cover !important; 
+            border-radius: inherit; 
+            margin-bottom: 0; 
+            box-shadow: none; 
+            overflow: hidden;
+            border: none !important;
+        }
+
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.6); color: #00d2ff; border: 1px solid #00d2ff; border-radius: 50%; padding: 8px 14px; cursor: pointer; font-size: 18px; z-index: 10; transition: 0.3s; }
+        .slider-btn:hover { background: #00d2ff; color: #000; }
+        .prev-btn { left: 10px; } .next-btn { right: 10px; }
+
+        /* CONTACT PAGE */
+        .contact-page-wrapper { display: flex; justify-content: center; align-items: center; padding: 20px; margin-top: 50px; }
+        .contact-box form .form-group input, .contact-box form .form-group textarea { width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px; background: #1a1a2e; color: white; border: 1px solid #00d2ff; border-radius: 5px; outline: none; box-sizing: border-box; }
+
+        /* ================== DYNAMIC 3D & NEON STYLES ================== */
+        .admin-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.88); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+        
+        .admin-box {
+            background: linear-gradient(135deg, #0d0d1a, #1a1a3a, #050515);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid transparent;
+            box-shadow: 0 0 35px rgba(0, 210, 255, 0.5), inset 0 0 15px rgba(0, 210, 255, 0.2);
+            width: 90%; max-width: 450px; text-align: center; color: white; position: relative;
+            animation: neonBorderPulse 4s infinite alternate;
+        }
+
+        @keyframes neonBorderPulse {
+            0% { border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.6), inset 0 0 20px rgba(0, 210, 255, 0.3); }
+            50% { border-color: #ff007f; box-shadow: 0 0 30px rgba(255, 0, 127, 0.6), inset 0 0 20px rgba(255, 0, 127, 0.3); }
+            100% { border-color: #7928ca; box-shadow: 0 0 30px rgba(121, 40, 202, 0.6), inset 0 0 20px rgba(121, 40, 202, 0.3); }
+        }
+
+        .admin-box h2 { margin-bottom: 20px; color: #00d2ff; text-shadow: 0 0 10px rgba(0, 210, 255, 0.8); }
+        
+        /* Dynamic 3D Password & Input Fields */
+        .admin-box input[type="text"], 
+        .admin-box input[type="password"],
+        .github-token-input {
+            width: 100%; padding: 14px; margin: 12px 0; border-radius: 10px;
+            border: 2px solid #00d2ff; background: rgba(15, 15, 30, 0.9); color: #fff;
+            font-weight: bold; outline: none; box-sizing: border-box;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.8), 0 0 12px rgba(0, 210, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .admin-box input:focus, .github-token-input:focus {
+            border-color: #ff007f;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.8), inset 0 0 10px rgba(255, 0, 127, 0.4);
+            transform: scale(1.02);
+        }
+
+        .admin-box button {
+            width: 100%; padding: 14px; margin: 12px 0; border-radius: 10px; border: none;
+            background: linear-gradient(45deg, #00d2ff, #0072ff); color: #fff; font-weight: bold;
+            cursor: pointer; transition: 0.3s; font-size: 16px;
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4); text-transform: uppercase; letter-spacing: 1px;
+        }
+        .admin-box button:hover { opacity: 0.95; transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 25px rgba(0, 210, 255, 0.7); }
+        
+        /* ================== WRONG PASSWORD & ERROR STYLES ================== */
+        .error-box {
+            background: linear-gradient(135deg, #2a0808, #1a0000, #050000);
+            border-color: #ff004c !important;
+            box-shadow: 0 0 35px rgba(255, 0, 76, 0.7), inset 0 0 20px rgba(255, 0, 76, 0.4) !important;
+            animation: none !important;
+        }
+        .error-box h2 {
+            color: #ff004c !important;
+            text-shadow: 0 0 15px rgba(255, 0, 76, 1) !important;
+        }
+        .error-box button {
+            background: linear-gradient(45deg, #ff004c, #99002e) !important;
+            box-shadow: 0 5px 15px rgba(255, 0, 76, 0.5) !important;
+        }
+
+        @keyframes errorShake {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-15px) rotate(-2deg); }
+            40% { transform: translateX(15px) rotate(2deg); }
+            60% { transform: translateX(-10px) rotate(-1deg); }
+            80% { transform: translateX(10px) rotate(1deg); }
+            100% { transform: translateX(0); }
+        }
+
+        /* 3D GitHub Dynamic Icon */
+        .github-3d-icon {
+            font-size: 60px;
+            background: linear-gradient(45deg, #00d2ff, #ff007f, #7928ca);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 12px rgba(0, 210, 255, 0.8));
+            animation: rotate3dIcon 6s infinite linear;
+            margin-bottom: 12px; display: inline-block;
+        }
+        @keyframes rotate3dIcon {
+            0% { transform: rotateY(0deg); }
+            50% { transform: rotateY(180deg) scale(1.1); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        /* Floating Admin Dashboard */
+        .admin-dashboard {
+            display: none; 
+            position: fixed; bottom: 20px; right: 20px; background: #10101a;
+            color: #00d2ff; padding: 15px; border-radius: 12px; z-index: 9998; font-weight: bold;
+            border: 2px solid #00d2ff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); width: 230px;
+            max-height: 85vh; overflow-y: auto;
+        }
+        .admin-dashboard button {
+            background: #00d2ff; color: #000; border: none; padding: 10px 10px;
+            margin-top: 8px; cursor: pointer; border-radius: 5px; width: 100%; font-weight: bold;
+            transition: 0.2s ease;
+        }
+        .admin-dashboard button:hover { transform: translateY(-2px); }
+        .btn-save { background: #28a745 !important; color: white !important; font-size:15px; padding: 12px 10px !important;}
+        
+        .editable-active { border: 1px dashed #00d2ff !important; padding: 2px; }
+        .media-editable { cursor: pointer; outline: 3px dashed #00d2ff !important; }
+        
+        /* Edit Tools Section inside Dashboard */
+        #adminEditTools {
+            display: none;
+            margin-top: 15px;
+            border-top: 1px dashed #00d2ff;
+            padding-top: 10px;
+        }
+
+        /* CUSTOM TEXT CARD STYLE */
+        .showcase-item { position: relative; overflow: hidden; }
+        .custom-text-card { display: flex; align-items: center; justify-content: center; background: rgba(26, 26, 46, 0.9); padding: 20px; border: 2px solid #00d2ff; border-radius: 10px; min-height: 200px; text-align: center; width: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        
+        /* DELETE CARD BUTTON FOR ADMIN EDIT MODE */
+        .card-delete-btn {
+            position: absolute; top: 10px; right: 10px; background: #dc3545; color: #ffffff;
+            border: 1px solid #ffffff; padding: 6px 10px; border-radius: 5px; cursor: pointer;
+            font-size: 13px; font-weight: bold; z-index: 999; box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .card-delete-btn:hover { background: #ff0000; transform: scale(1.1); }
+    </style>
+</head>
+<body><canvas id="particles-canvas" width="1707" height="811" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas><canvas id="particles-canvas" width="1920" height="912" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
+    <canvas id="particles-canvas" width="1536" height="730" style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
+
+    <!-- LEVEL ALIGNMENT GRID OVERLAY -->
+    <div id="alignmentGridOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 999999;">
+        <div style="position: absolute; top: 15%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; top: 30%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; top: 50%; width: 100%; border-top: 1px dashed rgba(255, 0, 127, 0.8);"></div>
+        <div style="position: absolute; top: 70%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; top: 85%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; left: 15%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; left: 30%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; left: 50%; height: 100%; border-left: 1px dashed rgba(255, 0, 127, 0.8);"></div>
+        <div style="position: absolute; left: 70%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; left: 85%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+    </div>
+
+    <!-- Background 3D Shapes -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <div class="admin-badge-left" onclick="handleAdminBadgeClick(event)" style="cursor: pointer;" title="Click to open Admin Login Panel">
+                <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
+                <div class="admin-info">
+                    <span class="admin-name" contenteditable="false">MANI M4</span>
+                    <span class="admin-tag" id="adminTagLabel" style="">ADMIN</span>
+                </div>
+            </div>
+
+            <div class="logo" contenteditable="false">MANI BAGGA</div>
+
+            <!-- UNIFORM BLUE NAVIGATION BUTTONS SYSTEM -->
+            <ul class="nav-links">
+                <li><a href="#" onclick="navigateTo('home')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;" class="">HOME</a></li>
+                <li><a href="#" onclick="navigateTo('gallery')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;" class="">GALLERY</a></li>
+                <li><a href="#" onclick="navigateTo('about')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;" class="">LIVE</a></li>
+                <li><a href="#" onclick="navigateTo('notifications')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block;" class="">NOTIFICATIONS</a></li>
+                <li><a href="#" onclick="navigateTo('contact')" contenteditable="false" style="background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: 0 0 5px rgba(0, 198, 255, 0.4); text-decoration: none; display: inline-block; position: relative;" class="">CONTACT&nbsp;</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ==================== PAGE 1: HOME & TIPS ==================== -->
+    <div id="page-home" class="page-view active">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-container">
+                <div class="hero-text">
+                    <span class="badge" contenteditable="false">eSports Gaming</span>
+                    <h1 contenteditable="false" class="">YouTube <span class="highlight" contenteditable="false">MANI M4 PRO</span></h1>
+                    <p contenteditable="false" class="">🔥 WELCOME TO GAMING WORLD 🔥 — BGMI &amp; PUBG Mobile BEST ESPORTS TIPS AND JOIN FREE ON YT.</p>
+                    <div class="hero-btns">
+                        <a href"yt="" lik="" add"="" target="_blank" class="btn-main" contenteditable="false"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                        <a href="INSTA ADD LIK " target="_blank" class="btn-secondary" contenteditable="false"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                    </div>
+                </div>
+                
+                <div class="hero-3d-card-wrapper">
+                    <div class="card-3d-main" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); transition: transform 0.5s ease-in-out;">
+                        <div class="slider-wrapper">
+                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
+                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(-100%); position: relative;">
+                                <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
+                                <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
+                            <div style="position: absolute; top: 8px; left: 562px; z-index: 1000; cursor: pointer; opacity: 0; transition: opacity 200ms; width: 24px; height: 24px;"><svg viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg"><title>Add to Photoshop Extension</title><path d="M44.26 0H9.74C4.36075 0 0 4.36075 0 9.74V44.26C0 49.6393 4.36075 54 9.74 54H44.26C49.6393 54 54 49.6393 54 44.26V9.74C54 4.36075 49.6393 0 44.26 0Z" fill="#001E36"></path><path d="M18.7398 14.4297C25.7698 14.4297 29.7298 17.7197 29.7298 23.2397C29.7298 29.6797 24.3598 32.2697 19.3298 32.2697H15.9298V39.2297H9.0498V14.4297H18.7498H18.7398ZM15.9298 20.3097V26.3797H18.9598C21.0698 26.3797 22.5498 25.5297 22.5498 23.3797C22.5498 21.4197 21.2898 20.3097 19.1098 20.3097H15.9298Z" fill="#31A8FF"></path><path d="M31.4299 37.9995L31.4699 32.2595C33.4299 33.5595 36.1699 34.3695 38.0599 34.3695C39.3499 34.3695 39.9499 33.9995 39.9499 33.3295C39.9499 32.5895 39.1399 32.2895 37.5799 31.8095C34.5799 30.9195 31.2899 29.6995 31.2899 25.7795C31.2899 21.8595 34.5799 19.5595 39.3599 19.5595C41.6199 19.5595 43.4699 19.8895 45.0999 20.5995L45.0599 26.0795C43.7699 25.2995 41.2099 24.5995 39.5499 24.5995C38.3299 24.5995 37.8499 24.9695 37.8499 25.5295C37.8499 26.1995 38.4399 26.3795 40.2199 26.9395C43.6599 27.9795 46.5499 29.0895 46.5499 33.1195C46.5499 37.1495 43.3999 39.5595 38.4799 39.5595C35.8899 39.5595 33.4499 39.1195 31.4499 38.0095L31.4299 37.9995Z" fill="#31A8FF"></path></svg></div></div>
+                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">❯</button>
+                        </div>
+                        <div class="card-glass-overlay">
+                            <h3 contenteditable="false" class="">Subscribe &amp; Stay Connected</h3>
+                            <p contenteditable="false" class="">Subscribe to MANI M4YT Channel and become a part of our family!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <h2 class="section-title" contenteditable="false">MAIN <span class="highlight" contenteditable="false">FEATURES &amp; TIPS</span></h2>
+            <p class="section-subtitle" contenteditable="false">Special facilities for Gamers</p>
+            <div class="cards-grid">
+                <div class="card-3d" style="opacity: 1; transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
+                    <div class="card-img-container">
+                        <img src="images/feature1.jpg" alt="BGMI Live Clutches" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    </div>
+                    <h3 contenteditable="false" class="">BGMI Live Highlights</h3>
+                    <p contenteditable="false" class="">CAN YOU SUBSCRIBE.</p>
+                </div>
+                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative;">
+                    <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <div class="card-img-container">
+                        <img src="images/feature2.jpg" alt="eSports Custom Rooms" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    </div>
+                    <h3 contenteditable="false" class="">eSports Custom Rooms</h3>
+                    <p contenteditable="false" class="">JOIN FOR TOURNAMENT PROGRAMS.</p>
+                </div>
+                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
+                    <div class="card-img-container">
+                        <img src="images/feature3.jpg" alt="Pro Controls" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    </div>
+                    <h3 contenteditable="false" class="">Pro Controls &amp; Sensitivity</h3>
+                    <p contenteditable="false" class="">FULL GUIDE IN ESPORTS MANIM4.YT.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== PAGE 2: GALLERY ==================== -->
+    <div id="page-gallery" class="page-view">
+        <h1 class="page-header" contenteditable="false">BGMI / PUBG <span class="highlight" contenteditable="false">3D GALLERY</span></h1>
+        <section id="showcase" class="showcase-section" style="padding-top: 0;">
+            <div class="showcase-grid" id="galleryContainer">
+                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <img src="images/feature1.jpg" alt="Clutch Moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    <div class="showcase-overlay">
+                        <h4 contenteditable="false" class="">Clutch Moments</h4>
+                        <p contenteditable="false" class="">1v4 BGMI Gameplay</p>
+                    </div>
+                </div>
+                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <img src="images/feature2.jpg" alt="eSports Arena" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    <div class="showcase-overlay">
+                        <h4 contenteditable="false" class="">eSports Arena</h4>
+                        <p contenteditable="false" class="">Custom Scrims</p>
+                    </div>
+                </div>
+                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <img src="images/feature3.jpg" alt="Ultra HD BGMI" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    <div class="showcase-overlay">
+                        <h4 contenteditable="false" class="">Pro Setup</h4>
+                        <p contenteditable="false" class="">LIVE M4YT</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== PAGE 3: LIVE / ABOUT ==================== -->
+    <div id="page-about" class="page-view">
+        <h1 class="page-header" contenteditable="false">LIVE STREAM &amp; <span class="highlight" contenteditable="false">ABOUT US</span></h1>
+        <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.05); border-radius: 15px; margin: 0 20px;">
+            <div class="about-card" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <p contenteditable="false" class="">Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== PAGE 4: NOTIFICATIONS ==================== -->
+    <div id="page-notifications" class="page-view">
+        <h1 class="page-header" contenteditable="false">LATEST <span class="highlight" contenteditable="false">NOTIFICATIONS</span></h1>
+        
+        <div class="notif-container">
+            <div class="notif-list-wrapper" id="notifWrapper">
+                <div class="notif-list-item" onclick="viewNotification(this)">
+                    <div class="notif-date">18-09-2026</div>
+                    <div class="notif-text">
+                        <div class="notif-title">Welcome to the new Esports Hub! (Click for details)</div>
+                        <div class="notif-desc" style="display:none;">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys!</div>
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="media-target notif-hidden-media" style="display:none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 5: CONTACT ==================== -->
+    <div id="page-contact" class="page-view">
+        <h1 class="page-header" contenteditable="false">CONTACT <span class="highlight" contenteditable="false">ADMIN</span></h1>
+        
+        <div class="contact-page-wrapper">
+            <div class="contact-box admin-box" style="transform: translateY(30px) scale(0.95); max-width: 600px; padding: 40px; opacity: 0; transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <h2 style="margin-bottom: 20px;" contenteditable="false" class=""><i class="fa-solid fa-envelope"></i> SEND A MESSAGE</h2>
+                <p style="text-align:center; color:#b3b3cc; margin-bottom: 25px;" contenteditable="false" class="">Send a message directly to MANI M4YT</p>
+                
+                <form id="siteContactForm" onsubmit="submitUserMessage(event)">
+                    <div class="form-group" style="text-align: left;">
+                        <label style="color:#00d2ff; font-weight:bold;" contenteditable="false" class="">YOUR NAME:</label>
+                        <input type="text" id="senderName" required="" placeholder="Enter your name...">
+                    </div>
+                    <div class="form-group" style="text-align: left;">
+                        <label style="color:#00d2ff; font-weight:bold;" contenteditable="false" class="">YOUR EMAIL:</label>
+                        <input type="email" id="senderEmail" required="" placeholder="Enter your email...">
+                    </div>
+                    <div class="form-group" style="text-align: left;">
+                        <label style="color:#00d2ff; font-weight:bold;" contenteditable="false" class="">MESSAGE:</label>
+                        <textarea id="senderMsg" rows="5" required="" placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" style="font-size: 16px; margin-top: 10px; background:linear-gradient(45deg, #00d2ff, #0072ff); color:#fff; padding:12px; border:none; width:100%; border-radius:5px; font-weight:bold; cursor:pointer;">
+                        <i class="fa-solid fa-paper-plane"></i> SEND MESSAGE
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo" contenteditable="false">
+                <i class="fa-solid fa-gamepad"></i> MANI<span contenteditable="false" class="">M4YT</span>
+            </div>
+            <div class="social-links">
+                <a href="YT LIK ADD" target="_blank" class="yt-icon"><i class="fa-brands fa-youtube"></i></a>
+                <a href="INSTA LIK ADD" target="_blank" class="ig-icon"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <p class="email-text" contenteditable="false">
+                <i class="fa-solid fa-envelope"></i> Email: <a href="mailto:manipubji@gmail.com">manipubji@gmail.com</a>
+            </p>
+            <p contenteditable="false" class="">© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
+        </div>
+    </footer>
+
+    <!-- ==================== DYNAMIC CUSTOM ALERT MODAL ==================== -->
+    <div id="customAlertModal" class="admin-modal" style="display: none; z-index: 100010;">
+        <div class="admin-box" id="customAlertBox" style="max-width: 420px; padding: 30px;">
+            <div id="customAlertIcon" style="font-size: 55px; margin-bottom: 15px; color: rgb(255, 0, 76); text-shadow: rgb(255, 0, 76) 0px 0px 15px;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h2 id="customAlertTitle" style="color: rgb(255, 0, 76); font-size: 20px; margin-bottom: 10px;" contenteditable="false" class="">ERROR</h2>
+            <p id="customAlertMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px; white-space: pre-wrap;" contenteditable="false" class="">Save Error: GitHub Token Invalid or Expired! Please click Save again to re-enter your Token.</p>
+            <button id="customAlertBtn" onclick="closeCustomAlert()" style="background: linear-gradient(45deg, #00d2ff, #0072ff); color: #fff; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; border: none; cursor: pointer;">
+                <i class="fa-solid fa-check"></i> OK
+            </button>
+        </div>
+    </div>
+
+    <!-- CUSTOM CONFIRMATION MODAL -->
+    <div id="customConfirmModal" class="admin-modal" style="display: none; z-index: 100012;">
+        <div class="admin-box" style="max-width: 420px; padding: 30px;">
+            <div style="font-size: 55px; margin-bottom: 15px; color: #ffc107; text-shadow: 0 0 15px #ffc107;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h2 style="color: #ffc107; font-size: 20px; margin-bottom: 10px;" contenteditable="false" class="">CONFIRM ACTION</h2>
+            <p id="customConfirmMsg" style="color: #fff; font-size: 15px; line-height: 1.5; margin-bottom: 20px;" contenteditable="false" class=""></p>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="handleConfirmChoice(true)" style="background: linear-gradient(45deg, #28a745, #1e7e34); flex: 1;">YES</button>
+                <button onclick="handleConfirmChoice(false)" style="background: linear-gradient(45deg, #dc3545, #bd2130); flex: 1;">NO</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM PROMPT MODAL -->
+    <div id="customPromptModal" class="admin-modal" style="display: none; z-index: 100015;">
+        <div class="admin-box" style="max-width: 450px; padding: 30px;">
+            <div style="font-size: 50px; margin-bottom: 15px; color: #00d2ff;">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+            <h2 id="customPromptTitle" style="color: #00d2ff; font-size: 20px; margin-bottom: 10px;" contenteditable="false" class="">INPUT REQUIRED</h2>
+            <p id="customPromptMsg" style="color: #ccc; font-size: 14px; margin-bottom: 15px;" contenteditable="false" class=""></p>
+            <input type="text" id="customPromptInput" placeholder="Enter here..." style="background: #1a1a2e; border: 2px solid #00d2ff; padding: 12px; width: 100%; border-radius: 8px; color: white; margin-bottom: 15px; outline: none; box-sizing: border-box;">
+            <div style="display: flex; gap: 10px;">
+                <button onclick="submitCustomPrompt()" style="background: linear-gradient(45deg, #00d2ff, #0072ff); flex: 1;">SUBMIT</button>
+                <button onclick="closeCustomPrompt()" style="background: #6c757d; flex: 1;">CANCEL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="adminLoginModal" class="admin-modal" style="display: none;">
+        <div class="admin-box">
+            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:24px; font-weight:bold;">×</span>
+            <h2 contenteditable="false" class=""><i class="fa-solid fa-user-shield"></i> ADMIN PANEL LOGIN</h2>
+            
+            <form onsubmit="handleLogin(event)" autocomplete="off">
+                <input type="text" id="adminUserX" autocomplete="off" placeholder="Enter Username..." required="">
+                <input type="password" id="adminPassX" autocomplete="off" placeholder="Enter Password..." required="">
+                <button type="submit"><i class="fa-solid fa-key"></i> LOG IN WITH EMPLOY / ADMIN</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- DYNAMIC WRONG PASSWORD ERROR MODAL -->
+    <div id="wrongPassModal" class="admin-modal" style="display: none; z-index: 100005;">
+        <div class="admin-box error-box" id="errorBoxAnim">
+            <h2 contenteditable="false" class=""><i class="fa-solid fa-triangle-exclamation"></i> ACCESS DENIED!</h2>
+            <p style="font-size: 18px; color: #fff; font-weight: bold; margin: 20px 0; letter-spacing: 1px;" contenteditable="false" class="">
+                INCORRECT USERNAME OR PASSWORD!
+            </p>
+            <div style="font-size: 50px; margin-bottom: 20px; color: #ff004c; text-shadow: 0 0 20px #ff004c;">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <button onclick="document.getElementById('wrongPassModal').style.display='none'">
+                <i class="fa-solid fa-rotate-right"></i> TRY AGAIN
+            </button>
+        </div>
+    </div>
+
+    <!-- GITHUB TOKEN 3D MODAL -->
+    <div id="githubTokenModal" class="admin-modal" style="display: none;">
+        <div class="admin-box" style="max-width: 480px;">
+            <span class="close-btn" onclick="closeGithubModal()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
+            <div>
+                <i class="fa-brands fa-github github-3d-icon"></i>
+            </div>
+            <h2 style="color:#00d2ff; margin-bottom: 10px;" contenteditable="false" class=""><i class="fa-solid fa-key"></i> GITHUB ACCESS TOKEN</h2>
+            <p style="color:#ccc; font-size:14px; margin-bottom: 15px;" contenteditable="false" class="">Enter your GitHub Personal Access Token to save live changes:</p>
+            
+            <input type="password" id="githubTokenInputModal" class="github-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+            <button onclick="saveGithubTokenAndProceed()"><i class="fa-solid fa-cloud-arrow-up"></i> SAVE TOKEN &amp; PUBLISH</button>
+        </div>
+    </div>
+    
+    <!-- ADMIN VIEW MESSAGES MODAL -->
+    <div id="adminMessagesModal" class="admin-modal" style="display: none;">
+        <div class="admin-box" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+            <span class="close-btn" onclick="closeAdminMessages()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
+            <h2 style="color: #00d2ff; text-align: left;" contenteditable="false" class=""><i class="fa-solid fa-inbox"></i> USER MESSAGES</h2>
+            
+            <div id="messagesListContainer" style="text-align: left; margin-top: 20px;"><p style="color:#b3b3cc; text-align:center;" contenteditable="false" class="">No new messages yet.</p></div>
+            
+            <button onclick="clearAllMessages()" style="background:#dc3545; color:white; margin-top: 20px;">
+                <i class="fa-solid fa-trash-can"></i> CLEAR ALL MESSAGES
+            </button>
+        </div>
+    </div>
+
+    <!-- VIEW NOTIFICATION MODAL -->
+    <div id="viewNotifModal" class="admin-modal" onclick="closeViewNotif(event)" style="display: none;">
+        <div class="admin-box view-notif-box" style="max-width: 600px; padding: 25px;" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="closeViewNotif()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
+            <h2 id="viewNotifTitle" style="text-align:left; color:#00d2ff; margin-bottom:15px; font-size:1.4rem;" contenteditable="false" class="">Title</h2>
+            
+            <img id="viewNotifImg" src="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
+            <video id="viewNotifVid" src="" controls="" autoplay="" muted="" loop="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);"></video>
+            
+            <p id="viewNotifDesc" style="text-align:left; line-height:1.6; color:#b3b3cc; white-space:pre-wrap; font-size:1.1rem;" contenteditable="false" class=""></p>
+            
+            <button id="adminEditNotifBtn" style="display:none; background:#ffc107; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; margin-top: 20px; font-size: 15px;" onclick="openUploadModalFromView()">
+                <i class="fa-solid fa-pen-to-square"></i> EDIT NOTIFICATION
+            </button>
+        </div>
+    </div>
+
+    <!-- ADMIN ADD/EDIT NOTIFICATION MODAL -->
+    <div id="innerUploadModal" class="admin-modal" style="display: none;">
+        <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); max-width: 500px;">
+            <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
+            <h2 id="notifModalHeader" contenteditable="false" class=""><i class="fa-solid fa-bell"></i> Add/Edit Notification</h2>
+            
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" contenteditable="false" class="">1. Enter Title:</p>
+            <input type="text" id="notifEditTitle" placeholder="Notification Title..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box;">
+            
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" contenteditable="false" class="">2. Enter Message/Details:</p>
+            <textarea id="notifEditDesc" rows="4" placeholder="Write your full message here..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box; resize:none; font-family:inherit;"></textarea>
+            
+            <p style="text-align:left; color:#00d2ff; margin-bottom:5px; font-size:14px; font-weight:bold;" contenteditable="false" class="">3. Upload Photo/Video (Optional):</p>
+            <input type="file" id="notifMediaFile" accept="image/*,video/*" style="background:#1a1a2e; border:1px dashed #00d2ff; padding:10px; width:100%; border-radius:5px; color:white; margin-bottom:20px; cursor:pointer; box-sizing:border-box;">
+            
+            <button id="notifSubmitBtn" onclick="confirmNotifAction(event)" style="background:#00d2ff; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; font-size: 16px;">
+                <i class="fa-solid fa-check-circle"></i> SAVE NOTIFICATION
+            </button>
+        </div>
+    </div>
+
+    <!-- FLOATING ADMIN DASHBOARD -->
+    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+        <p style="margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 8px;" contenteditable="false" class="">
+            <i class="fa-solid fa-user-gear"></i> Admin Logged In
+        </p>
+        
+        <button id="adminViewMsgBtn" onclick="openAdminMessages()" style="background:#8a2be2; color:white;"><i class="fa-solid fa-envelope-open-text"></i> View Messages (0)</button>
+        
+        <button id="toggleEditBtn" onclick="toggleEditWebsiteTools()" style="background: rgb(40, 167, 69); color: white; font-size: 14px;"><i class="fa-solid fa-pen-ruler"></i> Edit Website</button>
+
+        <div id="adminEditTools" style="display: none;">
+            <p style="font-size: 11px; color: #ffc107; text-transform: uppercase; margin-bottom: 5px;" contenteditable="false" class=""><i class="fa-solid fa-toolbox"></i> Toolbox</p>
+            
+            <button onclick="toggleAlignmentGrid()" style="background:#00bcd4; color:white;"><i class="fa-solid fa-border-top-left"></i> Toggle Level Grid</button>
+            <button onclick="toggleResizeMode()" id="dashResizeBtn" style="background:#673ab7; color:white;"><i class="fa-solid fa-crop-simple"></i> Resize Items</button>
+            <button onclick="addHeroSlide()" style="background:#e91e63; color:white;"><i class="fa-solid fa-images"></i> Add Hero Slide</button>
+
+            <button onclick="toggleMoveMode()" id="dashMoveBtn" style="background:#ff9800; color:black;"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items</button>
+            <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
+            <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
+            <button onclick="addNewTextCard()" style="background:#17a2b8; color:white;"><i class="fa-solid fa-font"></i> Add Custom Text</button>
+            <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
+            
+            <button onclick="saveChangesToGitHub()" class="btn-save" id="btnSaveLive" style="margin-top: 15px;"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
+            <button onclick="clearSavedToken()" style="background:#6c757d; color:white; font-size:10px; margin-top:5px; padding: 6px;"><i class="fa-brands fa-github"></i> Reset Git Token</button>
+        </div>
+
+        <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:12px; margin-top: 15px;">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout Admin
+        </button>
+    </div>
+
+    <!-- HIDDEN FILE INPUT FOR SELECTOR -->
+    <input type="file" id="adminFileInput" accept="image/*,video/*" style="display: none;" onchange="handleFileSelected(event)">
+
+    <script>
+        // ================= DYNAMIC CUSTOM ALERT SYSTEM ================= //
+        let customAlertCallback = null;
+        function customAlert(msg, title = "NOTIFICATION", icon = "fa-circle-info", type = "info", callback = null) {
+            const modal = document.getElementById('customAlertModal');
+            const titleElem = document.getElementById('customAlertTitle');
+            const msgElem = document.getElementById('customAlertMsg');
+            const iconElem = document.getElementById('customAlertIcon');
+            
+            titleElem.innerText = title;
+            msgElem.innerText = msg;
+            iconElem.innerHTML = `<i class="fa-solid ${icon}"></i>`;
+            
+            if(type === 'success') {
+                iconElem.style.color = '#28a745'; iconElem.style.textShadow = '0 0 15px #28a745'; titleElem.style.color = '#28a745';
+            } else if(type === 'error') {
+                iconElem.style.color = '#ff004c'; iconElem.style.textShadow = '0 0 15px #ff004c'; titleElem.style.color = '#ff004c';
+            } else {
+                iconElem.style.color = '#00d2ff'; iconElem.style.textShadow = '0 0 15px #00d2ff'; titleElem.style.color = '#00d2ff';
+            }
+            
+            customAlertCallback = callback;
+            modal.style.display = 'flex';
+        }
+
+        function closeCustomAlert() {
+            document.getElementById('customAlertModal').style.display = 'none';
+            if(customAlertCallback) { customAlertCallback(); customAlertCallback = null; }
+        }
+
+        let customConfirmCallback = null;
+        function customConfirm(msg, callback) {
+            document.getElementById('customConfirmMsg').innerText = msg;
+            customConfirmCallback = callback;
+            document.getElementById('customConfirmModal').style.display = 'flex';
+        }
+
+        function handleConfirmChoice(choice) {
+            document.getElementById('customConfirmModal').style.display = 'none';
+            if(customConfirmCallback) { customConfirmCallback(choice); customConfirmCallback = null; }
+        }
+
+        let customPromptCallback = null;
+        function customPrompt(title, msg, callback) {
+            document.getElementById('customPromptTitle').innerText = title;
+            document.getElementById('customPromptMsg').innerText = msg;
+            document.getElementById('customPromptInput').value = '';
+            customPromptCallback = callback;
+            document.getElementById('customPromptModal').style.display = 'flex';
+        }
+
+        function submitCustomPrompt() {
+            const val = document.getElementById('customPromptInput').value.trim();
+            document.getElementById('customPromptModal').style.display = 'none';
+            if(customPromptCallback) { customPromptCallback(val); customPromptCallback = null; }
+        }
+
+        function closeCustomPrompt() {
+            document.getElementById('customPromptModal').style.display = 'none';
+            if(customPromptCallback) { customPromptCallback(null); customPromptCallback = null; }
+        }
+
+        // ================= ALIGNMENT GRID TOGGLE ================= //
+        function toggleAlignmentGrid() {
+            const grid = document.getElementById('alignmentGridOverlay');
+            if (grid) {
+                grid.style.display = (grid.style.display === 'none' || grid.style.display === '') ? 'block' : 'none';
+            }
+        }
+
+        // ================= PAGE ROUTING LOGIC ================= //
+        function navigateTo(pageId) {
+            if ((typeof isMoveModeActive !== 'undefined' && isMoveModeActive) || (typeof isResizeModeActive !== 'undefined' && isResizeModeActive)) return; 
+            if (document.activeElement && document.activeElement.classList.contains('editable-active')) return;
+            
+            document.querySelectorAll('.page-view').forEach(page => page.classList.remove('active'));
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) { 
+                targetPage.classList.add('active'); 
+                window.scrollTo(0, 0); 
+            }
+        }
+
+        function goToHomeSection(sectionId) {
+            if ((typeof isMoveModeActive !== 'undefined' && isMoveModeActive) || (typeof isResizeModeActive !== 'undefined' && isResizeModeActive)) return; 
+            if (document.activeElement && document.activeElement.classList.contains('editable-active')) return;
+            
+            navigateTo('home');
+            setTimeout(() => { 
+                const elem = document.getElementById(sectionId);
+                if(elem) elem.scrollIntoView({behavior: 'smooth'}); 
+            }, 100);
+        }
+
+        // ================= AUTO SLIDER ================= //
+        let currentSlideIndex = 0; let sliderInterval;
+        function startSlider() { 
+            if(sliderInterval) clearInterval(sliderInterval);
+            sliderInterval = setInterval(() => { moveFrontSlide(1); }, 3000); 
+        }
+        function moveFrontSlide(direction, event) {
+            if(event) { event.stopPropagation(); clearInterval(sliderInterval); startSlider(); } 
+            const track = document.getElementById('frontSliderTrack');
+            if(!track || track.children.length === 0) return;
+            const totalSlides = track.children.length;
+            currentSlideIndex += direction;
+            if (currentSlideIndex < 0) currentSlideIndex = totalSlides - 1;
+            if (currentSlideIndex >= totalSlides) currentSlideIndex = 0;
+            track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+        }
+
+        // ================= CONTACT FORM & MESSAGES SYSTEM ================= //
+        function submitUserMessage(e) {
+            e.preventDefault();
+            const name = document.getElementById('senderName').value.trim();
+            const email = document.getElementById('senderEmail').value.trim();
+            const msg = document.getElementById('senderMsg').value.trim();
+            if(!name || !email || !msg) return;
+
+            const newMessage = { name: name, email: email, message: msg, date: new Date().toLocaleString() };
+            let messagesList = JSON.parse(localStorage.getItem('mani_user_messages') || '[]');
+            messagesList.push(newMessage);
+            localStorage.setItem('mani_user_messages', JSON.stringify(messagesList));
+
+            customAlert('Thank you! Your message has been sent successfully.', 'MESSAGE SENT', 'fa-paper-plane', 'success');
+            document.getElementById('siteContactForm').reset();
+            updateMessageCounter();
+        }
+
+        function updateMessageCounter() {
+            let btn = document.getElementById('adminViewMsgBtn');
+            if(btn) {
+                let messagesList = JSON.parse(localStorage.getItem('mani_user_messages') || '[]');
+                btn.innerHTML = `<i class="fa-solid fa-envelope-open-text"></i> View Messages (${messagesList.length})`;
+                if(messagesList.length > 0) btn.style.background = "#e91e63"; 
+                else btn.style.background = "#8a2be2";
+            }
+        }
+
+        function openAdminMessages() {
+            const listContainer = document.getElementById('messagesListContainer');
+            let messagesList = JSON.parse(localStorage.getItem('mani_user_messages') || '[]');
+            if(messagesList.length === 0) {
+                listContainer.innerHTML = '<p style="color:#b3b3cc; text-align:center;">No new messages yet.</p>';
+            } else {
+                listContainer.innerHTML = messagesList.reverse().map(m => `
+                    <div style="background:#1a1a2e; border:1px solid #00d2ff; padding:15px; border-radius:8px; margin-bottom:15px;">
+                        <p style="margin:0 0 5px 0; color:#00d2ff; font-size:15px;"><strong>Name:</strong> ${m.name}</p>
+                        <p style="margin:0 0 10px 0; color:#ffc107; font-size:15px;"><strong>Email:</strong> ${m.email}</p>
+                        <div style="background:#10101a; padding:10px; border-radius:5px; color:white; font-size:14px; line-height:1.5;">${m.message}</div>
+                        <small style="color:#888; display:block; margin-top:10px; font-size:11px;">Sent on: ${m.date}</small>
+                    </div>
+                `).join('');
+            }
+            document.getElementById('adminMessagesModal').style.display = 'flex';
+        }
+
+        function closeAdminMessages() { document.getElementById('adminMessagesModal').style.display = 'none'; }
+        function clearAllMessages() {
+            customConfirm('Are you sure you want to delete all messages? This cannot be undone.', function(confirmed) {
+                if(confirmed) {
+                    localStorage.removeItem('mani_user_messages'); openAdminMessages(); updateMessageCounter();
+                }
+            });
+        }
+
+        // ================= NOTIFICATION SYSTEM ================= //
+        let currentActiveNotifItem = null;
+
+        function viewNotification(item) {
+            currentActiveNotifItem = item;
+            const title = item.querySelector('.notif-title').innerText;
+            const desc = item.querySelector('.notif-desc').innerText;
+            const imgElem = item.querySelector('img.notif-hidden-media');
+            const vidElem = item.querySelector('video.notif-hidden-media');
+
+            document.getElementById('viewNotifTitle').innerText = title;
+            document.getElementById('viewNotifDesc').innerText = desc;
+
+            const modalImg = document.getElementById('viewNotifImg');
+            const modalVid = document.getElementById('viewNotifVid');
+
+            modalImg.style.display = 'none';
+            modalVid.style.display = 'none';
+
+            if (imgElem && imgElem.src) {
+                modalImg.src = imgElem.src;
+                modalImg.style.display = 'block';
+            } else if (vidElem && vidElem.src) {
+                modalVid.src = vidElem.src;
+                modalVid.style.display = 'block';
+            }
+
+            if (localStorage.getItem('mani_admin_logged') === 'true') {
+                document.getElementById('adminEditNotifBtn').style.display = 'block';
+            } else {
+                document.getElementById('adminEditNotifBtn').style.display = 'none';
+            }
+
+            document.getElementById('viewNotifModal').style.display = 'flex';
+        }
+
+        function closeViewNotif(e) {
+            if(e && e.target !== document.getElementById('viewNotifModal')) return;
+            document.getElementById('viewNotifModal').style.display = 'none';
+            const modalVid = document.getElementById('viewNotifVid');
+            modalVid.pause();
+            currentActiveNotifItem = null;
+        }
+
+        function addNewNotification() {
+            currentActiveNotifItem = null; 
+            document.getElementById('notifModalHeader').innerHTML = '<i class="fa-solid fa-bell"></i> Add New Notification';
+            document.getElementById('notifEditTitle').value = '';
+            document.getElementById('notifEditDesc').value = '';
+            document.getElementById('notifMediaFile').value = '';
+            document.getElementById('notifSubmitBtn').innerHTML = '<i class="fa-solid fa-plus-circle"></i> PUBLISH NOTIFICATION';
+            document.getElementById('innerUploadModal').style.display = 'flex';
+        }
+
+        function openUploadModalFromView() {
+            if(!currentActiveNotifItem) return;
+            document.getElementById('viewNotifModal').style.display = 'none';
+            document.getElementById('notifModalHeader').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Edit Notification';
+            document.getElementById('notifEditTitle').value = currentActiveNotifItem.querySelector('.notif-title').innerText;
+            document.getElementById('notifEditDesc').value = currentActiveNotifItem.querySelector('.notif-desc').innerText;
+            document.getElementById('notifMediaFile').value = '';
+            document.getElementById('notifSubmitBtn').innerHTML = '<i class="fa-solid fa-check-circle"></i> UPDATE NOTIFICATION';
+            document.getElementById('innerUploadModal').style.display = 'flex';
+        }
+
+        function closeUploadModal(e) {
+            document.getElementById('innerUploadModal').style.display = 'none';
+        }
+
+        function confirmNotifAction(e) {
+            e.preventDefault();
+            const title = document.getElementById('notifEditTitle').value.trim();
+            const desc = document.getElementById('notifEditDesc').value.trim();
+            const fileInput = document.getElementById('notifMediaFile');
+            
+            if(!title || !desc) {
+                customAlert('Please enter both title and message.', 'WARNING', 'fa-triangle-exclamation', 'error');
+                return;
+            }
+
+            const todayDate = new Date().toLocaleDateString('en-GB').split('/').join('-');
+
+            if (currentActiveNotifItem) {
+                currentActiveNotifItem.querySelector('.notif-title').innerText = title;
+                currentActiveNotifItem.querySelector('.notif-desc').innerText = desc;
+                
+                if (fileInput.files && fileInput.files[0]) {
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        const fileData = evt.target.result;
+                        let oldImg = currentActiveNotifItem.querySelector('img.notif-hidden-media');
+                        let oldVid = currentActiveNotifItem.querySelector('video.notif-hidden-media');
+                        if(oldImg) oldImg.remove();
+                        if(oldVid) oldVid.remove();
+
+                        const textContainer = currentActiveNotifItem.querySelector('.notif-text');
+                        if(file.type.startsWith('image/')) {
+                            let newImg = document.createElement('img');
+                            newImg.src = fileData;
+                            newImg.className = 'media-target notif-hidden-media';
+                            newImg.style.display = 'none';
+                            textContainer.appendChild(newImg);
+                        } else if(file.type.startsWith('video/')) {
+                            let newVid = document.createElement('video');
+                            newVid.src = fileData;
+                            newVid.className = 'media-target notif-hidden-media';
+                            newVid.style.display = 'none';
+                            textContainer.appendChild(newVid);
+                        }
+                        bindMediaClickHandlers();
+                        customAlert('Notification Updated Successfully!', 'SUCCESS', 'fa-circle-check', 'success');
+                        closeUploadModal();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    customAlert('Notification Updated Successfully!', 'SUCCESS', 'fa-circle-check', 'success');
+                    closeUploadModal();
+                }
+            } else {
+                const wrapper = document.getElementById('notifWrapper');
+                const newItem = document.createElement('div');
+                newItem.className = 'notif-list-item';
+                newItem.onclick = function() { viewNotification(newItem); };
+
+                if (fileInput.files && fileInput.files[0]) {
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        const fileData = evt.target.result;
+                        let tagMarkup = file.type.startsWith('video/') ? 
+                            `<video src="${fileData}" class="media-target notif-hidden-media" style="display:none;"></video>` : 
+                            `<img src="${fileData}" class="media-target notif-hidden-media" style="display:none;">`;
+                        
+                        newItem.innerHTML = `
+                            <div class="notif-date">${todayDate}</div>
+                            <div class="notif-text">
+                                <div class="notif-title">${title}</div>
+                                <div class="notif-desc" style="display:none;">${desc}</div>
+                                ${tagMarkup}
+                            </div>
+                        `;
+                        wrapper.insertBefore(newItem, wrapper.firstChild);
+                        bindMediaClickHandlers();
+                        customAlert('New Notification Published Successfully! Go to Notifications page to view it.', 'PUBLISHED', 'fa-circle-check', 'success');
+                        closeUploadModal();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    newItem.innerHTML = `
+                        <div class="notif-date">${todayDate}</div>
+                        <div class="notif-text">
+                            <div class="notif-title">${title}</div>
+                            <div class="notif-desc" style="display:none;">${desc}</div>
+                        </div>
+                    `;
+                    wrapper.insertBefore(newItem, wrapper.firstChild);
+                    customAlert('New Notification Published Successfully! Go to Notifications page to view it.', 'PUBLISHED', 'fa-circle-check', 'success');
+                    closeUploadModal();
+                }
+            }
+        }
+
+        // ================= ADMIN AUTHENTICATION SYSTEM ================= //
+        let currentTargetElement = null; 
+        let isWaitingToPlaceText = false; // TEXT CARD PLACEMENT FIX
+
+        const GITHUB_OWNER = 'jorabagga12-bit';       
+        const GITHUB_REPO = 'mani-bagga';             
+        const FILE_PATH = 'index.html';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            startSlider(); 
+            if (localStorage.getItem('mani_admin_logged') === 'true') { activateAdminMode(); }
+        });
+
+        // GLOBAL CLICK EVENT TO HIDE POPUP CONTROLS & ADD TEXT CARD
+        document.addEventListener('click', function(e) {
+            if (isWaitingToPlaceText) {
+                if (e.target.closest('.admin-modal') || e.target.closest('.admin-dashboard') || e.target.closest('#customAlertModal')) {
+                    return; 
+                }
+                
+                e.preventDefault();
+                e.stopPropagation();
+
+                isWaitingToPlaceText = false;
+                document.body.style.cursor = 'default';
+
+                const activePage = document.querySelector('.page-view.active');
+                
+                const newItem = document.createElement('div');
+                newItem.className = 'showcase-item custom-text-card';
+                newItem.style.position = 'absolute';
+                newItem.style.left = e.pageX + 'px';
+                newItem.style.top = e.pageY + 'px';
+                newItem.style.zIndex = '50';
+                newItem.style.width = '300px';
+                
+                newItem.innerHTML = `
+                    <div>
+                        <h3 contenteditable="true" class="editable-active" style="color:#00d2ff; margin-bottom:10px;">Custom Text</h3>
+                        <p contenteditable="true" class="editable-active" style="color:white; font-size:15px;">Write here...</p>
+                    </div>
+                `;
+                
+                if (activePage) activePage.appendChild(newItem);
+                else document.body.appendChild(newItem);
+                
+                attachDeleteBtnIfEditing(newItem);
+                
+                return;
+            }
+
+            let imgControls = document.getElementById('admin-img-controls');
+            if(imgControls && !imgControls.contains(e.target) && !e.target.classList.contains('media-target')) {
+                imgControls.remove();
+                startSlider();
+            }
+            
+            let textControls = document.getElementById('admin-text-controls');
+            if(textControls && !textControls.contains(e.target) && !e.target.classList.contains('editable-active')) textControls.remove();
+        });
+
+        function handleAdminBadgeClick(e) {
+            if ((typeof isMoveModeActive !== 'undefined' && isMoveModeActive) || (typeof isResizeModeActive !== 'undefined' && isResizeModeActive)) {
+                if(e) e.preventDefault();
+                return;
+            }
+
+            if (localStorage.getItem('mani_admin_logged') === 'true') {
+                const toolsMenu = document.getElementById('adminEditTools');
+                
+                if (toolsMenu && toolsMenu.style.display === 'block') {
+                    let imgElem = document.querySelector('.admin-img');
+                    if (e && (e.target === imgElem || e.target.closest('.admin-badge-left'))) {
+                        currentTargetElement = imgElem;
+                        showAdminImageControls(e, imgElem);
+                        return;
+                    }
+                }
+                customAlert('Admin Mode is Active! Use the tools floating at the bottom right.', 'ADMIN MODE', 'fa-user-gear', 'info');
+            } else { 
+                openAdminLogin(); 
+            }
+        }
+
+        function openAdminLogin() {
+            document.getElementById('adminUserX').value = ''; document.getElementById('adminPassX').value = '';
+            document.getElementById('adminLoginModal').style.display = 'flex';
+        }
+        function closeAdminLogin() { document.getElementById('adminLoginModal').style.display = 'none'; }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('adminUserX').value.trim();
+            const pass = document.getElementById('adminPassX').value.trim();
+            
+            if (user === 'bagga' && pass === 'iphonex0421&') {
+                try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
+                closeAdminLogin();
+                customAlert('Admin Logged In! 🚀\n\n- Click "View Messages" to read contact forms.\n- Click "Edit Website" to open editing tools.', 'WELCOME ADMIN', 'fa-shield-halved', 'success');
+                activateAdminMode();
+            } else {
+                document.getElementById('wrongPassModal').style.display = 'flex';
+                const errBox = document.getElementById('errorBoxAnim');
+                errBox.style.animation = 'none';
+                setTimeout(() => { errBox.style.animation = 'errorShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both'; }, 10);
+            }
+        }
+
+        function logoutAdmin() {
+            localStorage.removeItem('mani_admin_logged');
+            customAlert('Admin logged out successfully!', 'LOGOUT', 'fa-right-from-bracket', 'info', function() {
+                window.location.reload();
+            });
+        }
+
+        function activateAdminMode() {
+            document.getElementById('adminDashboard').style.display = 'block';
+            document.getElementById('adminTagLabel').innerText = "ADMIN (LOGGED IN)";
+            document.getElementById('adminTagLabel').style.color = "#28a745";
+            updateMessageCounter();
+        }
+
+        // ================= CARD DELETION HELPER FUNCTIONS ================= //
+        function deleteThisCard(btn, event) {
+            if (event) { event.stopPropagation(); event.preventDefault(); }
+            customConfirm("क्या आप इस पूरे कार्ड/गैलरी आइटम को डिलीट करना चाहते हैं?", function(confirmed) {
+                if(confirmed) {
+                    const card = btn.closest('.showcase-item, .card-3d');
+                    if (card) { card.remove(); }
+                }
+            });
+        }
+
+        function deleteCardFromTextControls(event) {
+            if (event) { event.stopPropagation(); event.preventDefault(); }
+            if (!currentTextElement) return;
+            const card = currentTextElement.closest('.showcase-item, .card-3d');
+            if (card) {
+                customConfirm("क्या आप इस पूरे कार्ड को डिलीट करना चाहते हैं?", function(confirmed) {
+                    if(confirmed) {
+                        card.remove();
+                        document.getElementById('admin-text-controls')?.remove();
+                    }
+                });
+            }
+        }
+
+        function attachDeleteBtnIfEditing(cardElement) {
+            const toolsMenu = document.getElementById('adminEditTools');
+            if (toolsMenu && toolsMenu.style.display === 'block') {
+                if (!cardElement.querySelector('.card-delete-btn')) {
+                    let delBtn = document.createElement('button');
+                    delBtn.className = 'card-delete-btn';
+                    delBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i> Delete Card';
+                    delBtn.title = "Delete this card";
+                    delBtn.onclick = function(e) { deleteThisCard(this, e); };
+                    cardElement.appendChild(delBtn);
+                }
+            }
+        }
+
+        // ================= EDIT TOOLS TOGGLE ================= //
+        function toggleEditWebsiteTools() {
+            const toolsMenu = document.getElementById('adminEditTools');
+            const editBtn = document.getElementById('toggleEditBtn');
+            const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-tag), .nav-links a, .footer-logo, footer p, .email-text, .admin-name, .btn-primary, .btn-main, .btn-secondary, label, .logo, .logo span');
+
+            if (toolsMenu.style.display === 'block') {
+                toolsMenu.style.display = 'none';
+                editBtn.innerHTML = '<i class="fa-solid fa-pen-ruler"></i> Edit Website';
+                editBtn.style.background = '#28a745';
+                
+                textElements.forEach(el => { 
+                    el.contentEditable = "false"; 
+                    el.classList.remove('editable-active'); 
+                    el.onclick = null;
+                });
+                document.querySelectorAll('.media-target').forEach(elem => {
+                    elem.classList.remove('media-editable');
+                    elem.removeAttribute('title');
+                    elem.onclick = null;
+                });
+                
+                document.querySelectorAll('.card-delete-btn').forEach(btn => btn.remove());
+
+                let floatingControlImg = document.getElementById('admin-img-controls'); 
+                if(floatingControlImg) floatingControlImg.remove();
+                
+                let floatingControlText = document.getElementById('admin-text-controls'); 
+                if(floatingControlText) floatingControlText.remove();
+                
+                startSlider();
+
+            } else {
+                toolsMenu.style.display = 'block';
+                editBtn.innerHTML = '<i class="fa-solid fa-xmark"></i> Close Tools';
+                editBtn.style.background = '#dc3545';
+                
+                textElements.forEach(el => { 
+                    el.contentEditable = "true"; 
+                    el.classList.add('editable-active'); 
+                    
+                    el.onclick = function(e) {
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive && !isResizeModeActive) { 
+                            showAdminTextControls(e, el);
+                        }
+                    };
+                });
+
+                // EDIT INSTAGRAM & YOUTUBE SOCIAL LINKS IN EDIT MODE
+                document.querySelectorAll('.hero-btns a, .social-links a, .email-text a').forEach(link => {
+                    link.onclick = function(e) {
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive && !isResizeModeActive) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            customPrompt("EDIT LINK URL", "Enter Instagram / YouTube / Email URL for this button:", function(newUrl) {
+                                if(newUrl) {
+                                    link.href = newUrl;
+                                    customAlert("Link URL updated successfully!", "URL UPDATED", "fa-link", "success");
+                                }
+                            });
+                        }
+                    };
+                });
+
+                bindMediaClickHandlers();
+
+                document.querySelectorAll('.showcase-item, .card-3d').forEach(item => {
+                    attachDeleteBtnIfEditing(item);
+                });
+            }
+        }
+
+        // ================= TEXT EDIT CONTROLS ================= //
+        let currentTextElement = null;
+
+        function showAdminTextControls(e, elem) {
+            currentTextElement = elem;
+            let existingText = document.getElementById('admin-text-controls'); if(existingText) existingText.remove();
+            let existingImg = document.getElementById('admin-img-controls'); if(existingImg) { existingImg.remove(); startSlider(); }
+            
+            let cardParent = elem.closest('.showcase-item, .card-3d');
+            let cardDelBtnMarkup = cardParent ? `<button onclick="deleteCardFromTextControls(event)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Delete Whole Card"><i class="fa-solid fa-trash"></i> Card</button>` : '';
+
+            let controls = document.createElement('div'); controls.id = 'admin-text-controls';
+            controls.style.position = 'absolute'; 
+            controls.style.left = Math.min(e.pageX, window.innerWidth - 350) + 'px'; 
+            controls.style.top = (e.pageY - 50) + 'px';
+            controls.style.background = '#10101a'; 
+            controls.style.border = '2px solid #00d2ff'; 
+            controls.style.padding = '8px 12px'; 
+            controls.style.borderRadius = '8px'; 
+            controls.style.zIndex = '100000'; 
+            controls.style.display = 'flex'; 
+            controls.style.gap = '6px'; 
+            controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
+            
+            controls.innerHTML = `
+                <button onclick="changeTextSize(2, event)" style="background:#28a745; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Increase Size"><i class="fa-solid fa-plus"></i> A</button>
+                <button onclick="changeTextSize(-2, event)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Decrease Size"><i class="fa-solid fa-minus"></i> A</button>
+                <button onclick="resizeBoxByElement(30, currentTextElement)" style="background:#8a2be2; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Make Box Bigger">Box <i class="fa-solid fa-plus"></i></button>
+                <button onclick="resizeBoxByElement(-30, currentTextElement)" style="background:#e91e63; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Make Box Smaller">Box <i class="fa-solid fa-minus"></i></button>
+                ${cardDelBtnMarkup}
+                <button onclick="this.parentElement.remove()" style="background:transparent; color:red; border:none; cursor:pointer; font-size:18px; padding:0 4px;">&times;</button>
+            `;
+            document.body.appendChild(controls);
+        }
+
+        function changeTextSize(step, e) {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
+            if(!currentTextElement) return;
+            let currentSize = window.getComputedStyle(currentTextElement).fontSize;
+            let newSize = parseFloat(currentSize) + step;
+            currentTextElement.style.fontSize = newSize + 'px';
+        }
+
+        // ================= ADD NEW CARDS & SLIDES ================= //
+        function getActiveContainer() {
+            const activePage = document.querySelector('.page-view.active');
+            if(!activePage) return null;
+            let container = activePage.querySelector('.cards-grid') || activePage.querySelector('.showcase-grid');
+            if (!container) {
+                container = activePage.querySelector('section') || activePage;
+            }
+            return container;
+        }
+
+        function addHeroSlide() {
+            const track = document.getElementById('frontSliderTrack');
+            if(!track) { customAlert("Slider not found!", "ERROR", "fa-triangle-exclamation", "error"); return; }
+            
+            const newMedia = document.createElement('img');
+            newMedia.src = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'; 
+            newMedia.alt = 'New Hero Slide';
+            newMedia.className = 'media-target media-editable';
+            newMedia.title = "Click to Edit Image/Video";
+            
+            track.appendChild(newMedia);
+            bindMediaClickHandlers();
+            
+            currentSlideIndex = track.children.length - 1;
+            track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+            
+            customAlert('New Slide Box added! Click on this new photo to Upload your own Image or Paste Video URL.', 'SLIDE ADDED', 'fa-images', 'success');
+        }
+
+        function addNewMediaCard() {
+            const container = getActiveContainer();
+            if(!container) { customAlert('Container not found on page!', 'ERROR', 'fa-triangle-exclamation', 'error'); return; }
+            
+            const newItem = document.createElement('div');
+            if (container.classList.contains('cards-grid')) {
+                newItem.className = 'card-3d';
+                newItem.style = "opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);";
+                newItem.innerHTML = `
+                    <div class="card-icon"><i class="fa-solid fa-image"></i></div>
+                    <div class="card-img-container">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="New Item" class="media-target">
+                    </div>
+                    <h3 contenteditable="true" class="editable-active">New Item Title</h3>
+                    <p contenteditable="true" class="editable-active">Description here.</p>
+                `;
+            } else {
+                newItem.className = 'showcase-item';
+                newItem.innerHTML = `
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="New Gallery Item" class="media-target">
+                    <div class="showcase-overlay">
+                        <h4 contenteditable="true" class="editable-active">New Epic Moment</h4>
+                        <p contenteditable="true" class="editable-active">BGMI Gameplay Highlight</p>
+                    </div>
+                `;
+            }
+
+            container.appendChild(newItem);
+            attachDeleteBtnIfEditing(newItem);
+            bindMediaClickHandlers();
+            customAlert('New Gallery Card Added Successfully on current page!', 'CARD ADDED', 'fa-circle-check', 'success');
+        }
+
+        function addYouTubeVideo() {
+            customPrompt("ADD YOUTUBE VIDEO", "Enter YouTube Video ID, Live URL, or Watch URL:", function(ytUrl) {
+                if(!ytUrl) return;
+                
+                let ytMatch = ytUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|live\/|shorts\/))([^"&?\/\s]{11})/);
+                let vidId = (ytMatch && ytMatch[1]) ? ytMatch[1] : (ytUrl.length === 11 ? ytUrl : ytUrl);
+                
+                // CLEAN EMBED WITHOUT YOUTUBE BRANDING / EXTRA LINKS / TITLES / REDIRECTS
+                let videoEmbedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${vidId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+                
+                const container = getActiveContainer();
+                if(!container) return;
+                
+                const newItem = document.createElement('div');
+                if (container.classList.contains('cards-grid')) {
+                    newItem.className = 'card-3d';
+                    newItem.style = "opacity: 1; transform: translateY(0px) scale(1);";
+                } else {
+                    newItem.className = 'showcase-item';
+                }
+
+                newItem.innerHTML = `
+                    <div class="clean-video-wrapper" style="position:relative; width:100%; height:220px; overflow:hidden; border-radius:10px;">
+                        <iframe class="media-target" width="100%" height="100%" src="${videoEmbedUrl}" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px; border:none; transform:scale(1.18); transform-origin:center;"></iframe>
+                        <div class="yt-blocker-top" style="position:absolute; top:0; left:0; width:100%; height:60px; z-index:5; background:transparent;"></div>
+                    </div>
+                    <div class="showcase-overlay" style="position:relative; background:rgba(0,0,0,0.8); padding:10px; margin-top:5px; border-radius:5px;">
+                        <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
+                        <p contenteditable="true" class="editable-active">Watch full match on channel</p>
+                    </div>
+                `;
+                
+                container.appendChild(newItem);
+                attachDeleteBtnIfEditing(newItem);
+                bindMediaClickHandlers(); 
+                customAlert('Clean Video Card Added Successfully on current page!', 'VIDEO ADDED', 'fa-brands fa-youtube', 'success');
+            });
+        }
+
+        function addNewTextCard() {
+            isWaitingToPlaceText = true;
+            customAlert('अब स्क्रीन पर कहीं भी टैप करें जहाँ आप टेक्स्ट लगाना चाहते हैं।', 'TAP TO PLACE', 'fa-hand-pointer', 'info');
+            document.body.style.cursor = 'crosshair';
+        }
+
+        // ================= RESIZE SYSTEM ================= //
+        let isResizeModeActive = false;
+        let activeResize = null;
+        let startW = 0, startH = 0, startX = 0, startY = 0;
+
+        function toggleResizeMode() {
+            isResizeModeActive = !isResizeModeActive;
+            const btn = document.getElementById('dashResizeBtn');
+
+            if(isResizeModeActive) {
+                if (typeof isMoveModeActive !== 'undefined' && isMoveModeActive) toggleMoveMode();
+                btn.style.background = '#ff4d4d'; btn.style.color = '#fff';
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Stop Resizing';
+
+                let floatingControlText = document.getElementById('admin-text-controls');
+                if(floatingControlText) floatingControlText.remove();
+                let floatingControlImg = document.getElementById('admin-img-controls');
+                if(floatingControlImg) floatingControlImg.remove();
+                startSlider();
+
+                customAlert('Resize Mode is ON! \n\nअब आप किसी भी आइटम (फोटो, कार्ड, टेक्स्ट) या खाली पेज को पकड़ कर खींचें (Drag करें) उसे अपनी मर्ज़ी से बड़ा या छोटा करने के लिए।', 'RESIZE MODE ACTIVE', 'fa-crop-simple', 'info');
+            } else {
+                btn.style.background = '#673ab7'; btn.style.color = '#fff';
+                btn.innerHTML = '<i class="fa-solid fa-crop-simple"></i> Resize Items';
+            }
+        }
+
+        function initFreeResize(e, clientX, clientY) {
+            if (localStorage.getItem('mani_admin_logged') !== 'true') return;
+            if (isResizeModeActive) {
+                let target = e.target.closest('.card-3d, .showcase-item, img, video, iframe, .custom-text-card, .hero-text, section, .page-view');
+                if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
+                    activeResize = target;
+                    let compStyle = window.getComputedStyle(activeResize);
+                    startW = parseFloat(compStyle.width) || activeResize.offsetWidth;
+                    startH = parseFloat(compStyle.height) || activeResize.offsetHeight;
+                    startX = clientX;
+                    startY = clientY;
+                    activeResize.style.transition = "none";
+                    activeResize.style.maxWidth = "none";
+                    
+                    if (activeResize.tagName.toLowerCase() !== 'section' && !activeResize.classList.contains('page-view')) {
+                         activeResize.style.zIndex = "99999";
+                    }
+                    if(e.cancelable && !activeResize.classList.contains('page-view') && activeResize.tagName.toLowerCase() !== 'section') e.preventDefault();
+                }
+            }
+        }
+
+        function handleFreeResizeMove(e, clientX, clientY) {
+            if (activeResize && isResizeModeActive) {
+                let deltaX = clientX - startX;
+                let deltaY = clientY - startY;
+                
+                if (activeResize.classList.contains('page-view') || activeResize.tagName.toLowerCase() === 'section') {
+                    // Resize page background container
+                    activeResize.style.minHeight = Math.max(100, startH + deltaY) + 'px';
+                } else {
+                    // Resize specific items
+                    activeResize.style.width = Math.max(20, startW + deltaX) + 'px';
+                    activeResize.style.height = Math.max(20, startH + deltaY) + 'px';
+                }
+                if(e.cancelable) e.preventDefault();
+            }
+        }
+
+        function stopFreeResize() {
+            if (activeResize) {
+                activeResize.style.transition = "";
+                activeResize.style.zIndex = "";
+                activeResize = null;
+            }
+        }
+
+        // ================= MOVE / DRAG SYSTEM ================= //
+        let isMoveModeActive = false; 
+
+        function toggleMoveMode() {
+            if (typeof isResizeModeActive !== 'undefined' && isResizeModeActive) toggleResizeMode(); // Turn off resize if on
+            isMoveModeActive = !isMoveModeActive;
+            const btn = document.getElementById('dashMoveBtn');
+            const editableElements = document.querySelectorAll('.editable-active');
+
+            if(isMoveModeActive) {
+                btn.style.background = '#ff4d4d'; btn.style.color = '#fff';
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Stop Moving';
+                editableElements.forEach(el => { el.contentEditable = "false"; el.style.userSelect = "none"; el.style.cursor = "move"; el.onclick = null; });
+                
+                let floatingControlText = document.getElementById('admin-text-controls'); 
+                if(floatingControlText) floatingControlText.remove();
+                let floatingControlImg = document.getElementById('admin-img-controls'); 
+                if(floatingControlImg) floatingControlImg.remove();
+                startSlider();
+
+                customAlert('Move Mode is ON! \n\nअब आप किसी भी आइटम को पकड़ कर मूव कर सकते हैं।', 'MOVE MODE ACTIVE', 'fa-arrows-up-down-left-right', 'info');
+            } else {
+                btn.style.background = '#ff9800'; btn.style.color = '#000';
+                btn.innerHTML = '<i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items';
+                editableElements.forEach(el => { 
+                    el.contentEditable = "true"; 
+                    el.style.userSelect = "auto"; 
+                    el.style.cursor = "text"; 
+                    
+                    el.onclick = function(e) {
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive && !isResizeModeActive) { 
+                            showAdminTextControls(e, el);
+                        }
+                    };
+                });
+            }
+        }
+
+        let activeFreeDrag = null; let fDragX = 0, fDragY = 0; 
+        function initFreeDrag(e, clientX, clientY) {
+            if (localStorage.getItem('mani_admin_logged') !== 'true') return;
+            
+            if (isMoveModeActive) {
+                let target = e.target.closest('.admin-badge-left') || e.target.closest('.logo') || e.target.closest('.nav-links') || e.target.closest('.navbar') || e.target.closest('a, li, h1, h2, h3, h4, p, span, img, video, iframe, .card-3d-main, .showcase-item, .card-3d, .hero-text, .notif-list-item, .notif-list-wrapper, .contact-box, .about-card');
+                
+                if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
+                    activeFreeDrag = target;
+                    if (window.getComputedStyle(activeFreeDrag).position === 'static') activeFreeDrag.style.position = 'relative';
+                    let currentLeft = parseFloat(activeFreeDrag.style.left) || 0; let currentTop = parseFloat(activeFreeDrag.style.top) || 0;
+                    fDragX = clientX - currentLeft; fDragY = clientY - currentTop;
+                    activeFreeDrag.style.zIndex = "99999"; activeFreeDrag.style.cursor = "grabbing"; activeFreeDrag.style.transition = "none"; 
+                    if(isMoveModeActive) { e.preventDefault(); } 
+                }
+            }
+        }
+
+        function handleFreeDragMove(e, clientX, clientY) {
+            if (activeFreeDrag) {
+                activeFreeDrag.style.left = (clientX - fDragX) + 'px';
+                activeFreeDrag.style.top = (clientY - fDragY) + 'px';
+                if(e.cancelable) e.preventDefault();
+            }
+        }
+        function stopFreeDrag() {
+            if (activeFreeDrag) {
+                activeFreeDrag.style.cursor = isMoveModeActive ? "move" : "";
+                activeFreeDrag.style.zIndex = ""; activeFreeDrag.style.transition = ""; activeFreeDrag = null;
+            }
+        }
+
+        // UNIFIED POINTER EVENTS FOR BOTH MOVE & RESIZE
+        function unifiedPointerDown(e, clientX, clientY) {
+            if(typeof isResizeModeActive !== 'undefined' && isResizeModeActive) initFreeResize(e, clientX, clientY);
+            else if(typeof isMoveModeActive !== 'undefined' && isMoveModeActive) initFreeDrag(e, clientX, clientY);
+        }
+        function unifiedPointerMove(e, clientX, clientY) {
+            if(typeof isResizeModeActive !== 'undefined' && isResizeModeActive) handleFreeResizeMove(e, clientX, clientY);
+            else if(typeof isMoveModeActive !== 'undefined' && isMoveModeActive) handleFreeDragMove(e, clientX, clientY);
+        }
+        function unifiedPointerUp() {
+            if(typeof stopFreeResize !== 'undefined') stopFreeResize();
+            if(typeof stopFreeDrag !== 'undefined') stopFreeDrag();
+        }
+
+        document.addEventListener('mousedown', (e) => unifiedPointerDown(e, e.clientX, e.clientY), {passive: false});
+        document.addEventListener('mousemove', (e) => unifiedPointerMove(e, e.clientX, e.clientY), {passive: false});
+        document.addEventListener('mouseup', unifiedPointerUp);
+        document.addEventListener('touchstart', (e) => unifiedPointerDown(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
+        document.addEventListener('touchmove', (e) => unifiedPointerMove(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
+        document.addEventListener('touchend', unifiedPointerUp);
+
+        // ================= MEDIA EDIT HANDLERS & CROP SYSTEM ================= //
+        function bindMediaClickHandlers() {
+            const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
+            mediaElements.forEach(elem => {
+                elem.classList.add('media-editable'); elem.title = "Click to Edit Image/Video";
+                
+                const handleMediaClick = function(e) {
+                    if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive && !isResizeModeActive) { 
+                        e.preventDefault(); 
+                        e.stopPropagation(); 
+                        currentTargetElement = elem; 
+                        showAdminImageControls(e, elem);
+                    }
+                };
+
+                elem.onclick = handleMediaClick;
+
+                let parentWrapper = elem.closest('.clean-video-wrapper');
+                if (parentWrapper) {
+                    let blocker = parentWrapper.querySelector('.yt-blocker-top');
+                    if (blocker) {
+                        blocker.onclick = handleMediaClick;
+                    }
+                }
+                
+                if(elem.tagName.toLowerCase() === 'video') {
+                    elem.onpause = function() {
+                        if (localStorage.getItem('mani_admin_logged') === 'true' && !isMoveModeActive && !isResizeModeActive) { 
+                            currentTargetElement = elem; 
+                            let rect = elem.getBoundingClientRect();
+                            let mockEvent = {
+                                pageX: window.scrollX + rect.left + (rect.width / 2) - 130,
+                                pageY: window.scrollY + rect.top + (rect.height / 2)
+                            };
+                            showAdminImageControls(mockEvent, elem);
+                        }
+                    };
+                    elem.onplay = function() {
+                        let existing = document.getElementById('admin-img-controls'); 
+                        if(existing) { existing.remove(); startSlider(); }
+                    };
+                }
+            });
+        }
+
+        function showAdminImageControls(e, elem) {
+            if (elem) currentTargetElement = elem; 
+            
+            if(typeof sliderInterval !== 'undefined') { clearInterval(sliderInterval); }
+
+            let existingText = document.getElementById('admin-text-controls'); if(existingText) existingText.remove();
+            let existing = document.getElementById('admin-img-controls'); if(existing) existing.remove();
+            let controls = document.createElement('div'); controls.id = 'admin-img-controls';
+            controls.style.position = 'absolute'; controls.style.left = Math.min(e.pageX, window.innerWidth - 450) + 'px'; controls.style.top = (e.pageY + 10) + 'px';
+            controls.style.background = '#10101a'; controls.style.border = '2px solid #00d2ff'; controls.style.padding = '8px 12px'; controls.style.borderRadius = '8px'; controls.style.zIndex = '100000'; controls.style.display = 'flex'; controls.style.gap = '6px'; controls.style.boxShadow = '0 5px 20px rgba(0,0,0,0.9)';
+            controls.innerHTML = `
+                <button onclick="document.getElementById('adminFileInput').click()" style="background:#00d2ff; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Upload"><i class="fa-solid fa-upload"></i></button>
+                <button onclick="changePhotoByUrl()" style="background:#ffc107; color:#000; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Paste URL"><i class="fa-solid fa-link"></i></button>
+                <button onclick="toggleImageCrop(event)" style="background:#ff5722; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Crop / Fit Mode"><i class="fa-solid fa-crop-simple"></i> Crop</button>
+                <button onclick="zoomElement(0.1, event)" style="background:#28a745; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i> +</button>
+                <button onclick="zoomElement(-0.1, event)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i> -</button>
+                <button onclick="resizeBoxByElement(30)" style="background:#8a2be2; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Make Box Bigger">Box <i class="fa-solid fa-plus"></i></button>
+                <button onclick="resizeBoxByElement(-30)" style="background:#e91e63; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Make Box Smaller">Box <i class="fa-solid fa-minus"></i></button>
+                <button onclick="deleteMediaElement()" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Delete Card/Image/Video"><i class="fa-solid fa-trash"></i></button>
+                <button onclick="this.parentElement.remove(); startSlider();" style="background:transparent; color:red; border:none; cursor:pointer; font-size:18px; padding:0 4px;">&times;</button>
+            `;
+            document.body.appendChild(controls);
+        }
+
+        // CROP / FIT TOGGLE FUNCTION
+        function toggleImageCrop(e) {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
+            if(!currentTargetElement) return;
+            let currentFit = currentTargetElement.style.objectFit || 'cover';
+            if(currentFit === 'cover') {
+                currentTargetElement.style.objectFit = 'contain';
+                customAlert("Image mode changed to: CONTAIN (Full image, no crop)", "IMAGE FIT", "fa-crop-simple", "info");
+            } else if(currentFit === 'contain') {
+                currentTargetElement.style.objectFit = 'fill';
+                customAlert("Image mode changed to: FILL (Stretched)", "IMAGE FIT", "fa-crop-simple", "info");
+            } else {
+                currentTargetElement.style.objectFit = 'cover';
+                customAlert("Image mode changed to: COVER (Cropped to box)", "IMAGE FIT", "fa-crop-simple", "info");
+            }
+        }
+
+        function deleteMediaElement() {
+            customConfirm("Are you sure you want to delete this photo/video/card?", function(confirmed) {
+                if(confirmed && currentTargetElement) {
+                    let parentCard = currentTargetElement.closest('.showcase-item');
+                    if (parentCard) {
+                        parentCard.remove();
+                    } else {
+                        currentTargetElement.remove();
+                    }
+                    document.getElementById('admin-img-controls')?.remove();
+                    const track = document.getElementById('frontSliderTrack'); if (track) { currentSlideIndex = 0; track.style.transform = `translateX(0%)`; }
+                    currentTargetElement = null;
+                    startSlider();
+                }
+            });
+        }
+
+        function zoomElement(step, event) {
+            if (event) { event.preventDefault(); event.stopPropagation(); }
+            if(!currentTargetElement) return;
+            let currentScale = parseFloat(currentTargetElement.getAttribute('data-scale')) || 1; 
+            currentScale += step;
+            if(currentScale < 0.3) currentScale = 0.3; 
+            if(currentScale > 3.0) currentScale = 3.0; 
+            
+            currentTargetElement.setAttribute('data-scale', currentScale.toFixed(2)); 
+            currentTargetElement.style.transform = `scale(${currentScale.toFixed(2)})`;
+            currentTargetElement.style.transition = 'transform 0.2s ease';
+        }
+
+        function resizeBoxByElement(step, targetElem) {
+            let elem = targetElem || currentTargetElement;
+            if(!elem) return;
+            let parentBox = elem.closest('.showcase-item, .card-3d, .custom-text-card');
+
+            if(!parentBox) {
+                let currentWidth = elem.offsetWidth;
+                elem.style.width = (currentWidth + step) + 'px';
+                return;
+            }
+
+            let currentWidth = parentBox.offsetWidth;
+            parentBox.style.width = (currentWidth + step) + 'px';
+            parentBox.style.minWidth = (currentWidth + step) + 'px';
+            parentBox.style.maxWidth = 'none';
+
+            if(!parentBox.classList.contains('custom-text-card')) {
+                let currentHeight = parentBox.offsetHeight;
+                parentBox.style.height = (currentHeight + step * 0.75) + 'px';
+                parentBox.style.minHeight = (currentHeight + step * 0.75) + 'px';
+
+                let imgContainer = parentBox.querySelector('.card-img-container');
+                if(imgContainer) {
+                    let currentImgHeight = imgContainer.offsetHeight;
+                    imgContainer.style.height = (currentImgHeight + step * 0.75) + 'px';
+                }
+            }
+        }
+
+        function changePhotoByUrl() {
+            customPrompt("PASTE IMAGE / VIDEO / INSTA URL", "Paste direct URL, YouTube link, or Instagram post/reel link here:", function(url) {
+                if(url && currentTargetElement) {
+                    
+                    // YOUTUBE CLEAN EMBED PARSER
+                    let ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|live\/|shorts\/))([^"&?\/\s]{11})/);
+                    let ytId = (ytMatch && ytMatch[1]) ? ytMatch[1] : (url.length === 11 && !url.includes('/') ? url : null);
+
+                    // INSTAGRAM CLEAN EMBED PARSER
+                    let igMatch = url.match(/(?:instagram\.com\/(?:p|reel|reels)\/)([^"&?\/\s]+)/);
+                    let igId = (igMatch && igMatch[1]) ? igMatch[1] : null;
+
+                    if (ytId) {
+                        let cleanEmbedSrc = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${ytId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+                        
+                        let parentWrapper = currentTargetElement.closest('.clean-video-wrapper');
+                        if (parentWrapper) {
+                            let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
+                            iframe.src = cleanEmbedSrc;
+                            iframe.style.transform = 'scale(1.18)';
+                            iframe.style.transformOrigin = 'center';
+                            if (!parentWrapper.querySelector('.yt-blocker-top')) {
+                                let blocker = document.createElement('div');
+                                blocker.className = 'yt-blocker-top';
+                                blocker.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:60px; z-index:5; background:transparent;';
+                                parentWrapper.appendChild(blocker);
+                            }
+                            currentTargetElement = iframe;
+                        } else {
+                            let wrapper = document.createElement('div');
+                            wrapper.className = 'clean-video-wrapper';
+                            wrapper.style.cssText = 'position:relative; width:100%; height:100%; min-height:220px; overflow:hidden; border-radius:inherit;';
+
+                            let iframe = document.createElement('iframe');
+                            iframe.className = currentTargetElement.className;
+                            iframe.src = cleanEmbedSrc;
+                            iframe.setAttribute('frameborder', '0');
+                            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                            iframe.setAttribute('allowfullscreen', 'true');
+                            iframe.style.cssText = 'width:100%; height:100%; border:none; border-radius:inherit; transform:scale(1.18); transform-origin:center;';
+
+                            let blocker = document.createElement('div');
+                            blocker.className = 'yt-blocker-top';
+                            blocker.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:60px; z-index:5; background:transparent;';
+
+                            wrapper.appendChild(iframe);
+                            wrapper.appendChild(blocker);
+
+                            currentTargetElement.parentNode.replaceChild(wrapper, currentTargetElement);
+                            currentTargetElement = iframe;
+                        }
+                    } 
+                    else if (igId) {
+                        let iframe = document.createElement('iframe');
+                        iframe.className = currentTargetElement.className;
+                        iframe.src = `https://www.instagram.com/p/${igId}/embed`;
+                        iframe.setAttribute('frameborder', '0');
+                        iframe.setAttribute('scrolling', 'no');
+                        iframe.setAttribute('allowtransparency', 'true');
+                        iframe.style.width = '100%';
+                        iframe.style.height = '100%';
+                        iframe.style.minHeight = '350px';
+                        iframe.style.borderRadius = 'inherit';
+                        iframe.style.border = 'none';
+                        
+                        currentTargetElement.parentNode.replaceChild(iframe, currentTargetElement);
+                        currentTargetElement = iframe;
+                    }
+                    else if(url.match(/\.(mp4|webm|ogg)$/i)) {
+                        let newVideo = document.createElement('video'); 
+                        newVideo.src = url; 
+                        newVideo.controls = true; 
+                        newVideo.autoplay = true; 
+                        newVideo.muted = true; 
+                        newVideo.loop = true; 
+                        newVideo.className = currentTargetElement.className; 
+                        currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement);
+                        currentTargetElement = newVideo;
+                    } else { 
+                        if (currentTargetElement.tagName.toLowerCase() === 'iframe' || currentTargetElement.tagName.toLowerCase() === 'video') {
+                            let newImg = document.createElement('img'); 
+                            newImg.src = url; 
+                            newImg.className = currentTargetElement.className; 
+                            currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement); 
+                            currentTargetElement = newImg;
+                        } else {
+                            currentTargetElement.src = url; 
+                        }
+                    }
+                    
+                    document.getElementById('admin-img-controls')?.remove(); 
+                    bindMediaClickHandlers(); 
+                    startSlider();
+                }
+            });
+        }
+
+        function handleFileSelected(event) {
+            const file = event.target.files[0]; if (!file || !currentTargetElement) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const fileData = e.target.result;
+                if (file.type.startsWith('image/')) {
+                    if (currentTargetElement.tagName.toLowerCase() === 'video' || currentTargetElement.tagName.toLowerCase() === 'iframe') { 
+                        const newImg = document.createElement('img'); newImg.src = fileData; newImg.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement); currentTargetElement = newImg; 
+                    } 
+                    else { currentTargetElement.src = fileData; }
+                } else if (file.type.startsWith('video/')) {
+                    const newVideo = document.createElement('video'); newVideo.src = fileData; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = true; newVideo.loop = true; newVideo.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement); currentTargetElement = newVideo;
+                }
+                document.getElementById('admin-img-controls')?.remove(); bindMediaClickHandlers(); startSlider();
+            };
+            reader.readAsDataURL(file); event.target.value = '';
+        }
+
+        // ================= GITHUB AUTO-SAVE SYSTEM ================= //
+        function stringToBase64UTF8(str) {
+            const encoder = new TextEncoder(); const bytes = encoder.encode(str); let binary = '';
+            for (let i = 0; i < bytes.byteLength; i++) { binary += String.fromCharCode(bytes[i]); } return btoa(binary);
+        }
+
+        function clearSavedToken() {
+            localStorage.removeItem('gh_token_bagga');
+            customAlert("GitHub Token is already set to ask every time now. Old tokens cleared!", "TOKEN RESET", "fa-key", "info");
+        }
+
+        function closeGithubModal() {
+            document.getElementById('githubTokenModal').style.display = 'none';
+        }
+
+        function saveGithubTokenAndProceed() {
+            const inputVal = document.getElementById('githubTokenInputModal').value.trim();
+            if(!inputVal) { customAlert('Please enter a valid GitHub token.', 'INVALID TOKEN', 'fa-triangle-exclamation', 'error'); return; }
+            
+            window.temp_gh_token_bagga = inputVal; 
+            closeGithubModal();
+            saveChangesToGitHub(true);
+        }
+
+        async function saveChangesToGitHub(isTokenReady = false) {
+            if (isTokenReady !== true) { 
+                document.getElementById('githubTokenInputModal').value = '';
+                document.getElementById('githubTokenModal').style.display = 'flex';
+                return; 
+            }
+
+            let token = window.temp_gh_token_bagga;
+
+            const saveBtn = document.getElementById('btnSaveLive');
+            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...'; 
+            saveBtn.disabled = true;
+
+            try {
+                const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
+                const getResponse = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } }); 
+                
+                if (!getResponse.ok) {
+                    if (getResponse.status === 401) {
+                        throw new Error("GitHub Token Invalid or Expired! Please click Save again to re-enter your Token.");
+                    }
+                    throw new Error("GitHub Repository File or Token Invalid!");
+                }
+                
+                const fileData = await getResponse.json(); const sha = fileData.sha;
+
+                const toolsMenu = document.getElementById('adminEditTools');
+                const wasOpen = toolsMenu.style.display === 'block';
+                if (wasOpen) toggleEditWebsiteTools(); 
+
+                let clone = document.documentElement.cloneNode(true);
+                
+                let clonedSaveBtn = clone.querySelector('#btnSaveLive'); 
+                if(clonedSaveBtn) { 
+                    clonedSaveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site'; 
+                    clonedSaveBtn.disabled = false; 
+                }
+                
+                let dash = clone.querySelector('#adminDashboard'); if(dash) dash.style.display = 'none';
+                let modal = clone.querySelector('#adminLoginModal'); if(modal) modal.style.display = 'none';
+                let ghModal = clone.querySelector('#githubTokenModal'); if(ghModal) ghModal.style.display = 'none';
+                let upModal = clone.querySelector('#innerUploadModal'); if(upModal) upModal.style.display = 'none';
+                let viewModal = clone.querySelector('#viewNotifModal'); if(viewModal) viewModal.style.display = 'none';
+                let msgsModal = clone.querySelector('#adminMessagesModal'); if(msgsModal) msgsModal.style.display = 'none'; 
+                let wrongModal = clone.querySelector('#wrongPassModal'); if(wrongModal) wrongModal.style.display = 'none';
+                let customAlertM = clone.querySelector('#customAlertModal'); if(customAlertM) customAlertM.style.display = 'none';
+                let customConfirmM = clone.querySelector('#customConfirmModal'); if(customConfirmM) customConfirmM.style.display = 'none';
+                let customPromptM = clone.querySelector('#customPromptModal'); if(customPromptM) customPromptM.style.display = 'none';
+                
+                let floatingControlImg = clone.querySelector('#admin-img-controls'); if(floatingControlImg) floatingControlImg.remove();
+                let floatingControlText = clone.querySelector('#admin-text-controls'); if(floatingControlText) floatingControlText.remove();
+                
+                clone.querySelectorAll('.card-delete-btn').forEach(btn => btn.remove());
+
+                clone.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+                let homeP = clone.querySelector('#page-home'); if(homeP) homeP.classList.add('active');
+                
+                const tagLbl = clone.querySelector('#adminTagLabel'); if(tagLbl) { tagLbl.innerText = "ADMIN"; tagLbl.style.color = ""; }
+
+                clone.querySelectorAll('.editable-active').forEach(el => {
+                    el.removeAttribute('contenteditable'); el.classList.remove('editable-active'); el.onclick = null;
+                    el.style.border = ''; el.style.padding = '';
+                });
+                
+                clone.querySelectorAll('.media-editable').forEach(el => {
+                    el.classList.remove('media-editable'); el.removeAttribute('title');
+                    el.style.outline = ''; el.onclick = null;
+                });
+
+                const fullHTML = "<!DOCTYPE html>\n<html lang=\"en\">\n" + clone.innerHTML + "\n</html>";
+                const base64Content = stringToBase64UTF8(fullHTML);
+
+                const putResponse = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: 'Updated Site Content via Admin', content: base64Content, sha: sha })
+                });
+
+                if (putResponse.ok) {
+                    customAlert('🎉 Awesome! All changes saved to Live Site successfully!', 'PUBLISHED TO LIVE', 'fa-cloud-arrow-up', 'success');
+                } else { 
+                    const errorDetails = await putResponse.json(); 
+                    throw new Error(errorDetails.message || "Failed to update GitHub"); 
+                }
+                
+                if (wasOpen) toggleEditWebsiteTools(); 
+
+            } catch (error) {
+                console.error("Save Error:", error); 
+                customAlert('Save Error: ' + error.message, 'ERROR', 'fa-triangle-exclamation', 'error');
+            } finally {
+                saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site'; 
+                saveBtn.disabled = false;
+                window.temp_gh_token_bagga = null; 
+            }
+        }
+    </script>
+    <script src="js/script.js"></script>
+
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+</body>
+</html>
