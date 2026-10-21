@@ -13,7 +13,7 @@
 <!-- ===== PATCH 2 START: blue "speed" section ===== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@500&amp;family=Orbitron:wght@600;800&amp;family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&amp;family=Space+Grotesk:wght@500;700&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap">
 <!-- ===== PATCH 2 END ===== -->
     <!-- CSS Link -->
     <link rel="stylesheet" href="css/style.css">
@@ -67,7 +67,8 @@
             <div class="logo" contenteditable="false" style="user-select: auto; cursor: text; position: relative; left: 622.222px; top: 23.7049px;">M4GAMER</div>
 
             <!-- UNIFORM BLUE NAVIGATION BUTTONS SYSTEM -->
-            <ul class="nav-links" style="position: relative; cursor: move;">
+            <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav"><span class="nav-toggle-dots" aria-hidden="true"><i></i><i></i><i></i></span></button>
+            <ul class="nav-links" id="primaryNav" style="position: relative; cursor: move;">
                 <li><a href="#" onclick="navigateTo('home')" contenteditable="false" style="background: linear-gradient(135deg, rgb(0, 198, 255), rgb(0, 114, 255)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(0, 198, 255, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; user-select: auto; cursor: text;" class="">HOME</a></li>
                 <li><a href="#" onclick="navigateTo('gallery')" contenteditable="false" style="background: linear-gradient(135deg, rgb(0, 198, 255), rgb(0, 114, 255)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(0, 198, 255, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; user-select: auto; cursor: text;" class="">GALLERY</a></li>
                 <li><a href="#" onclick="navigateTo('about')" contenteditable="false" style="background: linear-gradient(135deg, rgb(0, 198, 255), rgb(0, 114, 255)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(0, 198, 255, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; user-select: auto; cursor: text;" class="">LIVE</a></li>
@@ -93,7 +94,7 @@
                 </div>
                 
                 <div class="hero-3d-card-wrapper">
-                    <div class="card-3d-main open" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); transition: transform 0.5s ease-in-out;">
+                    <div class="card-3d-main slim" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); transition: transform 0.5s ease-in-out;">
                         <div class="slider-wrapper">
                             <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
                             <div class="slider-track" id="frontSliderTrack" style="transform: translateX(0%); position: relative;">
@@ -278,7 +279,7 @@
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <h2 style="color: rgb(255, 193, 7); font-size: 20px; margin-bottom: 10px; user-select: auto; cursor: text;" contenteditable="false" class="">CONFIRM ACTION</h2>
-            <p id="customConfirmMsg" style="color: rgb(255, 255, 255); font-size: 15px; line-height: 1.5; margin-bottom: 20px; user-select: auto; cursor: text;" contenteditable="false" class="">क्या आप इस पूरे कार्ड/गैलरी आइटम को डिलीट कर��ा चाहते हैं?</p>
+            <p id="customConfirmMsg" style="color: rgb(255, 255, 255); font-size: 15px; line-height: 1.5; margin-bottom: 20px; user-select: auto; cursor: text;" contenteditable="false" class="">क्या आप इस पूरे कार्ड/गैलरी आइटम को ड���लीट कर��ा चाहते हैं?</p>
             <div style="display: flex; gap: 10px;">
                 <button onclick="handleConfirmChoice(true)" style="background: linear-gradient(45deg, #28a745, #1e7e34); flex: 1;">YES</button>
                 <button onclick="handleConfirmChoice(false)" style="background: linear-gradient(45deg, #dc3545, #bd2130); flex: 1;">NO</button>

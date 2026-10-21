@@ -132,6 +132,8 @@ window.addEventListener('DOMContentLoaded', function () {
         let currentSlideIndex = 0; let sliderInterval;
         function startSlider() { 
             if(sliderInterval) clearInterval(sliderInterval);
+            const heroCard = document.getElementById('tilt-card');
+            if (heroCard && heroCard.classList.contains('slim') && window.matchMedia('(max-width: 900px)').matches) return;
             sliderInterval = setInterval(() => { moveFrontSlide(1); }, 3000); 
         }
         function moveFrontSlide(direction, event) {
@@ -942,25 +944,68 @@ window.addEventListener('DOMContentLoaded', function () {
   new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
 })();
 
-/* ===== B) फ़ोन पर हीरो स्लाइडर: नीचे स्क्रॉल = खुले, ऊपर स्क्रॉल = वापस ===== */
+/* ===== Mobile hero slider: scroll down = open + autoplay, scroll up = close + hide.
+   Laptop / desktop keeps the original always-open slider. ===== */
 (function () {
-  const isPhone = window.matchMedia('(pointer:coarse)').matches || screen.width <= 900;
-  if (!isPhone) return; // लैपटॉप जैसा था वैसा ही रहेगा
+  const mobileQuery = window.matchMedia('(max-width: 900px)');
   window.addEventListener('DOMContentLoaded', function () {
     const card = document.getElementById('tilt-card');
     if (!card) return;
-    card.classList.add('slim');
-    let lastY = window.scrollY, ticking = false;
-    function update() {
-      const y = window.scrollY;
-      if (y <= 10) { card.classList.add('slim'); card.classList.remove('open'); }
-      else if (y > lastY + 4) { card.classList.add('open'); card.classList.remove('slim'); }
-      else if (y < lastY - 4) { card.classList.add('slim'); card.classList.remove('open'); }
-      lastY = y; ticking = false;
+    let lastY = window.scrollY, ticking = false, lockUntil = 0;
+
+    function applyState(open) {
+      card.classList.toggle('slim', !open);
+      card.classList.toggle('open', open);
+      if (open) startSlider(); else clearInterval(sliderInterval);
     }
+    function setOpen(open) {
+      if (card.classList.contains('open') === open) return;
+      applyState(open);
+      lockUntil = performance.now() + 700; // ignore layout-induced scroll shifts while animating
+    }
+    function update() {
+      ticking = false;
+      if (!mobileQuery.matches) return;
+      const y = window.scrollY;
+      if (performance.now() < lockUntil) { lastY = y; return; }
+      if (y <= 10) setOpen(false);
+      else if (y > lastY + 4) setOpen(true);
+      else if (y < lastY - 4) setOpen(false);
+      lastY = y;
+    }
+    function sync() {
+      lastY = window.scrollY;
+      if (mobileQuery.matches) applyState(window.scrollY > 10);
+      else applyState(true);
+    }
+
     window.addEventListener('scroll', function () {
       if (!ticking) { requestAnimationFrame(update); ticking = true; }
     }, { passive: true });
+    mobileQuery.addEventListener('change', sync);
+    sync();
+  });
+})();
+
+/* ===== Collapsible three-dot navigation menu (tablet / phone) ===== */
+(function () {
+  window.addEventListener('DOMContentLoaded', function () {
+    const button = document.getElementById('navToggle');
+    const menu = document.getElementById('primaryNav');
+    if (!button || !menu) return;
+    function setMenu(open) {
+      menu.classList.toggle('open', open);
+      button.setAttribute('aria-expanded', String(open));
+      button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    button.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setMenu(!menu.classList.contains('open'));
+    });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+    document.addEventListener('click', function (e) { if (!e.target.closest('header')) setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+    window.matchMedia('(min-width: 1025px)').addEventListener('change', function (e) { if (e.matches) setMenu(false); });
   });
 })();
 
