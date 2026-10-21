@@ -1674,6 +1674,59 @@ window.addEventListener('DOMContentLoaded', function () {
         document.addEventListener('touchmove', (e) => unifiedPointerMove(e, e.touches[0].clientX, e.touches[0].clientY), {passive: false});
         document.addEventListener('touchend', unifiedPointerUp);
 
+
+
+        /* ===== A) YouTube: टाइटल/लोगो पर रीडायरेक्ट रोकना ===== */
+(function () {
+  function guardIframe(ifr) {
+    if (!/youtube(-nocookie)?\.com\/embed/.test(ifr.src)) return;
+    const wrap = ifr.closest('.clean-video-wrapper');
+    if (!wrap) return;
+    if (!wrap.querySelector('.yt-blocker-top')) {
+      const t = document.createElement('div'); t.className = 'yt-blocker-top'; wrap.appendChild(t);
+    }
+    if (!wrap.querySelector('.yt-blocker-br')) {
+      const b = document.createElement('div'); b.className = 'yt-blocker-br'; wrap.appendChild(b);
+    }
+    // सेटिंग्स: कम से कम YouTube ब्रांडिंग
+    try {
+      const u = new URL(ifr.src);
+      ['modestbranding', 'rel', 'iv_load_policy'].forEach(k => u.searchParams.set(k, k === 'iv_load_policy' ? '3' : '1'));
+      u.searchParams.set('rel', '0');
+      if (u.toString() !== ifr.src) ifr.src = u.toString();
+    } catch (e) {}
+  }
+  function scan() {
+    document.querySelectorAll('iframe').forEach(guardIframe);
+    if (typeof bindMediaClickHandlers === 'function') bindMediaClickHandlers(); // एडमिन एडिट के लिए
+  }
+  window.addEventListener('DOMContentLoaded', scan);
+  new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
+})();
+
+/* ===== B) फ़ोन पर हीरो स्लाइडर: नीचे स्क्रॉल = खुले, ऊपर स्क्रॉल = वापस ===== */
+(function () {
+  const isPhone = window.matchMedia('(pointer:coarse)').matches || screen.width <= 900;
+  if (!isPhone) return; // लैपटॉप जैसा था वैसा ही रहेगा
+  window.addEventListener('DOMContentLoaded', function () {
+    const card = document.getElementById('tilt-card');
+    if (!card) return;
+    card.classList.add('slim');
+    let lastY = window.scrollY, ticking = false;
+    function update() {
+      const y = window.scrollY;
+      if (y <= 10) { card.classList.add('slim'); card.classList.remove('open'); }
+      else if (y > lastY + 4) { card.classList.add('open'); card.classList.remove('slim'); }
+      else if (y < lastY - 4) { card.classList.add('slim'); card.classList.remove('open'); }
+      lastY = y; ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+  });
+})();
+
+        
         // ================= MEDIA EDIT HANDLERS & CROP SYSTEM ================= //
         function bindMediaClickHandlers() {
             const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
