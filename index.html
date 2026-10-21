@@ -81,70 +81,89 @@ window.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <!-- ===== PATCH 2 END ===== -->
-/* ===== PAPER THEME (सबसे आख़िर में रखें) ===== */
-:root{
-  --paper:#f4f1ea; --paper-2:#faf8f3; --ink:#1f1e1b;
-  --muted:#55514a; --line:rgba(60,55,45,.14); --accent:#0a58ca;
+<!-- ===== PATCH 2 START: blue "speed" section ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+.speed-sec {
+    position: relative; overflow: hidden; isolation: isolate;
+    margin: 48px 0 -20px;
+    padding: clamp(56px, 9vw, 104px) 24px clamp(56px, 8vw, 92px);
+    color: #fff;
+    background:
+        radial-gradient(90% 60% at 0% 0%, rgba(86,58,255,.55), rgba(86,58,255,0) 65%),
+        linear-gradient(172deg, #2a16dc 0%, #2010b8 48%, #130a78 100%);
 }
-html{ -webkit-text-size-adjust:100%; }
-html, body{ overflow-x:hidden; background-color:var(--paper) !important; color:var(--ink); }
-
-/* असली कागज़ की बनावट, सबसे पीछे वाली परत */
-body::before{
-  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
-  background:
-    radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,.65), transparent 60%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.22'/%3E%3C/svg%3E"),
-    var(--paper);
+.speed-sec::before {
+    content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(255,255,255,.3) 1.1px, transparent 1.7px);
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(75% 65% at 55% 0%, #000, transparent);
+    mask-image: radial-gradient(75% 65% at 55% 0%, #000, transparent);
 }
-#particles-canvas, .bg-shape{ display:none !important; }
-
-/* सेक्शन, कार्ड, टेक्स्ट */
-.hero, .features-section, .showcase-section, .page-view{ background:transparent !important; }
-.page-header, .section-title, .hero-text h1, .hero-text p, .about-card p{
-  color:var(--ink) !important; -webkit-text-fill-color:var(--ink) !important; text-shadow:none !important;
+.speed-sec .speed-in { position: relative; max-width: 1120px; margin: 0 auto; text-align: left; }
+.speed-sec .spd-eyebrow {
+    display: flex; align-items: center; gap: 10px; margin: 0 0 clamp(20px, 3vw, 30px); text-align: left;
+    font: 500 11px/1 "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+    letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.78);
 }
-.hero-text p, .section-subtitle{ color:var(--muted) !important; -webkit-text-fill-color:var(--muted) !important; }
-.highlight, .badge{ color:var(--accent) !important; -webkit-text-fill-color:var(--accent) !important; text-shadow:none !important; }
-.card-3d, .about-card, .showcase-item, .notif-list-wrapper{
-  background:var(--paper-2) !important; border:1px solid var(--line) !important;
-  box-shadow:0 1px 0 #fff inset, 0 18px 30px -20px rgba(0,0,0,.35) !important; color:var(--ink);
+.speed-sec .spd-eyebrow span { padding: 4px 7px; border-radius: 4px; background: rgba(255,255,255,.16); color: #fff; }
+.speed-sec .spd-title {
+    margin: 0; text-align: left; text-transform: none; text-shadow: none; color: #fff;
+    font: 700 clamp(32px, 6.2vw, 62px)/1.02 Inter, "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    letter-spacing: -.025em;
 }
-.card-3d h3, .showcase-overlay h4{ color:var(--ink) !important; text-shadow:none !important; }
-.card-3d p{ color:var(--muted) !important; }
-header .navbar{ background:rgba(244,241,234,.92) !important; border-bottom:1px solid var(--line) !important;
-  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:none !important; }
-header .navbar .logo, header .navbar .admin-name{ color:var(--ink) !important; -webkit-text-fill-color:var(--ink) !important; text-shadow:none !important; }
-footer{ background:#e9e5db !important; border-top:1px solid var(--line) !important; }
-footer p, footer .footer-logo, footer a{ color:var(--ink) !important; text-shadow:none !important; }
-
-/* कॉन्टैक्ट फ़ॉर्म भी कागज़ जैसा */
-.contact-box.admin-box{ background:var(--paper-2) !important; animation:none !important; border:1px solid var(--line) !important; box-shadow:0 18px 40px -24px rgba(0,0,0,.4) !important; color:var(--ink); }
-.contact-box h2{ color:var(--ink) !important; text-shadow:none !important; }
-.contact-box input, .contact-box textarea{ background:#fff !important; color:var(--ink) !important; border:1px solid var(--line) !important; box-shadow:none !important; }
-.contact-box label{ color:var(--accent) !important; }
-
-/* ===== YouTube ब्लॉकर: टाइटल (ऊपर) और लोगो (नीचे-दाएँ) पर क्लिक नहीं जाएगा ===== */
-.clean-video-wrapper{ position:relative; overflow:hidden; }
-.clean-video-wrapper .yt-blocker-top{ position:absolute; top:0; left:0; width:100%; height:72px; z-index:5; background:transparent; }
-.clean-video-wrapper .yt-blocker-br{ position:absolute; right:0; bottom:0; width:120px; height:46px; z-index:5; background:transparent; }
-
-/* ===== फ़ोन पर स्लाइडर: स्क्रॉल पर खुलकर आए (लैपटॉप पर कुछ नहीं बदलता) ===== */
-.hero-3d-card-wrapper{ perspective:1200px; }
-.card-3d-main.slim{
-  transform:perspective(1000px) translateY(40px) scale(.8) !important;
-  opacity:.55; filter:blur(1px);
+.speed-sec .spd-title em {
+    display: block; font-style: italic; font-weight: 400; font-size: 1.1em; letter-spacing: -.01em; line-height: 1.02;
+    font-family: "Instrument Serif", "Playfair Display", Georgia, "Times New Roman", serif; color: rgba(255,255,255,.9);
 }
-.card-3d-main.open{
-  transform:perspective(1000px) translateY(0) scale(1) !important;
-  opacity:1; filter:none;
+.speed-sec .spd-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    margin-top: clamp(40px, 6vw, 68px); border-top: 1px solid rgba(255,255,255,.2);
 }
-.card-3d-main.slim, .card-3d-main.open{
-  transition:transform .7s cubic-bezier(.2,.8,.2,1), opacity .6s ease, filter .6s ease !important;
-  transform-origin:center top;
+.speed-sec .spd-cell { min-width: 0; padding: clamp(28px, 4vw, 44px) clamp(16px, 3vw, 40px) clamp(30px, 4vw, 48px) 0; }
+.speed-sec .spd-cell:nth-child(even) { padding-left: clamp(20px, 4vw, 48px); border-left: 1px solid rgba(255,255,255,.2); }
+.speed-sec .spd-cell:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.2); }
+.speed-sec .spd-num {
+    margin: 0 0 12px; text-align: left; text-shadow: none; color: #fff; letter-spacing: -.02em;
+    font: 400 clamp(60px, 9vw, 104px)/.95 "Instrument Serif", "Playfair Display", Georgia, "Times New Roman", serif;
 }
-
-      <!-- CSS Link -->
+.speed-sec .spd-num small { font-size: .4em; letter-spacing: 0; opacity: .62; margin: 0 .05em; }
+.speed-sec .spd-cap {
+    margin: 0; max-width: 26ch; text-align: left; color: rgba(255,255,255,.88);
+    font: 400 clamp(14px, 1.7vw, 18px)/1.45 Inter, "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+}
+.speed-sec .spd-note {
+    margin: clamp(28px, 4vw, 44px) 0 0; text-align: left; color: rgba(255,255,255,.72);
+    font: 400 13px/1.5 Inter, "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+}
+</style>
+<script>
+/* Adds the blue section at the end of the Home page (right above the footer). Skips if it already exists in the page. */
+window.addEventListener('DOMContentLoaded', function () {
+    var home = document.getElementById('page-home');
+    if (!home || document.getElementById('speed-section')) return;
+    var sec = document.createElement('div');
+    sec.id = 'speed-section';
+    sec.className = 'speed-sec';
+    sec.innerHTML = `
+        <div class="speed-in">
+            <p class="spd-eyebrow"><span>03</span> TIMINGS FROM REAL DEPLOYS</p>
+            <h2 class="spd-title">Fast enough that <em>you never leave the conversation.</em></h2>
+            <div class="spd-grid">
+                <div class="spd-cell"><p class="spd-num"><small>~</small>36<small>s</small></p><p class="spd-cap">A static site, from push to live</p></div>
+                <div class="spd-cell"><p class="spd-num"><small>~</small>1.2<small>s</small></p><p class="spd-cap">To read and analyse your code</p></div>
+                <div class="spd-cell"><p class="spd-num">0</p><p class="spd-cap">Config files added to your project</p></div>
+                <div class="spd-cell"><p class="spd-num">1</p><p class="spd-cap">Sentence to deploy it</p></div>
+            </div>
+            <p class="spd-note">The first two are wall-clock, taken from the platform’s own records.</p>
+        </div>`;
+    home.appendChild(sec);
+});
+</script>
+<!-- ===== PATCH 2 END ===== -->
+    <!-- CSS Link -->
     <link rel="stylesheet" href="css/style.css">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
