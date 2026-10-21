@@ -1,6 +1,6 @@
 /* A) PAPER PAGE: पूरा पेज कागज जैसा (यह पूरा <style> हटाने पर पुराना पेज लौट आएगा) */
 html, html body {
-    background: #f4f1ea url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.2'/%3E%3C/svg%3E") !important;
+    background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.07'/%3E%3C/svg%3E") !important;
     color: #1f1e1b;
 }
 html body .bg-shape { opacity: .15 !important; }
@@ -531,19 +531,7 @@ footer {
 .email-text a {
     color: var(--dark-blue);
 }
-/* Sabhi elements ko rigid (solid) banayein taaki zoom par aapas me na takrayein */
-html, body {
-    width: 1280px !important;
-    min-width: 1280px !important;
-    max-width: 1280px !important;
-    margin: 0 auto !important;
-    position: relative !important;
-}
-
-/* Kisi bhi box ko niche girne ya wrap hone se rokein */
-div, section, header, footer, .row {
-    flex-wrap: nowrap !important;
-}
+/* Fixed 1280px width and global nowrap removed: layout is fluid, see RESPONSIVE OVERRIDES at the end of this file */
         /* ================== PAGE ROUTING SYSTEM ================== */
         .page-view {
             display: none;
@@ -756,3 +744,247 @@ div, section, header, footer, .row {
             transition: transform 0.2s, background 0.2s;
         }
         .card-delete-btn:hover { background: #ff0000; transform: scale(1.1); }
+
+/* ======================================================================
+   RESPONSIVE OVERRIDES
+   Fluid layout for phones, laptops, MacBooks and 4K / LED TV screens.
+   Sizes use rem so containers scale up proportionally on big displays.
+   ====================================================================== */
+
+html { font-size: clamp(100%, 0.6vw + 6.5px, 200%); -webkit-text-size-adjust: 100%; }
+
+html, html body {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    position: static !important;
+}
+html body { overflow-x: hidden; overflow-wrap: break-word; }
+html body img, html body video, html body iframe { max-width: 100%; }
+
+html body .bg-shape { opacity: .08 !important; }
+html body #particles-canvas { opacity: .22 !important; }
+
+/* ---------- Header: transparent, clean, no blue boxes ---------- */
+html body header {
+    position: sticky; top: 0; width: 100%;
+    background: rgba(255, 255, 255, .92);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(15, 23, 42, .08);
+    box-shadow: 0 10px 24px -20px rgba(15, 23, 42, .35);
+    z-index: 1000;
+}
+html body header::before {
+    content: ""; display: block; height: 3px;
+    background: linear-gradient(90deg, #0a58ca, #00c6ff 50%, #0a58ca);
+}
+html body header .navbar {
+    display: grid !important;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: .5rem 1.5rem;
+    max-width: 87.5rem; margin: 0 auto;
+    padding: .6rem clamp(1rem, 4vw, 2.5rem) !important;
+    background: transparent !important;
+    border-bottom: 0 !important;
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+html body header .navbar .admin-badge-left,
+html body header .navbar .logo,
+html body header .navbar .nav-links {
+    position: static !important; left: auto !important; top: auto !important; margin: 0 !important;
+}
+html body header .navbar .admin-badge-left {
+    cursor: pointer !important; justify-self: start;
+    background: #fff; border: 1px solid rgba(15, 23, 42, .14); box-shadow: none;
+    padding: .25rem .75rem .25rem .3rem;
+}
+html body header .navbar .admin-img { width: 2.25rem; height: 2.25rem; border: 1px solid rgba(15, 23, 42, .14); }
+html body header .navbar .admin-tag { color: #0a58ca; }
+html body header .navbar .logo {
+    justify-self: center; text-align: center; cursor: default !important;
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem); letter-spacing: .04em;
+}
+html body header .navbar .nav-links {
+    display: flex !important; flex-wrap: wrap !important; justify-content: flex-end;
+    gap: .35rem 1.4rem !important; padding: 0; cursor: auto !important;
+}
+html body header .navbar .nav-links li { display: block; }
+html body header .navbar .nav-links li a {
+    display: inline-block !important; width: auto !important;
+    background: linear-gradient(#0a58ca, #0a58ca) no-repeat 0 100% / 0% 2px !important;
+    color: #0f172a !important;
+    padding: .35rem 0 !important;
+    border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+    font-size: .78rem !important; font-weight: 600 !important;
+    letter-spacing: .1em !important; text-transform: uppercase;
+    text-decoration: none; white-space: nowrap;
+    cursor: pointer !important; transform: none !important;
+    transition: background-size .25s ease, color .2s ease !important;
+}
+html body header .navbar .nav-links li a:hover,
+html body header .navbar .nav-links li a:focus-visible {
+    background-size: 100% 2px !important; color: #0a58ca !important;
+    transform: none !important; box-shadow: none !important;
+}
+
+/* ---------- Hero ---------- */
+html body .hero {
+    padding: clamp(2rem, 5vw, 4.5rem) clamp(1rem, 4vw, 2.5rem) clamp(2rem, 5vw, 4rem) !important;
+}
+html body .hero-container {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: center;
+    max-width: 75rem; margin: 0 auto; padding: 0 !important;
+}
+html body .hero-text {
+    position: static !important; left: auto !important; top: auto !important;
+    cursor: auto !important; min-width: 0;
+}
+html body .hero-text h1 { font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.15; margin: .9rem 0; }
+html body .hero-text p { font-size: clamp(1rem, 1.6vw, 1.15rem); }
+html body .hero-text .badge { display: inline-block; }
+html body .hero-btns { display: flex; flex-wrap: wrap; gap: .75rem; }
+html body .hero-3d-card-wrapper { min-width: 0; width: 100%; }
+html body .card-3d-main { width: 100%; }
+html body .slider-wrapper {
+    height: auto; aspect-ratio: 16 / 10; max-height: 30rem;
+}
+html body .card-3d-main img { height: 100%; }
+
+/* ---------- Sections and cards ---------- */
+html body .features-section {
+    max-width: 75rem; margin: 0 auto !important;
+    padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 2.5rem) !important;
+    background: transparent !important; border-radius: 0 !important;
+}
+html body #features { padding-bottom: clamp(1.5rem, 4vw, 3rem) !important; }
+html body .section-title { font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.2; }
+html body .section-subtitle { margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+
+html body .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17.5rem), 1fr)) !important;
+    gap: clamp(1rem, 2.5vw, 2rem) !important;
+}
+html body .card-3d, html body .about-card {
+    background: #fff !important;
+    border: 1px solid rgba(15, 23, 42, .1) !important;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, .05), 0 14px 30px -18px rgba(15, 23, 42, .28) !important;
+}
+html body .card-3d { min-width: 0; padding: 1.5rem; border-radius: 1rem; text-align: center; }
+html body .card-icon { font-size: 2rem; margin-bottom: .9rem; }
+html body .card-img-container {
+    overflow: hidden; border-radius: .75rem; margin-bottom: 1rem;
+}
+html body .card-img-container .clean-video-wrapper {
+    min-height: 0 !important; height: auto !important; aspect-ratio: 16 / 10;
+}
+html body .card-img-container img {
+    display: block; width: 100%; height: 100%; aspect-ratio: 16 / 10;
+    object-fit: cover; margin: 0; border-radius: 0;
+}
+html body .card-img-container .clean-video-wrapper img {
+    position: absolute; top: 0; left: 0;
+}
+html body .card-img-container iframe.media-target,
+html body .card-img-container video.media-target { aspect-ratio: 16 / 10; }
+html body .card-3d h3 { font-size: 1.15rem; margin-bottom: .4rem; }
+
+/* ---------- Speed block (contained card, no floating text) ---------- */
+html body .speed-sec {
+    width: calc(100% - 2 * clamp(1rem, 4vw, 2.5rem));
+    max-width: 75rem;
+    margin: clamp(1.5rem, 4vw, 3rem) auto clamp(2rem, 5vw, 4rem) !important;
+    padding: clamp(2rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3.5rem) !important;
+    border-radius: clamp(1rem, 2vw, 1.75rem);
+}
+html body .speed-sec .speed-in { max-width: none; margin: 0; }
+html body .speed-sec .spd-title { font-size: clamp(2rem, 6vw, 3.9rem); }
+html body .speed-sec .spd-num { font-size: clamp(3.5rem, 8vw, 6.5rem); }
+html body .speed-sec .spd-cap { max-width: 28ch; font-size: clamp(.9rem, 1.5vw, 1.1rem); }
+
+/* ---------- Page headings and gallery ---------- */
+html body .page-header {
+    margin: clamp(2rem, 5vw, 3.5rem) 0 clamp(1.5rem, 3vw, 2.5rem) !important;
+    padding: 0 1rem;
+    font-size: clamp(1.6rem, 5vw, 2.8rem); line-height: 1.2;
+}
+html body .showcase-section {
+    max-width: 75rem; margin: 0 auto !important;
+    padding: 0 clamp(1rem, 4vw, 2.5rem) clamp(2rem, 5vw, 4rem) !important;
+}
+html body .showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)) !important;
+    gap: clamp(1rem, 2vw, 1.5rem) !important;
+}
+html body .showcase-item {
+    min-width: 0; border-radius: 1rem; background: #fff;
+    border: 1px solid rgba(15, 23, 42, .08);
+    box-shadow: 0 14px 30px -18px rgba(15, 23, 42, .3);
+}
+html body .showcase-item img,
+html body .showcase-item video,
+html body .showcase-item iframe {
+    display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover;
+}
+html body .showcase-overlay { box-sizing: border-box; }
+
+/* ---------- About, notifications, contact, footer ---------- */
+html body #about { padding-top: 0 !important; }
+html body .about-card {
+    max-width: 45rem; width: 100%;
+    padding: clamp(1.25rem, 4vw, 2rem); border-radius: 1rem;
+}
+html body .notif-container { padding: 0 clamp(1rem, 4vw, 1.5rem); }
+html body .contact-page-wrapper { padding: 0 clamp(1rem, 4vw, 1.5rem); margin-top: 1rem; }
+html body .contact-box { width: 100%; }
+html body footer {
+    background: #f8fafc !important;
+    padding: clamp(1.75rem, 4vw, 3rem) clamp(1rem, 4vw, 2.5rem);
+}
+html body footer .footer-container { max-width: 75rem; margin: 0 auto; }
+html body footer .email-text { overflow-wrap: anywhere; line-height: 1.7; }
+
+/* ---------- Tablet ---------- */
+@media (max-width: 900px) {
+    html body .hero-container { grid-template-columns: minmax(0, 1fr); text-align: center; }
+    html body .hero-btns { justify-content: center; }
+    html body .slider-wrapper { max-height: 26rem; }
+}
+
+/* ---------- Phone ---------- */
+@media (max-width: 640px) {
+    html body header .navbar { grid-template-columns: minmax(0, 1fr) auto; gap: .35rem 1rem; padding-block: .5rem !important; }
+    html body header .navbar .logo { justify-self: end; font-size: 1.15rem; }
+    html body header .navbar .nav-links {
+        grid-column: 1 / -1; justify-content: center; gap: .1rem .85rem !important;
+        padding-top: .15rem;
+    }
+    html body header .navbar .nav-links li a {
+        font-size: .68rem !important; letter-spacing: .05em !important;
+    }
+    html body .slider-wrapper { aspect-ratio: 4 / 3; }
+    html body .speed-sec .spd-grid { grid-template-columns: minmax(0, 1fr); }
+    html body .speed-sec .spd-cell:nth-child(even) { padding-left: 0; border-left: 0; }
+    html body .speed-sec .spd-cell:nth-child(n+2) { border-top: 1px solid rgba(255, 255, 255, .2); }
+    html body .speed-sec .spd-num { font-size: clamp(3.25rem, 18vw, 4.5rem); }
+    html body .speed-sec .spd-cap { max-width: none; }
+    html body .notif-date { flex-basis: 5.5rem; font-size: .8rem; }
+}
+
+/* ---------- Large LED TV / 4K: rem scaling keeps proportions ---------- */
+@media (min-width: 1920px) {
+    html body header .navbar { max-width: 100rem; }
+}
+@media (min-width: 2560px) {
+    html body .slider-wrapper { max-height: 34rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html body * { scroll-behavior: auto; }
+}
