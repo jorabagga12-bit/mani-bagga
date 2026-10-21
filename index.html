@@ -3,8 +3,6 @@
 <head> <meta name="google-site-verification" content="Or5JbtfQH0gGANckua64EHZYJ_xr-wmy5QeWB-W5O2w">
     <meta charset="UTF-8">
     <!-- FORCED DESKTOP VIEWPORT FOR ALL DEVICES -->
-    <meta name="viewport" content="width=1200, user-scalable=yes">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mani</title>
     <!-- ===== PATCH START ===== -->
 <style>
@@ -163,6 +161,117 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 <!-- ===== PATCH 2 END ===== -->
+    /* ===== PAPER THEME (सबसे आख़िर में रखें) ===== */
+:root{
+  --paper:#f4f1ea; --paper-2:#faf8f3; --ink:#1f1e1b;
+  --muted:#55514a; --line:rgba(60,55,45,.14); --accent:#0a58ca;
+}
+html{ -webkit-text-size-adjust:100%; }
+html, body{ overflow-x:hidden; background-color:var(--paper) !important; color:var(--ink); }
+
+/* असली कागज़ की बनावट, सबसे पीछे वाली परत */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,.65), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.22'/%3E%3C/svg%3E"),
+    var(--paper);
+}
+#particles-canvas, .bg-shape{ display:none !important; }
+
+/* सेक्शन, कार्ड, टेक्स्ट */
+.hero, .features-section, .showcase-section, .page-view{ background:transparent !important; }
+.page-header, .section-title, .hero-text h1, .hero-text p, .about-card p{
+  color:var(--ink) !important; -webkit-text-fill-color:var(--ink) !important; text-shadow:none !important;
+}
+.hero-text p, .section-subtitle{ color:var(--muted) !important; -webkit-text-fill-color:var(--muted) !important; }
+.highlight, .badge{ color:var(--accent) !important; -webkit-text-fill-color:var(--accent) !important; text-shadow:none !important; }
+.card-3d, .about-card, .showcase-item, .notif-list-wrapper{
+  background:var(--paper-2) !important; border:1px solid var(--line) !important;
+  box-shadow:0 1px 0 #fff inset, 0 18px 30px -20px rgba(0,0,0,.35) !important; color:var(--ink);
+}
+.card-3d h3, .showcase-overlay h4{ color:var(--ink) !important; text-shadow:none !important; }
+.card-3d p{ color:var(--muted) !important; }
+header .navbar{ background:rgba(244,241,234,.92) !important; border-bottom:1px solid var(--line) !important;
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:none !important; }
+header .navbar .logo, header .navbar .admin-name{ color:var(--ink) !important; -webkit-text-fill-color:var(--ink) !important; text-shadow:none !important; }
+footer{ background:#e9e5db !important; border-top:1px solid var(--line) !important; }
+footer p, footer .footer-logo, footer a{ color:var(--ink) !important; text-shadow:none !important; }
+
+/* कॉन्टैक्ट फ़ॉर्म भी कागज़ जैसा */
+.contact-box.admin-box{ background:var(--paper-2) !important; animation:none !important; border:1px solid var(--line) !important; box-shadow:0 18px 40px -24px rgba(0,0,0,.4) !important; color:var(--ink); }
+.contact-box h2{ color:var(--ink) !important; text-shadow:none !important; }
+.contact-box input, .contact-box textarea{ background:#fff !important; color:var(--ink) !important; border:1px solid var(--line) !important; box-shadow:none !important; }
+.contact-box label{ color:var(--accent) !important; }
+
+/* ===== YouTube ब्लॉकर: टाइटल (ऊपर) और लोगो (नीचे-दाएँ) पर क्लिक नहीं जाएगा ===== */
+.clean-video-wrapper{ position:relative; overflow:hidden; }
+.clean-video-wrapper .yt-blocker-top{ position:absolute; top:0; left:0; width:100%; height:72px; z-index:5; background:transparent; }
+.clean-video-wrapper .yt-blocker-br{ position:absolute; right:0; bottom:0; width:120px; height:46px; z-index:5; background:transparent; }
+
+/* ===== फ़ोन पर स्लाइडर: स्क्रॉल पर खुलकर आए (लैपटॉप पर कुछ नहीं बदलता) ===== */
+.hero-3d-card-wrapper{ perspective:1200px; }
+.card-3d-main.slim{
+  transform:perspective(1000px) translateY(40px) scale(.8) !important;
+  opacity:.55; filter:blur(1px);
+}
+.card-3d-main.open{
+  transform:perspective(1000px) translateY(0) scale(1) !important;
+  opacity:1; filter:none;
+}
+.card-3d-main.slim, .card-3d-main.open{
+  transition:transform .7s cubic-bezier(.2,.8,.2,1), opacity .6s ease, filter .6s ease !important;
+  transform-origin:center top;
+}
+    /* ===== A) YouTube: टाइटल/लोगो पर रीडायरेक्ट रोकना ===== */
+(function () {
+  function guardIframe(ifr) {
+    if (!/youtube(-nocookie)?\.com\/embed/.test(ifr.src)) return;
+    const wrap = ifr.closest('.clean-video-wrapper');
+    if (!wrap) return;
+    if (!wrap.querySelector('.yt-blocker-top')) {
+      const t = document.createElement('div'); t.className = 'yt-blocker-top'; wrap.appendChild(t);
+    }
+    if (!wrap.querySelector('.yt-blocker-br')) {
+      const b = document.createElement('div'); b.className = 'yt-blocker-br'; wrap.appendChild(b);
+    }
+    // सेटिंग्स: कम से कम YouTube ब्रांडिंग
+    try {
+      const u = new URL(ifr.src);
+      ['modestbranding', 'rel', 'iv_load_policy'].forEach(k => u.searchParams.set(k, k === 'iv_load_policy' ? '3' : '1'));
+      u.searchParams.set('rel', '0');
+      if (u.toString() !== ifr.src) ifr.src = u.toString();
+    } catch (e) {}
+  }
+  function scan() {
+    document.querySelectorAll('iframe').forEach(guardIframe);
+    if (typeof bindMediaClickHandlers === 'function') bindMediaClickHandlers(); // एडमिन एडिट के लिए
+  }
+  window.addEventListener('DOMContentLoaded', scan);
+  new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
+})();
+
+/* ===== B) फ़ोन पर हीरो स्लाइडर: नीचे स्क्रॉल = खुले, ऊपर स्क्रॉल = वापस ===== */
+(function () {
+  const isPhone = window.matchMedia('(pointer:coarse)').matches || screen.width <= 900;
+  if (!isPhone) return; // लैपटॉप जैसा था वैसा ही रहेगा
+  window.addEventListener('DOMContentLoaded', function () {
+    const card = document.getElementById('tilt-card');
+    if (!card) return;
+    card.classList.add('slim');
+    let lastY = window.scrollY, ticking = false;
+    function update() {
+      const y = window.scrollY;
+      if (y <= 10) { card.classList.add('slim'); card.classList.remove('open'); }
+      else if (y > lastY + 4) { card.classList.add('open'); card.classList.remove('slim'); }
+      else if (y < lastY - 4) { card.classList.add('slim'); card.classList.remove('open'); }
+      lastY = y; ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+  });
+})();
     <!-- CSS Link -->
     <link rel="stylesheet" href="css/style.css">
     <!-- FontAwesome Icons -->
