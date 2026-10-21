@@ -1536,3 +1536,69 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 });
+
+/* ===== PAGE LOADER: shown on every load/refresh, hidden once the page is ready ===== */
+(function () {
+    var shownAt = Date.now();
+    var MIN_VISIBLE_MS = 900;
+    function hideLoader() {
+        var wait = Math.max(0, MIN_VISIBLE_MS - (Date.now() - shownAt));
+        setTimeout(function () { document.documentElement.classList.add('page-ready'); }, wait);
+    }
+    if (document.readyState === 'complete') { hideLoader(); }
+    else { window.addEventListener('load', hideLoader); }
+})();
+
+/* ===== ADMIN UPLOADS -> images/ FOLDER =====
+   Additive wrapper only: the original upload, login and save functions are not modified.
+   Newly uploaded images are committed to images/ on "Save to Live Site" and the <img> src
+   is rewritten to the saved path before the page HTML is saved. */
+(function () {
+    var pendingUploads = new Map();
+    var originalHandleFileSelected = window.handleFileSelected;
+    var originalSaveChanges = window.saveChangesToGitHub;
+    if (typeof originalHandleFileSelected !== 'function' || typeof originalSaveChanges !== 'function') return;
+
+    window.handleFileSelected = function (event) {
+        var file = event.target.files && event.target.files[0];
+        if (file && file.type.indexOf('image/') === 0) {
+            var reader = new FileReader();
+            reader.onload = function (e) { pendingUploads.set(e.target.result, file); };
+            reader.readAsDataURL(file);
+        }
+        return originalHandleFileSelected.apply(this, arguments);
+    };
+
+    function safeName(name) {
+        return String(name || 'image').toLowerCase().replace(/[^a-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '') || 'image';
+    }
+
+    async function uploadPendingImages(token) {
+        var counter = 0;
+        var images = Array.prototype.slice.call(document.querySelectorAll('img'));
+        for (var i = 0; i < images.length; i++) {
+            var img = images[i];
+            var src = img.getAttribute('src');
+            if (!src || !pendingUploads.has(src)) continue;
+            var file = pendingUploads.get(src);
+            var fileName = 'upload-' + Date.now() + '-' + (counter++) + '-' + safeName(file.name);
+            var apiUrl = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/images/' + fileName;
+            var response = await fetch(apiUrl, {
+                method: 'PUT',
+                headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: 'Uploaded image via Admin', content: src.split(',')[1] })
+            });
+            if (!response.ok) { throw new Error('Image upload to images/ failed (' + response.status + ')'); }
+            img.setAttribute('src', 'images/' + fileName);
+            pendingUploads.delete(src);
+        }
+    }
+
+    window.saveChangesToGitHub = async function (isTokenReady) {
+        if (isTokenReady === true && pendingUploads.size) {
+            try { await uploadPendingImages(window.temp_gh_token_bagga); }
+            catch (err) { console.error('Image folder upload error:', err); }
+        }
+        return originalSaveChanges.apply(this, arguments);
+    };
+})();
