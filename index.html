@@ -6,6 +6,81 @@
     <meta name="viewport" content="width=1200, user-scalable=yes">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mani</title>
+    <!-- ===== PATCH START ===== -->
+<style>
+/* A) PAPER PAGE: पूरा पेज कागज जैसा (यह पूरा <style> हटाने पर पुराना पेज लौट आएगा) */
+html, html body {
+    background: #f4f1ea url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.2'/%3E%3C/svg%3E") !important;
+    color: #1f1e1b;
+}
+html body .bg-shape { opacity: .15 !important; }
+html body #particles-canvas { opacity: .4 !important; }
+html body .hero, html body .features-section, html body .showcase-section { background: transparent !important; }
+html body .hero-text h1, html body .hero-text p, html body .section-title, html body .section-subtitle,
+html body .about-card p, html body .page-header {
+    color: #1f1e1b !important; -webkit-text-fill-color: #1f1e1b !important; text-shadow: none !important;
+}
+html body .hero-text p, html body .section-subtitle { color: #55514a !important; -webkit-text-fill-color: #55514a !important; }
+html body .highlight, html body .hero-text .badge, html body .btn-secondary {
+    color: #0a58ca !important; -webkit-text-fill-color: #0a58ca !important; text-shadow: none !important;
+}
+html body .hero-text .badge, html body .btn-secondary { border-color: #0a58ca !important; }
+html body .card-3d, html body .about-card {
+    background: #faf8f3 !important; border: 1px solid rgba(60,55,45,.14) !important;
+    box-shadow: 0 14px 28px -16px rgba(0,0,0,.35) !important;
+}
+html body .card-3d h3 { color: #1f1e1b !important; text-shadow: none !important; }
+html body .card-3d p { color: #55514a !important; }
+html body footer { background: #e9e5db !important; border-top: 1px solid rgba(60,55,45,.12) !important; }
+html body footer p, html body footer .footer-logo, html body footer .email-text a { color: #1f1e1b !important; text-shadow: none !important; }
+</style>
+
+<style>
+/* B) NAV: छोटा, काला टेक्स्ट, हॉवर पर पतली underline */
+html body header .navbar {
+    background: rgba(244,241,234,.92) !important;
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(60,55,45,.14) !important; box-shadow: none !important;
+}
+html body header .navbar .logo, html body header .navbar .admin-name {
+    color: #1f1e1b !important; -webkit-text-fill-color: #1f1e1b !important; text-shadow: none !important;
+}
+html body header .navbar .nav-links { gap: 18px !important; }
+html body header .navbar .nav-links li a {
+    background: linear-gradient(#111, #111) no-repeat 0 100% / 0% 1.5px !important;
+    color: #111 !important;
+    padding: 4px 1px !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: .1em !important;
+    text-shadow: none !important;
+    transition: background-size .25s ease !important;
+}
+html body header .navbar .nav-links li a:hover { background-size: 100% 1.5px !important; transform: none !important; box-shadow: none !important; }
+html body header .navbar .nav-links li a:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
+</style>
+
+<script>
+/* C) SLIDER FIX: सिर्फ़ असली slides गिनो, ताकि आख़िर में blank पेज न आए */
+window.addEventListener('DOMContentLoaded', function () {
+    window.moveFrontSlide = function (direction, event) {
+        if (event) { event.stopPropagation(); clearInterval(sliderInterval); startSlider(); }
+        var track = document.getElementById('frontSliderTrack');
+        if (!track) return;
+        var slides = Array.prototype.filter.call(track.children, function (el) {
+            return /^(IMG|VIDEO|IFRAME)$/.test(el.tagName) || el.classList.contains('clean-video-wrapper');
+        });
+        if (!slides.length) return;
+        currentSlideIndex += direction;
+        if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+        if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+        track.style.transform = 'translateX(-' + (currentSlideIndex * 100) + '%)';
+    };
+});
+</script>
+<!-- ===== PATCH END ===== -->
     <!-- CSS Link -->
     <link rel="stylesheet" href="css/style.css">
     <!-- FontAwesome Icons -->
