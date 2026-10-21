@@ -1137,66 +1137,6 @@ html body footer .email-text { overflow-wrap: anywhere; line-height: 1.7; }
     html body .slider-wrapper { max-height: 34rem; }
 }
 
-/* ---------- "MONEY IS LOADING" page loader ---------- */
-#page-loader {
-    position: fixed; inset: 0; z-index: 2147483000;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: clamp(1rem, 4vw, 1.75rem);
-    background: #ffffff;
-    opacity: 1; visibility: visible;
-    transition: opacity .5s ease, visibility .5s ease;
-    /* Safety net: if scripts fail, the loader still leaves after 5s */
-    animation: loaderAutoHide .5s ease 5s forwards;
-}
-html.page-ready #page-loader { opacity: 0; visibility: hidden; pointer-events: none; }
-#page-loader .loader-triangle {
-    width: clamp(9rem, 42vw, 15rem); height: auto; overflow: visible;
-    filter: drop-shadow(0 10px 24px rgba(10, 88, 202, .35));
-    animation: loaderFloat 2.4s ease-in-out infinite;
-}
-#page-loader .loader-tri-fill { transform-origin: 50% 70%; animation: loaderPulse 1.6s ease-in-out infinite; opacity: .18; }
-#page-loader .loader-tri-line {
-    stroke-dasharray: 30 70; stroke-dashoffset: 0;
-    animation: loaderTrace 1.8s linear infinite;
-}
-#page-loader .loader-text {
-    margin: 0; font-family: "Orbitron", "JetBrains Mono", sans-serif; font-weight: 800;
-    font-size: clamp(.95rem, 4.2vw, 1.75rem); letter-spacing: .22em; text-indent: .22em;
-    color: #0a58ca; text-align: center; text-transform: uppercase;
-    animation: loaderBlink 1.6s ease-in-out infinite;
-}
-@keyframes loaderTrace { to { stroke-dashoffset: -100; } }
-@keyframes loaderPulse { 0%, 100% { opacity: .15; transform: scale(.94); } 50% { opacity: .55; transform: scale(1); } }
-@keyframes loaderFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-.5rem); } }
-@keyframes loaderBlink { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
-@keyframes loaderAutoHide { to { opacity: 0; visibility: hidden; pointer-events: none; } }
-
-/* ---------- DEMO LINK placeholders on YouTube / Instagram ---------- */
-html body .demo-link-tag {
-    display: inline-block; margin-left: .35rem; padding: .1rem .4rem; border-radius: .25rem;
-    font-family: "JetBrains Mono", monospace; font-size: .6rem; font-weight: 500; letter-spacing: .08em;
-    line-height: 1.4; text-transform: uppercase; vertical-align: middle;
-    color: #1f1e1b; background: rgba(255, 214, 10, .85);
-    -webkit-text-fill-color: #1f1e1b;
-}
-html body footer .social-links a { display: inline-flex; flex-direction: column; align-items: center; gap: .3rem; }
-html body footer .social-links .demo-link-tag { margin-left: 0; }
-
-/* ---------- Footer WhatsApp link + discreet note ---------- */
-html body footer .footer-wa { display: flex; flex-direction: column; align-items: center; gap: .3rem; margin: .25rem 0 .75rem; }
-html body footer .footer-wa .wa-icon { font-size: 1.9rem; line-height: 1; color: #25d366; transition: transform .2s ease; }
-html body footer .footer-wa .wa-icon:hover { transform: scale(1.1); }
-html body footer .footer-wa .wa-icon:focus-visible { outline: 2px solid #111; outline-offset: 3px; border-radius: 50%; }
-html body footer .footer-wa .wa-note {
-    font-size: .68rem; font-weight: 400; letter-spacing: .02em; color: #6b665c; opacity: .85;
-}
-
-@media (min-width: 1920px) {
-    #page-loader .loader-triangle { width: 16rem; }
-    #page-loader .loader-text { font-size: 2rem; }
-}
-
 @media (prefers-reduced-motion: reduce) {
     html body * { scroll-behavior: auto; transition-duration: .01ms !important; animation-duration: .01ms !important; }
-    #page-loader .loader-triangle, #page-loader .loader-tri-fill, #page-loader .loader-text { animation: none; }
 }
