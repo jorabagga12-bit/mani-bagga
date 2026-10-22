@@ -290,33 +290,28 @@ window.addEventListener('DOMContentLoaded', function () {
                 
                 if (fileInput.files && fileInput.files[0]) {
                     const file = fileInput.files[0];
-                    const reader = new FileReader();
-                    reader.onload = function(evt) {
-                        const fileData = evt.target.result;
-                        let oldImg = currentActiveNotifItem.querySelector('img.notif-hidden-media');
-                        let oldVid = currentActiveNotifItem.querySelector('video.notif-hidden-media');
-                        if(oldImg) oldImg.remove();
-                        if(oldVid) oldVid.remove();
+                    let oldImg = currentActiveNotifItem.querySelector('img.notif-hidden-media');
+                    let oldVid = currentActiveNotifItem.querySelector('video.notif-hidden-media');
+                    if(oldImg) { releaseMedia(oldImg); oldImg.remove(); }
+                    if(oldVid) { releaseMedia(oldVid); oldVid.remove(); }
 
-                        const textContainer = currentActiveNotifItem.querySelector('.notif-text');
-                        if(file.type.startsWith('image/')) {
-                            let newImg = document.createElement('img');
-                            newImg.src = fileData;
-                            newImg.className = 'media-target notif-hidden-media';
-                            newImg.style.display = 'none';
-                            textContainer.appendChild(newImg);
-                        } else if(file.type.startsWith('video/')) {
-                            let newVid = document.createElement('video');
-                            newVid.src = fileData;
-                            newVid.className = 'media-target notif-hidden-media';
-                            newVid.style.display = 'none';
-                            textContainer.appendChild(newVid);
-                        }
-                        bindMediaClickHandlers();
-                        customAlert('Notification Updated Successfully!', 'SUCCESS', 'fa-circle-check', 'success');
-                        closeUploadModal();
-                    };
-                    reader.readAsDataURL(file);
+                    const textContainer = currentActiveNotifItem.querySelector('.notif-text');
+                    if(file.type.startsWith('image/')) {
+                        let newImg = document.createElement('img');
+                        newImg.src = registerUpload(file);
+                        newImg.className = 'media-target notif-hidden-media';
+                        newImg.style.display = 'none';
+                        textContainer.appendChild(newImg);
+                    } else if(file.type.startsWith('video/')) {
+                        let newVid = document.createElement('video');
+                        newVid.src = registerUpload(file);
+                        newVid.className = 'media-target notif-hidden-media';
+                        newVid.style.display = 'none';
+                        textContainer.appendChild(newVid);
+                    }
+                    bindMediaClickHandlers();
+                    customAlert('Notification Updated Successfully!', 'SUCCESS', 'fa-circle-check', 'success');
+                    closeUploadModal();
                 } else {
                     customAlert('Notification Updated Successfully!', 'SUCCESS', 'fa-circle-check', 'success');
                     closeUploadModal();
@@ -329,27 +324,23 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 if (fileInput.files && fileInput.files[0]) {
                     const file = fileInput.files[0];
-                    const reader = new FileReader();
-                    reader.onload = function(evt) {
-                        const fileData = evt.target.result;
-                        let tagMarkup = file.type.startsWith('video/') ? 
-                            `<video src="${fileData}" class="media-target notif-hidden-media" style="display:none;"></video>` : 
-                            `<img src="${fileData}" class="media-target notif-hidden-media" style="display:none;">`;
-                        
-                        newItem.innerHTML = `
-                            <div class="notif-date">${todayDate}</div>
-                            <div class="notif-text">
-                                <div class="notif-title">${title}</div>
-                                <div class="notif-desc" style="display:none;">${desc}</div>
-                                ${tagMarkup}
-                            </div>
-                        `;
-                        wrapper.insertBefore(newItem, wrapper.firstChild);
-                        bindMediaClickHandlers();
-                        customAlert('New Notification Published Successfully! Go to Notifications page to view it.', 'PUBLISHED', 'fa-circle-check', 'success');
-                        closeUploadModal();
-                    };
-                    reader.readAsDataURL(file);
+                    const fileUrl = registerUpload(file);
+                    let tagMarkup = file.type.startsWith('video/') ? 
+                        `<video src="${fileUrl}" class="media-target notif-hidden-media" style="display:none;"></video>` : 
+                        `<img src="${fileUrl}" class="media-target notif-hidden-media" style="display:none;">`;
+                    
+                    newItem.innerHTML = `
+                        <div class="notif-date">${todayDate}</div>
+                        <div class="notif-text">
+                            <div class="notif-title">${title}</div>
+                            <div class="notif-desc" style="display:none;">${desc}</div>
+                            ${tagMarkup}
+                        </div>
+                    `;
+                    wrapper.insertBefore(newItem, wrapper.firstChild);
+                    bindMediaClickHandlers();
+                    customAlert('New Notification Published Successfully! Go to Notifications page to view it.', 'PUBLISHED', 'fa-circle-check', 'success');
+                    closeUploadModal();
                 } else {
                     newItem.innerHTML = `
                         <div class="notif-date">${todayDate}</div>
@@ -493,7 +484,7 @@ window.addEventListener('DOMContentLoaded', function () {
             customConfirm("क्या आप इस पूरे कार्ड/गैलरी आइटम को डिलीट करना चाहते हैं?", function(confirmed) {
                 if(confirmed) {
                     const card = btn.closest('.showcase-item, .card-3d');
-                    if (card) { card.remove(); }
+                    if (card) { releaseMedia(card); card.remove(); }
                 }
             });
         }
@@ -505,6 +496,7 @@ window.addEventListener('DOMContentLoaded', function () {
             if (card) {
                 customConfirm("क्या आप इस पूरे कार्ड को डिलीट करना चाहते हैं?", function(confirmed) {
                     if(confirmed) {
+                        releaseMedia(card);
                         card.remove();
                         document.getElementById('admin-text-controls')?.remove();
                     }
@@ -727,11 +719,11 @@ window.addEventListener('DOMContentLoaded', function () {
                 }
 
                 newItem.innerHTML = `
-                    <div class="clean-video-wrapper" style="position:relative; width:100%; height:220px; overflow:hidden; border-radius:10px;">
-                        <iframe class="media-target" width="100%" height="100%" src="${videoEmbedUrl}" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px; border:none; transform:scale(1.18); transform-origin:center;"></iframe>
-                        <div class="yt-blocker-top" style="position:absolute; top:0; left:0; width:100%; height:60px; z-index:5; background:transparent;"></div>
+                    <div class="clean-video-wrapper yt-embed">
+                        <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen></iframe>
+                        <div class="yt-blocker-top"></div>
                     </div>
-                    <div class="showcase-overlay" style="position:relative; background:rgba(0,0,0,0.8); padding:10px; margin-top:5px; border-radius:5px;">
+                    <div class="showcase-overlay yt-caption">
                         <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
                         <p contenteditable="true" class="editable-active">Watch full match on channel</p>
                     </div>
@@ -1102,8 +1094,10 @@ window.addEventListener('DOMContentLoaded', function () {
                 if(confirmed && currentTargetElement) {
                     let parentCard = currentTargetElement.closest('.showcase-item');
                     if (parentCard) {
+                        releaseMedia(parentCard);
                         parentCard.remove();
                     } else {
+                        releaseMedia(currentTargetElement);
                         currentTargetElement.remove();
                     }
                     document.getElementById('admin-img-controls')?.remove();
@@ -1159,7 +1153,8 @@ window.addEventListener('DOMContentLoaded', function () {
         function changePhotoByUrl() {
             customPrompt("PASTE IMAGE / VIDEO / INSTA URL", "Paste direct URL, YouTube link, or Instagram post/reel link here:", function(url) {
                 if(url && currentTargetElement) {
-                    
+                    releaseMedia(currentTargetElement);
+
                     // YOUTUBE CLEAN EMBED PARSER
                     let ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|live\/|shorts\/))([^"&?\/\s]{11})/);
                     let ytId = (ytMatch && ytMatch[1]) ? ytMatch[1] : (url.length === 11 && !url.includes('/') ? url : null);
@@ -1175,31 +1170,27 @@ window.addEventListener('DOMContentLoaded', function () {
                         if (parentWrapper) {
                             let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
                             iframe.src = cleanEmbedSrc;
-                            iframe.style.transform = 'scale(1.18)';
-                            iframe.style.transformOrigin = 'center';
+                            iframe.classList.add('yt-frame');
                             if (!parentWrapper.querySelector('.yt-blocker-top')) {
                                 let blocker = document.createElement('div');
                                 blocker.className = 'yt-blocker-top';
-                                blocker.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:60px; z-index:5; background:transparent;';
                                 parentWrapper.appendChild(blocker);
                             }
                             currentTargetElement = iframe;
                         } else {
                             let wrapper = document.createElement('div');
-                            wrapper.className = 'clean-video-wrapper';
-                            wrapper.style.cssText = 'position:relative; width:100%; height:100%; min-height:220px; overflow:hidden; border-radius:inherit;';
+                            wrapper.className = 'clean-video-wrapper yt-embed yt-embed-fill';
 
                             let iframe = document.createElement('iframe');
-                            iframe.className = currentTargetElement.className;
+                            iframe.className = currentTargetElement.className + ' yt-frame';
                             iframe.src = cleanEmbedSrc;
+                            iframe.title = 'YouTube video player';
                             iframe.setAttribute('frameborder', '0');
-                            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-                            iframe.setAttribute('allowfullscreen', 'true');
-                            iframe.style.cssText = 'width:100%; height:100%; border:none; border-radius:inherit; transform:scale(1.18); transform-origin:center;';
+                            iframe.setAttribute('allow', YT_IFRAME_ALLOW);
+                            iframe.setAttribute('allowfullscreen', '');
 
                             let blocker = document.createElement('div');
                             blocker.className = 'yt-blocker-top';
-                            blocker.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:60px; z-index:5; background:transparent;';
 
                             wrapper.appendChild(iframe);
                             wrapper.appendChild(blocker);
@@ -1255,20 +1246,131 @@ window.addEventListener('DOMContentLoaded', function () {
 
         function handleFileSelected(event) {
             const file = event.target.files[0]; if (!file || !currentTargetElement) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const fileData = e.target.result;
-                if (file.type.startsWith('image/')) {
-                    if (currentTargetElement.tagName.toLowerCase() === 'video' || currentTargetElement.tagName.toLowerCase() === 'iframe') { 
-                        const newImg = document.createElement('img'); newImg.src = fileData; newImg.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement); currentTargetElement = newImg; 
-                    } 
-                    else { currentTargetElement.src = fileData; }
-                } else if (file.type.startsWith('video/')) {
-                    const newVideo = document.createElement('video'); newVideo.src = fileData; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = true; newVideo.loop = true; newVideo.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement); currentTargetElement = newVideo;
+            const isImage = file.type.startsWith('image/');
+            const isVideo = file.type.startsWith('video/');
+            if (!isImage && !isVideo) { event.target.value = ''; return; }
+            releaseMedia(currentTargetElement);
+            const fileUrl = registerUpload(file);
+            const tag = currentTargetElement.tagName.toLowerCase();
+            if (isImage) {
+                if (tag === 'video' || tag === 'iframe') {
+                    const newImg = document.createElement('img'); newImg.src = fileUrl; newImg.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newImg, currentTargetElement); currentTargetElement = newImg;
+                } else { currentTargetElement.src = fileUrl; }
+            } else {
+                const newVideo = document.createElement('video'); newVideo.src = fileUrl; newVideo.controls = true; newVideo.autoplay = true; newVideo.muted = true; newVideo.loop = true; newVideo.className = currentTargetElement.className; currentTargetElement.parentNode.replaceChild(newVideo, currentTargetElement); currentTargetElement = newVideo;
+            }
+            document.getElementById('admin-img-controls')?.remove(); bindMediaClickHandlers(); startSlider();
+            event.target.value = '';
+        }
+
+        // ================= MEDIA FILES: uploads are saved as real files, never inline Base64 ================= //
+        const YT_IFRAME_ALLOW = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        const pendingUploads = new Map();
+        const pendingDeletes = new Set();
+
+        function registerUpload(file) {
+            const dot = file.name.lastIndexOf('.');
+            const rawBase = dot > -1 ? file.name.slice(0, dot) : file.name;
+            const rawExt = dot > -1 ? file.name.slice(dot + 1) : (file.type.split('/')[1] || 'bin');
+            const base = rawBase.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'upload';
+            const ext = rawExt.toLowerCase().replace(/[^a-z0-9]/g, '') || 'bin';
+            const folder = file.type.startsWith('video/') ? 'videos' : 'images';
+            const path = `${folder}/${base}-${Date.now().toString(36)}.${ext}`;
+            const url = URL.createObjectURL(file);
+            pendingUploads.set(url, { file: file, path: path, uploaded: false });
+            return url;
+        }
+
+        function repoPathFromSrc(src) {
+            if (!src || /^(blob:|data:|[a-z][a-z0-9+.-]*:|\/\/)/i.test(src)) return null;
+            const clean = src.replace(/^\.?\//, '').split(/[?#]/)[0];
+            if (!/^(images|videos)\/.+/.test(clean)) return null;
+            try { return decodeURIComponent(clean); } catch (err) { return clean; }
+        }
+
+        function releaseMedia(root) {
+            if (!root || !root.querySelectorAll) return;
+            [root].concat(Array.from(root.querySelectorAll('img[src], video[src], source[src]'))).forEach(el => {
+                const src = el.getAttribute && el.getAttribute('src');
+                if (!src) return;
+                if (pendingUploads.has(src)) {
+                    pendingUploads.delete(src);
+                    URL.revokeObjectURL(src);
+                } else {
+                    const repoPath = repoPathFromSrc(src);
+                    if (repoPath) pendingDeletes.add(repoPath);
                 }
-                document.getElementById('admin-img-controls')?.remove(); bindMediaClickHandlers(); startSlider();
-            };
-            reader.readAsDataURL(file); event.target.value = '';
+            });
+        }
+
+        function blobToBase64(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(String(reader.result).split(',')[1]);
+                reader.onerror = () => reject(reader.error);
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        function githubContentsUrl(path) {
+            return `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path.split('/').map(encodeURIComponent).join('/')}`;
+        }
+
+        async function githubUploadFile(path, blob, token) {
+            const url = githubContentsUrl(path);
+            const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
+            const existing = await fetch(url, { headers: headers });
+            const body = { message: `Add media ${path}`, content: await blobToBase64(blob) };
+            if (existing.ok) body.sha = (await existing.json()).sha;
+            const res = await fetch(url, { method: 'PUT', headers: headers, body: JSON.stringify(body) });
+            if (!res.ok) throw new Error(`Could not upload ${path}: ${(await res.json()).message || res.status}`);
+        }
+
+        async function githubDeleteFile(path, token) {
+            const url = githubContentsUrl(path);
+            const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
+            const existing = await fetch(url, { headers: headers });
+            if (!existing.ok) return;
+            await fetch(url, { method: 'DELETE', headers: headers, body: JSON.stringify({ message: `Remove media ${path}`, sha: (await existing.json()).sha }) });
+        }
+
+        async function publishMediaChanges(clone, token) {
+            const uploads = new Map();
+            const dataUriPaths = new Map();
+            let counter = 0;
+
+            for (const el of clone.querySelectorAll('img[src], video[src], source[src]')) {
+                const src = el.getAttribute('src');
+                const pending = pendingUploads.get(src);
+                if (pending) {
+                    if (!pending.uploaded) uploads.set(pending.path, { blob: pending.file, entry: pending });
+                    el.setAttribute('src', pending.path);
+                } else if (src.startsWith('data:')) {
+                    if (!dataUriPaths.has(src)) {
+                        const blob = await (await fetch(src)).blob();
+                        const folder = blob.type.startsWith('video/') ? 'videos' : 'images';
+                        const ext = (blob.type.split('/')[1] || 'bin').split(/[+;]/)[0].replace('jpeg', 'jpg');
+                        const path = `${folder}/upload-${Date.now().toString(36)}-${counter++}.${ext}`;
+                        dataUriPaths.set(src, path);
+                        uploads.set(path, { blob: blob, entry: null });
+                    }
+                    el.setAttribute('src', dataUriPaths.get(src));
+                }
+            }
+
+            for (const [path, item] of uploads) {
+                await githubUploadFile(path, item.blob, token);
+                if (item.entry) item.entry.uploaded = true;
+            }
+
+            if (pendingDeletes.size) {
+                const fetchText = url => fetch(url, { cache: 'no-store' }).then(r => r.ok ? r.text() : '').catch(() => '');
+                const haystack = clone.outerHTML + (await fetchText('css/style.css')) + (await fetchText('js/script.js'));
+                for (const path of Array.from(pendingDeletes)) {
+                    if (!haystack.includes(path)) await githubDeleteFile(path, token);
+                    pendingDeletes.delete(path);
+                }
+            }
         }
 
         // ================= GITHUB AUTO-SAVE SYSTEM ================= //
@@ -1363,6 +1465,9 @@ window.addEventListener('DOMContentLoaded', function () {
                     el.classList.remove('media-editable'); el.removeAttribute('title');
                     el.style.outline = ''; el.onclick = null;
                 });
+
+                clone.querySelectorAll('#page-loader, #particles-canvas').forEach(el => el.remove());
+                await publishMediaChanges(clone, token);
 
                 const fullHTML = "<!DOCTYPE html>\n<html lang=\"en\">\n" + clone.innerHTML + "\n</html>";
                 const base64Content = stringToBase64UTF8(fullHTML);
@@ -1542,16 +1647,16 @@ window.addEventListener('DOMContentLoaded', function () {
     var loader = document.getElementById('page-loader');
     if (!loader) return;
     var loaderTemplate = loader.cloneNode(true);
-    var loaderTimer = setTimeout(function () { loader.remove(); }, 2200);
+    var LOADER_VISIBLE_MS = 1700;
+    var loaderTimer = setTimeout(function () { loader.remove(); }, LOADER_VISIBLE_MS);
 
     window.showPageLoader = function () {
         var current = document.getElementById('page-loader');
         if (current) current.remove();
         clearTimeout(loaderTimer);
         var fresh = loaderTemplate.cloneNode(true);
-        fresh.classList.add('pl-replay');
         document.body.insertBefore(fresh, document.body.firstChild);
-        loaderTimer = setTimeout(function () { fresh.remove(); }, 1500);
+        loaderTimer = setTimeout(function () { fresh.remove(); }, LOADER_VISIBLE_MS);
     };
 
     var originalNavigateTo = window.navigateTo;
