@@ -1406,3 +1406,7 @@ html.nav-collapsed body header .navbar .nav-links li a {
     html body .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
     html body header .navbar .nav-links li a { font-size: .62rem !important; }
 }
+
+/* Smooth rounded shape for every image, including future uploads (no HTML changes needed) */
+html body img:not(.admin-img):not(.pl-logo) { border-radius: 1rem; }
+html body .admin-img { border-radius: 50%; }
