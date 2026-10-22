@@ -1536,3 +1536,8 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 });
+
+window.addEventListener('DOMContentLoaded', function () {
+    var loader = document.getElementById('page-loader');
+    if (loader) setTimeout(function () { loader.remove(); }, 2600);
+});
