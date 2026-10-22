@@ -1566,3 +1566,95 @@ window.addEventListener('DOMContentLoaded', function () {
 window.addEventListener('pageshow', function (event) {
     if (event.persisted && typeof window.showPageLoader === 'function') window.showPageLoader();
 });
+
+window.addEventListener('DOMContentLoaded', function () {
+    var section = document.getElementById('speed-section');
+    if (!section || !('IntersectionObserver' in window)) return;
+    var counters = [];
+    section.querySelectorAll('.spd-num').forEach(function (el) {
+        var node = Array.prototype.find.call(el.childNodes, function (n) {
+            return n.nodeType === 3 && /\d/.test(n.nodeValue);
+        });
+        if (!node) return;
+        var raw = node.nodeValue;
+        var target = parseFloat(raw.trim());
+        if (!(target > 0)) return;
+        counters.push({ node: node, raw: raw, target: target, decimals: (raw.trim().split('.')[1] || '').length });
+    });
+    if (!counters.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var duration = 1800;
+    function run() {
+        var start = performance.now();
+        counters.forEach(function (c) { c.node.nodeValue = (0).toFixed(c.decimals); });
+        function frame(now) {
+            var t = Math.min((now - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - t, 3);
+            counters.forEach(function (c) {
+                c.node.nodeValue = t < 1 ? (c.target * eased).toFixed(c.decimals) : c.raw;
+            });
+            if (t < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+    }
+
+    var counterObserver = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) {
+            counterObserver.disconnect();
+            run();
+        }
+    }, { threshold: 0.35 });
+    counterObserver.observe(section);
+});
+
+document.addEventListener('click', function (event) {
+    var link = event.target.closest && event.target.closest('a[data-social]');
+    if (link && link.getAttribute('href') === '#') event.preventDefault();
+});
+
+/* YouTube cards, images and titles never redirect. Footer/hero social buttons are untouched. */
+(function () {
+    var YT_URL = /(youtube\.com|youtu\.be|youtube-nocookie\.com)/i;
+    var ZONES = '.clean-video-wrapper, .card-3d, .showcase-item, .custom-text-card, .card-img-container, #tilt-card';
+    var LINK_IN_ZONE = ZONES.split(',').map(function (z) { return z.trim() + ' a[href]'; }).join(', ');
+
+    function neutralize() {
+        document.querySelectorAll(LINK_IN_ZONE).forEach(function (a) {
+            if (a.hasAttribute('data-social')) return;
+            if (YT_URL.test(a.getAttribute('href') || '')) {
+                a.removeAttribute('href');
+                a.removeAttribute('target');
+            }
+        });
+    }
+
+    function blockRedirect(event) {
+        var target = event.target;
+        if (!target || !target.closest) return;
+        var zone = target.closest(ZONES);
+        var link = target.closest('a[href]');
+        if (zone && link && zone.contains(link) && !link.hasAttribute('data-social') && YT_URL.test(link.href)) {
+            event.preventDefault();
+        }
+    }
+    document.addEventListener('click', blockRedirect, true);
+    document.addEventListener('auxclick', blockRedirect, true);
+
+    var nativeOpen = window.open;
+    window.open = function (url) {
+        if (typeof url === 'string' && YT_URL.test(url)) return null;
+        return nativeOpen.apply(window, arguments);
+    };
+
+    var queued = false;
+    function schedule() {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(function () { queued = false; neutralize(); });
+    }
+    window.addEventListener('DOMContentLoaded', function () {
+        neutralize();
+        new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true });
+    });
+})();
