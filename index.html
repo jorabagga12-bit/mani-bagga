@@ -244,13 +244,6 @@
             <p class="spd-note" contenteditable="false" style="user-select: auto; cursor: text;">The first two are wall-clock, taken from the platform’s own records.</p>
         </div></div>
 
-    <div id="video-section" class="video-sec">
-        <div class="video-sec-frame">
-            <video class="video-sec-player" autoplay loop muted playsinline preload="metadata" aria-label="Mani HP live streaming highlight reel">
-                <source src="images/logo.mp4" type="video/mp4">
-            </video>
-        </div>
-    </div>
     </div>
 
     <!-- ==================== PAGE 2: GALLERY ==================== -->
@@ -342,8 +335,12 @@
     </div>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-container">
+    <footer id="video-section" class="footer-video">
+        <video class="footer-video-bg" autoplay loop muted playsinline preload="auto" poster="images/video-poster.png" aria-hidden="true" tabindex="-1">
+            <source src="images/logo.mp4" type="video/mp4">
+        </video>
+        <div class="footer-video-scrim" aria-hidden="true"></div>
+        <div class="footer-container footer-overlay">
             <div class="footer-logo" contenteditable="false" style="user-select: auto; cursor: text;">
                 <i class="fa-solid fa-gamepad"></i> MANI<span contenteditable="false" class="" style="user-select: auto; cursor: text;">M4YT</span>
             </div>

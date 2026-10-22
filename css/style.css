@@ -1026,22 +1026,42 @@ html body .speed-sec .spd-cap {
 }
 html body .speed-sec .spd-note { font-family: Inter, "Poppins", system-ui, sans-serif; color: rgba(255, 255, 255, .7); }
 
-/* ---------- Video block: sits in the white space under the blue card, above the footer ---------- */
-html body .video-sec {
-    width: 100%; max-width: 75rem; margin: 0 auto;
-    padding: clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 5vw, 3.5rem) clamp(1.75rem, 5vw, 3.5rem);
-    box-sizing: border-box; position: relative;
+/* ---------- Footer with full background video ---------- */
+html body footer.footer-video {
+    position: relative; overflow: hidden; isolation: isolate;
+    padding: 0 !important; background: #0b0830 !important; border-top: 0 !important;
 }
-html body .video-sec-frame {
-    width: 100%; overflow: hidden; border-radius: 1.25rem; background: #130a78;
-    box-shadow: 0 18px 40px -18px rgba(32, 16, 184, .55);
+html body footer.footer-video .footer-video-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 0; pointer-events: none;
 }
-html body .video-sec-player {
-    display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
-    object-fit: cover; border-radius: inherit; background: #130a78;
+html body footer.footer-video .footer-video-scrim {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(8, 6, 32, .55), rgba(8, 6, 32, .7));
+    -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
 }
-@media (max-width: 640px) {
-    html body .video-sec-frame { border-radius: 1rem; }
+html body footer.footer-video .footer-overlay {
+    position: relative; z-index: 1; text-align: center;
+    padding: 40px 20px; max-width: 75rem; margin: 0 auto; box-sizing: border-box;
+}
+html body footer.footer-video p,
+html body footer.footer-video .footer-logo,
+html body footer.footer-video .footer-logo span,
+html body footer.footer-video .email-text a {
+    color: #fff !important; text-shadow: 0 2px 10px rgba(0, 0, 0, .7) !important;
+    -webkit-text-fill-color: #fff !important; background: none !important;
+}
+html body footer.footer-video .email-text a { text-decoration: underline; text-underline-offset: 3px; }
+html body footer.footer-video .social-links { justify-content: center; }
+html body footer.footer-video .social-links a {
+    color: #fff; background: rgba(255, 255, 255, .16);
+    border-color: rgba(255, 255, 255, .55);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+html body footer.footer-video .social-links a:hover,
+html body footer.footer-video .social-links a:focus-visible {
+    color: #fff; background: rgba(255, 255, 255, .3); border-color: #fff;
+    box-shadow: 0 10px 22px -10px rgba(0, 0, 0, .7);
 }
 
 /* ---------- Custom text cards: blue-gradient 3D styling matching the blue section ---------- */
