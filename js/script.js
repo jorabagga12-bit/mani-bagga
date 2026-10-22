@@ -530,7 +530,8 @@ window.addEventListener('DOMContentLoaded', function () {
         function toggleEditWebsiteTools() {
             const toolsMenu = document.getElementById('adminEditTools');
             const editBtn = document.getElementById('toggleEditBtn');
-            const textElements = document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-tag), .nav-links a, .footer-logo, footer p, .email-text, .admin-name, .btn-primary, .btn-main, .btn-secondary, label, .logo, .logo span');
+            const textElements = Array.from(document.querySelectorAll('h1, h2, h3, h4, p:not(.notif-desc), span:not(.close-btn):not(.admin-tag), .nav-links a, .footer-logo, footer p, .email-text, .admin-name, .btn-primary, .btn-main, .btn-secondary, label, .logo, .logo span'))
+                .filter(el => !el.closest('.admin-modal, .admin-box, #adminDashboard, #adminEditTools, #page-loader, .nav-toggle'));
 
             if (toolsMenu.style.display === 'block') {
                 toolsMenu.style.display = 'none';
@@ -1541,7 +1542,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var loader = document.getElementById('page-loader');
     if (!loader) return;
     var loaderTemplate = loader.cloneNode(true);
-    var loaderTimer = setTimeout(function () { loader.remove(); }, 2600);
+    var loaderTimer = setTimeout(function () { loader.remove(); }, 2200);
 
     window.showPageLoader = function () {
         var current = document.getElementById('page-loader');
@@ -1550,7 +1551,7 @@ window.addEventListener('DOMContentLoaded', function () {
         var fresh = loaderTemplate.cloneNode(true);
         fresh.classList.add('pl-replay');
         document.body.insertBefore(fresh, document.body.firstChild);
-        loaderTimer = setTimeout(function () { fresh.remove(); }, 1900);
+        loaderTimer = setTimeout(function () { fresh.remove(); }, 1500);
     };
 
     var originalNavigateTo = window.navigateTo;
@@ -1558,7 +1559,7 @@ window.addEventListener('DOMContentLoaded', function () {
         window.navigateTo = function (pageId) {
             var blocked = (typeof isMoveModeActive !== 'undefined' && isMoveModeActive) ||
                 (typeof isResizeModeActive !== 'undefined' && isResizeModeActive);
-            if (pageId === 'gallery' && !blocked) window.showPageLoader();
+            if (!blocked) window.showPageLoader();
             return originalNavigateTo.apply(this, arguments);
         };
     }

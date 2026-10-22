@@ -1141,64 +1141,80 @@ html body footer .email-text { overflow-wrap: anywhere; line-height: 1.7; }
     html body * { scroll-behavior: auto; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 
-/* ---------- Page loader (2s) ---------- */
+/* ---------- M4 GAMER page loader: two split cut-out triangles orbiting each other ---------- */
 #page-loader {
     position: fixed; inset: 0; z-index: 99999;
     display: flex; align-items: center; justify-content: center;
-    background: #f4f1ea;
-    animation: pl-out .45s ease 2s forwards;
+    background:
+        radial-gradient(60% 50% at 50% 45%, rgba(124, 58, 237, .10), rgba(124, 58, 237, 0) 70%),
+        radial-gradient(50% 40% at 78% 80%, rgba(0, 198, 255, .12), rgba(0, 198, 255, 0) 70%),
+        #fbf8f0;
+    animation: pl-out .45s ease 1.6s forwards;
 }
 #page-loader .sr-only {
     position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 .pl-stage {
-    position: relative; width: min(280px, 70vw); aspect-ratio: 1;
-    display: flex; align-items: center; justify-content: center;
+    font-size: calc(1rem * var(--nav-zoom, 1));
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+    gap: .9em 1.2em; padding: 1em; max-width: 100%; box-sizing: border-box;
 }
-.pl-ring {
-    position: absolute; inset: 0; border-radius: 50%;
-    border: 3px solid rgba(10, 88, 202, .12);
-    border-top-color: #0a58ca; border-right-color: #7c3aed;
-    animation: pl-spin 1s linear infinite;
+html.nav-collapsed .pl-stage { flex-direction: column; }
+.pl-mark {
+    width: 6.5em; height: 6.5em; flex: none; overflow: visible;
+    filter: drop-shadow(0 .5em .8em rgba(124, 58, 237, .28));
+    animation: pl-pop .6s cubic-bezier(.2, .8, .3, 1.2) both;
 }
-.pl-ring-2 {
-    inset: 14px; border-width: 2px;
-    border-top-color: transparent; border-right-color: transparent;
-    border-bottom-color: #7c3aed; border-left-color: #0a58ca;
-    animation-duration: 1.6s; animation-direction: reverse;
+.pl-orbit { transform-origin: 100px 100px; }
+.pl-orbit-a { animation: pl-spin 3.2s cubic-bezier(.65, 0, .35, 1) infinite; }
+.pl-orbit-b { animation: pl-spin-rev 2.4s cubic-bezier(.65, 0, .35, 1) infinite; }
+.pl-brand {
+    display: flex; flex-direction: column; align-items: flex-start; gap: .45em;
+    animation: pl-rise .6s ease .15s both;
 }
-.pl-tri { width: 62%; height: auto; overflow: visible; }
-.pl-tri-line {
-    stroke-dasharray: 100; stroke-dashoffset: 100;
-    animation: pl-draw 1.4s cubic-bezier(.65, 0, .35, 1) .1s forwards;
-}
-.pl-tri-text {
+html.nav-collapsed .pl-brand { align-items: center; }
+.pl-name {
     font-family: var(--font-tech, "Orbitron", system-ui, sans-serif);
-    font-weight: 800; font-size: 17px; letter-spacing: .08em;
-    opacity: 0; animation: pl-fade .6s ease .9s forwards;
+    font-weight: 800; font-size: 1.9em; line-height: 1; letter-spacing: .1em; white-space: nowrap;
+    margin: 0;
+}
+.pl-m4 {
+    background: linear-gradient(90deg, #ff2d95, #7c3aed);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+}
+.pl-gamer {
+    background: linear-gradient(90deg, #0a58ca, #00c6ff);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+}
+.pl-bar {
+    display: block; width: 100%; height: .22em; border-radius: 1em;
+    background: rgba(20, 19, 26, .08); overflow: hidden;
+}
+.pl-bar::after {
+    content: ""; display: block; width: 45%; height: 100%; border-radius: inherit;
+    background: linear-gradient(90deg, #ff2d95, #7c3aed, #00c6ff);
+    animation: pl-slide 1s ease-in-out infinite;
 }
 @keyframes pl-spin { to { transform: rotate(360deg); } }
-@keyframes pl-draw { to { stroke-dashoffset: 0; } }
-@keyframes pl-fade { to { opacity: 1; } }
+@keyframes pl-spin-rev { to { transform: rotate(-360deg); } }
+@keyframes pl-slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(230%); } }
+@keyframes pl-pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
+@keyframes pl-rise { from { opacity: 0; transform: translateY(.6em); } to { opacity: 1; transform: translateY(0); } }
 @keyframes pl-out { to { opacity: 0; visibility: hidden; } }
+#page-loader.pl-replay { animation-delay: .8s; }
+#page-loader.pl-replay .pl-mark,
+#page-loader.pl-replay .pl-brand { animation-duration: .3s; animation-delay: 0s; }
 @media (prefers-reduced-motion: reduce) {
-    .pl-ring { animation-duration: 3s; }
+    .pl-orbit-a { animation-duration: 6s; }
+    .pl-orbit-b { animation-duration: 5s; }
 }
 
-/* ---------- Loader: M416 Glacier mark inside the triangle ---------- */
-.pl-gun {
-    opacity: 0; transform-origin: 100px 99px;
-    filter: drop-shadow(0 8px 12px rgba(10, 88, 202, .35));
-    animation: pl-gun-in .6s cubic-bezier(.2, .8, .3, 1.15) .55s forwards;
-}
-.pl-gun-shape { animation: pl-gun-glint 2.4s ease-in-out 1.3s infinite; }
-@keyframes pl-gun-in { from { opacity: 0; transform: scale(.6) translateY(6px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-@keyframes pl-gun-glint { 0%, 100% { opacity: 1; } 50% { opacity: .72; } }
-#page-loader.pl-replay { animation-delay: 1.4s; }
-#page-loader.pl-replay .pl-tri-line { animation-duration: 1s; animation-delay: 0s; }
-#page-loader.pl-replay .pl-gun { animation-delay: .3s; }
-#page-loader.pl-replay .pl-tri-text { animation-delay: .55s; }
+/* ---------- Admin tool fields stay read-only ---------- */
+.admin-modal [contenteditable], #adminDashboard [contenteditable] { -webkit-user-modify: read-only; }
+.admin-modal .editable-active, #adminDashboard .editable-active { border: 0 !important; padding: 0; cursor: default !important; }
 
 /* ---------- Header: brand mark beside the logo text ---------- */
 html body header .navbar .logo {
