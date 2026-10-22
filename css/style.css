@@ -1140,3 +1140,48 @@ html body footer .email-text { overflow-wrap: anywhere; line-height: 1.7; }
 @media (prefers-reduced-motion: reduce) {
     html body * { scroll-behavior: auto; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* ---------- Page loader (2s) ---------- */
+#page-loader {
+    position: fixed; inset: 0; z-index: 99999;
+    display: flex; align-items: center; justify-content: center;
+    background: #f4f1ea;
+    animation: pl-out .45s ease 2s forwards;
+}
+#page-loader .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.pl-stage {
+    position: relative; width: min(280px, 70vw); aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+}
+.pl-ring {
+    position: absolute; inset: 0; border-radius: 50%;
+    border: 3px solid rgba(10, 88, 202, .12);
+    border-top-color: #0a58ca; border-right-color: #7c3aed;
+    animation: pl-spin 1s linear infinite;
+}
+.pl-ring-2 {
+    inset: 14px; border-width: 2px;
+    border-top-color: transparent; border-right-color: transparent;
+    border-bottom-color: #7c3aed; border-left-color: #0a58ca;
+    animation-duration: 1.6s; animation-direction: reverse;
+}
+.pl-tri { width: 62%; height: auto; overflow: visible; }
+.pl-tri-line {
+    stroke-dasharray: 100; stroke-dashoffset: 100;
+    animation: pl-draw 1.4s cubic-bezier(.65, 0, .35, 1) .1s forwards;
+}
+.pl-tri-text {
+    font-family: var(--font-tech, "Orbitron", system-ui, sans-serif);
+    font-weight: 800; font-size: 17px; letter-spacing: .08em;
+    opacity: 0; animation: pl-fade .6s ease .9s forwards;
+}
+@keyframes pl-spin { to { transform: rotate(360deg); } }
+@keyframes pl-draw { to { stroke-dashoffset: 0; } }
+@keyframes pl-fade { to { opacity: 1; } }
+@keyframes pl-out { to { opacity: 0; visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) {
+    .pl-ring { animation-duration: 3s; }
+}
