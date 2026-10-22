@@ -242,7 +242,16 @@
                 <div class="spd-cell"><p class="spd-num" contenteditable="false" style="user-select: auto; cursor: text;">1</p><p class="spd-cap" contenteditable="false" style="user-select: auto; cursor: text;">Sentence to deploy it</p></div>
             </div>
             <p class="spd-note" contenteditable="false" style="user-select: auto; cursor: text;">The first two are wall-clock, taken from the platform’s own records.</p>
-        </div></div></div>
+        </div></div>
+
+    <div id="video-section" class="video-sec">
+        <div class="video-sec-frame">
+            <video class="video-sec-player" autoplay loop muted playsinline preload="metadata" aria-label="Mani HP live streaming highlight reel">
+                <source src="images/logo.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+    </div>
 
     <!-- ==================== PAGE 2: GALLERY ==================== -->
     <div id="page-gallery" class="page-view">
@@ -288,7 +297,7 @@
     <div id="page-notifications" class="page-view">
         <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">LATEST <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">NOTIFICATIONS</span></h1>
         
-        <div class="notif-container">
+        <div class="notif-container" id="notif-block">
             <div class="notif-list-wrapper" id="notifWrapper">
                 <div class="notif-list-item" onclick="viewNotification(this)">
                     <div class="notif-date">18-09-2026</div>
@@ -306,7 +315,7 @@
     <div id="page-contact" class="page-view">
         <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">CONTACT <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">ADMIN</span></h1>
         
-        <div class="contact-page-wrapper">
+        <div class="contact-page-wrapper" id="contact-block">
             <div class="contact-box admin-box" style="transform: translateY(30px) scale(0.95); max-width: 600px; padding: 40px; opacity: 0; transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
                 <h2 style="margin-bottom: 20px; user-select: auto; cursor: text;" contenteditable="false" class=""><i class="fa-solid fa-envelope"></i> SEND A MESSAGE</h2>
                 <p style="text-align: center; color: rgb(179, 179, 204); margin-bottom: 25px; user-select: auto; cursor: text;" contenteditable="false" class="">Send a message directly to MANI M4YT</p>

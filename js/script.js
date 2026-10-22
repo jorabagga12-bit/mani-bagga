@@ -384,26 +384,36 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 const activePage = document.querySelector('.page-view.active');
                 
-                const newItem = document.createElement('div');
-                newItem.className = 'showcase-item custom-text-card';
-                newItem.style.position = 'absolute';
-                newItem.style.left = e.pageX + 'px';
-                newItem.style.top = e.pageY + 'px';
-                newItem.style.zIndex = '50';
-                newItem.style.width = '300px';
-                
-                newItem.innerHTML = `
-                    <div>
-                        <h3 contenteditable="true" class="editable-active" style="color:#00d2ff; margin-bottom:10px;">Custom Text</h3>
-                        <p contenteditable="true" class="editable-active" style="color:white; font-size:15px;">Write here...</p>
-                    </div>
-                `;
-                
-                if (activePage) activePage.appendChild(newItem);
-                else document.body.appendChild(newItem);
-                
+                const newItem = document.createElement('section');
+                newItem.className = 'custom-text-card blue-text-card';
+                newItem.id = 'text-card-' + Date.now().toString(36);
+
+                const bar = document.createElement('i');
+                bar.className = 'btc-bar';
+                const title = document.createElement('h3');
+                title.className = 'btc-title editable-active';
+                title.contentEditable = 'true';
+                title.textContent = 'Custom Text';
+                const body = document.createElement('p');
+                body.className = 'btc-body editable-active';
+                body.contentEditable = 'true';
+                body.textContent = 'Write here...';
+                bar.setAttribute('aria-hidden', 'true');
+                newItem.append(bar, title, body);
+
+                const page = activePage || document.getElementById('page-home');
+                const anchor = Array.from(page.children).find(function (child) {
+                    if (!isMovableBlock(child)) return false;
+                    const r = child.getBoundingClientRect();
+                    return e.clientY < r.top + r.height / 2;
+                });
+                page.insertBefore(newItem, anchor || null);
+
                 attachDeleteBtnIfEditing(newItem);
-                
+                selectMoveTarget(newItem);
+                saveLayoutDraft();
+                newItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
                 return;
             }
 
@@ -483,8 +493,8 @@ window.addEventListener('DOMContentLoaded', function () {
             if (event) { event.stopPropagation(); event.preventDefault(); }
             customConfirm("क्या आप इस पूरे कार्ड/गैलरी आइटम को डिलीट करना चाहते हैं?", function(confirmed) {
                 if(confirmed) {
-                    const card = btn.closest('.showcase-item, .card-3d');
-                    if (card) { releaseMedia(card); card.remove(); }
+                    const card = btn.closest('.custom-text-card, .showcase-item, .card-3d');
+                    if (card) { releaseMedia(card); card.remove(); saveLayoutDraft(); }
                 }
             });
         }
@@ -492,12 +502,13 @@ window.addEventListener('DOMContentLoaded', function () {
         function deleteCardFromTextControls(event) {
             if (event) { event.stopPropagation(); event.preventDefault(); }
             if (!currentTextElement) return;
-            const card = currentTextElement.closest('.showcase-item, .card-3d');
+            const card = currentTextElement.closest('.custom-text-card, .showcase-item, .card-3d');
             if (card) {
                 customConfirm("क्या आप इस पूरे कार्ड को डिलीट करना चाहते हैं?", function(confirmed) {
                     if(confirmed) {
                         releaseMedia(card);
                         card.remove();
+                        saveLayoutDraft();
                         document.getElementById('admin-text-controls')?.remove();
                     }
                 });
@@ -585,7 +596,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 bindMediaClickHandlers();
 
-                document.querySelectorAll('.showcase-item, .card-3d').forEach(item => {
+                document.querySelectorAll('.showcase-item, .card-3d, .blue-text-card').forEach(item => {
                     attachDeleteBtnIfEditing(item);
                 });
             }
@@ -599,7 +610,7 @@ window.addEventListener('DOMContentLoaded', function () {
             let existingText = document.getElementById('admin-text-controls'); if(existingText) existingText.remove();
             let existingImg = document.getElementById('admin-img-controls'); if(existingImg) { existingImg.remove(); startSlider(); }
             
-            let cardParent = elem.closest('.showcase-item, .card-3d');
+            let cardParent = elem.closest('.custom-text-card, .showcase-item, .card-3d');
             let cardDelBtnMarkup = cardParent ? `<button onclick="deleteCardFromTextControls(event)" style="background:#dc3545; color:#fff; padding:6px 10px; border:none; cursor:pointer; font-weight:bold; border-radius:4px;" title="Delete Whole Card"><i class="fa-solid fa-trash"></i> Card</button>` : '';
 
             let controls = document.createElement('div'); controls.id = 'admin-text-controls';
@@ -1450,6 +1461,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 let floatingControlText = clone.querySelector('#admin-text-controls'); if(floatingControlText) floatingControlText.remove();
                 
                 clone.querySelectorAll('.card-delete-btn').forEach(btn => btn.remove());
+                clone.querySelectorAll('.move-selected').forEach(el => el.classList.remove('move-selected'));
 
                 clone.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
                 let homeP = clone.querySelector('#page-home'); if(homeP) homeP.classList.add('active');
@@ -1479,6 +1491,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 });
 
                 if (putResponse.ok) {
+                    try { localStorage.removeItem(LAYOUT_DRAFT_KEY); } catch (err) {}
                     customAlert('🎉 Awesome! All changes saved to Live Site successfully!', 'PUBLISHED TO LIVE', 'fa-cloud-arrow-up', 'success');
                 } else { 
                     const errorDetails = await putResponse.json(); 
@@ -1765,21 +1778,98 @@ document.addEventListener('click', function (event) {
     });
 })();
 
-/* Admin: one Move button shifts the blue "speed" section a step at a time, turning around at either end. */
+/* Admin: one Move button shifts the selected page block (default: the blue "speed" section) a step at a time, turning around at either end. */
+var LAYOUT_DRAFT_KEY = 'mani_layout_draft_v1';
 var blueMoveDirection = 1;
+var moveTarget = null;
+var layoutDraftTimer = null;
+
+function isAdminLoggedIn() {
+    try { return localStorage.getItem('mani_admin_logged') === 'true'; } catch (err) { return false; }
+}
+
+function isMovableBlock(el) {
+    if (!el || el.nodeType !== 1 || !/^(SECTION|DIV)$/.test(el.tagName)) return false;
+    var style = getComputedStyle(el);
+    return style.display !== 'none' && style.position !== 'absolute' && !el.classList.contains('admin-modal');
+}
+
+function selectMoveTarget(el) {
+    document.querySelectorAll('.move-selected').forEach(function (node) { node.classList.remove('move-selected'); });
+    if (moveTarget !== el) blueMoveDirection = 1;
+    moveTarget = el || null;
+    if (el) el.classList.add('move-selected');
+}
+
+function serializeTextCard(card) {
+    var copy = card.cloneNode(true);
+    copy.classList.remove('move-selected');
+    copy.querySelectorAll('.card-delete-btn').forEach(function (btn) { btn.remove(); });
+    copy.querySelectorAll('[contenteditable]').forEach(function (node) {
+        node.removeAttribute('contenteditable');
+        node.classList.remove('editable-active');
+        node.style.border = '';
+        node.style.padding = '';
+    });
+    return copy.outerHTML;
+}
+
+function saveLayoutDraft() {
+    if (!isAdminLoggedIn()) return;
+    var draft = {};
+    document.querySelectorAll('.page-view').forEach(function (page) {
+        draft[page.id] = Array.prototype.filter.call(page.children, function (child) {
+            return child.id && isMovableBlock(child);
+        }).map(function (child) {
+            var item = { id: child.id };
+            if (child.classList.contains('blue-text-card')) item.html = serializeTextCard(child);
+            return item;
+        });
+    });
+    try { localStorage.setItem(LAYOUT_DRAFT_KEY, JSON.stringify(draft)); } catch (err) {}
+}
+
+function restoreLayoutDraft() {
+    if (!isAdminLoggedIn()) return;
+    var draft;
+    try { draft = JSON.parse(localStorage.getItem(LAYOUT_DRAFT_KEY) || 'null'); } catch (err) { draft = null; }
+    if (!draft) return;
+    Object.keys(draft).forEach(function (pageId) {
+        var page = document.getElementById(pageId);
+        if (!page || !Array.isArray(draft[pageId])) return;
+        var wanted = draft[pageId].map(function (item) {
+            var el = document.getElementById(item.id);
+            if (!el && item.html) {
+                var tpl = document.createElement('template');
+                tpl.innerHTML = item.html.trim();
+                el = tpl.content.firstElementChild;
+            }
+            return el;
+        }).filter(function (el) { return el && (el.parentElement === page || !el.parentElement); });
+        if (!wanted.length) return;
+        var firstInPage = wanted.filter(function (el) { return el.parentElement === page; })[0] || null;
+        var anchor = document.createComment('');
+        page.insertBefore(anchor, firstInPage);
+        wanted.forEach(function (el) { page.insertBefore(el, anchor); });
+        anchor.remove();
+    });
+}
+
+function queueLayoutDraftSave() {
+    clearTimeout(layoutDraftTimer);
+    layoutDraftTimer = setTimeout(saveLayoutDraft, 400);
+}
+
 function moveBlueSection(turned) {
-    var section = document.getElementById('speed-section');
+    var section = (moveTarget && moveTarget.isConnected) ? moveTarget : document.getElementById('speed-section');
     if (!section || !section.parentElement) return;
     var direction = blueMoveDirection;
     var parent = section.parentElement;
-    var home = document.getElementById('page-home');
-    if (home && !home.classList.contains('active') && typeof navigateTo === 'function') navigateTo('home');
+    var page = section.closest('.page-view');
+    if (page && !page.classList.contains('active') && typeof navigateTo === 'function') navigateTo(page.id.replace(/^page-/, ''));
 
-    function isMovable(el) {
-        return /^(SECTION|DIV)$/.test(el.tagName) && getComputedStyle(el).display !== 'none';
-    }
     var sibling = direction < 0 ? section.previousElementSibling : section.nextElementSibling;
-    while (sibling && !isMovable(sibling)) {
+    while (sibling && !isMovableBlock(sibling)) {
         sibling = direction < 0 ? sibling.previousElementSibling : sibling.nextElementSibling;
     }
     if (!sibling) {
@@ -1792,6 +1882,7 @@ function moveBlueSection(turned) {
     var siblingTop = sibling.getBoundingClientRect().top;
     if (direction < 0) parent.insertBefore(section, sibling);
     else parent.insertBefore(section, sibling.nextElementSibling);
+    saveLayoutDraft();
 
     var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!reduceMotion && section.animate) {
@@ -1801,3 +1892,32 @@ function moveBlueSection(turned) {
     }
     section.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
 }
+
+window.addEventListener('DOMContentLoaded', restoreLayoutDraft);
+
+/* Pick the block to move by clicking it while the admin toolbox is open. */
+document.addEventListener('click', function (e) {
+    if (!isAdminLoggedIn() || isWaitingToPlaceText) return;
+    if ((typeof isMoveModeActive !== 'undefined' && isMoveModeActive) || (typeof isResizeModeActive !== 'undefined' && isResizeModeActive)) return;
+    var tools = document.getElementById('adminEditTools');
+    if (!tools || tools.style.display !== 'block') return;
+    var page = document.querySelector('.page-view.active');
+    if (!page || !e.target.closest) return;
+    var block = e.target.closest('.page-view.active > *');
+    if (block && block.parentElement === page && isMovableBlock(block)) selectMoveTarget(block);
+});
+
+/* Custom text cards keep plain text only, so pasted markup never leaks into the page. */
+document.addEventListener('paste', function (e) {
+    var field = e.target.closest && e.target.closest('.blue-text-card [contenteditable="true"]');
+    if (!field) return;
+    e.preventDefault();
+    var text = (e.clipboardData || window.clipboardData).getData('text/plain');
+    document.execCommand('insertText', false, text);
+});
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && e.target.closest && e.target.closest('.blue-text-card .btc-title')) e.preventDefault();
+});
+document.addEventListener('input', function (e) {
+    if (e.target.closest && e.target.closest('.blue-text-card')) queueLayoutDraftSave();
+});

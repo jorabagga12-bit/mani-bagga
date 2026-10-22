@@ -1026,6 +1026,70 @@ html body .speed-sec .spd-cap {
 }
 html body .speed-sec .spd-note { font-family: Inter, "Poppins", system-ui, sans-serif; color: rgba(255, 255, 255, .7); }
 
+/* ---------- Video block: sits in the white space under the blue card, above the footer ---------- */
+html body .video-sec {
+    width: 100%; max-width: 75rem; margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 5vw, 3.5rem) clamp(1.75rem, 5vw, 3.5rem);
+    box-sizing: border-box; position: relative;
+}
+html body .video-sec-frame {
+    width: 100%; overflow: hidden; border-radius: 1.25rem; background: #130a78;
+    box-shadow: 0 18px 40px -18px rgba(32, 16, 184, .55);
+}
+html body .video-sec-player {
+    display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
+    object-fit: cover; border-radius: inherit; background: #130a78;
+}
+@media (max-width: 640px) {
+    html body .video-sec-frame { border-radius: 1rem; }
+}
+
+/* ---------- Custom text cards: blue-gradient 3D styling matching the blue section ---------- */
+html body .custom-text-card.blue-text-card {
+    position: relative; display: block; overflow: hidden; isolation: isolate;
+    width: auto; max-width: 75rem; min-height: 0; box-sizing: border-box;
+    margin: clamp(1.25rem, 3vw, 2rem) auto; text-align: left;
+    padding: clamp(1.75rem, 5vw, 3.25rem) clamp(1.25rem, 5vw, 3.5rem);
+    border: 1px solid rgba(255, 255, 255, .18); border-radius: 1.25rem;
+    background:
+        radial-gradient(90% 70% at 0% 0%, rgba(124, 58, 237, .55), rgba(124, 58, 237, 0) 65%),
+        radial-gradient(70% 60% at 100% 100%, rgba(0, 150, 255, .3), rgba(0, 150, 255, 0) 70%),
+        linear-gradient(172deg, #2a16dc 0%, #2010b8 48%, #130a78 100%);
+    box-shadow: 0 24px 48px -22px rgba(32, 16, 184, .65), inset 0 1px 0 rgba(255, 255, 255, .22);
+    transform: perspective(1000px) rotateX(0deg);
+    transition: transform .4s ease, box-shadow .4s ease;
+}
+html body .custom-text-card.blue-text-card:hover {
+    transform: perspective(1000px) rotateX(1.5deg) translateY(-3px);
+    box-shadow: 0 30px 56px -22px rgba(32, 16, 184, .8), inset 0 1px 0 rgba(255, 255, 255, .28);
+}
+html body .custom-text-card.blue-text-card::after {
+    content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: -1; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .22; mix-blend-mode: soft-light;
+}
+html body .blue-text-card .btc-bar {
+    display: block; width: 3.5rem; height: .3rem; margin-bottom: 1.1rem; border-radius: 999px;
+    background: linear-gradient(90deg, #a5b4fc, #67e8f9);
+}
+html body .blue-text-card .btc-title {
+    margin: 0 0 .75rem; font-family: var(--font-serif); font-weight: 800; letter-spacing: -.02em;
+    font-size: clamp(1.7rem, 5vw, 3rem); line-height: 1.1;
+    background: linear-gradient(90deg, #ffffff 0%, #c7d2fe 45%, #67e8f9 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent !important; -webkit-text-fill-color: transparent;
+    overflow-wrap: anywhere;
+}
+html body .blue-text-card .btc-body {
+    margin: 0; max-width: 46rem; font-family: Inter, "Poppins", system-ui, sans-serif;
+    font-size: clamp(.98rem, 1.8vw, 1.2rem); line-height: 1.6;
+    color: rgba(255, 255, 255, .88) !important; overflow-wrap: anywhere; white-space: pre-wrap;
+}
+html body .blue-text-card .editable-active { outline: 1px dashed rgba(255, 255, 255, .55); outline-offset: 4px; border: 0; padding: 0; }
+
+/* Admin Move: the block that the Move button will shift */
+html body .move-selected { outline: 3px dashed #0a58ca; outline-offset: -3px; }
+
 /* ---------- Page headings and gallery ---------- */
 html body .page-header {
     font-family: var(--font-head);
