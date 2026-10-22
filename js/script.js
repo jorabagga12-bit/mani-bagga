@@ -1764,3 +1764,21 @@ document.addEventListener('click', function (event) {
         new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true });
     });
 })();
+
+/* Admin: shift the blue "speed" card up or down between the sections of the Home page. */
+function moveBlueSection(direction) {
+    var section = document.getElementById('speed-section');
+    if (!section || !section.parentElement) return;
+    var parent = section.parentElement;
+    var sibling = direction < 0 ? section.previousElementSibling : section.nextElementSibling;
+    while (sibling && !/^(SECTION|DIV)$/.test(sibling.tagName)) {
+        sibling = direction < 0 ? sibling.previousElementSibling : sibling.nextElementSibling;
+    }
+    if (!sibling) {
+        customAlert(direction < 0 ? 'The blue card is already at the top.' : 'The blue card is already at the bottom.', 'MOVE CARD', 'fa-circle-info', 'info');
+        return;
+    }
+    if (direction < 0) parent.insertBefore(section, sibling);
+    else parent.insertBefore(section, sibling.nextElementSibling);
+    section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
