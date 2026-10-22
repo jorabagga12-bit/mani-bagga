@@ -1765,10 +1765,12 @@ document.addEventListener('click', function (event) {
     });
 })();
 
-/* Admin: shift the blue "speed" card up or down between the sections of the Home page. */
-function moveBlueSection(direction) {
+/* Admin: one Move button shifts the blue "speed" section a step at a time, turning around at either end. */
+var blueMoveDirection = 1;
+function moveBlueSection(turned) {
     var section = document.getElementById('speed-section');
     if (!section || !section.parentElement) return;
+    var direction = blueMoveDirection;
     var parent = section.parentElement;
     var home = document.getElementById('page-home');
     if (home && !home.classList.contains('active') && typeof navigateTo === 'function') navigateTo('home');
@@ -1781,8 +1783,9 @@ function moveBlueSection(direction) {
         sibling = direction < 0 ? sibling.previousElementSibling : sibling.nextElementSibling;
     }
     if (!sibling) {
-        customAlert(direction < 0 ? 'The blue card is already at the top.' : 'The blue card is already at the bottom.', 'MOVE CARD', 'fa-circle-info', 'info');
-        return;
+        if (turned === true) return;
+        blueMoveDirection = -direction;
+        return moveBlueSection(true);
     }
 
     var sectionTop = section.getBoundingClientRect().top;
