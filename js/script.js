@@ -1612,3 +1612,49 @@ document.addEventListener('click', function (event) {
     var link = event.target.closest && event.target.closest('a[data-social]');
     if (link && link.getAttribute('href') === '#') event.preventDefault();
 });
+
+/* YouTube cards, images and titles never redirect. Footer/hero social buttons are untouched. */
+(function () {
+    var YT_URL = /(youtube\.com|youtu\.be|youtube-nocookie\.com)/i;
+    var ZONES = '.clean-video-wrapper, .card-3d, .showcase-item, .custom-text-card, .card-img-container, #tilt-card';
+    var LINK_IN_ZONE = ZONES.split(',').map(function (z) { return z.trim() + ' a[href]'; }).join(', ');
+
+    function neutralize() {
+        document.querySelectorAll(LINK_IN_ZONE).forEach(function (a) {
+            if (a.hasAttribute('data-social')) return;
+            if (YT_URL.test(a.getAttribute('href') || '')) {
+                a.removeAttribute('href');
+                a.removeAttribute('target');
+            }
+        });
+    }
+
+    function blockRedirect(event) {
+        var target = event.target;
+        if (!target || !target.closest) return;
+        var zone = target.closest(ZONES);
+        var link = target.closest('a[href]');
+        if (zone && link && zone.contains(link) && !link.hasAttribute('data-social') && YT_URL.test(link.href)) {
+            event.preventDefault();
+        }
+    }
+    document.addEventListener('click', blockRedirect, true);
+    document.addEventListener('auxclick', blockRedirect, true);
+
+    var nativeOpen = window.open;
+    window.open = function (url) {
+        if (typeof url === 'string' && YT_URL.test(url)) return null;
+        return nativeOpen.apply(window, arguments);
+    };
+
+    var queued = false;
+    function schedule() {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(function () { queued = false; neutralize(); });
+    }
+    window.addEventListener('DOMContentLoaded', function () {
+        neutralize();
+        new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true });
+    });
+})();
