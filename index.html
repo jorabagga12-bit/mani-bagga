@@ -3,25 +3,6 @@
 <head> <meta name="google-site-verification" content="Or5JbtfQH0gGANckua64EHZYJ_xr-wmy5QeWB-W5O2w">
     <meta charset="UTF-8">
 <meta name="viewport" content="width=1280, viewport-fit=cover">
-<script>
-/* The viewport is pinned to 1280px (and "Desktop site" mode widens it further), so width media
-   queries cannot see a phone. Use the physical screen size instead and flag the menu as collapsed. */
-(function () {
-  var root = document.documentElement;
-  function sync() {
-    var screenW = Math.min(screen.width || 0, screen.height || 0) || window.innerWidth;
-    var phone = screenW < 768;
-    var narrow = window.innerWidth < 768;
-    var collapsed = phone || narrow;
-    var zoom = phone ? Math.min(Math.max(window.innerWidth / (screen.width || window.innerWidth), 1), 4) : 1;
-    root.classList.toggle('nav-collapsed', collapsed);
-    root.style.setProperty('--nav-zoom', zoom.toFixed(3));
-  }
-  sync();
-  window.addEventListener('resize', sync);
-  window.addEventListener('orientationchange', sync);
-})();
-</script>
     <meta name="theme-color" content="#fdfcf8">
     
     <title>mani</title>
