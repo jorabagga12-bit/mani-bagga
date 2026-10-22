@@ -1539,5 +1539,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('DOMContentLoaded', function () {
     var loader = document.getElementById('page-loader');
-    if (loader) setTimeout(function () { loader.remove(); }, 2600);
+    if (!loader) return;
+    var loaderTemplate = loader.cloneNode(true);
+    var loaderTimer = setTimeout(function () { loader.remove(); }, 2600);
+
+    window.showPageLoader = function () {
+        var current = document.getElementById('page-loader');
+        if (current) current.remove();
+        clearTimeout(loaderTimer);
+        var fresh = loaderTemplate.cloneNode(true);
+        fresh.classList.add('pl-replay');
+        document.body.insertBefore(fresh, document.body.firstChild);
+        loaderTimer = setTimeout(function () { fresh.remove(); }, 1900);
+    };
+
+    var originalNavigateTo = window.navigateTo;
+    if (typeof originalNavigateTo === 'function') {
+        window.navigateTo = function (pageId) {
+            var blocked = (typeof isMoveModeActive !== 'undefined' && isMoveModeActive) ||
+                (typeof isResizeModeActive !== 'undefined' && isResizeModeActive);
+            if (pageId === 'gallery' && !blocked) window.showPageLoader();
+            return originalNavigateTo.apply(this, arguments);
+        };
+    }
+});
+window.addEventListener('pageshow', function (event) {
+    if (event.persisted && typeof window.showPageLoader === 'function') window.showPageLoader();
 });
