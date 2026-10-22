@@ -1327,23 +1327,60 @@ html body footer .social-links a:focus-visible {
 /* ---------- Phones and tablets: keep the desktop layout structure ---------- */
 html, body { overflow-x: clip; }
 @media (max-width: 1024px) {
-    html body header .navbar .nav-toggle { display: none !important; }
-    html body header .navbar .nav-links,
-    html body header .navbar .nav-links.open {
+    html:not(.nav-collapsed) body header .navbar .nav-toggle { display: none !important; }
+    html:not(.nav-collapsed) body header .navbar .nav-links,
+    html:not(.nav-collapsed) body header .navbar .nav-links.open {
         display: flex !important; grid-column: 1 / -1;
         position: static !important; flex-direction: row; flex-wrap: nowrap !important;
         justify-content: safe center; gap: .35rem 1.4rem !important;
         padding: .15rem 0 .1rem; background: transparent; border: 0; box-shadow: none; animation: none;
         overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
     }
-    html body header .navbar .nav-links::-webkit-scrollbar { display: none; }
-    html body header .navbar .nav-links li { flex: none; border-bottom: 0; }
-    html body header .navbar .nav-links li a {
+    html:not(.nav-collapsed) body header .navbar .nav-links::-webkit-scrollbar { display: none; }
+    html:not(.nav-collapsed) body header .navbar .nav-links li { flex: none; border-bottom: 0; }
+    html:not(.nav-collapsed) body header .navbar .nav-links li a {
         display: inline-block !important; width: auto !important; padding: .4rem 0 !important;
         background: var(--accent-grad) no-repeat 0 100% / 0% 2px !important;
     }
-    html body header .navbar .nav-links li a:hover,
-    html body header .navbar .nav-links li a:focus-visible { padding-left: 0 !important; background-size: 100% 2px !important; }
+    html:not(.nav-collapsed) body header .navbar .nav-links li a:hover,
+    html:not(.nav-collapsed) body header .navbar .nav-links li a:focus-visible { padding-left: 0 !important; background-size: 100% 2px !important; }
+}
+
+/* ---------- Under 768px (real phones, even in "Desktop site" mode): three-dot menu only ----------
+   --nav-zoom compensates for the pinned 1280px viewport so the button stays tappable on a phone. */
+html.nav-collapsed body header .navbar .nav-toggle {
+    display: inline-flex !important; align-items: center; justify-content: center;
+    justify-self: end; margin-left: auto;
+    font-size: calc(1rem * var(--nav-zoom, 1));
+    width: 2.5em; height: 2.5em; padding: 0;
+    background: #fff; border: 1px solid rgba(20, 19, 26, .14); border-radius: .75em;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+html.nav-collapsed .nav-toggle-dots { display: flex; flex-direction: column; align-items: center; gap: .24em; }
+html.nav-collapsed .nav-toggle-dots i {
+    display: block; width: .3em; height: .3em; border-radius: 50%; background: var(--ink);
+    transition: background-color .2s ease, transform .25s ease;
+}
+html.nav-collapsed .nav-toggle[aria-expanded="true"] { background: rgba(10, 88, 202, .08); border-color: rgba(10, 88, 202, .45); }
+html.nav-collapsed .nav-toggle[aria-expanded="true"] .nav-toggle-dots i { background: var(--accent); }
+html.nav-collapsed .nav-toggle[aria-expanded="true"] .nav-toggle-dots i:nth-child(2) { transform: scale(1.35); }
+html.nav-collapsed body header .navbar .nav-links {
+    display: none !important;
+    position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important;
+    flex-direction: column; flex-wrap: nowrap !important; align-items: stretch; justify-content: flex-start;
+    gap: 0 !important; overflow: visible;
+    font-size: calc(1rem * var(--nav-zoom, 1));
+    padding: .25em clamp(1rem, 4vw, 2.5rem) 1em;
+    background: rgba(255, 255, 255, .98);
+    border-bottom: 1px solid rgba(20, 19, 26, .08);
+    box-shadow: 0 24px 32px -22px rgba(20, 19, 26, .45);
+}
+html.nav-collapsed body header .navbar .nav-links.open { display: flex !important; animation: navDrop .25s ease; }
+html.nav-collapsed body header .navbar .nav-links li { border-bottom: 1px solid rgba(20, 19, 26, .07); }
+html.nav-collapsed body header .navbar .nav-links li:last-child { border-bottom: 0; }
+html.nav-collapsed body header .navbar .nav-links li a {
+    display: block !important; width: 100% !important;
+    font-size: .85em !important; padding: .95em 0 !important; background-image: none !important;
 }
 @media (min-width: 600px) and (max-width: 900px) {
     html body .hero-container { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); text-align: left; }
