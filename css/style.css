@@ -802,7 +802,13 @@ html body header {
 html body header::before {
     content: ""; display: block; width: 100%; flex: none;
     height: max(3px, calc(3px * var(--nav-zoom, 1)));
-    background: linear-gradient(90deg, #0a58ca, #7c3aed 50%, #00c6ff);
+    background: #0a58ca linear-gradient(90deg, #0a58ca, #7c3aed 50%, #00c6ff);
+}
+/* On phones the 1280px pinned viewport shrinks everything, so the strip is scaled up and kept above the blur layer. */
+html.nav-collapsed body header::before {
+    display: block !important; visibility: visible; opacity: 1;
+    height: max(4px, calc(4px * var(--nav-zoom, 1)));
+    box-shadow: 0 1px 6px rgba(10, 88, 202, .35);
 }
 html body header .navbar {
     display: grid !important;
@@ -1169,9 +1175,9 @@ html body footer .email-text { overflow-wrap: anywhere; line-height: 1.7; }
 }
 .pl-mark {
     position: relative; flex: none;
-    width: min(22em, 86vw); aspect-ratio: 1 / 1;
+    width: min(26em, 88vw); aspect-ratio: 1 / 1;
     container-type: inline-size;
-    filter: drop-shadow(0 .35em .7em rgba(124, 58, 237, .35));
+    filter: drop-shadow(0 .4em .9em rgba(124, 58, 237, .38)) drop-shadow(0 0 1.1em rgba(10, 88, 202, .22));
     animation: pl-pop .5s cubic-bezier(.2, .8, .3, 1.2) both;
 }
 .pl-mark::before {
@@ -1184,6 +1190,8 @@ html body footer .email-text { overflow-wrap: anywhere; line-height: 1.7; }
     stroke-dasharray: 100; stroke-dashoffset: 100;
     animation: pl-draw .9s cubic-bezier(.65, 0, .35, 1) .1s forwards;
 }
+.pl-tri polygon.pl-tri-fill { stroke-dasharray: none; stroke-dashoffset: 0; animation: pl-fade .6s ease .45s both; }
+@keyframes pl-fade { from { opacity: 0; } to { opacity: 1; } }
 .pl-name {
     position: absolute; z-index: 2; left: 0; right: 0; top: 63%;
     transform: translateY(-50%);

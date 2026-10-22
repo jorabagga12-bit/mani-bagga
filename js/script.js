@@ -1770,15 +1770,31 @@ function moveBlueSection(direction) {
     var section = document.getElementById('speed-section');
     if (!section || !section.parentElement) return;
     var parent = section.parentElement;
+    var home = document.getElementById('page-home');
+    if (home && !home.classList.contains('active') && typeof navigateTo === 'function') navigateTo('home');
+
+    function isMovable(el) {
+        return /^(SECTION|DIV)$/.test(el.tagName) && getComputedStyle(el).display !== 'none';
+    }
     var sibling = direction < 0 ? section.previousElementSibling : section.nextElementSibling;
-    while (sibling && !/^(SECTION|DIV)$/.test(sibling.tagName)) {
+    while (sibling && !isMovable(sibling)) {
         sibling = direction < 0 ? sibling.previousElementSibling : sibling.nextElementSibling;
     }
     if (!sibling) {
         customAlert(direction < 0 ? 'The blue card is already at the top.' : 'The blue card is already at the bottom.', 'MOVE CARD', 'fa-circle-info', 'info');
         return;
     }
+
+    var sectionTop = section.getBoundingClientRect().top;
+    var siblingTop = sibling.getBoundingClientRect().top;
     if (direction < 0) parent.insertBefore(section, sibling);
     else parent.insertBefore(section, sibling.nextElementSibling);
-    section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion && section.animate) {
+        var options = { duration: 450, easing: 'cubic-bezier(.2, .8, .2, 1)' };
+        section.animate([{ transform: 'translateY(' + (sectionTop - section.getBoundingClientRect().top) + 'px)' }, { transform: 'none' }], options);
+        sibling.animate([{ transform: 'translateY(' + (siblingTop - sibling.getBoundingClientRect().top) + 'px)' }, { transform: 'none' }], options);
+    }
+    section.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
 }
