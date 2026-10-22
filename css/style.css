@@ -1030,14 +1030,15 @@ html body .speed-sec .spd-note { font-family: Inter, "Poppins", system-ui, sans-
 html body .video-sec {
     position: relative; isolation: isolate; overflow: hidden;
     display: flex; flex-direction: column; justify-content: flex-end;
-    width: 100%; max-width: 100%; min-height: clamp(26rem, 60vh, 44rem);
-    margin: 40px 0 0; padding: 0; box-sizing: border-box;
+    width: 100%; max-width: 100%; min-height: 580px;
+    margin: clamp(56px, 8vw, 96px) 0 0; padding: 0; box-sizing: border-box;
     background: #0b0a1a;
 }
 html body .video-sec .video-sec-player {
     position: absolute; top: 0; left: 0; z-index: 0;
     width: 100%; height: 100%; max-width: none; margin: 0; border-radius: 0;
     object-fit: cover; image-rendering: high-quality;
+    filter: contrast(105%) brightness(102%);
     transform: translateZ(0); backface-visibility: hidden;
 }
 html body .video-sec .video-sec-tint {
@@ -1059,7 +1060,7 @@ html body .video-sec footer .email-text a {
 html body .video-sec footer .email-text a { text-decoration: underline; text-underline-offset: 3px; }
 html body .video-sec footer .social-links a { background: rgba(255, 255, 255, .9); }
 @media (max-width: 768px) {
-    html body .video-sec { margin-top: 24px; min-height: 22rem; }
+    html body .video-sec { margin-top: 56px; min-height: 480px; }
     html body .video-sec footer { padding-bottom: max(1.75rem, env(safe-area-inset-bottom)); }
 }
 
