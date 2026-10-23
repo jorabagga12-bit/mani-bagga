@@ -1,6 +1,6 @@
 /* A) PAPER PAGE: पूरा पेज कागज जैसा (यह पूरा <style> हटाने पर पुराना पेज लौट आएगा) */
 html, html body {
-    background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.25'/%3E%3C/svg%3E") !important;
+    background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.07'/%3E%3C/svg%3E") !important;
     color: #1f1e1b;
 }
 html body .bg-shape { opacity: .15 !important; }
@@ -779,8 +779,8 @@ html body img, html body video, html body iframe { max-width: 100%; }
 html, html body {
     background-color: #fdfcf8 !important;
     background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.25'/%3E%3C/svg%3E"),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9 .015' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .44 0 0 0 0 .32 0 0 0 .6 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='.35'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.075'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9 .015' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .44 0 0 0 0 .32 0 0 0 .6 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='.2'/%3E%3C/svg%3E"),
         radial-gradient(120% 70% at 12% 0%, rgba(255, 255, 255, .95), rgba(255, 255, 255, 0) 60%),
         linear-gradient(180deg, #fffefb 0%, #f8f5ed 100%) !important;
     background-repeat: repeat, repeat, no-repeat, no-repeat !important;
@@ -1261,7 +1261,7 @@ html body footer .email-text { overflow-wrap: anywhere; line-height: 1.7; }
     display: flex; align-items: center; justify-content: center;
     width: 100%; padding: 1rem; box-sizing: border-box;
 }
-.pl-logo { display: block; width: min(45rem, 95vw); height: auto; overflow: visible; transform: scale(1.15); }
+.pl-logo { display: block; width: min(40rem, 92vw); height: auto; overflow: visible; }
 .pl-word, .pl-cut {
     font-family: var(--font-tech, "Orbitron", system-ui, sans-serif);
     font-weight: 800; font-size: 70px; letter-spacing: 0;
