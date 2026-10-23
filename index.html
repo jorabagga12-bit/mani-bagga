@@ -98,7 +98,19 @@
     
 
     <!-- M4 GAMER PAGE LOADER -->
-    
+    <div id="page-loader">
+        <svg class="new-loader-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="m4gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0a58ca" />
+                    <stop offset="100%" stop-color="#7c3aed" />
+                </linearGradient>
+            </defs>
+            <circle class="loader-ring" cx="100" cy="100" r="80" fill="none" stroke="url(#m4gradient)" stroke-width="2" stroke-dasharray="350 100" stroke-linecap="round" />
+            <polygon class="loader-triangle" points="100,45 155,140 45,140" fill="none" stroke="url(#m4gradient)" stroke-width="2" stroke-linejoin="round" />
+            <text class="loader-text" x="100" y="120" fill="url(#m4gradient)" font-family="'Orbitron', sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">M4GAMER</text>
+        </svg>
+    </div>
 
     <!-- LEVEL ALIGNMENT GRID OVERLAY -->
     <div id="alignmentGridOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 999999;">
