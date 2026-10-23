@@ -461,7 +461,21 @@ window.addEventListener('DOMContentLoaded', function () {
             const user = document.getElementById('adminUserX').value.trim();
             const pass = document.getElementById('adminPassX').value.trim();
             
-            if (user === 'bagga' && pass === 'iphonex0421&') {
+            // Hash validation for better security
+            const simpleHash = (str) => {
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    let char = str.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash;
+                }
+                return hash.toString(36);
+            };
+
+            const uHash = simpleHash(user);
+            const pHash = simpleHash(pass);
+
+            if (uHash === '1jnysi' && pHash === 'a4trxs') {
                 try { localStorage.setItem('mani_admin_logged', 'true'); } catch(err) {}
                 closeAdminLogin();
                 customAlert('Admin Logged In! 🚀\n\n- Click "View Messages" to read contact forms.\n- Click "Edit Website" to open editing tools.', 'WELCOME ADMIN', 'fa-shield-halved', 'success');
@@ -874,10 +888,16 @@ window.addEventListener('DOMContentLoaded', function () {
                 
                 if (target && !target.closest('.admin-dashboard') && !target.closest('.admin-modal')) {
                     activeFreeDrag = target;
+
+                    let parentCard = activeFreeDrag.closest('.showcase-item, .card-3d');
+                    if (parentCard) {
+                        parentCard.style.setProperty('overflow', 'visible', 'important');
+                    }
+
                     if (window.getComputedStyle(activeFreeDrag).position === 'static') activeFreeDrag.style.position = 'relative';
                     let currentLeft = parseFloat(activeFreeDrag.style.left) || 0; let currentTop = parseFloat(activeFreeDrag.style.top) || 0;
                     fDragX = clientX - currentLeft; fDragY = clientY - currentTop;
-                    activeFreeDrag.style.zIndex = "99999"; activeFreeDrag.style.cursor = "grabbing"; activeFreeDrag.style.transition = "none"; 
+                    activeFreeDrag.style.setProperty('z-index', '99999', 'important'); activeFreeDrag.style.cursor = "grabbing"; activeFreeDrag.style.transition = "none";
                     if(isMoveModeActive) { e.preventDefault(); } 
                 }
             }
@@ -892,8 +912,17 @@ window.addEventListener('DOMContentLoaded', function () {
         }
         function stopFreeDrag() {
             if (activeFreeDrag) {
+                let parentCard = activeFreeDrag.closest('.showcase-item, .card-3d');
+                if (parentCard) {
+                    parentCard.style.overflow = '';
+                }
+
                 activeFreeDrag.style.cursor = isMoveModeActive ? "move" : "";
                 activeFreeDrag.style.zIndex = ""; activeFreeDrag.style.transition = ""; activeFreeDrag = null;
+
+                if (typeof saveChangesToGitHub === 'function') {
+                    saveChangesToGitHub(!!window.temp_gh_token_bagga);
+                }
             }
         }
 
@@ -951,43 +980,64 @@ window.addEventListener('DOMContentLoaded', function () {
 /* ===== Mobile hero slider: scroll down = open + autoplay, scroll up = close + hide.
    Laptop / desktop keeps the original always-open slider. ===== */
 (function () {
-  const mobileQuery = window.matchMedia('(max-width: 900px)');
   window.addEventListener('DOMContentLoaded', function () {
     const card = document.getElementById('tilt-card');
     if (!card) return;
     let lastY = window.scrollY, ticking = false, lockUntil = 0;
 
+    // Add base transition for 3D animation
+    card.style.transition = 'transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), max-height 0.6s ease, opacity 0.6s ease';
+
     function applyState(open) {
       card.classList.toggle('slim', !open);
       card.classList.toggle('open', open);
-      if (open) startSlider(); else clearInterval(sliderInterval);
+      if (open) {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+          card.style.opacity = '1';
+          startSlider();
+      } else {
+          card.style.transform = 'perspective(1000px) rotateX(40deg) rotateY(-10deg) scale3d(0.8, 0.8, 0.8)';
+          card.style.opacity = '0.3';
+          clearInterval(sliderInterval);
+      }
     }
     function setOpen(open) {
       if (card.classList.contains('open') === open) return;
       applyState(open);
       lockUntil = performance.now() + 700; // ignore layout-induced scroll shifts while animating
     }
+
+    // Dynamic 3D scroll-triggered animation using IntersectionObserver
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setOpen(true);
+            } else {
+                setOpen(false);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    observer.observe(card);
+
     function update() {
       ticking = false;
-      if (!mobileQuery.matches) return;
       const y = window.scrollY;
       if (performance.now() < lockUntil) { lastY = y; return; }
-      if (y <= 10) setOpen(false);
-      else if (y > lastY + 4) setOpen(true);
-      else if (y < lastY - 4) setOpen(false);
       lastY = y;
-    }
-    function sync() {
-      lastY = window.scrollY;
-      if (mobileQuery.matches) applyState(window.scrollY > 10);
-      else applyState(true);
     }
 
     window.addEventListener('scroll', function () {
       if (!ticking) { requestAnimationFrame(update); ticking = true; }
     }, { passive: true });
-    mobileQuery.addEventListener('change', sync);
-    sync();
+
+    // Initial state based on position
+    const rect = card.getBoundingClientRect();
+    if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+        applyState(true);
+    } else {
+        applyState(false);
+    }
   });
 })();
 
@@ -1016,8 +1066,10 @@ window.addEventListener('DOMContentLoaded', function () {
         
         // ================= MEDIA EDIT HANDLERS & CROP SYSTEM ================= //
         function bindMediaClickHandlers() {
-            const mediaElements = document.querySelectorAll('.media-target:not(.notif-hidden-media)');
+            const mediaElements = document.querySelectorAll('img:not(.pl-logo), video, iframe, .media-target:not(.notif-hidden-media)');
             mediaElements.forEach(elem => {
+                if (elem.closest('.admin-modal, .admin-dashboard, #page-loader')) return; // Ignore elements within admin tools itself
+
                 elem.classList.add('media-editable'); elem.title = "Click to Edit Image/Video";
                 
                 const handleMediaClick = function(e) {
