@@ -939,6 +939,7 @@ window.addEventListener('DOMContentLoaded', function () {
       });
       if (u.toString() !== ifr.src) ifr.src = u.toString();
       ifr.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+      ifr.setAttribute('allowfullscreen', '');
     } catch (e) {}
   }
   function scan() {
