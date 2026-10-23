@@ -1,0 +1,41 @@
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET /css/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET /images/admin-profile.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET /images/hero-3d.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET /images/hero-slide-new.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET /images/feature3.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET /js/script.js HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET /images/video-poster.png HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET /images/pro-controls.png HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET /images/profile-card.png HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET /images/feature1.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET /images/feature2.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:43] "GET /images/logo.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:28:44] code 501, message Unsupported method ('POST')
+127.0.0.1 - - [23/Oct/2026 20:28:44] "POST /cdn-cgi/rum? HTTP/1.1" 501 -
+127.0.0.1 - - [23/Oct/2026 20:28:44] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [23/Oct/2026 20:28:44] code 501, message Unsupported method ('POST')
+127.0.0.1 - - [23/Oct/2026 20:28:44] "POST /cdn-cgi/rum? HTTP/1.1" 501 -
+127.0.0.1 - - [23/Oct/2026 20:28:45] code 501, message Unsupported method ('POST')
+127.0.0.1 - - [23/Oct/2026 20:28:45] "POST /cdn-cgi/rum? HTTP/1.1" 501 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET /css/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET /images/hero-3d.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET /images/feature3.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET /images/video-poster.png HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET /js/script.js HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET /images/admin-profile.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET /images/hero-slide-new.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET /images/pro-controls.png HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET /images/profile-card.png HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET /images/feature1.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET /images/feature2.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:32] "GET /images/logo.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [23/Oct/2026 20:29:33] code 501, message Unsupported method ('POST')
+127.0.0.1 - - [23/Oct/2026 20:29:33] "POST /cdn-cgi/rum? HTTP/1.1" 501 -
+127.0.0.1 - - [23/Oct/2026 20:29:33] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [23/Oct/2026 20:29:33] code 501, message Unsupported method ('POST')
+127.0.0.1 - - [23/Oct/2026 20:29:33] "POST /cdn-cgi/rum? HTTP/1.1" 501 -
+127.0.0.1 - - [23/Oct/2026 20:29:34] "GET /js/script.js HTTP/1.1" 304 -
+127.0.0.1 - - [23/Oct/2026 20:29:34] code 501, message Unsupported method ('POST')
+127.0.0.1 - - [23/Oct/2026 20:29:34] "POST /cdn-cgi/rum? HTTP/1.1" 501 -

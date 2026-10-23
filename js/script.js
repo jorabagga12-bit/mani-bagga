@@ -731,7 +731,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 newItem.innerHTML = `
                     <div class="clean-video-wrapper yt-embed">
-                        <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" sandbox="allow-scripts allow-same-origin allow-presentation" allowfullscreen></iframe>
+                        <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen="true"></iframe>
                         <div class="yt-blocker-top"></div>
                     </div>
                     <div class="showcase-overlay yt-caption">
@@ -938,8 +938,8 @@ window.addEventListener('DOMContentLoaded', function () {
         else u.searchParams.set(k, '1');
       });
       if (u.toString() !== ifr.src) ifr.src = u.toString();
-      ifr.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
-      ifr.setAttribute('allowfullscreen', '');
+      ifr.removeAttribute('sandbox');
+      ifr.setAttribute('allowfullscreen', 'true');
     } catch (e) {}
   }
   function scan() {
@@ -1183,7 +1183,7 @@ window.addEventListener('DOMContentLoaded', function () {
                         if (parentWrapper) {
                             let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
                             iframe.src = cleanEmbedSrc;
-                            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+                            iframe.removeAttribute('sandbox');
                             iframe.classList.add('yt-frame');
                             if (!parentWrapper.querySelector('.yt-blocker-top')) {
                                 let blocker = document.createElement('div');
@@ -1201,8 +1201,8 @@ window.addEventListener('DOMContentLoaded', function () {
                             iframe.title = 'YouTube video player';
                             iframe.setAttribute('frameborder', '0');
                             iframe.setAttribute('allow', YT_IFRAME_ALLOW);
-                            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
-                            iframe.setAttribute('allowfullscreen', '');
+                            iframe.removeAttribute('sandbox');
+                            iframe.setAttribute('allowfullscreen', 'true');
 
                             let blocker = document.createElement('div');
                             blocker.className = 'yt-blocker-top';
