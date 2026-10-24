@@ -732,7 +732,6 @@ window.addEventListener('DOMContentLoaded', function () {
                 newItem.innerHTML = `
                     <div class="clean-video-wrapper yt-embed">
                         <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen></iframe>
-                        <div class="yt-blocker-top"></div>
                     </div>
                     <div class="showcase-overlay yt-caption">
                         <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
@@ -920,34 +919,6 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 
-        /* ===== A) YouTube: टाइटल/लोगो पर रीडायरेक्ट रोकना ===== */
-(function () {
-  function guardIframe(ifr) {
-    if (!/youtube(-nocookie)?\.com\/embed/.test(ifr.src)) return;
-    const wrap = ifr.closest('.clean-video-wrapper');
-    if (!wrap) return;
-    if (!wrap.querySelector('.yt-blocker-top')) {
-      const t = document.createElement('div'); t.className = 'yt-blocker-top'; wrap.appendChild(t);
-    }
-    if (!wrap.querySelector('.yt-blocker-br')) {
-      const b = document.createElement('div'); b.className = 'yt-blocker-br'; wrap.appendChild(b);
-    }
-    // सेटिंग्स: कम से कम YouTube ब्रांडिंग
-    try {
-      const u = new URL(ifr.src);
-      ['modestbranding', 'rel', 'iv_load_policy'].forEach(k => u.searchParams.set(k, k === 'iv_load_policy' ? '3' : '1'));
-      u.searchParams.set('rel', '0');
-      if (u.toString() !== ifr.src) ifr.src = u.toString();
-    } catch (e) {}
-  }
-  function scan() {
-    document.querySelectorAll('iframe').forEach(guardIframe);
-    if (typeof bindMediaClickHandlers === 'function') bindMediaClickHandlers(); // एडमिन एडिट के लिए
-  }
-  window.addEventListener('DOMContentLoaded', scan);
-  new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
-})();
-
 /* ===== Mobile hero slider: scroll down = open + autoplay, scroll up = close + hide.
    Laptop / desktop keeps the original always-open slider. ===== */
 (function () {
@@ -1030,14 +1001,6 @@ window.addEventListener('DOMContentLoaded', function () {
                 };
 
                 elem.onclick = handleMediaClick;
-
-                let parentWrapper = elem.closest('.clean-video-wrapper');
-                if (parentWrapper) {
-                    let blocker = parentWrapper.querySelector('.yt-blocker-top');
-                    if (blocker) {
-                        blocker.onclick = handleMediaClick;
-                    }
-                }
                 
                 if(elem.tagName.toLowerCase() === 'video') {
                     elem.onpause = function() {
@@ -1182,11 +1145,6 @@ window.addEventListener('DOMContentLoaded', function () {
                             let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
                             iframe.src = cleanEmbedSrc;
                             iframe.classList.add('yt-frame');
-                            if (!parentWrapper.querySelector('.yt-blocker-top')) {
-                                let blocker = document.createElement('div');
-                                blocker.className = 'yt-blocker-top';
-                                parentWrapper.appendChild(blocker);
-                            }
                             currentTargetElement = iframe;
                         } else {
                             let wrapper = document.createElement('div');
@@ -1200,11 +1158,7 @@ window.addEventListener('DOMContentLoaded', function () {
                             iframe.setAttribute('allow', YT_IFRAME_ALLOW);
                             iframe.setAttribute('allowfullscreen', '');
 
-                            let blocker = document.createElement('div');
-                            blocker.className = 'yt-blocker-top';
-
                             wrapper.appendChild(iframe);
-                            wrapper.appendChild(blocker);
 
                             currentTargetElement.parentNode.replaceChild(wrapper, currentTargetElement);
                             currentTargetElement = iframe;
@@ -1735,7 +1689,7 @@ document.addEventListener('click', function (event) {
 /* YouTube cards, images and titles never redirect. Footer/hero social buttons are untouched. */
 (function () {
     var YT_URL = /(youtube\.com|youtu\.be|youtube-nocookie\.com)/i;
-    var ZONES = '.clean-video-wrapper, .card-3d, .showcase-item, .custom-text-card, .card-img-container, #tilt-card';
+    var ZONES = '.card-3d, .showcase-item, .custom-text-card, .card-img-container, #tilt-card';
     var LINK_IN_ZONE = ZONES.split(',').map(function (z) { return z.trim() + ' a[href]'; }).join(', ');
 
     function neutralize() {
