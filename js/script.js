@@ -731,7 +731,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 newItem.innerHTML = `
                     <div class="clean-video-wrapper yt-embed">
+ feature/loader-and-video-expansion-5619799783769752507
+                        <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+
+=======
                         <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen="true"></iframe>
+ main
                         <div class="yt-blocker-top"></div>
                     </div>
                     <div class="showcase-overlay yt-caption">
@@ -926,6 +931,10 @@ window.addEventListener('DOMContentLoaded', function () {
     if (!/youtube(-nocookie)?\.com\/embed/.test(ifr.src)) return;
     const wrap = ifr.closest('.clean-video-wrapper');
     if (!wrap) return;
+
+    // Set sandbox to prevent redirects while keeping iframe controls responsive
+    ifr.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+
     if (!wrap.querySelector('.yt-blocker-top')) {
       const t = document.createElement('div'); t.className = 'yt-blocker-top'; wrap.appendChild(t);
     }
@@ -938,7 +947,11 @@ window.addEventListener('DOMContentLoaded', function () {
         else u.searchParams.set(k, '1');
       });
       if (u.toString() !== ifr.src) ifr.src = u.toString();
+ feature/loader-and-video-expansion-5619799783769752507
+
+
       ifr.removeAttribute('sandbox');
+ main
       ifr.setAttribute('allowfullscreen', 'true');
     } catch (e) {}
   }
@@ -1183,7 +1196,11 @@ window.addEventListener('DOMContentLoaded', function () {
                         if (parentWrapper) {
                             let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
                             iframe.src = cleanEmbedSrc;
+ feature/loader-and-video-expansion-5619799783769752507
+
+=======
                             iframe.removeAttribute('sandbox');
+ main
                             iframe.classList.add('yt-frame');
                             if (!parentWrapper.querySelector('.yt-blocker-top')) {
                                 let blocker = document.createElement('div');
@@ -1201,8 +1218,14 @@ window.addEventListener('DOMContentLoaded', function () {
                             iframe.title = 'YouTube video player';
                             iframe.setAttribute('frameborder', '0');
                             iframe.setAttribute('allow', YT_IFRAME_ALLOW);
+ feature/loader-and-video-expansion-5619799783769752507
+                            iframe.setAttribute('allowfullscreen', '');
+                            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+
+=======
                             iframe.removeAttribute('sandbox');
                             iframe.setAttribute('allowfullscreen', 'true');
+ main
 
                             let blocker = document.createElement('div');
                             blocker.className = 'yt-blocker-top';
