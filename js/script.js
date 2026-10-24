@@ -731,7 +731,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 newItem.innerHTML = `
                     <div class="clean-video-wrapper yt-embed">
-                        <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen></iframe>
+                        <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" sandbox="allow-scripts allow-same-origin allow-presentation" allow="${YT_IFRAME_ALLOW}" allowfullscreen></iframe>
                     </div>
                     <div class="showcase-overlay yt-caption">
                         <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
@@ -1144,6 +1144,7 @@ window.addEventListener('DOMContentLoaded', function () {
                         if (parentWrapper) {
                             let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
                             iframe.src = cleanEmbedSrc;
+                            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
                             iframe.classList.add('yt-frame');
                             currentTargetElement = iframe;
                         } else {
@@ -1155,6 +1156,7 @@ window.addEventListener('DOMContentLoaded', function () {
                             iframe.src = cleanEmbedSrc;
                             iframe.title = 'YouTube video player';
                             iframe.setAttribute('frameborder', '0');
+                            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
                             iframe.setAttribute('allow', YT_IFRAME_ALLOW);
                             iframe.setAttribute('allowfullscreen', '');
 
@@ -1283,8 +1285,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
         async function githubUploadFile(path, blob, token) {
             const url = githubContentsUrl(path);
-            const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
-            const existing = await fetch(url, { headers: headers });
+            const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
+            const existing = await fetch(url, { headers: headers, cache: 'no-store' });
             const body = { message: `Add media ${path}`, content: await blobToBase64(blob) };
             if (existing.ok) body.sha = (await existing.json()).sha;
             const res = await fetch(url, { method: 'PUT', headers: headers, body: JSON.stringify(body) });
@@ -1293,8 +1295,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
         async function githubDeleteFile(path, token) {
             const url = githubContentsUrl(path);
-            const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
-            const existing = await fetch(url, { headers: headers });
+            const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
+            const existing = await fetch(url, { headers: headers, cache: 'no-store' });
             if (!existing.ok) return;
             await fetch(url, { method: 'DELETE', headers: headers, body: JSON.stringify({ message: `Remove media ${path}`, sha: (await existing.json()).sha }) });
         }
@@ -1377,7 +1379,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
             try {
                 const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
-                const getResponse = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } }); 
+                const getResponse = await fetch(apiUrl, { headers: { 'Authorization': `Bearer ${token}` }, cache: 'no-store' });
                 
                 if (!getResponse.ok) {
                     if (getResponse.status === 401) {
@@ -1440,7 +1442,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
-                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: 'Updated Site Content via Admin', content: base64Content, sha: sha })
                 });
 
