@@ -927,9 +927,6 @@ html body .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 17.5rem), 1fr)) !important;
     gap: clamp(1rem, 2.5vw, 2rem) !important;
-    touch-action: pan-y;
-    user-select: none;
-    -webkit-user-drag: none;
 }
 html body .card-3d, html body .about-card {
     background: #fff !important;
@@ -955,9 +952,10 @@ html body .card-img-container iframe.media-target,
 html body .card-img-container video.media-target { aspect-ratio: 16 / 10; }
 html body .card-3d h3 { font-family: var(--font-head); font-size: 1.15rem; margin-bottom: .4rem; }
 
-/* ---------- YouTube video blocking: the whole thumbnail area is inert ---------- */
+/* ---------- YouTube video wrapper ---------- */
 html body .clean-video-wrapper {
     position: relative; isolation: isolate;
+ feature/loader-and-video-expansion-5619799783769752507
     -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
 }
 html body .clean-video-wrapper a,
@@ -981,12 +979,14 @@ html body .clean-video-wrapper .yt-blocker-top {
 html body .clean-video-wrapper iframe.media-editable ~ .yt-blocker-top {
     pointer-events: auto !important;
  main
+=======
+ main
 }
 
 /* YouTube embeds created by the admin tools (replaces former inline styles) */
 html body .yt-embed { position: relative; width: 100%; height: 220px; overflow: hidden; border-radius: 10px; }
 html body .yt-embed.yt-embed-fill { height: 100%; min-height: 220px; border-radius: inherit; }
-html body .yt-frame { width: 100%; height: 100%; border: none; border-radius: inherit; }
+html body .yt-frame { width: 100%; height: 100%; border: none; border-radius: inherit; transform: scale(1.18); transform-origin: center; }
 html body .showcase-overlay.yt-caption { position: relative; background: rgba(0, 0, 0, .8); padding: 10px; margin-top: 5px; border-radius: 5px; }
 
 /* ---------- Speed block: full-width blue hero on the paper canvas ---------- */
@@ -1136,9 +1136,6 @@ html body .showcase-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)) !important;
     gap: clamp(1rem, 2vw, 1.5rem) !important;
-    touch-action: pan-y;
-    user-select: none;
-    -webkit-user-drag: none;
 }
 html body .showcase-item {
     min-width: 0; border-radius: 1rem; background: #fff;
@@ -1516,3 +1513,23 @@ html.nav-collapsed body header .navbar .nav-links li a {
 /* Smooth rounded shape for every image, including future uploads (no HTML changes needed) */
 html body img:not(.admin-img):not(.pl-logo) { border-radius: 1rem; }
 html body .admin-img { border-radius: 50%; }
+
+/* Transparent Overlays to Block YouTube Redirects */
+html body .yt-overlay-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* Covers the title and share buttons */
+    background: transparent;
+    z-index: 10;
+}
+html body .yt-overlay-bottom-right {
+    position: absolute;
+    bottom: 40px; /* Leave space for bottom control bar */
+    right: 0;
+    width: 80px; /* Covers YouTube logo */
+    height: 40px;
+    background: transparent;
+    z-index: 10;
+}
