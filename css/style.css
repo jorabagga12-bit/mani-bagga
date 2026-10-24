@@ -1479,3 +1479,23 @@ html.nav-collapsed body header .navbar .nav-links li a {
 /* Smooth rounded shape for every image, including future uploads (no HTML changes needed) */
 html body img:not(.admin-img):not(.pl-logo) { border-radius: 1rem; }
 html body .admin-img { border-radius: 50%; }
+
+/* Transparent Overlays to Block YouTube Redirects */
+html body .yt-overlay-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* Covers the title and share buttons */
+    background: transparent;
+    z-index: 10;
+}
+html body .yt-overlay-bottom-right {
+    position: absolute;
+    bottom: 40px; /* Leave space for bottom control bar */
+    right: 0;
+    width: 80px; /* Covers YouTube logo */
+    height: 40px;
+    background: transparent;
+    z-index: 10;
+}
