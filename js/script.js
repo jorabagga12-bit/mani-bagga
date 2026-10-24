@@ -731,8 +731,14 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 newItem.innerHTML = `
                     <div class="clean-video-wrapper yt-embed">
+ fix-youtube-redirect-github-save-3849803289799022623
+                        <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" sandbox="allow-scripts allow-same-origin allow-presentation" allow="${YT_IFRAME_ALLOW}" allowfullscreen></iframe>
+                        <div class="yt-overlay-top"></div>
+                        <div class="yt-overlay-bottom-right"></div>
+=======
                         <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen="true"></iframe>
                         <div class="yt-blocker-top"></div>
+ main
                     </div>
                     <div class="showcase-overlay yt-caption">
                         <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
@@ -1209,6 +1215,14 @@ window.addEventListener('DOMContentLoaded', function () {
 
                             wrapper.appendChild(iframe);
                             wrapper.appendChild(blocker);
+
+                            let overlayTop = document.createElement('div');
+                            overlayTop.className = 'yt-overlay-top';
+                            wrapper.appendChild(overlayTop);
+
+                            let overlayBottom = document.createElement('div');
+                            overlayBottom.className = 'yt-overlay-bottom-right';
+                            wrapper.appendChild(overlayBottom);
 
                             currentTargetElement.parentNode.replaceChild(wrapper, currentTargetElement);
                             currentTargetElement = iframe;
