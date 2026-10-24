@@ -730,9 +730,9 @@ window.addEventListener('DOMContentLoaded', function () {
                 }
 
                 newItem.innerHTML = `
-                    <div class="clean-video-wrapper yt-embed">
+                    <div class="clean-video-wrapper yt-embed" style="position: relative;">
                         <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen="true"></iframe>
-                        <div class="yt-blocker-top"></div>
+                        <div class="yt-blocker-top" style="position: absolute; top: 0; left: 0; width: 100%; height: 65px; z-index: 99; cursor: default; background: transparent;"></div>
                     </div>
                     <div class="showcase-overlay yt-caption">
                         <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
@@ -927,19 +927,24 @@ window.addEventListener('DOMContentLoaded', function () {
     const wrap = ifr.closest('.clean-video-wrapper');
     if (!wrap) return;
     if (!wrap.querySelector('.yt-blocker-top')) {
-      const t = document.createElement('div'); t.className = 'yt-blocker-top'; wrap.appendChild(t);
+      const t = document.createElement('div');
+      t.className = 'yt-blocker-top';
+      t.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 65px; z-index: 99; cursor: default; background: transparent;';
+      wrap.appendChild(t);
     }
+    wrap.style.position = 'relative';
     // सेटिंग्स: कम से कम YouTube ब्रांडिंग
     try {
       const u = new URL(ifr.src);
       ['modestbranding', 'rel', 'iv_load_policy', 'showinfo'].forEach(k => {
-        if (k === 'iv_load_policy') u.searchParams.set(k, '3');
+        if (k === 'iv_load_policy') u.searchParams.delete(k); // Using default iv_load_policy
         else if (k === 'showinfo' || k === 'rel') u.searchParams.set(k, '0');
         else u.searchParams.set(k, '1');
       });
       if (u.toString() !== ifr.src) ifr.src = u.toString();
       ifr.removeAttribute('sandbox');
       ifr.setAttribute('allowfullscreen', 'true');
+      ifr.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
     } catch (e) {}
   }
   function scan() {
@@ -1184,16 +1189,20 @@ window.addEventListener('DOMContentLoaded', function () {
                             let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
                             iframe.src = cleanEmbedSrc;
                             iframe.removeAttribute('sandbox');
+                            iframe.setAttribute('allow', YT_IFRAME_ALLOW);
                             iframe.classList.add('yt-frame');
+                            parentWrapper.style.position = 'relative';
                             if (!parentWrapper.querySelector('.yt-blocker-top')) {
                                 let blocker = document.createElement('div');
                                 blocker.className = 'yt-blocker-top';
+                                blocker.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 65px; z-index: 99; cursor: default; background: transparent;';
                                 parentWrapper.appendChild(blocker);
                             }
                             currentTargetElement = iframe;
                         } else {
                             let wrapper = document.createElement('div');
                             wrapper.className = 'clean-video-wrapper yt-embed yt-embed-fill';
+                            wrapper.style.position = 'relative';
 
                             let iframe = document.createElement('iframe');
                             iframe.className = currentTargetElement.className + ' yt-frame';
@@ -1206,6 +1215,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
                             let blocker = document.createElement('div');
                             blocker.className = 'yt-blocker-top';
+                            blocker.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 65px; z-index: 99; cursor: default; background: transparent;';
 
                             wrapper.appendChild(iframe);
                             wrapper.appendChild(blocker);
@@ -1279,7 +1289,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }
 
         // ================= MEDIA FILES: uploads are saved as real files, never inline Base64 ================= //
-        const YT_IFRAME_ALLOW = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        const YT_IFRAME_ALLOW = 'autoplay; encrypted-media; picture-in-picture';
         const pendingUploads = new Map();
         const pendingDeletes = new Set();
 
