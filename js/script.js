@@ -716,7 +716,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 let vidId = (ytMatch && ytMatch[1]) ? ytMatch[1] : (ytUrl.length === 11 ? ytUrl : ytUrl);
                 
                 // CLEAN EMBED WITHOUT YOUTUBE BRANDING / EXTRA LINKS / TITLES / REDIRECTS
-                let videoEmbedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${vidId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+                let videoEmbedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${vidId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&showinfo=0`;
                 
                 const container = getActiveContainer();
                 if(!container) return;
@@ -732,6 +732,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 newItem.innerHTML = `
                     <div class="clean-video-wrapper yt-embed">
                         <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+
                         <div class="yt-blocker-top"></div>
                     </div>
                     <div class="showcase-overlay yt-caption">
@@ -933,15 +934,17 @@ window.addEventListener('DOMContentLoaded', function () {
     if (!wrap.querySelector('.yt-blocker-top')) {
       const t = document.createElement('div'); t.className = 'yt-blocker-top'; wrap.appendChild(t);
     }
-    if (!wrap.querySelector('.yt-blocker-br')) {
-      const b = document.createElement('div'); b.className = 'yt-blocker-br'; wrap.appendChild(b);
-    }
     // सेटिंग्स: कम से कम YouTube ब्रांडिंग
     try {
       const u = new URL(ifr.src);
-      ['modestbranding', 'rel', 'iv_load_policy'].forEach(k => u.searchParams.set(k, k === 'iv_load_policy' ? '3' : '1'));
-      u.searchParams.set('rel', '0');
+      ['modestbranding', 'rel', 'iv_load_policy', 'showinfo'].forEach(k => {
+        if (k === 'iv_load_policy') u.searchParams.set(k, '3');
+        else if (k === 'showinfo' || k === 'rel') u.searchParams.set(k, '0');
+        else u.searchParams.set(k, '1');
+      });
       if (u.toString() !== ifr.src) ifr.src = u.toString();
+
+      ifr.setAttribute('allowfullscreen', 'true');
     } catch (e) {}
   }
   function scan() {
@@ -1179,12 +1182,13 @@ window.addEventListener('DOMContentLoaded', function () {
                     let igId = (igMatch && igMatch[1]) ? igMatch[1] : null;
 
                     if (ytId) {
-                        let cleanEmbedSrc = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${ytId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+                        let cleanEmbedSrc = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${ytId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&showinfo=0`;
                         
                         let parentWrapper = currentTargetElement.closest('.clean-video-wrapper');
                         if (parentWrapper) {
                             let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
                             iframe.src = cleanEmbedSrc;
+
                             iframe.classList.add('yt-frame');
                             if (!parentWrapper.querySelector('.yt-blocker-top')) {
                                 let blocker = document.createElement('div');
@@ -1204,6 +1208,7 @@ window.addEventListener('DOMContentLoaded', function () {
                             iframe.setAttribute('allow', YT_IFRAME_ALLOW);
                             iframe.setAttribute('allowfullscreen', '');
                             iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+
 
                             let blocker = document.createElement('div');
                             blocker.className = 'yt-blocker-top';
@@ -1519,9 +1524,10 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ===================================================
        1. 3D CARD TILT EFFECT (3D माउस रोटेशन इफेक्ट)
        =================================================== */
+    const isTouchDevice = window.matchMedia('(hover: none)').matches;
     const tiltCard = document.getElementById('tilt-card');
     
-    if (tiltCard) {
+    if (tiltCard && !isTouchDevice) {
         tiltCard.parentElement.addEventListener('mousemove', (e) => {
             const rect = tiltCard.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
@@ -1547,20 +1553,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const all3DCards = document.querySelectorAll('.card-3d, .showcase-item, .stat-card');
     
     all3DCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
+        if (!isTouchDevice) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
 
-            const rotateX = (-y / 20).toFixed(2);
-            const rotateY = (x / 20).toFixed(2);
+                const rotateX = (-y / 20).toFixed(2);
+                const rotateY = (x / 20).toFixed(2);
 
-            card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-        });
+                card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+            });
 
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-        });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            });
+        }
     });
 
     /* ===================================================
