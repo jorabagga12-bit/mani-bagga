@@ -716,7 +716,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 let vidId = (ytMatch && ytMatch[1]) ? ytMatch[1] : (ytUrl.length === 11 ? ytUrl : ytUrl);
                 
                 // CLEAN EMBED WITHOUT YOUTUBE BRANDING / EXTRA LINKS / TITLES / REDIRECTS
-                let videoEmbedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${vidId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+                let videoEmbedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${vidId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&showinfo=0`;
                 
                 const container = getActiveContainer();
                 if(!container) return;
@@ -731,9 +731,14 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 newItem.innerHTML = `
                     <div class="clean-video-wrapper yt-embed">
+ fix-youtube-redirect-github-save-3849803289799022623
                         <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" sandbox="allow-scripts allow-same-origin allow-presentation" allow="${YT_IFRAME_ALLOW}" allowfullscreen></iframe>
                         <div class="yt-overlay-top"></div>
                         <div class="yt-overlay-bottom-right"></div>
+=======
+                        <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen="true"></iframe>
+                        <div class="yt-blocker-top"></div>
+ main
                     </div>
                     <div class="showcase-overlay yt-caption">
                         <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
@@ -921,6 +926,36 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 
+        /* ===== A) YouTube: टाइटल/लोगो पर रीडायरेक्ट रोकना ===== */
+(function () {
+  function guardIframe(ifr) {
+    if (!/youtube(-nocookie)?\.com\/embed/.test(ifr.src)) return;
+    const wrap = ifr.closest('.clean-video-wrapper');
+    if (!wrap) return;
+    if (!wrap.querySelector('.yt-blocker-top')) {
+      const t = document.createElement('div'); t.className = 'yt-blocker-top'; wrap.appendChild(t);
+    }
+    // सेटिंग्स: कम से कम YouTube ब्रांडिंग
+    try {
+      const u = new URL(ifr.src);
+      ['modestbranding', 'rel', 'iv_load_policy', 'showinfo'].forEach(k => {
+        if (k === 'iv_load_policy') u.searchParams.set(k, '3');
+        else if (k === 'showinfo' || k === 'rel') u.searchParams.set(k, '0');
+        else u.searchParams.set(k, '1');
+      });
+      if (u.toString() !== ifr.src) ifr.src = u.toString();
+      ifr.removeAttribute('sandbox');
+      ifr.setAttribute('allowfullscreen', 'true');
+    } catch (e) {}
+  }
+  function scan() {
+    document.querySelectorAll('iframe').forEach(guardIframe);
+    if (typeof bindMediaClickHandlers === 'function') bindMediaClickHandlers(); // एडमिन एडिट के लिए
+  }
+  window.addEventListener('DOMContentLoaded', scan);
+  new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
+})();
+
 /* ===== Mobile hero slider: scroll down = open + autoplay, scroll up = close + hide.
    Laptop / desktop keeps the original always-open slider. ===== */
 (function () {
@@ -1003,6 +1038,14 @@ window.addEventListener('DOMContentLoaded', function () {
                 };
 
                 elem.onclick = handleMediaClick;
+
+                let parentWrapper = elem.closest('.clean-video-wrapper');
+                if (parentWrapper) {
+                    let blocker = parentWrapper.querySelector('.yt-blocker-top');
+                    if (blocker) {
+                        blocker.onclick = handleMediaClick;
+                    }
+                }
                 
                 if(elem.tagName.toLowerCase() === 'video') {
                     elem.onpause = function() {
@@ -1140,14 +1183,19 @@ window.addEventListener('DOMContentLoaded', function () {
                     let igId = (igMatch && igMatch[1]) ? igMatch[1] : null;
 
                     if (ytId) {
-                        let cleanEmbedSrc = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${ytId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+                        let cleanEmbedSrc = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${ytId}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&showinfo=0`;
                         
                         let parentWrapper = currentTargetElement.closest('.clean-video-wrapper');
                         if (parentWrapper) {
                             let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
                             iframe.src = cleanEmbedSrc;
-                            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+                            iframe.removeAttribute('sandbox');
                             iframe.classList.add('yt-frame');
+                            if (!parentWrapper.querySelector('.yt-blocker-top')) {
+                                let blocker = document.createElement('div');
+                                blocker.className = 'yt-blocker-top';
+                                parentWrapper.appendChild(blocker);
+                            }
                             currentTargetElement = iframe;
                         } else {
                             let wrapper = document.createElement('div');
@@ -1158,11 +1206,15 @@ window.addEventListener('DOMContentLoaded', function () {
                             iframe.src = cleanEmbedSrc;
                             iframe.title = 'YouTube video player';
                             iframe.setAttribute('frameborder', '0');
-                            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
                             iframe.setAttribute('allow', YT_IFRAME_ALLOW);
-                            iframe.setAttribute('allowfullscreen', '');
+                            iframe.removeAttribute('sandbox');
+                            iframe.setAttribute('allowfullscreen', 'true');
+
+                            let blocker = document.createElement('div');
+                            blocker.className = 'yt-blocker-top';
 
                             wrapper.appendChild(iframe);
+                            wrapper.appendChild(blocker);
 
                             let overlayTop = document.createElement('div');
                             overlayTop.className = 'yt-overlay-top';
@@ -1295,8 +1347,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
         async function githubUploadFile(path, blob, token) {
             const url = githubContentsUrl(path);
-            const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
-            const existing = await fetch(url, { headers: headers, cache: 'no-store' });
+            const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
+            const existing = await fetch(url, { headers: headers });
             const body = { message: `Add media ${path}`, content: await blobToBase64(blob) };
             if (existing.ok) body.sha = (await existing.json()).sha;
             const res = await fetch(url, { method: 'PUT', headers: headers, body: JSON.stringify(body) });
@@ -1305,8 +1357,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
         async function githubDeleteFile(path, token) {
             const url = githubContentsUrl(path);
-            const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
-            const existing = await fetch(url, { headers: headers, cache: 'no-store' });
+            const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
+            const existing = await fetch(url, { headers: headers });
             if (!existing.ok) return;
             await fetch(url, { method: 'DELETE', headers: headers, body: JSON.stringify({ message: `Remove media ${path}`, sha: (await existing.json()).sha }) });
         }
@@ -1389,7 +1441,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
             try {
                 const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
-                const getResponse = await fetch(apiUrl, { headers: { 'Authorization': `Bearer ${token}` }, cache: 'no-store' });
+                const getResponse = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } }); 
                 
                 if (!getResponse.ok) {
                     if (getResponse.status === 401) {
@@ -1452,7 +1504,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 const putResponse = await fetch(apiUrl, {
                     method: 'PUT',
-                    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: 'Updated Site Content via Admin', content: base64Content, sha: sha })
                 });
 
@@ -1480,9 +1532,10 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ===================================================
        1. 3D CARD TILT EFFECT (3D माउस रोटेशन इफेक्ट)
        =================================================== */
+    const isTouchDevice = window.matchMedia('(hover: none)').matches;
     const tiltCard = document.getElementById('tilt-card');
     
-    if (tiltCard) {
+    if (tiltCard && !isTouchDevice) {
         tiltCard.parentElement.addEventListener('mousemove', (e) => {
             const rect = tiltCard.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
@@ -1508,20 +1561,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const all3DCards = document.querySelectorAll('.card-3d, .showcase-item, .stat-card');
     
     all3DCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
+        if (!isTouchDevice) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
 
-            const rotateX = (-y / 20).toFixed(2);
-            const rotateY = (x / 20).toFixed(2);
+                const rotateX = (-y / 20).toFixed(2);
+                const rotateY = (x / 20).toFixed(2);
 
-            card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-        });
+                card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+            });
 
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-        });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            });
+        }
     });
 
     /* ===================================================
@@ -1701,7 +1756,7 @@ document.addEventListener('click', function (event) {
 /* YouTube cards, images and titles never redirect. Footer/hero social buttons are untouched. */
 (function () {
     var YT_URL = /(youtube\.com|youtu\.be|youtube-nocookie\.com)/i;
-    var ZONES = '.card-3d, .showcase-item, .custom-text-card, .card-img-container, #tilt-card';
+    var ZONES = '.clean-video-wrapper, .card-3d, .showcase-item, .custom-text-card, .card-img-container, #tilt-card';
     var LINK_IN_ZONE = ZONES.split(',').map(function (z) { return z.trim() + ' a[href]'; }).join(', ');
 
     function neutralize() {
