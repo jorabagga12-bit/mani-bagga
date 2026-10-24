@@ -962,6 +962,7 @@ html body .clean-video-wrapper {
 }
 html body .clean-video-wrapper a,
 html body .clean-video-wrapper img { pointer-events: none !important; -webkit-user-drag: none; }
+ feature/loader-and-video-expansion-5619799783769752507
 html body .clean-video-wrapper::after {
     content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0;
     z-index: 6; background: transparent; cursor: default;
@@ -970,6 +971,16 @@ html body .clean-video-wrapper::after {
 html body .clean-video-wrapper .yt-blocker-top,
 html body .clean-video-wrapper .yt-blocker-br {
     display: none !important;
+=======
+html body .clean-video-wrapper .yt-blocker-top {
+    position: absolute !important; top: 0 !important; left: 0 !important; right: 0 !important;
+    width: 100% !important; height: 100% !important;
+    z-index: 10 !important; background: transparent !important;
+    pointer-events: none !important; cursor: default;
+}
+html body .clean-video-wrapper iframe.media-editable ~ .yt-blocker-top {
+    pointer-events: auto !important;
+ main
 }
 
 /* YouTube embeds created by the admin tools (replaces former inline styles) */
@@ -1254,11 +1265,19 @@ html body footer .email-text { overflow-wrap: anywhere; line-height: 1.7; }
     top: max(.6rem, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
     width: min(calc(100% - 1.5rem), 75rem); height: .5rem;
     border-radius: 999px; background: #cfe2ff;
+feature/loader-and-video-expansion-5619799783769752507
 }
 #page-loader .sr-only {
     position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
+=======
+}
+#page-loader .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+ main
 .pl-stage {
     position: relative; z-index: 1;
     display: flex; align-items: center; justify-content: center;
