@@ -731,9 +731,19 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 newItem.innerHTML = `
                     <div class="clean-video-wrapper yt-embed">
+ feature/loader-and-video-expansion-5619799783769752507
+ feature/loader-and-video-expansion-5619799783769752507
+                        <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+
+=======
+                        <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen="true"></iframe>
+ main
+                        <div class="yt-blocker-top"></div>
+=======
                         <iframe class="media-target yt-frame" src="${videoEmbedUrl}" title="YouTube video player" frameborder="0" allow="${YT_IFRAME_ALLOW}" allowfullscreen></iframe>
                         <div class="yt-overlay-top"></div>
                         <div class="yt-overlay-bottom-right"></div>
+ main
                     </div>
                     <div class="showcase-overlay yt-caption">
                         <h4 contenteditable="true" class="editable-active">YouTube Gameplay</h4>
@@ -921,6 +931,47 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 
+ feature/loader-and-video-expansion-5619799783769752507
+        /* ===== A) YouTube: टाइटल/लोगो पर रीडायरेक्ट रोकना ===== */
+(function () {
+  function guardIframe(ifr) {
+    if (!/youtube(-nocookie)?\.com\/embed/.test(ifr.src)) return;
+    const wrap = ifr.closest('.clean-video-wrapper');
+    if (!wrap) return;
+
+    // Set sandbox to prevent redirects while keeping iframe controls responsive
+    ifr.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+
+    if (!wrap.querySelector('.yt-blocker-top')) {
+      const t = document.createElement('div'); t.className = 'yt-blocker-top'; wrap.appendChild(t);
+    }
+    // सेटिंग्स: कम से कम YouTube ब्रांडिंग
+    try {
+      const u = new URL(ifr.src);
+      ['modestbranding', 'rel', 'iv_load_policy', 'showinfo'].forEach(k => {
+        if (k === 'iv_load_policy') u.searchParams.set(k, '3');
+        else if (k === 'showinfo' || k === 'rel') u.searchParams.set(k, '0');
+        else u.searchParams.set(k, '1');
+      });
+      if (u.toString() !== ifr.src) ifr.src = u.toString();
+ feature/loader-and-video-expansion-5619799783769752507
+
+
+      ifr.removeAttribute('sandbox');
+ main
+      ifr.setAttribute('allowfullscreen', 'true');
+    } catch (e) {}
+  }
+  function scan() {
+    document.querySelectorAll('iframe').forEach(guardIframe);
+    if (typeof bindMediaClickHandlers === 'function') bindMediaClickHandlers(); // एडमिन एडिट के लिए
+  }
+  window.addEventListener('DOMContentLoaded', scan);
+  new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
+})();
+
+=======
+ main
 /* ===== Mobile hero slider: scroll down = open + autoplay, scroll up = close + hide.
    Laptop / desktop keeps the original always-open slider. ===== */
 (function () {
@@ -1146,7 +1197,11 @@ window.addEventListener('DOMContentLoaded', function () {
                         if (parentWrapper) {
                             let iframe = parentWrapper.querySelector('iframe') || currentTargetElement;
                             iframe.src = cleanEmbedSrc;
+ feature/loader-and-video-expansion-5619799783769752507
+
+=======
                             iframe.removeAttribute('sandbox');
+ main
                             iframe.classList.add('yt-frame');
                             currentTargetElement = iframe;
                         } else {
@@ -1159,7 +1214,21 @@ window.addEventListener('DOMContentLoaded', function () {
                             iframe.title = 'YouTube video player';
                             iframe.setAttribute('frameborder', '0');
                             iframe.setAttribute('allow', YT_IFRAME_ALLOW);
+ feature/loader-and-video-expansion-5619799783769752507
+ feature/loader-and-video-expansion-5619799783769752507
                             iframe.setAttribute('allowfullscreen', '');
+                            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+
+=======
+                            iframe.removeAttribute('sandbox');
+                            iframe.setAttribute('allowfullscreen', 'true');
+ main
+
+                            let blocker = document.createElement('div');
+                            blocker.className = 'yt-blocker-top';
+=======
+                            iframe.setAttribute('allowfullscreen', '');
+ main
 
                             wrapper.appendChild(iframe);
 
