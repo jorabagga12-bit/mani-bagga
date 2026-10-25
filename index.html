@@ -1,545 +1,561 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> <meta name="google-site-verification" content="Or5JbtfQH0gGANckua64EHZYJ_xr-wmy5QeWB-W5O2w">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MONEY BAGGA — Neural Interface</title>
-    <link rel="stylesheet" href="/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=1280, viewport-fit=cover">
+<script>
+/* The viewport is pinned to 1280px (and "Desktop site" mode widens it further), so width media
+   queries cannot see a phone. Use the physical screen size instead and flag the menu as collapsed. */
+(function () {
+  var root = document.documentElement;
+  function sync() {
+    var screenW = Math.min(screen.width || 0, screen.height || 0) || window.innerWidth;
+    var phone = screenW < 768;
+    var narrow = window.innerWidth < 768;
+    var collapsed = phone || narrow;
+    var zoom = phone ? Math.min(Math.max(window.innerWidth / (screen.width || window.innerWidth), 1), 4) : 1;
+    root.classList.toggle('nav-collapsed', collapsed);
+    root.style.setProperty('--nav-zoom', zoom.toFixed(3));
+  }
+  sync();
+  window.addEventListener('resize', sync);
+  window.addEventListener('orientationchange', sync);
+})();
+</script>
+    <meta name="theme-color" content="#fdfcf8">
+    
+    <title>Mani HP</title>
+    <!-- ===== PATCH START ===== -->
+<!-- ===== PATCH 2 END ===== -->
+<!-- ===== PATCH 2 START: blue "speed" section ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@500&amp;family=Orbitron:wght@600;800&amp;family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&amp;family=Space+Grotesk:wght@500;700&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap">
+<!-- ===== PATCH 2 END ===== -->
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/jpeg" href="images/aster.jpg">
+<link rel="apple-touch-icon" href="images/aster.jpg">
+    <meta name="description" content="Mani (Money Singh) is a live streamer and content creator from Haroli, Una District, Himachal Pradesh, India.">
+    <meta name="keywords" content="Mani HP, Mani, Money Singh, live streaming, content creator, personal brand, Haroli, Una, Himachal Pradesh">
+    <meta name="author" content="Mani (Money Singh)">
+    <meta property="og:site_name" content="Mani HP">
+    <meta property="og:title" content="Mani HP">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mani.antideploy.com/">
+    <meta property="og:description" content="Mani (Money Singh) is a live streamer and content creator from Haroli, Una District, Himachal Pradesh, India.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Mani HP">
+    <meta name="twitter:description" content="Mani (Money Singh) is a live streamer and content creator from Haroli, Una District, Himachal Pradesh, India.">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://mani.antideploy.com/#website",
+          "name": "Mani HP",
+          "url": "https://mani.antideploy.com/",
+          "publisher": { "@id": "https://mani.antideploy.com/#creator" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://mani.antideploy.com/#creator",
+          "name": "Mani (Money Singh)",
+          "alternateName": ["Mani HP", "Money Singh"],
+          "url": "https://mani.antideploy.com/",
+          "jobTitle": "Live Streamer and Content Creator",
+          "description": "Mani (Money Singh) focuses on live streaming and content creation.",
+          "knowsAbout": ["Live Streaming", "Content Creation", "Personal Branding"],
+          "homeLocation": {
+            "@type": "Place",
+            "name": "Haroli, Una District, Himachal Pradesh, India",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Haroli",
+              "addressRegion": "Himachal Pradesh",
+              "postalCode": "177220",
+              "addressCountry": "IN"
+            }
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Haroli, Una District",
+            "addressLocality": "Haroli",
+            "addressRegion": "Himachal Pradesh",
+            "postalCode": "177220",
+            "addressCountry": "IN"
+          }
+        }
+      ]
+    }
+    </script>
+    
 </head>
-<body>
+<body style="cursor: default;">
+    
 
-    <!-- TOP NAVIGATION BAR -->
-    <header class="navbar">
-        <div class="nav-left">
-            <!-- Straight Modern Black Circuit MONEY BAGGA Wordmark -->
-            <a href="#" class="modern-circuit-logo" onclick="switchView('workspaceView'); resetToHome(); return false;">
-                <span class="circuit-chip">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="6" y="6" width="12" height="12" rx="2"></rect>
-                        <circle cx="12" cy="12" r="2.5"></circle>
-                        <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"></path>
-                    </svg>
-                </span>
-                <span class="brand-wordmark">MONEY<span class="brand-accent">BAGGA</span></span>
-            </a>
-        </div>
+    <!-- M4 GAMER PAGE LOADER -->
+    
 
-        <!-- 4 Top Navigation Tabs -->
-        <nav class="nav-center">
-            <button type="button" class="nav-link active-nav" id="navBtn1" onclick="switchView('workspaceView')">Workspace</button>
-            <button type="button" class="nav-link" id="navBtn2" onclick="switchView('apiStudioView')">API Studio</button>
-            <button type="button" class="nav-link" id="navBtn3" onclick="switchView('codeStructureView')">Code & Models</button>
-            <button type="button" class="nav-link" id="navBtn4" onclick="switchView('editionView')">Edition</button>
+    <!-- LEVEL ALIGNMENT GRID OVERLAY -->
+    <div id="alignmentGridOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 999999;">
+        <div style="position: absolute; top: 15%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; top: 30%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; top: 50%; width: 100%; border-top: 1px dashed rgba(255, 0, 127, 0.8);"></div>
+        <div style="position: absolute; top: 70%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; top: 85%; width: 100%; border-top: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; left: 15%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; left: 30%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; left: 50%; height: 100%; border-left: 1px dashed rgba(255, 0, 127, 0.8);"></div>
+        <div style="position: absolute; left: 70%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+        <div style="position: absolute; left: 85%; height: 100%; border-left: 1px dashed rgba(0, 210, 255, 0.6);"></div>
+    </div>
+
+    <!-- Background 3D Shapes -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <div class="admin-badge-left" onclick="handleAdminBadgeClick(event)" style="cursor: move; position: relative; left: -200.296px; top: -1.18512px;" title="Click to open Admin Login Panel">
+                <img src="images/admin-profile.jpg" alt="Admin Profile" class="admin-img media-target" onerror="this.src='https://picsum.photos/100/100?random=10'">
+                <div class="admin-info">
+                    <span class="admin-name" contenteditable="false" style="user-select: auto; cursor: text;">LORD</span>
+                    <span class="admin-tag" id="adminTagLabel" style="">ADMIN</span>
+                </div>
+            </div>
+
+            <div class="logo" contenteditable="false" style="user-select: auto; cursor: text; position: relative; left: 622.222px; top: 23.7049px;">M4GAMER</div>
+
+            <!-- UNIFORM BLUE NAVIGATION BUTTONS SYSTEM -->
+            <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav"><span class="nav-toggle-dots" aria-hidden="true" contenteditable="false"><i></i><i></i><i></i></span></button>
+            <ul class="nav-links" id="primaryNav" style="position: relative; cursor: move;">
+                <li><a href="#" onclick="navigateTo('home')" contenteditable="false" style="background: linear-gradient(135deg, rgb(0, 198, 255), rgb(0, 114, 255)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(0, 198, 255, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; user-select: auto; cursor: text;" class="">HOME</a></li>
+                <li><a href="#" onclick="navigateTo('gallery')" contenteditable="false" style="background: linear-gradient(135deg, rgb(0, 198, 255), rgb(0, 114, 255)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(0, 198, 255, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; user-select: auto; cursor: text;" class="">GALLERY</a></li>
+                <li><a href="#" onclick="navigateTo('about')" contenteditable="false" style="background: linear-gradient(135deg, rgb(0, 198, 255), rgb(0, 114, 255)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(0, 198, 255, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; user-select: auto; cursor: text;" class="">LIVE</a></li>
+                <li><a href="#" onclick="navigateTo('notifications')" contenteditable="false" style="background: linear-gradient(135deg, rgb(0, 198, 255), rgb(0, 114, 255)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(0, 198, 255, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; user-select: auto; cursor: text; font-size: 14px; width: 111px;" class="">NOTIFICATIONS</a></li>
+                <li><a href="#" onclick="navigateTo('contact')" contenteditable="false" style="background: linear-gradient(135deg, rgb(0, 198, 255), rgb(0, 114, 255)); color: rgb(255, 255, 255); padding: 10px 20px; border-radius: 25px; font-weight: bold; box-shadow: rgba(0, 198, 255, 0.4) 0px 0px 5px; text-decoration: none; display: inline-block; position: relative; user-select: auto; cursor: text; font-size: 14px; width: 135px;" class="">CONTACT&nbsp;</a></li>
+            </ul>
         </nav>
-
-        <div class="nav-right">
-            <!-- Guest Buttons (3-Dot Hidden when logged out) -->
-            <div id="guestButtons" class="auth-buttons">
-                <button type="button" class="btn-login" onclick="openAuthModal()">Log In</button>
-                <button type="button" class="btn-signup" onclick="openAuthModal()">Sign Up</button>
-            </div>
-
-            <!-- Logged-In Controls -->
-            <div id="loggedInControls" class="logged-in-controls hidden">
-                <div id="dollarChip" class="balance-chip">$50.00</div>
-                <div id="creditChip" class="balance-chip">400 Cr</div>
-
-                <button type="button" class="personal-trigger" onclick="toggleRightDrawer()">
-                    <span id="userAvatarCircle" class="avatar-circle">M</span>
-                    <span id="personalLabel" class="personal-name">Personal</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-
-                <button type="button" class="dots-btn" onclick="toggleRightDrawer()" aria-label="Menu">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <circle cx="12" cy="5" r="2"></circle>
-                        <circle cx="12" cy="12" r="2"></circle>
-                        <circle cx="12" cy="19" r="2"></circle>
-                    </svg>
-                </button>
-            </div>
-        </div>
     </header>
 
-    <!-- RIGHT DRAWER MENU (OPENROUTER STYLE WITH PURE SVG ICONS & NO EMOJIS) -->
-    <div id="drawerBackdrop" class="drawer-backdrop hidden" onclick="closeRightDrawer()"></div>
-    <aside id="rightDrawer" class="right-drawer">
-        <div class="drawer-top">
-            <div class="drawer-user">
-                <div id="drawerAvatar" class="avatar-circle">M</div>
-                <div class="drawer-user-text">
-                    <span id="drawerUserName" class="drawer-title">Personal</span>
-                    <span id="drawerUserSub" class="drawer-sub">Active Session</span>
+    <!-- ==================== PAGE 1: HOME & TIPS ==================== -->
+    <div id="page-home" class="page-view active">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-container">
+                <div class="hero-text" style="position: relative; cursor: move; left: -4.74076px; top: -100.741px;">
+                    <span class="badge" contenteditable="false" style="user-select: auto; cursor: text;">eSports Gaming</span>
+                    <h1 contenteditable="false" class="" style="user-select: auto; cursor: text;">&nbsp;<span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">MANI M4 PRO</span></h1>
+                    <p contenteditable="false" class="" style="user-select: auto; cursor: text;"><br></p>
+                    <div class="hero-btns">
+                        <a href="#" data-social="youtube" target="_blank" rel="noopener noreferrer" class="btn-main" contenteditable="false" style="user-select: auto; cursor: text;"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                        <a href="#" data-social="instagram" target="_blank" rel="noopener noreferrer" class="btn-secondary" contenteditable="false" style="user-select: auto; cursor: text;"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                    </div>
                 </div>
-            </div>
-            <button type="button" class="drawer-gear" onclick="closeRightDrawer(); openExternalApiKeyPage();">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="3"></circle>
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                </svg>
-            </button>
-        </div>
-
-        <div class="drawer-scroll">
-            <!-- Admin Only: Public Key Generator Page -->
-            <button type="button" id="adminPublicKeyMenuBtn" class="drawer-item admin-special-item hidden" onclick="closeRightDrawer(); openAdminPublicKeyPage();">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                <span>Public Key (Admin Login Keys)</span>
-            </button>
-
-            <button type="button" class="drawer-item" onclick="closeRightDrawer(); switchView('apiStudioView');">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-                <span>Dashboard</span>
-            </button>
-            <button type="button" class="drawer-item" onclick="closeRightDrawer(); switchView('codeStructureView');">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                <span>Models & Code</span>
-            </button>
-            <button type="button" class="drawer-item" onclick="closeRightDrawer(); switchView('editionView');">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                <span>Benchmarks</span>
-            </button>
-            <button type="button" class="drawer-item" onclick="closeRightDrawer(); switchView('workspaceView'); resetToHome();">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                <span>Chat</span>
-            </button>
-            <button type="button" class="drawer-item" onclick="closeRightDrawer(); openExternalApiKeyPage();">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
-                <span>API Keys (External Server)</span>
-            </button>
-            <button type="button" class="drawer-item" onclick="closeRightDrawer(); switchView('codeStructureView');">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                <span>Docs</span>
-            </button>
-
-            <div class="drawer-divider"></div>
-
-            <div class="drawer-section-header">
-                <span class="with-icon">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    Recent Sessions (My Chats)
-                </span>
-            </div>
-            <div id="drawerSavedChats" class="drawer-chats-list">
-                <div class="drawer-empty">No recent sessions</div>
-            </div>
-
-            <div class="drawer-divider"></div>
-            <button type="button" class="drawer-item signout-btn" onclick="logoutUser()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                <span>Sign Out</span>
-            </button>
-        </div>
-    </aside>
-
-    <!-- ======================================================================= -->
-    <!-- VIEW 1: MAIN CHAT WORKSPACE (WITH STYLISH WAVE UNDERNEATH PROMPT) -->
-    <!-- ======================================================================= -->
-    <main id="workspaceView" class="view-section workspace">
-        <div id="heroHeader" class="hero-header">
-            <button type="button" class="promo-pill" onclick="switchView('apiStudioView')">
-                <span class="mani-svg-badge">M</span>
-                <span>Use your <strong>Mani AI</strong> in MONEY BAGGA</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-            <h1 class="hero-heading">What do you want to create?</h1>
-        </div>
-
-        <div id="chatThread" class="chat-thread hidden"></div>
-
-        <div class="prompt-wrapper">
-            <div class="prompt-card">
-                <textarea id="promptInput" rows="2" placeholder="Ask MONEY BAGGA AI to build or solve..."></textarea>
-
-                <div class="prompt-toolbar">
-                    <div class="toolbar-left">
-                        <div class="custom-model-picker" id="modelPicker">
-                            <button type="button" class="model-trigger" onclick="toggleModelMenu(event)">
-                                <span class="model-ring-icon"></span>
-                                <span id="selectedModelLabel">OpenAI GPT-OSS 20B</span>
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                            </button>
-                            <div id="modelMenu" class="model-menu hidden">
-                                <div class="model-option active" onclick="selectModel('OpenAI GPT-OSS 20B')">OpenAI GPT-OSS 20B</div>
-                                <div class="model-option" onclick="selectModel('DeepSeek V4.1 Flash')">DeepSeek V4.1 Flash</div>
-                                <div class="model-option" onclick="selectModel('Meta Llama 3.2 90B Vision')">Meta Llama 3.2 90B Vision</div>
-                                <div class="model-option" onclick="selectModel('Poolside Laguna XS 2.1')">Poolside Laguna XS 2.1</div>
-                                <div class="model-option" onclick="selectModel('Google DiffusionGemma 26B')">Google DiffusionGemma 26B</div>
-                            </div>
+                
+                <div class="hero-3d-card-wrapper">
+                    <div class="card-3d-main open" id="tilt-card" style="position: relative; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); transition: transform 0.5s ease-in-out;">
+                        <div class="slider-wrapper">
+                            <button class="slider-btn prev-btn" onclick="moveFrontSlide(-1, event)">❮</button>
+                            <div class="slider-track" id="frontSliderTrack" style="transform: translateX(-200%); position: relative;">
+                                <img src="images/hero-3d.jpg" alt="Front 1" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'" style="width: 514px;">
+                                <img src="images/feature3.jpg" alt="Front 3" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=800&amp;q=80'">
+                            <div style="position: absolute; top: 8px; left: 562px; z-index: 1000; cursor: pointer; opacity: 0; transition: opacity 200ms; width: 24px; height: 24px;"><svg viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg"><title>Add to Photoshop Extension</title><path d="M44.26 0H9.74C4.36075 0 0 4.36075 0 9.74V44.26C0 49.6393 4.36075 54 9.74 54H44.26C49.6393 54 54 49.6393 54 44.26V9.74C54 4.36075 49.6393 0 44.26 0Z" fill="#001E36"></path><path d="M18.7398 14.4297C25.7698 14.4297 29.7298 17.7197 29.7298 23.2397C29.7298 29.6797 24.3598 32.2697 19.3298 32.2697H15.9298V39.2297H9.0498V14.4297H18.7498H18.7398ZM15.9298 20.3097V26.3797H18.9598C21.0698 26.3797 22.5498 25.5297 22.5498 23.3797C22.5498 21.4197 21.2898 20.3097 19.1098 20.3097H15.9298Z" fill="#31A8FF"></path><path d="M31.4299 37.9995L31.4699 32.2595C33.4299 33.5595 36.1699 34.3695 38.0599 34.3695C39.3499 34.3695 39.9499 33.9995 39.9499 33.3295C39.9499 32.5895 39.1399 32.2895 37.5799 31.8095C34.5799 30.9195 31.2899 29.6995 31.2899 25.7795C31.2899 21.8595 34.5799 19.5595 39.3599 19.5595C41.6199 19.5595 43.4699 19.8895 45.0999 20.5995L45.0599 26.0795C43.7699 25.2995 41.2099 24.5995 39.5499 24.5995C38.3299 24.5995 37.8499 24.9695 37.8499 25.5295C37.8499 26.1995 38.4399 26.3795 40.2199 26.9395C43.6599 27.9795 46.5499 29.0895 46.5499 33.1195C46.5499 37.1495 43.3999 39.5595 38.4799 39.5595C35.8899 39.5595 33.4499 39.1195 31.4499 38.0095L31.4299 37.9995Z" fill="#31A8FF"></path></svg></div><img src="images/hero-slide-new.jpg" alt="New Hero Slide" class="media-target" data-scale="1.00" style="transform: scale(1); transition: transform 0.2s; width: 574px;"></div>
+                            <button class="slider-btn next-btn" onclick="moveFrontSlide(1, event)">❯</button>
                         </div>
-
-                        <div class="mode-group">
-                            <button type="button" class="mode-pill active" onclick="setPowerMode('Max', this)">Max</button>
-                            <button type="button" class="mode-pill" onclick="setPowerMode('Medium', this)">Medium</button>
-                            <button type="button" class="mode-pill" onclick="setPowerMode('Low', this)">Low</button>
-                        </div>
-                    </div>
-
-                    <div class="toolbar-right">
-                        <button type="button" class="send-btn" onclick="sendMessage()" aria-label="Send">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
-                                <line x1="12" y1="19" x2="12" y2="5"></line>
-                                <polyline points="5 12 12 5 19 12"></polyline>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Suggestion Pills + Stylish Zigzag/Wave Accent Line (Disappears when chatting) -->
-            <div id="homeBottomDecor" class="home-bottom-decor">
-                <div class="suggestion-row">
-                    <button type="button" class="suggest-pill" onclick="setQuickPrompt('Write a Python script using Mani AI API')">Python API Bot</button>
-                    <button type="button" class="suggest-pill" onclick="setQuickPrompt('Build a responsive Contact Form in HTML and CSS')">Contact Form</button>
-                    <button type="button" class="suggest-pill" onclick="setQuickPrompt('Create a 2D Mini Game in JavaScript')">Mini Game</button>
-                    <button type="button" class="suggest-pill" onclick="setQuickPrompt('Create a Finance SIP Calculator in HTML/JS')">Finance Calculator</button>
-                </div>
-
-                <!-- Stylish Angled / Wavy Decorative Line Underneath Main Chat -->
-                <div class="stylish-wave-bar" aria-hidden="true">
-                    <svg viewBox="0 0 600 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 30 L110 10 L210 32 L320 8 L430 30 L530 12 L590 26" stroke="#111827" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M60 36 L170 18 L280 36 L390 16 L510 34" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="6 6" stroke-linecap="round"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- ======================================================================= -->
-    <!-- VIEW 2: API STUDIO HUB (OPENROUTER STYLE WITH MONEY BAGGA BRANDING) -->
-    <!-- ======================================================================= -->
-    <section id="apiStudioView" class="view-section studio-hub-page hidden">
-        <div class="or-hero-wrap">
-            <div class="or-brand-pill">MONEY BAGGA AI — UNIFIED ROUTER</div>
-            <h1 class="or-big-heading">The Unified<br>Interface For<br>Every Model</h1>
-            <p class="or-subtitle">Better prices, better uptime, no subscriptions. Powered by Mani AI neural routing.</p>
-
-            <div class="or-cta-stack">
-                <button type="button" class="or-purple-btn" onclick="openExternalApiKeyPage()">Get API Key</button>
-                <button type="button" class="or-outline-btn" onclick="switchView('codeStructureView')">Discover Models</button>
-            </div>
-
-            <div class="or-stats-grid">
-                <div class="or-stat-item"><strong>500T+</strong><span>Monthly Tokens</span></div>
-                <div class="or-stat-item"><strong>10M+</strong><span>Global Users</span></div>
-                <div class="or-stat-item"><strong>80+</strong><span>Providers</span></div>
-                <div class="or-stat-item"><strong>500+</strong><span>Models</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ======================================================================= -->
-    <!-- VIEW 2A (SEPARATE WHITE PAGE): EXTERNAL SERVER API KEY GENERATOR -->
-    <!-- (Like your original Python script: URL, Model Selector, 3-Key Limit, Captcha, Saved Table) -->
-    <!-- ======================================================================= -->
-    <section id="externalApiKeyView" class="view-section pure-white-page hidden">
-        <div class="white-page-container">
-            <div class="white-page-header">
-                <div>
-                    <span class="tag-badge">EXTERNAL SERVER API STUDIO</span>
-                    <h1>API Key Generator & Endpoint Studio</h1>
-                    <p>Generate <code>sk-mani-...</code> keys for your external websites, Python bots, or apps (Limit: 3 Keys per 48 Hours).</p>
-                </div>
-                <button type="button" class="btn-login" onclick="switchView('apiStudioView')">Back</button>
-            </div>
-
-            <div class="white-grid-two">
-                <div class="white-box">
-                    <label class="field-label">Select Server Model ID</label>
-                    <select id="extApiModelSelect" class="white-input" onchange="renderIntegrationCodes()">
-                        <option value="mani-core-v1.2">mani-core-v1.2 (OpenAI GPT-OSS 20B)</option>
-                        <option value="mani-deepseek-v4.1">mani-deepseek-v4.1 (DeepSeek V4.1 Flash)</option>
-                        <option value="mani-vision-v3.2">mani-vision-v3.2 (Meta Llama 3.2 90B Vision)</option>
-                        <option value="mani-laguna-xs">mani-laguna-xs (Poolside Laguna XS 2.1)</option>
-                        <option value="mani-diffusion-v2">mani-diffusion-v2 (Google DiffusionGemma 26B)</option>
-                    </select>
-                </div>
-
-                <div class="white-box">
-                    <label class="field-label">API Endpoint URL (Copy for External Server)</label>
-                    <div class="copy-flex">
-                        <input type="text" id="extEndpointUrlBox" class="white-input mono" readonly>
-                        <button type="button" class="btn-signup" onclick="copyInputById('extEndpointUrlBox', this)">Copy URL</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="white-grid-two">
-                <!-- Left: Captcha + Generate Button -->
-                <div class="white-box">
-                    <h3>Generate New API Key</h3>
-                    <p class="small-note">Anti-Bot Verification Required (Max 3 keys allowed per 48 hours).</p>
-                    <div class="captcha-row">
-                        <span id="captchaQuestion" class="captcha-badge">7 + 4 = ?</span>
-                        <input type="number" id="captchaAnswer" class="white-input" placeholder="Enter sum">
-                        <button type="button" class="btn-login" onclick="refreshCaptcha()">↻</button>
-                    </div>
-                    <button type="button" class="btn-signup full-width-btn" onclick="generateExternalServerApiKey()">Generate API Key</button>
-                    <p id="extApiErrorMsg" class="auth-error hidden"></p>
-
-                    <div id="extNewKeyBanner" class="new-key-banner hidden">
-                        <label class="field-label">Generated API Key:</label>
-                        <div class="copy-flex">
-                            <input type="text" id="extNewKeyOutput" class="white-input mono" readonly>
-                            <button type="button" class="btn-signup" onclick="copyInputById('extNewKeyOutput', this)">Copy</button>
+                        <div class="card-glass-overlay">
+                            <h3 contenteditable="false" class="" style="user-select: auto; cursor: text; width: 534px;">Images in Gaming</h3>
+                            <p contenteditable="false" class="" style="user-select: auto; cursor: text;"><br></p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Right: Saved API Keys Table -->
-                <div class="white-box">
-                    <div class="box-head-flex">
-                        <h3>Saved API Keys (<span id="extKeysCount">0</span>/3)</h3>
-                        <button type="button" class="btn-login" onclick="loadExternalServerApiKeys()">Refresh</button>
-                    </div>
-                    <div class="table-wrap">
-                        <table class="clean-table">
-                            <thead>
-                                <tr>
-                                    <th>API Key</th>
-                                    <th>Credits / Balance</th>
-                                    <th>Created</th>
-                                    <th>Copy</th>
-                                </tr>
-                            </thead>
-                            <tbody id="extKeysTableBody">
-                                <tr><td colspan="4">No API keys generated yet.</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- ======================================================================= -->
-    <!-- VIEW 2B (ADMIN ONLY SEPARATE WHITE PAGE): PUBLIC LOGIN KEY GENERATOR -->
-    <!-- ======================================================================= -->
-    <section id="adminPublicKeyView" class="view-section pure-white-page hidden">
-        <div class="white-page-container">
-            <div class="white-page-header">
-                <div>
-                    <span class="tag-badge">ADMIN MASTER CONTROL</span>
-                    <h1>Public Key Generator (Website Login Keys)</h1>
-                    <p>Create timed login keys for other users. Set exact Days, Hours, Minutes, Max Users (1, 5, etc.), Credits, and Dollars.</p>
+        </section><section id="features" class="features-section">
+            <h2 class="section-title" contenteditable="false" style="user-select: auto; cursor: text;">MAIN <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">FEATURES &amp; TIPS</span></h2>
+            <p class="section-subtitle" contenteditable="false" style="user-select: auto; cursor: text;">Special facilities for Gamers</p>
+            <div class="cards-grid">
+                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative;">
+                    <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
+                    <div class="card-img-container">
+                        <div class="clean-video-wrapper" style="position: relative; width: 100%; height: 100%; min-height: 220px; overflow: hidden; border-radius: inherit;"><img src="images/video-poster.png" class="media-target"><div class="yt-blocker-top" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 65px; z-index: 99; background: transparent; cursor: default;"></div></div>
+                    </div>
+                    <h3 contenteditable="false" class="" style="user-select: auto; cursor: text;"><br></h3>
+                    <p contenteditable="false" class="" style="user-select: auto; cursor: text;"><br></p>
                 </div>
-                <button type="button" class="btn-login" onclick="switchView('workspaceView')">Back to Chat</button>
+                
+                <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative;">
+                    <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
+                    <div class="card-img-container">
+                        <div class="clean-video-wrapper yt-embed yt-embed-fill" style="position: relative;"><iframe class="media-target yt-frame" src="https://www.youtube.com/embed/I5bzOi8zzP8?autoplay=1&amp;mute=0&amp;controls=1&amp;loop=1&amp;playlist=I5bzOi8zzP8&amp;rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen="true"></iframe><div class="yt-blocker-top" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 65px; z-index: 99; cursor: default; background: transparent;"></div></div>
+                    </div>
+                    <h3 contenteditable="false" class="" style="user-select: auto; cursor: text;"><br></h3>
+                    <p contenteditable="false" class="" style="user-select: auto; cursor: text;"><br></p>
+                </div>
+            <div class="card-3d" style="opacity: 1; transform: translateY(0px) scale(1); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <div class="card-icon"><i class="fa-solid fa-image"></i></div>
+                    <div class="card-img-container">
+                        <img src="images/profile-card.png" alt="New Item" class="media-target">
+                    </div>
+                    <h3 contenteditable="false" class=""><br></h3>
+                    <p contenteditable="false" class=""><br></p>
+                </div></div>
+        </section><div id="speed-section" class="speed-sec">
+        <div class="speed-in">
+            <p class="spd-eyebrow" contenteditable="false" style="user-select: auto; cursor: text;"><span contenteditable="false" class="" style="user-select: auto; cursor: text;">03</span> TIMINGS FROM REAL DEPLOYS</p>
+            <h2 class="spd-title" contenteditable="false" style="user-select: auto; cursor: text;">Fast enough that <em>you never leave the conversation.</em></h2>
+            <div class="spd-grid">
+                <div class="spd-cell"><p class="spd-num" contenteditable="false" style="user-select: auto; cursor: text;"><small>~</small>36<small>s</small></p><p class="spd-cap" contenteditable="false" style="user-select: auto; cursor: text;">A static site, from push to live</p></div>
+                <div class="spd-cell"><p class="spd-num" contenteditable="false" style="user-select: auto; cursor: text;"><small>~</small>1.2<small>s</small></p><p class="spd-cap" contenteditable="false" style="user-select: auto; cursor: text;">To read and analyse yur code</p></div>
+                <div class="spd-cell"><p class="spd-num" contenteditable="false" style="user-select: auto; cursor: text;">0</p><p class="spd-cap" contenteditable="false" style="user-select: auto; cursor: text;">Config files added to your project</p></div>
+                <div class="spd-cell"><p class="spd-num" contenteditable="false" style="user-select: auto; cursor: text;">1</p><p class="spd-cap" contenteditable="false" style="user-select: auto; cursor: text;">Sentence to deploy it</p></div>
             </div>
+            <p class="spd-note" contenteditable="false" style="user-select: auto; cursor: text;">The first two are wall-clock, taken from the platform’s own records.</p>
+        </div></div><section class="custom-text-card blue-text-card" id="text-card-mvjyv8hl"><i class="btc-bar" aria-hidden="true"></i><h3 class="btc-title" contenteditable="false" style="font-size: 50px;">Powerd by Devloper&nbsp; -&nbsp; &nbsp;MANI M4</h3><p class="btc-body" contenteditable="false"><br></p></section>
 
-            <div class="admin-key-layout">
-                <!-- Left Builder Card -->
-                <div class="white-box">
-                    <h3>Create Public Login Key</h3>
-                    <label class="field-label">Custom Key Name (Optional — leave blank for auto)</label>
-                    <input type="text" id="pkCustomName" class="white-input mono" placeholder="e.g. mani-vip-2026">
+        <!-- Features Section -->
+        
+    
 
-                    <div class="side-time-grid">
-                        <div>
-                            <label class="field-label">Days (दिन)</label>
-                            <input type="number" id="pkDays" class="white-input" value="7" min="0">
-                        </div>
-                        <div>
-                            <label class="field-label">Hours (घंटे)</label>
-                            <input type="number" id="pkHours" class="white-input" value="0" min="0">
-                        </div>
-                        <div>
-                            <label class="field-label">Minutes (मिनट)</label>
-                            <input type="number" id="pkMinutes" class="white-input" value="0" min="0">
-                        </div>
-                    </div>
+    </div>
 
-                    <div class="side-time-grid">
-                        <div>
-                            <label class="field-label">Max Users (कितने बंदे)</label>
-                            <input type="number" id="pkMaxUsers" class="white-input" value="1" min="1">
-                        </div>
-                        <div>
-                            <label class="field-label">Credits</label>
-                            <input type="number" id="pkCredits" class="white-input" value="400" min="1">
-                        </div>
-                        <div>
-                            <label class="field-label">Dollars ($)</label>
-                            <input type="number" id="pkDollars" class="white-input" value="50" min="1">
-                        </div>
-                    </div>
-
-                    <button type="button" class="btn-signup full-width-btn" onclick="createAdminPublicKey()">Generate Public Login Key</button>
-
-                    <div id="pkResultBanner" class="new-key-banner hidden">
-                        <label class="field-label">Share this Public Key with User (Login via More → Key):</label>
-                        <div class="copy-flex">
-                            <input type="text" id="pkResultOutput" class="white-input mono" readonly>
-                            <button type="button" class="btn-signup" onclick="copyInputById('pkResultOutput', this)">Copy</button>
-                        </div>
+    <!-- ==================== PAGE 2: GALLERY ==================== -->
+    <div id="page-gallery" class="page-view">
+        <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">BGMI / PUBG <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">3D GALLERY</span></h1>
+        <section id="showcase" class="showcase-section" style="padding-top: 0;">
+            <div class="showcase-grid" id="galleryContainer">
+                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <img src="images/feature1.jpg" alt="Live stream moments" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    <div class="showcase-overlay">
+                        <h4 contenteditable="false" class="" style="user-select: auto; cursor: text;">Clutch Moments</h4>
+                        <p contenteditable="false" class="" style="user-select: auto; cursor: text;">1v4 BGMI Gameplay</p>
                     </div>
                 </div>
-
-                <!-- Right Active Public Keys Table -->
-                <div class="white-box">
-                    <div class="box-head-flex">
-                        <h3>Active Public Login Keys (<span id="pkTotalCount">0</span>)</h3>
-                        <button type="button" class="btn-login" onclick="loadAdminPublicKeys()">Refresh</button>
+                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <img src="images/feature2.jpg" alt="Live streaming setup" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    <div class="showcase-overlay">
+                        <h4 contenteditable="false" class="" style="user-select: auto; cursor: text;">eSports Arena</h4>
+                        <p contenteditable="false" class="" style="user-select: auto; cursor: text;">Custom Scrims</p>
                     </div>
-                    <div class="table-wrap">
-                        <table class="clean-table">
-                            <thead>
-                                <tr>
-                                    <th>Public Key</th>
-                                    <th>Users Used</th>
-                                    <th>Balance</th>
-                                    <th>Time Left</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="pkTableBody">
-                                <tr><td colspan="5">No public keys created yet.</td></tr>
-                            </tbody>
-                        </table>
+                </div>
+                <div class="showcase-item" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <img src="images/feature3.jpg" alt="Ultra HD live stream" class="media-target" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&amp;fit=crop&amp;w=600&amp;q=80'">
+                    <div class="showcase-overlay">
+                        <h4 contenteditable="false" class="" style="user-select: auto; cursor: text;">Pro Setup</h4>
+                        <p contenteditable="false" class="" style="user-select: auto; cursor: text;">LIVE M4YT</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
-    <!-- ======================================================================= -->
-    <!-- VIEW 3: CODE & MODELS PAGE (WITH TOP-RIGHT COPY BUTTONS) -->
-    <!-- ======================================================================= -->
-    <section id="codeStructureView" class="view-section pure-white-page hidden">
-        <div class="white-page-container">
-            <div class="white-page-header">
-                <div>
-                    <span class="tag-badge">DEVELOPER INTEGRATION</span>
-                    <h1>Python, JavaScript & HTML Integration Code</h1>
-                    <p>Use your generated API key and endpoint URL on any external website or bot.</p>
-                </div>
-                <button type="button" class="btn-signup" onclick="openExternalApiKeyPage()">Go to API Key Studio</button>
+    <!-- ==================== PAGE 3: LIVE / ABOUT ==================== -->
+    <div id="page-about" class="page-view">
+        <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">LIVE STREAM &amp; <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">ABOUT US</span></h1>
+        <section id="about" class="features-section" style="background: rgba(239, 246, 255, 0.05); border-radius: 15px; margin: 0 20px;">
+            <div class="about-card" style="opacity: 0; transform: translateY(30px) scale(0.95); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <p contenteditable="false" class="" style="user-select: auto; cursor: text;">Welcome to the <strong>MANI M4YT</strong> Official eSports Hub! A competitive BGMI and PUBG Mobile player and content creator. This website allows you to directly access my YouTube content, gaming updates, and social media handles.</p>   
             </div>
+        </section>
+    </div>
 
-            <div class="white-box">
-                <div class="code-header-bar">
-                    <h3>1. Python Script (Termux / Server / Bot)</h3>
-                    <button type="button" class="copy-code-btn" onclick="copyPreById('pyCodeBlock', this)">Copy Code</button>
-                </div>
-                <pre id="pyCodeBlock" class="dark-code-block"></pre>
-            </div>
-
-            <div class="white-box">
-                <div class="code-header-bar">
-                    <h3>2. JavaScript Fetch (Website / Node.js)</h3>
-                    <button type="button" class="copy-code-btn" onclick="copyPreById('jsCodeBlock', this)">Copy Code</button>
-                </div>
-                <pre id="jsCodeBlock" class="dark-code-block"></pre>
-            </div>
-
-            <div class="white-box">
-                <div class="code-header-bar">
-                    <h3>3. Complete HTML Client</h3>
-                    <button type="button" class="copy-code-btn" onclick="copyPreById('htmlCodeBlock', this)">Copy Code</button>
-                </div>
-                <pre id="htmlCodeBlock" class="dark-code-block"></pre>
-            </div>
-        </div>
-    </section>
-
-    <!-- ======================================================================= -->
-    <!-- VIEW 4: EDITION & BENCHMARKS PAGE -->
-    <!-- ======================================================================= -->
-    <section id="editionView" class="view-section pure-white-page hidden">
-        <div class="white-page-container">
-            <div class="white-page-header">
-                <div>
-                    <span class="tag-badge">MONEY BAGGA EDITION</span>
-                    <h1>Active Neural Models & Benchmarks</h1>
-                    <p>High-availability NVIDIA cloud inference with automatic zero-timeout routing.</p>
-                </div>
-                <button type="button" class="btn-login" onclick="switchView('workspaceView')">Back to Chat</button>
-            </div>
-
-            <div class="white-box">
-                <table class="clean-table">
-                    <thead>
-                        <tr>
-                            <th>Display Model</th>
-                            <th>External API ID</th>
-                            <th>Latency</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td><strong>OpenAI GPT-OSS 20B</strong></td><td><code>mani-core-v1.2</code></td><td>0.4s TTFT</td><td>Active</td></tr>
-                        <tr><td><strong>DeepSeek V4.1 Flash</strong></td><td><code>mani-deepseek-v4.1</code></td><td>0.5s TTFT</td><td>Active</td></tr>
-                        <tr><td><strong>Meta Llama 3.2 90B Vision</strong></td><td><code>mani-vision-v3.2</code></td><td>0.6s TTFT</td><td>Active</td></tr>
-                        <tr><td><strong>Poolside Laguna XS 2.1</strong></td><td><code>mani-laguna-xs</code></td><td>0.4s TTFT</td><td>Active</td></tr>
-                        <tr><td><strong>Google DiffusionGemma 26B</strong></td><td><code>mani-diffusion-v2</code></td><td>0.5s TTFT</td><td>Active</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- ======================================================================= -->
-    <!-- 3D iPHONE GLASSMORPHISM LOGIN MODAL (NO FORGOT PASSWORD, STRICT ACCESS) -->
-    <!-- ======================================================================= -->
-    <div id="authModal" class="modal-backdrop hidden">
-        <div class="iphone-glass-card">
-            <button type="button" class="modal-close" onclick="closeModal('authModal')">✕</button>
-
-            <div class="modal-brand-chip">MONEY BAGGA</div>
-            <h2 class="mani-signin-title">Mani AI Sign In</h2>
-            <p class="mani-signin-sub">Advanced Reasoning</p>
-
-            <!-- Google & GitHub Buttons (Always Rejects with Wrong Password) -->
-            <button type="button" class="oauth-btn google-btn" onclick="openProviderRejectBox('Google Account')">
-                <span>Continue with Google</span>
-            </button>
-            <button type="button" class="oauth-btn github-btn" onclick="openProviderRejectBox('GitHub Account')">
-                <span>Continue with GitHub</span>
-            </button>
-
-            <!-- Provider Box (Always returns Wrong Password / Access Denied) -->
-            <div id="providerRejectBox" class="white-front-subbox hidden">
-                <div id="providerRejectTitle" class="sub-box-title">Google Account</div>
-                <input type="text" id="rejectUserInput" class="modal-input" placeholder="Email or Username" autocomplete="off">
-                <input type="password" id="rejectPassInput" class="modal-input" placeholder="Password" autocomplete="new-password">
-                <button type="button" class="primary-modal-btn" onclick="triggerWrongPasswordError()">Sign In</button>
-            </div>
-
-            <!-- Bottom Bar: Only More -> [ Key | Login ] (No Forgot Password) -->
-            <div class="compact-auth-footer">
-                <div class="left-slash-links">
-                    <button type="button" class="compact-link" onclick="toggleMoreMenu()">More ▾</button>
-                    <span id="moreSecretLinks" class="more-secret-links hidden">
-                        <span class="slash-divider">|</span>
-                        <button type="button" class="compact-link highlight-link" onclick="openWhiteSubBox('publicKeyLoginBox')">Key</button>
-                        <span class="slash-divider">|</span>
-                        <button type="button" class="compact-link highlight-link" onclick="openWhiteSubBox('adminMasterLoginBox')">Login</button>
-                    </span>
+    <!-- ==================== PAGE 4: NOTIFICATIONS ==================== -->
+    <div id="page-notifications" class="page-view">
+        <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">LATEST <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">NOTIFICATIONS</span></h1>
+        
+        <div class="notif-container" id="notif-block">
+            <div class="notif-list-wrapper" id="notifWrapper">
+                <div class="notif-list-item" onclick="viewNotification(this)">
+                    <div class="notif-date">18-09-2026</div>
+                    <div class="notif-text">
+                        <div class="notif-title">Welcome to the new Esports Hub! (Click for details)</div>
+                        <div class="notif-desc" style="display:none;">Stay tuned for daily live streams, custom rooms, and premium BGMI tips directly from MANI M4YT. Keep supporting guys!</div>
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=800&amp;q=80" class="media-target notif-hidden-media" style="display:none;">
+                    </div>
                 </div>
             </div>
-
-            <!-- 1. MORE -> KEY (User enters Admin-Issued Public Key) -->
-            <div id="publicKeyLoginBox" class="white-front-subbox hidden">
-                <div class="sub-box-title">Enter Public Access Key</div>
-                <input type="text" id="publicKeyInput" class="modal-input mono" placeholder="Enter key provided by Admin" autocomplete="off">
-                <button type="button" class="primary-modal-btn" onclick="submitPublicKeyLogin()">Login with Key</button>
-            </div>
-
-            <!-- 2. MORE -> LOGIN (Admin Master Login) -->
-            <div id="adminMasterLoginBox" class="white-front-subbox hidden">
-                <div class="sub-box-title">Admin Master Login</div>
-                <input type="text" id="adminUserInput" class="modal-input" placeholder="Admin Username" autocomplete="off">
-                <input type="password" id="adminPassInput" class="modal-input" placeholder="Admin Password" autocomplete="new-password">
-                <button type="button" class="primary-modal-btn" onclick="submitAdminMasterLogin()">Unlock Admin</button>
-            </div>
-
-            <p id="authErrorMsg" class="auth-error hidden"></p>
         </div>
     </div>
 
-    <script src="/script.js"></script>
+    <!-- ==================== PAGE 5: CONTACT ==================== -->
+    <div id="page-contact" class="page-view">
+        <h1 class="page-header" contenteditable="false" style="user-select: auto; cursor: text;">CONTACT <span class="highlight" contenteditable="false" style="user-select: auto; cursor: text;">ADMIN</span></h1>
+        
+        <div class="contact-page-wrapper" id="contact-block">
+            <div class="contact-box admin-box" style="transform: translateY(30px) scale(0.95); max-width: 600px; padding: 40px; opacity: 0; transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                <h2 style="margin-bottom: 20px; user-select: auto; cursor: text;" contenteditable="false" class=""><i class="fa-solid fa-envelope"></i> SEND A MESSAGE</h2>
+                <p style="text-align: center; color: rgb(179, 179, 204); margin-bottom: 25px; user-select: auto; cursor: text;" contenteditable="false" class="">Send a message directly to MANI M4YT</p>
+                
+                <form id="siteContactForm" onsubmit="submitUserMessage(event)">
+                    <div class="form-group" style="text-align: left;">
+                        <label style="color: rgb(0, 210, 255); font-weight: bold; user-select: auto; cursor: text;" contenteditable="false" class="">YOUR NAME:</label>
+                        <input type="text" id="senderName" required="" placeholder="Enter your name...">
+                    </div>
+                    <div class="form-group" style="text-align: left;">
+                        <label style="color: rgb(0, 210, 255); font-weight: bold; user-select: auto; cursor: text;" contenteditable="false" class="">YOUR EMAIL:</label>
+                        <input type="email" id="senderEmail" required="" placeholder="Enter your email...">
+                    </div>
+                    <div class="form-group" style="text-align: left;">
+                        <label style="color: rgb(0, 210, 255); font-weight: bold; user-select: auto; cursor: text;" contenteditable="false" class="">MESSAGE:</label>
+                        <textarea id="senderMsg" rows="5" required="" placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" style="font-size: 16px; margin-top: 10px; background:linear-gradient(45deg, #00d2ff, #0072ff); color:#fff; padding:12px; border:none; width:100%; border-radius:5px; font-weight:bold; cursor:pointer;">
+                        <i class="fa-solid fa-paper-plane"></i> SEND MESSAGE
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video background wrapper: spans from below the blue section through the footer -->
+    <section id="video-section" class="video-sec">
+        <video class="video-sec-player" autoplay="" loop="" muted="" playsinline="" preload="auto" poster="images/video-poster.png" aria-hidden="true" tabindex="-1">
+            <source src="images/logo.mp4" type="video/mp4">
+        </video>
+        <div class="video-sec-tint" aria-hidden="true"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo" contenteditable="false" style="user-select: auto; cursor: text;">
+                <i class="fa-solid fa-gamepad"></i> MANI<span contenteditable="false" class="" style="user-select: auto; cursor: text;">M4YT</span>
+            </div>
+            <div class="social-links">
+                <a href="#" data-social="youtube" target="_blank" rel="noopener noreferrer" class="yt-icon" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+                <a href="#" data-social="instagram" target="_blank" rel="noopener noreferrer" class="ig-icon" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                <a href="https://wa.me/message/OKLQIY7TDXJCM1" data-social="whatsapp" target="_blank" rel="noopener noreferrer" class="wa-icon" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+            </div>
+            <p class="email-text" contenteditable="false" style="user-select: auto; cursor: text;">
+                <i class="fa-solid fa-envelope"></i> Email: <a href="mailto:manipubji@gmail.com">manipubji@gmail.com</a>&nbsp; &nbsp;Whatsapp : +234 802 962 0786</p>
+            <p contenteditable="false" class="" style="user-select: auto; cursor: text;">© 2026 MANI M4YT. DEVELOPED BY MANI BAGGA M4.YT</p>
+        </div>
+    </footer>
+    </section>
+
+    <!-- ==================== DYNAMIC CUSTOM ALERT MODAL ==================== -->
+    <div id="customAlertModal" class="admin-modal" style="display: none; z-index: 100010;">
+        <div class="admin-box" id="customAlertBox" style="max-width: 420px; padding: 30px;">
+            <div id="customAlertIcon" style="font-size: 55px; margin-bottom: 15px; color: rgb(0, 210, 255); text-shadow: rgb(0, 210, 255) 0px 0px 15px;"><i class="fa-solid fa-crop-simple"></i></div>
+            <h2 id="customAlertTitle" style="color: rgb(0, 210, 255); font-size: 20px; margin-bottom: 10px; user-select: auto; cursor: text;" contenteditable="false" class="">IMAGE FIT</h2>
+            <p id="customAlertMsg" style="color: rgb(255, 255, 255); font-size: 15px; line-height: 1.5; margin-bottom: 20px; white-space: pre-wrap; user-select: auto; cursor: text;" contenteditable="false" class="">Image mode changed to: CONTAIN (Full image, no crop)</p>
+            <button id="customAlertBtn" onclick="closeCustomAlert()" style="background: linear-gradient(45deg, #00d2ff, #0072ff); color: #fff; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; border: none; cursor: pointer;">
+                <i class="fa-solid fa-check"></i> OK
+            </button>
+        </div>
+    </div>
+
+    <!-- CUSTOM CONFIRMATION MODAL -->
+    <div id="customConfirmModal" class="admin-modal" style="display: none; z-index: 100012;">
+        <div class="admin-box" style="max-width: 420px; padding: 30px;">
+            <div style="font-size: 55px; margin-bottom: 15px; color: #ffc107; text-shadow: 0 0 15px #ffc107;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h2 style="color: rgb(255, 193, 7); font-size: 20px; margin-bottom: 10px; user-select: auto; cursor: text;" contenteditable="false" class="">CONFIRM ACTION</h2>
+            <p id="customConfirmMsg" style="color: rgb(255, 255, 255); font-size: 15px; line-height: 1.5; margin-bottom: 20px; user-select: auto; cursor: text;" contenteditable="false" class="">क्या आप इस पूरे कार्ड/गैलरी आइटम को डिलीट करना चाहते हैं?</p>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="handleConfirmChoice(true)" style="background: linear-gradient(45deg, #28a745, #1e7e34); flex: 1;">YES</button>
+                <button onclick="handleConfirmChoice(false)" style="background: linear-gradient(45deg, #dc3545, #bd2130); flex: 1;">NO</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM PROMPT MODAL -->
+    <div id="customPromptModal" class="admin-modal" style="display: none; z-index: 100015;">
+        <div class="admin-box" style="max-width: 450px; padding: 30px;">
+            <div style="font-size: 50px; margin-bottom: 15px; color: #00d2ff;">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+            <h2 id="customPromptTitle" style="color: rgb(0, 210, 255); font-size: 20px; margin-bottom: 10px; user-select: auto; cursor: text;" contenteditable="false" class="">PASTE IMAGE / VIDEO / INSTA URL</h2>
+            <p id="customPromptMsg" style="color: rgb(204, 204, 204); font-size: 14px; margin-bottom: 15px; user-select: auto; cursor: text;" contenteditable="false" class="">Paste direct URL, YouTube link, or Instagram post/reel link here:</p>
+            <input type="text" id="customPromptInput" placeholder="Enter here..." style="background: #1a1a2e; border: 2px solid #00d2ff; padding: 12px; width: 100%; border-radius: 8px; color: white; margin-bottom: 15px; outline: none; box-sizing: border-box;">
+            <div style="display: flex; gap: 10px;">
+                <button onclick="submitCustomPrompt()" style="background: linear-gradient(45deg, #00d2ff, #0072ff); flex: 1;">SUBMIT</button>
+                <button onclick="closeCustomPrompt()" style="background: #6c757d; flex: 1;">CANCEL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="adminLoginModal" class="admin-modal" style="display: none;">
+        <div class="admin-box">
+            <span class="close-btn" onclick="closeAdminLogin()" style="color:red; float:right; cursor:pointer; font-size:24px; font-weight:bold;">×</span>
+            <h2 contenteditable="false" class="" style="user-select: auto; cursor: text;"><i class="fa-solid fa-user-shield"></i> ADMIN PANEL LOGIN</h2>
+            
+            <form onsubmit="handleLogin(event)" autocomplete="off">
+                <input type="text" id="adminUserX" autocomplete="off" placeholder="Enter Username..." required="">
+                <input type="password" id="adminPassX" autocomplete="off" placeholder="Enter Password..." required="">
+                <button type="submit"><i class="fa-solid fa-key"></i> LOG IN WITH EMPLOY / ADMIN</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- DYNAMIC WRONG PASSWORD ERROR MODAL -->
+    <div id="wrongPassModal" class="admin-modal" style="display: none; z-index: 100005;">
+        <div class="admin-box error-box" id="errorBoxAnim" style="animation: 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) 0s 1 normal both running errorShake;">
+            <h2 contenteditable="false" class="" style="user-select: auto; cursor: text;"><i class="fa-solid fa-triangle-exclamation"></i> ACCESS DENIED!</h2>
+            <p style="font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; margin: 20px 0px; letter-spacing: 1px; user-select: auto; cursor: text;" contenteditable="false" class="">
+                INCORRECT USERNAME OR PASSWORD!
+            </p>
+            <div style="font-size: 50px; margin-bottom: 20px; color: #ff004c; text-shadow: 0 0 20px #ff004c;">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <button onclick="document.getElementById('wrongPassModal').style.display='none'">
+                <i class="fa-solid fa-rotate-right"></i> TRY AGAIN
+            </button>
+        </div>
+    </div>
+
+    <!-- GITHUB TOKEN 3D MODAL -->
+    <div id="githubTokenModal" class="admin-modal" style="display: none;">
+        <div class="admin-box" style="max-width: 480px;">
+            <span class="close-btn" onclick="closeGithubModal()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
+            <div>
+                <i class="fa-brands fa-github github-3d-icon"></i>
+            </div>
+            <h2 style="color: rgb(0, 210, 255); margin-bottom: 10px; user-select: auto; cursor: text;" contenteditable="false" class=""><i class="fa-solid fa-key"></i> GITHUB ACCESS TOKEN</h2>
+            <p style="color: rgb(204, 204, 204); font-size: 14px; margin-bottom: 15px; user-select: auto; cursor: text;" contenteditable="false" class="">Enter your GitHub Personal Access Token to save live changes:</p>
+            
+            <input type="password" id="githubTokenInputModal" class="github-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+            <button onclick="saveGithubTokenAndProceed()"><i class="fa-solid fa-cloud-arrow-up"></i> SAVE TOKEN &amp; PUBLISH</button>
+        </div>
+    </div>
+    
+    <!-- ADMIN VIEW MESSAGES MODAL -->
+    <div id="adminMessagesModal" class="admin-modal" style="display: none;">
+        <div class="admin-box" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+            <span class="close-btn" onclick="closeAdminMessages()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
+            <h2 style="color: rgb(0, 210, 255); text-align: left; user-select: auto; cursor: text;" contenteditable="false" class=""><i class="fa-solid fa-inbox"></i> USER MESSAGES</h2>
+            
+            <div id="messagesListContainer" style="text-align: left; margin-top: 20px;"><p style="color: rgb(179, 179, 204); text-align: center; user-select: auto; cursor: text;" contenteditable="false" class="">No new messages yet.</p></div>
+            
+            <button onclick="clearAllMessages()" style="background:#dc3545; color:white; margin-top: 20px;">
+                <i class="fa-solid fa-trash-can"></i> CLEAR ALL MESSAGES
+            </button>
+        </div>
+    </div>
+
+    <!-- VIEW NOTIFICATION MODAL -->
+    <div id="viewNotifModal" class="admin-modal" onclick="closeViewNotif(event)" style="display: none;">
+        <div class="admin-box view-notif-box" style="max-width: 600px; padding: 25px;" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="closeViewNotif()" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
+            <h2 id="viewNotifTitle" style="text-align: left; color: rgb(0, 210, 255); margin-bottom: 15px; font-size: 1.4rem; user-select: auto; cursor: text;" contenteditable="false" class="">Title</h2>
+            
+            <img id="viewNotifImg" src="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
+            <video id="viewNotifVid" src="" controls="" autoplay="" muted="" loop="" style="width: 100%; border-radius: 10px; margin-bottom: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);"></video>
+            
+            <p id="viewNotifDesc" style="text-align: left; line-height: 1.6; color: rgb(179, 179, 204); white-space: pre-wrap; font-size: 1.1rem; user-select: auto; cursor: text;" contenteditable="false" class=""></p>
+            
+            <button id="adminEditNotifBtn" style="display:none; background:#ffc107; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; margin-top: 20px; font-size: 15px;" onclick="openUploadModalFromView()">
+                <i class="fa-solid fa-pen-to-square"></i> EDIT NOTIFICATION
+            </button>
+        </div>
+    </div>
+
+    <!-- ADMIN ADD/EDIT NOTIFICATION MODAL -->
+    <div id="innerUploadModal" class="admin-modal" style="display: none;">
+        <div class="admin-box" style="border-color: #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); max-width: 550px;">
+            <span class="close-btn" onclick="closeUploadModal(event)" style="color:red; float:right; cursor:pointer; font-size:28px;">×</span>
+            <h2 id="notifModalHeader" contenteditable="false" class="" style="user-select: auto; cursor: text;"><i class="fa-solid fa-bell"></i> Add/Edit Notification</h2>
+            
+            <p style="text-align: left; color: rgb(0, 210, 255); margin-bottom: 5px; font-size: 14px; font-weight: bold; user-select: auto; cursor: text;" contenteditable="false" class="">1. Enter Title:</p>
+            <input type="text" id="notifEditTitle" placeholder="Notification Title..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box;">
+            
+            <p style="text-align: left; color: rgb(0, 210, 255); margin-bottom: 5px; font-size: 14px; font-weight: bold; user-select: auto; cursor: text;" contenteditable="false" class="">2. Enter Message/Details:</p>
+            <textarea id="notifEditDesc" rows="4" placeholder="Write your full message here..." style="background:#1a1a2e; border:1px solid #00d2ff; padding:12px; width:100%; border-radius:5px; color:white; margin-bottom:15px; outline:none; box-sizing:border-box; resize:none; font-family:inherit;"></textarea>
+            
+            <p style="text-align: left; color: rgb(0, 210, 255); margin-bottom: 5px; font-size: 14px; font-weight: bold; user-select: auto; cursor: text;" contenteditable="false" class="">3. Upload Photo/Video (Optional):</p>
+            <input type="file" id="notifMediaFile" accept="image/*,video/*" style="background:#1a1a2e; border:1px dashed #00d2ff; padding:10px; width:100%; border-radius:5px; color:white; margin-bottom:20px; cursor:pointer; box-sizing:border-box;">
+            
+            <button id="notifSubmitBtn" onclick="confirmNotifAction(event)" style="background:#00d2ff; color:#000; padding:12px; width:100%; font-weight:bold; border:none; border-radius:5px; cursor:pointer; font-size: 16px;">
+                <i class="fa-solid fa-check-circle"></i> SAVE NOTIFICATION
+            </button>
+        </div>
+    </div>
+
+    <!-- FLOATING ADMIN DASHBOARD -->
+    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+        <p style="margin-bottom: 12px; border-bottom: 1px solid rgb(51, 51, 51); padding-bottom: 8px; user-select: auto; cursor: text;" contenteditable="false" class="">
+            <i class="fa-solid fa-user-gear"></i> Admin Logged In
+        </p>
+        
+        <button id="adminViewMsgBtn" onclick="openAdminMessages()" style="background:#8a2be2; color:white;"><i class="fa-solid fa-envelope-open-text"></i> View Messages (0)</button>
+        
+        <button id="toggleEditBtn" onclick="toggleEditWebsiteTools()" style="background: rgb(40, 167, 69); color: white; font-size: 14px;"><i class="fa-solid fa-pen-ruler"></i> Edit Website</button>
+
+        <div id="adminEditTools" style="display: none;">
+            <p style="font-size: 11px; color: rgb(255, 193, 7); text-transform: uppercase; margin-bottom: 5px; user-select: auto; cursor: text;" contenteditable="false" class=""><i class="fa-solid fa-toolbox"></i> Toolbox</p>
+            
+            <button onclick="toggleAlignmentGrid()" style="background:#00bcd4; color:white;"><i class="fa-solid fa-border-top-left"></i> Toggle Level Grid</button>
+            <button onclick="toggleResizeMode()" id="dashResizeBtn" style="background: rgb(103, 58, 183); color: rgb(255, 255, 255);"><i class="fa-solid fa-crop-simple"></i> Resize Items</button>
+            <button onclick="addHeroSlide()" style="background:#e91e63; color:white;"><i class="fa-solid fa-images"></i> Add Hero Slide</button>
+
+            <button onclick="toggleMoveMode()" id="dashMoveBtn" style="background: rgb(255, 152, 0); color: rgb(0, 0, 0);"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move Items</button>
+            <button onclick="moveBlueSection()" id="dashBlueMoveBtn" style="background:#0a58ca; color:white;"><i class="fa-solid fa-arrows-up-down"></i> Move</button>
+            <button onclick="addNewMediaCard()"><i class="fa-solid fa-image"></i> Add Gallery Card</button>
+            <button onclick="addYouTubeVideo()"><i class="fa-brands fa-youtube"></i> Add YT Video</button>
+            <button onclick="addNewTextCard()" style="background:#17a2b8; color:white;"><i class="fa-solid fa-font"></i> Add Custom Text</button>
+            <button onclick="addNewNotification()" style="background:#ffc107; color:black;"><i class="fa-solid fa-plus-circle"></i> Add Notification</button>
+            
+            <button onclick="saveChangesToGitHub()" class="btn-save" id="btnSaveLive" style="margin-top: 15px;"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Live Site</button>
+            <button onclick="clearSavedToken()" style="background:#6c757d; color:white; font-size:10px; margin-top:5px; padding: 6px;"><i class="fa-brands fa-github"></i> Reset Git Token</button>
+        </div>
+
+        <button onclick="logoutAdmin()" style="background:#dc3545; color:white; font-size:12px; margin-top: 15px;">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout Admin
+        </button>
+    </div>
+
+    <!-- HIDDEN FILE INPUT FOR SELECTOR -->
+    <input type="file" id="adminFileInput" accept="image/*,video/*" style="display: none;" onchange="handleFileSelected(event)">
+
+    <script src="js/script.js"></script>
+
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3fbc8ae29c914366bb14418a68cb5b51&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+                
 </body>
 </html>
